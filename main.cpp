@@ -3,6 +3,7 @@
 #include "pin_assignments.h"
 #include "bluetooth.h"
 
+printf("hello");
 
 Serial pc(USBTX, USBRX, 9600);
 
