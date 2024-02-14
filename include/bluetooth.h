@@ -18,10 +18,15 @@ protected:
     
 public:
 
+    float float_data1, float_data2, floatdata_3;    // Stores float data from command
+    int int_data1, int_data2, intdata_3;            // Stores int data from command
+
     typedef enum
     {
         stop,                   // Perform a stop Immediately
         uturn,                  // Perform 180 degree turn
+        toggle_LED,             // Toggle LED
+        set_value,              // temporary---
         get_main_loop_count,    // Sends back loop count
         get_run_time,           // Sends back program run time
         get_encoderR_pulses,    // Sends back right encoder counter value 

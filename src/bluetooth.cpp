@@ -1,6 +1,7 @@
 #include "mbed.h"
 #include "bluetooth.h"
 #include "constants.h"
+#include <stdlib.h>
 
 
 /* Uses default BT baud rate if not specified and initialise BT objects using init() */
@@ -63,6 +64,11 @@ Bluetooth::BluetoothCommand Bluetooth::parse_data()
         specific command format and returns the command type */
 
     // command parsing -> to-do 
+    if (rx_buffer[0] == 'V')
+    {
+        sscanf(rx_buffer, "%*s %f", &float_data1);
+        return set_value;
+    }
     return get_run_time;
 }
 
@@ -70,7 +76,7 @@ Bluetooth::BluetoothCommand Bluetooth::parse_data()
 void Bluetooth::send_buffer(char* char_arr)
 {   
     /*  sends the char array one by one */
-    for(int i = 0; i < 20; i++)
+    for(int i = 0; i < BT_BUFFER_SIZE; i++)
     {
         bt_serial.putc(char_arr[i]); 
     }
