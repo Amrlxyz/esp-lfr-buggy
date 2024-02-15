@@ -25,7 +25,6 @@ int main()
     {
         // Checks for recieved bluetooth commands
         if (bt.data_recieved_complete()) {
-            
             switch (bt.parse_data())
             {
                 case bt.uturn:

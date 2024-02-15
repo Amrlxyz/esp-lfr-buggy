@@ -21,6 +21,7 @@ public:
     float float_data1, float_data2, floatdata_3;    // Stores float data from command
     int int_data1, int_data2, intdata_3;            // Stores int data from command
 
+    // Possible bluetooth command types
     typedef enum
     {
         stop,                   // Perform a stop Immediately
@@ -37,7 +38,7 @@ public:
         // other BT commands
         // other BT commands
         invalid,                // invalid command
-    } BluetoothCommand;         // Bluetooth command types
+    } BluetoothCommand;         
 
     /// Constructors, if baud rate not specified the default BT baud rate is used
     Bluetooth(PinName TX_pin, PinName RX_pin, int baud_rate);
@@ -57,19 +58,20 @@ public:
         Note: newly recieved data will be lost if rx_buffer was not reset */ 
     void reset_rx_buffer(void);
 
-    /* returns the raw data recieved as a character array*/
+    /*  returns the raw data recieved as a character array*/
     char* get_data(void);
 
-    /* parse the recieved data to bluetooth command */
+    /*  parse the recieved data to bluetooth command */
     BluetoothCommand parse_data(void);
 
-    /* sends character array */
+    /*  Sends character array */
     void send_buffer(char* char_arr);
 
-    /* sends formatted string similar to printf() */
+    /*  sends formatted string 
+        Used the same way as printf() */
     void send_fstring(const char* format, ...);
 
-    /* returns true if bluetooth module is ready */
+    /*  returns true if bluetooth module is ready */
     bool writeable(void);
 
 };
