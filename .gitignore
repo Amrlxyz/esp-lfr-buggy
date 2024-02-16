@@ -4,3 +4,4 @@ compile_commands.json
 .clangd
 .cache
 mbed-os
+QEI
