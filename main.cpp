@@ -11,19 +11,16 @@ Serial pc(USBTX, USBRX, 9600);          // set up serial comm with pc
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN);
 Timer global_timer;                     // set up global program timer
 
-
 int main_loop_counter = 0;      // just for fun (not important)
 int last_loop_time_us = 0;      // stores the previous loop time
 
+Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN);
+Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN);
+QEI encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN, NC, 256, QEI::X4_ENCODING);
+QEI encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN, NC, 256, QEI::X4_ENCODING);
 
 int main()
 {
-
-    Motor motor_left(MOTOR_L_PWM_PIN, MOTOR_L_DIRECTION_PIN, MOTOR_L_BIPOLAR_PIN);
-    Motor motor_right(MOTOR_R_PWM_PIN , MOTOR_R_DIRECTION_PIN, MOTOR_R_BIPOLAR_PIN);
-    QEI encoder_left(MOTOR_L_CHA_PIN, MOTOR_L_CHB_PIN, NC, 256, QEI::X4_ENCODING);
-    QEI encoder_right(MOTOR_R_CHA_PIN, MOTOR_R_CHB_PIN, NC, 256, QEI::X4_ENCODING);
-
     motor_left.set_duty_cycle(0.5);
     motor_right.set_duty_cycle(0.5);
 

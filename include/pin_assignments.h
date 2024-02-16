@@ -3,44 +3,6 @@
 // Debug LED pin
 #define LED_PIN                 LED1
 
-<<<<<<< HEAD
-// Motor R Pins
-#define MOTOR_R_BIPOLAR_PIN      PB_6
-#define MOTOR_R_DIRECTION_PIN    PC_7
-#define MOTOR_R_PWM_PIN          PA_9
-
-// Motor L Pins
-#define MOTOR_L_BIPOLAR_PIN      PA_8
-#define MOTOR_L_DIRECTION_PIN    PB_10
-#define MOTOR_L_PWM_PIN          PB_4
-
-// Motor Encoder Channels Pins
-#define MOTOR_R_CHA_PIN          PA_2
-#define MOTOR_R_CHB_PIN          PA_3
-#define MOTOR_L_CHA_PIN          PA_0
-#define MOTOR_L_CHB_PIN          PA_1
-=======
-// Motor 1 Pins
-#define MOTORL_BIPOLAR_PIN      PA_6
-#define MOTORL_DIRECTION_PIN    PA_7
-#define MOTORL_PWM_PIN          PB_6
-
-// Motor 2 Pins
-#define MOTORR_BIPOLAR_PIN      PC_7
-#define MOTORR_DIRECTION_PIN    PA_9
-#define MOTORR_PWM_PIN          PA_8
-
-// Other Motor Driver Board Pins
-#define DRIVER_ENABLE_PIN       PB_10
-#define DRIVER_MONITOR_PIN      PB_4
-
-// Motor Encoder Channels Pins
-#define MOTORL_CHA_PIN          PA_15
-#define MOTORL_CHB_PIN          PB_3
-#define MOTORR_CHA_PIN          PA_0
-#define MOTORR_CHB_PIN          PA_1
->>>>>>> bluetooth
-
 // Bluetooth Pins
 #define BT_TX_PIN               PA_11
 #define BT_RX_PIN               PA_12
