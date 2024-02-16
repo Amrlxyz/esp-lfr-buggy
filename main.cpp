@@ -75,14 +75,10 @@ protected:
 
 public:
 
-<<<<<<< HEAD
     VectorProcessor(int time_us) 
     {
         prev_sample_time = time_us;
     };
-=======
-    VectorProcessor(void) {};
->>>>>>> d04ecd3f2f88d823480a11b6026b27ca8991f2a1
 
     float get_angle(float freq_left_wheel, float freq_right_wheel, int time_us)
     {
@@ -105,14 +101,6 @@ int last_loop_time_us = 0;      // stores the previous loop time
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN);
 
-<<<<<<< HEAD
-=======
-Encoder encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN);
-Encoder encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN);
-
-VectorProcessor vp();
-
->>>>>>> d04ecd3f2f88d823480a11b6026b27ca8991f2a1
 
 int main()
 {
@@ -162,8 +150,6 @@ int main()
             bt.reset_rx_buffer();
         }
 
-
-<<<<<<< HEAD
         pc.printf("Left Encoder Pulse Count: %d \n", encoder_left.get_pulse_count());
         pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_pulse_count());
         float freq_l = encoder_left.get_freq(global_timer.read_us());
@@ -171,13 +157,7 @@ int main()
         pc.printf("Left Encoder Freq: %f.2 \n", freq_l);
         pc.printf("Right Encoder Freq: %f.2 \n", freq_r);
 
-        pc.printf("Angle Calculated: %f degrees \n", vp.)
-=======
-        pc.printf("Left Encoder Pulse Count: %d", encoder_left.get_pulse_count());
-        pc.printf("Right Encoder Pulse Count: %d", encoder_right.get_pulse_count());
-        pc.printf("Left Encoder Freq: %f.2", encoder_left.get_freq(global_timer.read_us()));
-        pc.printf("Right Encoder Freq: %f.2", encoder_left.get_freq(global_timer.read_us()));
->>>>>>> d04ecd3f2f88d823480a11b6026b27ca8991f2a1
+        pc.printf("Angle Calculated: %f degrees \n", vp.get_angle(freq_l, freq_r, global_timer.read_us()));
 
 
         // // simulate other part of code:
