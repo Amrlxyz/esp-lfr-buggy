@@ -2,9 +2,12 @@
 #include "constants.h"
 #include "pin_assignments.h"
 #include "bluetooth.h"
-#include "Motor.h"
+#include "motor.h"
+#include "QEI.h"
+
 
 Serial pc(USBTX, USBRX, 9600);
+Bluetooth bt(PA_11, PA_12); 
 
 
 int main()
@@ -15,15 +18,11 @@ int main()
     QEI encoder_right(MOTOR_R_CHA_PIN, MOTOR_R_CHB_PIN, NC, 256, QEI::X4_ENCODING);
 
     motor_left.set_duty_cycle(0.5);
-    motor_left.set_bipolar_mode(0);
-    motor_left.direction_mode(0);
     motor_right.set_duty_cycle(0.5);
-    motor_right.set_bipolar_mode(0);
-    motor_right.direction_mode(0);
 
+    
     int counter = 0;
-    Bluetooth bt(PA_11, PA_12); 
-
+    
     while (!bt.writeable()) {};
 
     while(1)
