@@ -6,6 +6,82 @@
 #include "QEI.h"
 
 
+class Encoder
+{
+protected:
+
+    QEI qei;
+    int prev_sample_time;
+    int time_diff;
+    volatile int curr_pulse_count;
+    volatile int prev_pulse_count;
+    volatile int pulse_diff;
+    float rev;
+
+public:
+
+    Encoder(PinName CH_A, PinName CH_B): qei(CH_A, CH_B, NC, PULSE_PER_REV, QEI::X4_ENCODING) {};
+
+    void reset(void)
+    {
+        qei.reset();
+    }
+
+    int get_pulse_count(void)
+    {
+        return qei.getPulses();   
+    }
+
+    int get_pulse_diff(void)
+    {   
+        curr_pulse_count = qei.getPulses();
+        pulse_diff = curr_pulse_count - prev_pulse_count;
+        prev_pulse_count = curr_pulse_count;
+        return pulse_diff;
+    }
+
+    float get_freq(int time_us)
+    {
+        rev = (float)get_pulse_diff() / (float)(4 * PULSE_PER_REV);
+        time_diff = (time_us - prev_sample_time);
+        prev_sample_time = time_us;
+        return rev * 1'000'000.0 / (float) time_diff;
+    }
+
+    float freq_to_rpm(float freq)
+    {
+        return freq * 60;
+    }
+    
+    float get_speed(float freq)
+    {
+        return freq * WHEEL_RADIUS;
+    }
+};
+
+
+class VectorProcessor
+{
+protected:
+    
+    int prev_sample_time;
+    int time_diff;
+    float angle_rad;
+
+public:
+
+    VectorProcessor(void) {};
+
+    float get_angle(float freq_left_wheel, float freq_right_wheel, int time_us)
+    {
+        time_diff = (time_us - prev_sample_time);
+        prev_sample_time = time_us;
+        angle_rad = (freq_left_wheel - freq_right_wheel) * time_diff / (WHEEL_SEPERATION * WHEEL_RADIUS);
+        return angle_rad * 180 / 3.1416;
+    }
+};
+
+
 PwmOut LED(LED_PIN);                    // Debug LED set
 Serial pc(USBTX, USBRX, 9600);          // set up serial comm with pc
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN);
@@ -16,13 +92,17 @@ int last_loop_time_us = 0;      // stores the previous loop time
 
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN);
-QEI encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN, NC, 256, QEI::X4_ENCODING);
-QEI encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN, NC, 256, QEI::X4_ENCODING);
+
+Encoder encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN);
+Encoder encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN);
+
+VectorProcessor vp();
+
 
 int main()
 {
-    motor_left.set_duty_cycle(0.5);
-    motor_right.set_duty_cycle(0.5);
+    motor_left.set_duty_cycle(0.2);
+    motor_right.set_duty_cycle(0.2);
 
     LED.period(0.05);
     global_timer.start();           // Starts the global program timer
@@ -61,8 +141,14 @@ int main()
         }
 
 
-        // simulate other part of code:
-        wait_us(1'000'000); // 1 sec delay
+        pc.printf("Left Encoder Pulse Count: %d", encoder_left.get_pulse_count());
+        pc.printf("Right Encoder Pulse Count: %d", encoder_right.get_pulse_count());
+        pc.printf("Left Encoder Freq: %f.2", encoder_left.get_freq(global_timer.read_us()));
+        pc.printf("Right Encoder Freq: %f.2", encoder_left.get_freq(global_timer.read_us()));
+
+
+        // // simulate other part of code:
+        wait_us(1'000'00);
 
 
         // End of loop
