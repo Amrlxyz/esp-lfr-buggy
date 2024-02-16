@@ -2,17 +2,27 @@
 #include "constants.h"
 #include "pin_assignments.h"
 #include "bluetooth.h"
+#include "motor.h"
+#include "QEI.h"
 
-printf("helloworld");
 
 Serial pc(USBTX, USBRX, 9600);
+Bluetooth bt(PA_11, PA_12); 
 
 
 int main()
 {
-    int counter = 0;
-    Bluetooth bt(PA_11, PA_12); 
+    Motor motor_left(MOTOR_L_PWM_PIN, MOTOR_L_DIRECTION_PIN, MOTOR_L_BIPOLAR_PIN);
+    Motor motor_right(MOTOR_R_PWM_PIN , MOTOR_R_DIRECTION_PIN, MOTOR_R_BIPOLAR_PIN);
+    QEI encoder_left(MOTOR_L_CHA_PIN, MOTOR_L_CHB_PIN, NC, 256, QEI::X4_ENCODING);
+    QEI encoder_right(MOTOR_R_CHA_PIN, MOTOR_R_CHB_PIN, NC, 256, QEI::X4_ENCODING);
 
+    motor_left.set_duty_cycle(0.5);
+    motor_right.set_duty_cycle(0.5);
+
+    
+    int counter = 0;
+    
     while (!bt.writeable()) {};
 
     while(1)
@@ -25,6 +35,7 @@ int main()
         wait_us(1000000);
         bt.send_fstring("loop number: %d \n", counter);
         counter++;
+
     }
 }
 
