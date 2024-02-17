@@ -94,6 +94,7 @@ Serial pc(USBTX, USBRX, 115200);        // set up serial comm with pc
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN);
 Timer global_timer;                     // set up global program timer
 
+
 int main_loop_counter = 0;      // just for fun (not important)
 int last_loop_time_us = 0;      // stores the previous loop time
 
