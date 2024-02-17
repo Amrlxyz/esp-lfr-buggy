@@ -89,14 +89,51 @@ public:
 };
 
 
-PwmOut LED(LED_PIN);                    // Debug LED set
+class MotorDriverBoard
+{
+protected:
+    
+    DigitalOut board_enable;
+    bool enable_state;
+
+public:
+
+    MotorDriverBoard(PinName enable_pin): board_enable(enable_pin) {};
+    MotorDriverBoard(PinName enable_pin, bool state): board_enable(enable_pin)
+    {
+        enable_state = state;
+        board_enable.write(state);
+    }
+
+    void enable(void)
+    {
+        enable_state = true;
+        board_enable.write(true);
+    }
+    
+    void disable(void)
+    {
+        enable_state = true;
+        board_enable.write(true);
+    }
+
+    bool get_enable_state(void)
+    {
+        return enable_state;
+    }
+};
+
+
+DigitalOut LED(LED_PIN);                // Debug LED set
 Serial pc(USBTX, USBRX, 115200);        // set up serial comm with pc
-Bluetooth bt(BT_TX_PIN, BT_RX_PIN);
+Bluetooth bt(BT_TX_PIN, BT_RX_PIN);     
+MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, true);
 Timer global_timer;                     // set up global program timer
 
 
 int main_loop_counter = 0;      // just for fun (not important)
 int last_loop_time_us = 0;      // stores the previous loop time
+
 
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN);
@@ -104,7 +141,6 @@ Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN);
 
 int main()
 {
-    LED.period(0.05);
     motor_left.set_duty_cycle(0.2);
     motor_right.set_duty_cycle(0.2);
 
