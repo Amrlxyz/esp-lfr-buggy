@@ -8,9 +8,9 @@
 #define MOTOR_PWM_FREQ      10'000
 
 // Encoder Constants
-#define WHEEL_SEPERATION    0.01
-#define WHEEL_RADIUS        0.037
-#define PULSE_PER_REV       256
+#define WHEEL_SEPERATION    0.020       // metres
+#define WHEEL_RADIUS        0.0037      // metres
+#define PULSE_PER_REV       256         
 
 
 

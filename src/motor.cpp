@@ -5,6 +5,7 @@
 Motor::Motor(PinName pwm, PinName dir, PinName bip): PWM_pin(pwm), Direction(dir), Bipolar(bip)
 {
     PWM_pin.period(1.0 / MOTOR_PWM_FREQ);
+    set_direction(1);
     set_bipolar_mode(false);
     set_duty_cycle(0);
 };

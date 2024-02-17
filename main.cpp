@@ -20,11 +20,10 @@ protected:
 
 public:
 
-    Encoder(PinName CH_A, PinName CH_B): qei(CH_A, CH_B, NC, PULSE_PER_REV, QEI::X4_ENCODING) {};
-
-    void init_time(int time_us)
+    Encoder(PinName CH_A, PinName CH_B, int time_us): qei(CH_A, CH_B, NC, PULSE_PER_REV, QEI::X4_ENCODING) 
     {
         prev_sample_time = time_us;
+        prev_pulse_count = 0;
     }
 
     void reset(void)
@@ -84,14 +83,14 @@ public:
     {
         time_diff = (time_us - prev_sample_time);
         prev_sample_time = time_us;
-        angle_rad = (freq_left_wheel - freq_right_wheel) * time_diff / (WHEEL_SEPERATION * WHEEL_RADIUS);
-        return angle_rad * 180 / 3.1416;
+        angle_rad = (freq_left_wheel - freq_right_wheel) * 2 * WHEEL_RADIUS * time_diff / (WHEEL_SEPERATION * 1'000'000);
+        return angle_rad * 180;
     }
 };
 
 
 PwmOut LED(LED_PIN);                    // Debug LED set
-Serial pc(USBTX, USBRX, 9600);          // set up serial comm with pc
+Serial pc(USBTX, USBRX, 115200);        // set up serial comm with pc
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN);
 Timer global_timer;                     // set up global program timer
 
@@ -104,20 +103,19 @@ Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN);
 
 int main()
 {
+    LED.period(0.05);
     motor_left.set_duty_cycle(0.2);
     motor_right.set_duty_cycle(0.2);
 
-    LED.period(0.05);
     global_timer.start();           // Starts the global program timer
 
     while(!bt.writeable()) {};      // wait for the bluetooth to be ready
 
-    Encoder encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN);
-    Encoder encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN);
-    encoder_left.init_time(global_timer.read_us());
-    encoder_right.init_time(global_timer.read_us());
+    Encoder encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN, global_timer.read_us());
+    Encoder encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN, global_timer.read_us());
 
     VectorProcessor vp(global_timer.read_us());
+    float total_angle = 0;
 
     while(1)
     {
@@ -134,7 +132,8 @@ int main()
                     break;
                 case bt.set_value:
                     bt.send_fstring("Duty Cycle: %f", bt.float_data1);
-                    LED.write(bt.float_data1);
+                    motor_left.set_duty_cycle(bt.float_data1);
+                    motor_right.set_duty_cycle(bt.float_data1);
                     break;
                 case bt.get_encoderL_pulses:
                     bt.send_fstring("L Enc: %d", main_loop_counter);
@@ -154,22 +153,28 @@ int main()
         pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_pulse_count());
         float freq_l = encoder_left.get_freq(global_timer.read_us());
         float freq_r = encoder_right.get_freq(global_timer.read_us());
-        pc.printf("Left Encoder Freq: %f.2 \n", freq_l);
-        pc.printf("Right Encoder Freq: %f.2 \n", freq_r);
+        pc.printf("Left Encoder Freq: %.2f \n", freq_l);
+        pc.printf("Right Encoder Freq: %.2f \n", freq_r);
 
-        pc.printf("Angle Calculated: %f degrees \n", vp.get_angle(freq_l, freq_r, global_timer.read_us()));
 
+        float angle = vp.get_angle(freq_l, freq_r, global_timer.read_us());
+        total_angle += angle;
+        pc.printf("Angle Calculated: %.2f Degrees \n", angle);
+        pc.printf("Cumulative Angle: %.2f Degrees \n \n", total_angle);
 
         // // simulate other part of code:
-        wait_us(1'000'00);
-
+        wait_us(1'000'0);
 
         // End of loop
-        pc.printf("Loop Time: %d us / %d \n", global_timer.read_us() - last_loop_time_us, global_timer.read_us());
+        pc.printf("Loop Time: %d us / %d \n \n", global_timer.read_us() - last_loop_time_us, global_timer.read_us());
         last_loop_time_us = global_timer.read_us();
         main_loop_counter++;
     }
 }
+
+
+
+
 
 /*
 
