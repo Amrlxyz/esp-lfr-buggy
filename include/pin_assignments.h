@@ -18,10 +18,10 @@
 #define DRIVER_MONITOR_PIN      PB_4
 
 // Motor Encoder Channels Pins
-#define MOTORL_CHA_PIN          PA_15
-#define MOTORL_CHB_PIN          PB_3
-#define MOTORR_CHA_PIN          PA_0
-#define MOTORR_CHB_PIN          PA_1
+#define MOTORL_CHA_PIN          PA_0
+#define MOTORL_CHB_PIN          PA_1
+#define MOTORR_CHA_PIN          PB_3
+#define MOTORR_CHB_PIN          PA_10
 
 // Bluetooth Pins
 #define BT_TX_PIN               PA_11
