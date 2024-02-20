@@ -144,9 +144,9 @@ int main()
     motor_left.set_duty_cycle(0.2);
     motor_right.set_duty_cycle(0.2);
 
-    global_timer.start();           // Starts the global program timer
+    global_timer.start();               // Starts the global program timer
 
-    while (!bt.ready()) {};         // while bluetooth not ready, loop and do nothing
+    while (!bt.is_ready()) {};          // while bluetooth not ready, loop and do nothing
 
     Encoder encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN, global_timer.read_us());
     Encoder encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN, global_timer.read_us());
@@ -161,6 +161,7 @@ int main()
             if (bt.parse_data())
             {
                 
+
                 // case bt.uturn:
                 //     bt.send_fstring("Making a U-turn");
                 //     // U-turn code here
@@ -191,6 +192,26 @@ int main()
             bt.reset_rx_buffer();
         }
 
+        if (bt.is_continous() || bt.is_send_once())
+        {   
+            switch (bt.data_type)
+            {
+                case bt.pwm_duty:               // P
+                case bt.ticks_cumulative:       // T
+                case bt.velocity:               // V
+                case bt.gains_PID:              // G
+                case bt.current_usage:          // C
+                case bt.runtime:                // R
+                case bt.loop_time:              // X
+                case bt.loop_count:             // Y
+                
+                default:
+                    break;
+            }
+
+            bt.set_send_once(false); 
+        }
+
         pc.printf("Left Encoder Pulse Count: %d \n", encoder_left.get_pulse_count());
         pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_pulse_count());
         float freq_l = encoder_left.get_freq(global_timer.read_us());
@@ -213,8 +234,6 @@ int main()
         main_loop_counter++;
     }
 }
-
-
 
 
 

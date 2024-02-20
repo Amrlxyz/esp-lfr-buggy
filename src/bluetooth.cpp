@@ -207,3 +207,13 @@ char* Bluetooth::get_data(void)
     /* returns data recieved as a character array*/
     return rx_buffer;
 }
+
+void Bluetooth::set_send_once(bool status)
+{
+    send_once = status;
+}
+
+bool Bluetooth::is_send_once(void)   
+{
+    return send_once;
+}
