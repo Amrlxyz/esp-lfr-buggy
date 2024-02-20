@@ -9,6 +9,9 @@ private:
 
     PwmOut PWM_pin;
     DigitalOut Direction, Bipolar;
+    float duty_cycle;
+    bool direction;
+    bool bipolar;
 
 public:
 
@@ -22,5 +25,11 @@ public:
 
     // sets the duty cycle
     void set_duty_cycle(float DutyCycle);
+
+    bool get_direction();
+
+    bool get_bipolar();
+
+    bool get_duty_cycle();
 
 };

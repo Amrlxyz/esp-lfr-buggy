@@ -13,14 +13,32 @@ Motor::Motor(PinName pwm, PinName dir, PinName bip): PWM_pin(pwm), Direction(dir
 void Motor::set_direction(int DirState)
 {
     Direction.write(DirState);
+    direction = DirState;
 };
     
 void Motor::set_bipolar_mode(bool BipState)
 {
-    Bipolar.write(BipState); 
+    Bipolar.write(BipState);
+    bipolar = BipState; 
 };
 
 void Motor::set_duty_cycle(float DutyCycle)
 {
     PWM_pin.write(DutyCycle); 
+    duty_cycle = DutyCycle;
+};
+
+bool Motor::get_direction(void)
+{
+    return direction;
+};
+
+bool Motor::get_bipolar(void)
+{
+    return bipolar;
+};
+
+bool Motor::get_duty_cycle(void)
+{
+    return duty_cycle;
 };

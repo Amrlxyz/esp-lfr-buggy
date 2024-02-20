@@ -46,7 +46,7 @@ public:
     {
         pwm_duty,               // P
         ticks_cumulative,       // T
-        velocity,               // V
+        speed,                  // S
         gains_PID,              // G
         current_usage,          // C
         runtime,                // R
@@ -113,6 +113,9 @@ public:
     
 
     void set_send_once(bool status);
+
+
+    void set_continous(bool);
 };
 
 

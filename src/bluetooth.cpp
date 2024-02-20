@@ -113,8 +113,8 @@ bool Bluetooth::parse_data(void)
             case 'T':
                 data_type = ticks_cumulative;
                 break;
-            case 'V':
-                data_type = velocity;
+            case 'S':
+                data_type = speed;
                 break;
             case 'G':
                 data_type = gains_PID;
@@ -197,10 +197,12 @@ bool Bluetooth::is_ready(void)
     return bt_serial.writeable();
 }
 
+
 bool Bluetooth::is_continous(void)
 {
     return continous_update;
 }
+
 
 char* Bluetooth::get_data(void)
 {   
@@ -208,12 +210,20 @@ char* Bluetooth::get_data(void)
     return rx_buffer;
 }
 
+
+bool Bluetooth::is_send_once(void)   
+{
+    return send_once;
+}
+
+
 void Bluetooth::set_send_once(bool status)
 {
     send_once = status;
 }
 
-bool Bluetooth::is_send_once(void)   
+
+void Bluetooth::set_continous(bool status)
 {
-    return send_once;
+    continous_update = status; 
 }

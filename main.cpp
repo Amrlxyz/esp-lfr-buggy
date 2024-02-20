@@ -4,6 +4,7 @@
 #include "bluetooth.h"
 #include "motor.h"
 #include "QEI.h"
+#include <cstdio>
 
 
 class Encoder
@@ -52,14 +53,14 @@ public:
         return rev * 1'000'000.0 / (float) time_diff;
     }
 
-    float freq_to_rpm(float freq)
+    float freq_to_rpm(void)
     {
-        return freq * 60;
+        return 60;
     }
     
-    float get_speed(float freq)
+    float get_speed(void)
     {
-        return freq * WHEEL_RADIUS;
+        return 60;
     }
 };
 
@@ -156,38 +157,77 @@ int main()
 
     while (1)
     {
-        // Checks for recieved bluetooth commands
+        /*  BLUETOOTH COMMAND HANDLING  */
         if (bt.data_recieved_complete()) {
             if (bt.parse_data())
             {
-                
-
-                // case bt.uturn:
-                //     bt.send_fstring("Making a U-turn");
-                //     // U-turn code here
-                //     break;
-                // case bt.get_run_time:
-                //     bt.send_fstring("Time: %.2f s", global_timer.read());
-                //     break;
-                // case bt.set_value:
-                //     bt.send_fstring("Duty Cycle: %f", bt.float_data1);
-                //     motor_left.set_duty_cycle(bt.float_data1);
-                //     motor_right.set_duty_cycle(bt.float_data1);
-                //     break;
-                // case bt.get_encoderL_pulses:
-                //     bt.send_fstring("L Enc: %d", main_loop_counter);
-                //     break;
-                // case bt.get_encoderR_pulses:
-                //     bt.send_fstring("R Enc: %d", main_loop_counter);
-                //     break;
-                // // case others:
-                // default:
-                    
-                //     break;
+                switch(bt.cmd_type)
+                {
+                    case bt.get:
+                        bt.set_send_once(true);
+                        break;
+                    case bt.set:
+                        switch (bt.data_type)
+                        {
+                            case bt.pwm_duty:               // P
+                                switch (bt.obj_type)
+                                {
+                                    case bt.motor_left:
+                                        motor_left.set_duty_cycle(bt.data1);
+                                        break;
+                                    case bt.motor_right:
+                                        motor_right.set_duty_cycle(bt.data1);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case bt.execute:
+                        switch (bt.exec_type)
+                        {
+                            case bt.stop:
+                                // stop evrything
+                                motor_left.set_duty_cycle(0.0);
+                                motor_right.set_duty_cycle(0.0);
+                                break;
+                            case bt.uturn:
+                                // enable uturn code
+                                break;
+                            case bt.encoder_test:
+                                motor_left.set_duty_cycle(0.0);
+                                motor_right.set_duty_cycle(0.0);
+                                bt.set_continous(true);
+                                bt.data_type = bt.ticks_cumulative;
+                                bt.obj_type = bt.motor_both;
+                                break;
+                            case bt.motor_pwm_test:
+                                motor_left.set_duty_cycle(0.0);
+                                motor_right.set_duty_cycle(0.0);
+                                bt.set_continous(true);
+                                bt.data_type = bt.pwm_duty;
+                                bt.obj_type = bt.motor_both;
+                                break;
+                            case bt.square_test:
+                                // enable move a in a square code
+                                break;
+                            case bt.toggle_led_test:
+                                LED = !LED;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
             else
             {
-                bt.send_fstring("Invalid Command \n", bt.get_data());
+                bt.send_fstring("Invalid Command", bt.get_data());
             }
             bt.reset_rx_buffer();
         }
@@ -197,20 +237,73 @@ int main()
             switch (bt.data_type)
             {
                 case bt.pwm_duty:               // P
+                    switch (bt.obj_type)
+                    {
+                        case bt.motor_left:
+                            bt.send_fstring("PWM L: %f", motor_left.get_duty_cycle());
+                            break;
+                        case bt.motor_right:
+                            bt.send_fstring("PWM R: %f", motor_right.get_duty_cycle());
+                            break;
+                        case bt.motor_both:
+                            bt.send_fstring("PWM L: %.2f / R: %.2f", motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
                 case bt.ticks_cumulative:       // T
-                case bt.velocity:               // V
+                    switch (bt.obj_type)
+                    {
+                        case bt.motor_left:
+                            bt.send_fstring("Ticks L: %d", encoder_left.get_pulse_count());
+                            break;
+                        case bt.motor_right:
+                            bt.send_fstring("Ticks L: %d", encoder_right.get_pulse_count());
+                            break;
+                        case bt.motor_both:
+                            bt.send_fstring("L:%7d R:%7d", encoder_left.get_pulse_count(), encoder_right.get_pulse_count());
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case bt.speed:                  // V
+                    switch (bt.obj_type)
+                    {
+                        case bt.motor_left:
+                            bt.send_fstring("Speed L: %f", encoder_left.get_speed());
+                            break;
+                        case bt.motor_right:
+                            bt.send_fstring("Speed L: %f", encoder_right.get_speed());
+                            break;
+                        case bt.motor_both:
+                            bt.send_fstring("S L: %.3f / R: %.3f", encoder_left.get_speed(), encoder_right.get_speed());
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
                 case bt.gains_PID:              // G
                 case bt.current_usage:          // C
+                    bt.send_fstring("Feature WIP");
+                    break;
                 case bt.runtime:                // R
+                    bt.send_fstring("Runtime: %f", global_timer.read());
+                    break;
                 case bt.loop_time:              // X
+                    bt.send_fstring("Loop: %dus", global_timer.read_us() - last_loop_time_us);
+                    break;
                 case bt.loop_count:             // Y
-                
+                    bt.send_fstring("Loop no: %d", main_loop_counter);
+                    break;
                 default:
                     break;
             }
-
             bt.set_send_once(false); 
         }
+        /* END OF BLUEOOTH COMMAND HANDLING  */
+
 
         pc.printf("Left Encoder Pulse Count: %d \n", encoder_left.get_pulse_count());
         pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_pulse_count());
@@ -225,13 +318,13 @@ int main()
         pc.printf("Angle Calculated: %.2f Degrees \n", angle);
         pc.printf("Cumulative Angle: %.2f Degrees \n \n", total_angle);
 
-        // // simulate other part of code:
+        /*      SIMULATE FUTURE CODE:    */
         wait_us(1'000'0);
 
-        // End of loop
-        pc.printf("Loop Time: %d us / %d \n \n", global_timer.read_us() - last_loop_time_us, global_timer.read_us());
+        /*       END OF LOOP      */
         last_loop_time_us = global_timer.read_us();
         main_loop_counter++;
+        // pc.printf("Loop Time: %d us / %d \n \n", global_timer.read_us() - last_loop_time_us, global_timer.read_us());
     }
 }
 
