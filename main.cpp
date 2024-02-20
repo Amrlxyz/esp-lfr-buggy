@@ -4,7 +4,7 @@
 #include "bluetooth.h"
 #include "motor.h"
 #include "QEI.h"
-#include <cstdio>
+// #include <cstdio>
 
 
 class Encoder
@@ -12,19 +12,35 @@ class Encoder
 protected:
 
     QEI qei;
-    int prev_sample_time;
-    int time_diff;
-    volatile int curr_pulse_count;
-    volatile int prev_pulse_count;
-    volatile int pulse_diff;
-    float rev;
+    volatile int curr_tick_count;
+    volatile int prev_tick_count;
+    volatile int tick_diff;
+    volatile float rotational_freq;
+    volatile float speed;
+    volatile float rpm;
 
 public:
 
-    Encoder(PinName CH_A, PinName CH_B, int time_us): qei(CH_A, CH_B, NC, PULSE_PER_REV, QEI::X4_ENCODING) 
+    Encoder(PinName CH_A, PinName CH_B): qei(CH_A, CH_B, NC, PULSE_PER_REV, QEI::X4_ENCODING) 
     {
-        prev_sample_time = time_us;
-        prev_pulse_count = 0;
+        prev_tick_count = 0;
+    }
+
+    void update(void)
+    {
+        // update pulse diff
+        curr_tick_count = qei.getPulses();
+        tick_diff = curr_tick_count - prev_tick_count;
+        prev_tick_count = curr_tick_count;
+
+        // update rotational freq
+        rotational_freq = ((float) tick_diff / (4 * PULSE_PER_REV)) * CONTROL_UPDATE_RATE;
+
+        // update rpm
+        rpm = rotational_freq * 60;
+
+        // update speed
+        speed = 2 * 3.14159 * WHEEL_RADIUS * rotational_freq;
     }
 
     void reset(void)
@@ -32,35 +48,24 @@ public:
         qei.reset();
     }
 
-    int get_pulse_count(void)
+    int get_tick_count(void)
     {
-        return qei.getPulses();   
+        return curr_tick_count;
     }
 
-    int get_pulse_diff(void)
-    {   
-        curr_pulse_count = qei.getPulses();
-        pulse_diff = curr_pulse_count - prev_pulse_count;
-        prev_pulse_count = curr_pulse_count;
-        return pulse_diff;
+    float get_rotational_freq(void)
+    {
+        return rotational_freq;
     }
 
-    float get_freq(int time_us)
+    float get_rpm(void)
     {
-        rev = (float)get_pulse_diff() / (float)(4 * PULSE_PER_REV);
-        time_diff = (time_us - prev_sample_time);
-        prev_sample_time = time_us;
-        return rev * 1'000'000.0 / (float) time_diff;
+        return rpm;
     }
 
-    float freq_to_rpm(void)
-    {
-        return 60;
-    }
-    
     float get_speed(void)
     {
-        return 60;
+        return speed;
     }
 };
 
@@ -69,24 +74,33 @@ class VectorProcessor
 {
 protected:
     
-    int prev_sample_time;
-    int time_diff;
-    float angle_rad;
+    volatile float prev_cumulative_angle_deg;
+    volatile float cumulative_angle_deg;
+    volatile float angle_change;
 
 public:
 
-    VectorProcessor(int time_us) 
+    VectorProcessor(void) 
     {
-        prev_sample_time = time_us;
+        prev_cumulative_angle_deg = 0.0;
+        cumulative_angle_deg = 0.0;
+    };
+    
+    void update(float tick_count_left, float tick_count_right)
+    {
+        cumulative_angle_deg = (float) (360 * WHEEL_RADIUS) * (tick_count_left - tick_count_right) / (WHEEL_SEPERATION * 4 * PULSE_PER_REV);
+        angle_change = cumulative_angle_deg - prev_cumulative_angle_deg;
     };
 
-    float get_angle(float freq_left_wheel, float freq_right_wheel, int time_us)
+    float get_cumulative_angle_deg(void)
     {
-        time_diff = (time_us - prev_sample_time);
-        prev_sample_time = time_us;
-        angle_rad = (freq_left_wheel - freq_right_wheel) * 2 * WHEEL_RADIUS * time_diff / (WHEEL_SEPERATION * 1'000'000);
-        return angle_rad * 180;
+        return cumulative_angle_deg;
     }
+
+    float get_angle_change(void)
+    {
+        return angle_change;
+    } 
 };
 
 
@@ -130,35 +144,49 @@ Serial pc(USBTX, USBRX, 115200);        // set up serial comm with pc
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN);     
 MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, true);
 Timer global_timer;                     // set up global program timer
-
+Ticker control_ticker;
 
 int main_loop_counter = 0;      // just for fun (not important)
 int last_loop_time_us = 0;      // stores the previous loop time
 
-
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN);
+
+Encoder encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN);
+Encoder encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN);
+
+VectorProcessor vp;
+
+
+void control_update_ISR(void)
+{
+    encoder_left.update();
+    encoder_right.update();
+    vp.update(
+        encoder_left.get_tick_count(), 
+        encoder_right.get_tick_count()
+        );
+
+    // PID Calculations here
+}
 
 
 int main()
 {
+    while (!bt.is_ready()) {};          // while bluetooth not ready, loop and do nothing
+
     motor_left.set_duty_cycle(0.2);
     motor_right.set_duty_cycle(0.2);
 
     global_timer.start();               // Starts the global program timer
+    control_ticker.attach_us(&control_update_ISR, CONTROL_UPDATE_PERIOD_US);
 
-    while (!bt.is_ready()) {};          // while bluetooth not ready, loop and do nothing
-
-    Encoder encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN, global_timer.read_us());
-    Encoder encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN, global_timer.read_us());
-
-    VectorProcessor vp(global_timer.read_us());
-    float total_angle = 0;
 
     while (1)
     {
         /*  BLUETOOTH COMMAND HANDLING  */
-        if (bt.data_recieved_complete()) {
+        if (bt.data_recieved_complete()) 
+        {
             if (bt.parse_data())
             {
                 switch(bt.cmd_type)
@@ -256,13 +284,13 @@ int main()
                     switch (bt.obj_type)
                     {
                         case bt.motor_left:
-                            bt.send_fstring("Ticks L: %d", encoder_left.get_pulse_count());
+                            bt.send_fstring("Ticks L: %d", encoder_left.get_tick_count());
                             break;
                         case bt.motor_right:
-                            bt.send_fstring("Ticks L: %d", encoder_right.get_pulse_count());
+                            bt.send_fstring("Ticks L: %d", encoder_right.get_tick_count());
                             break;
                         case bt.motor_both:
-                            bt.send_fstring("L:%7d R:%7d", encoder_left.get_pulse_count(), encoder_right.get_pulse_count());
+                            bt.send_fstring("L:%7d R:%7d", encoder_left.get_tick_count(), encoder_right.get_tick_count());
                             break;
                         default:
                             break;
@@ -305,18 +333,20 @@ int main()
         /* END OF BLUEOOTH COMMAND HANDLING  */
 
 
-        pc.printf("Left Encoder Pulse Count: %d \n", encoder_left.get_pulse_count());
-        pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_pulse_count());
-        float freq_l = encoder_left.get_freq(global_timer.read_us());
-        float freq_r = encoder_right.get_freq(global_timer.read_us());
-        pc.printf("Left Encoder Freq: %.2f \n", freq_l);
-        pc.printf("Right Encoder Freq: %.2f \n", freq_r);
+        // pc.printf("Left Encoder Pulse Count: %d \n", encoder_left.get_pulse_count());
+        // pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_pulse_count());
+        // float freq_l = encoder_left.get_freq(global_timer.read_us());
+        // float freq_r = encoder_right.get_freq(global_timer.read_us());
+        // pc.printf("Left Encoder Freq: %.2f \n", freq_l);
+        // pc.printf("Right Encoder Freq: %.2f \n", freq_r);
 
 
-        float angle = vp.get_angle(freq_l, freq_r, global_timer.read_us());
-        total_angle += angle;
-        pc.printf("Angle Calculated: %.2f Degrees \n", angle);
-        pc.printf("Cumulative Angle: %.2f Degrees \n \n", total_angle);
+        // float angle = vp.get_angle(freq_l, freq_r, global_timer.read_us());
+        // total_angle += angle;
+        // pc.printf("Angle Calculated: %.2f Degrees \n", angle);
+        // pc.printf("Cumulative Angle: %.2f Degrees \n \n", total_angle);
+
+
 
         /*      SIMULATE FUTURE CODE:    */
         wait_us(1'000'0);
