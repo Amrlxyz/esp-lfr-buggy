@@ -12,5 +12,9 @@
 #define WHEEL_RADIUS        0.0037      // metres
 #define PULSE_PER_REV       256         
 
+// Control Timing Constants
+#define CONTROL_UPDATE_RATE         10                                  // Hz
+#define CONTROL_UPDATE_PERIOD_US    1'000'000 / CONTROL_UPDATE_RATE     // Micro Seconds
+
 
 
