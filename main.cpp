@@ -41,7 +41,7 @@ public:
         rpm = rotational_freq * 60;
 
         // update speed
-        speed = 2 * 3.14159 * WHEEL_RADIUS * rotational_freq;
+        speed = 2 * PI * WHEEL_RADIUS * rotational_freq;
     }
 
     void reset(void)
@@ -77,7 +77,12 @@ protected:
     
     volatile float prev_cumulative_angle_deg;
     volatile float cumulative_angle_deg;
-    volatile float angle_change;
+    volatile float angle_delta;
+    volatile float left_set_speed;
+    volatile float right_set_speed;
+    float set_velocity; 
+    float set_angle;
+    float distance_travelled;
 
 public:
 
@@ -85,23 +90,64 @@ public:
     {
         prev_cumulative_angle_deg = 0.0;
         cumulative_angle_deg = 0.0;
+        set_velocity = 0;
+        set_angle = 0;
     };
     
     void update(float tick_count_left, float tick_count_right)
     {
         cumulative_angle_deg = (float) (360 * WHEEL_RADIUS) * (tick_count_left - tick_count_right) / (WHEEL_SEPERATION * 4 * PULSE_PER_REV);
-        angle_change = cumulative_angle_deg - prev_cumulative_angle_deg;
-    };
+        angle_delta = cumulative_angle_deg - prev_cumulative_angle_deg;
+
+        // angle error calculate
+        float angle_error = set_angle - cumulative_angle_deg;
+
+        // calculate speed for each motor
+        float constant_speed_term = WHEEL_SEPERATION * angle_error * PI / (CONTROL_UPDATE_RATE * 360);
+
+        left_set_speed  =  constant_speed_term + set_velocity;
+        right_set_speed = -constant_speed_term + set_velocity;
+    }
 
     float get_cumulative_angle_deg(void)
     {
         return cumulative_angle_deg;
     }
 
-    float get_angle_change(void)
+    float get_angle_delta(void)
     {
-        return angle_change;
+        return angle_delta;
+    }
+
+    float get_left_set_speed(void)
+    {
+        return left_set_speed;
     } 
+
+    float get_right_set_speed(void)
+    {
+        return right_set_speed;
+    }
+
+    void set_set_velocity(float vel)
+    {
+        set_velocity = vel;
+    }
+
+    void set_set_angle(float ang)
+    {
+        set_angle = ang;
+    }
+
+    float get_distance_travelled(void)
+    {
+        return distance_travelled;
+    }
+
+    void reset_distance_travelled(void)
+    {
+        distance_travelled = 0;
+    }
 };
 
 
@@ -140,6 +186,14 @@ public:
 };
 
 
+typedef enum
+{
+    square_mode_start,
+    square_mode_running,
+    inactive,
+} Buggy_state;
+
+
 DigitalOut LED(LED_PIN);                // Debug LED set
 Serial pc(USBTX, USBRX, 115200);        // set up serial comm with pc
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN);     
@@ -149,6 +203,7 @@ Ticker control_ticker;
 
 int main_loop_counter = 0;      // just for fun (not important)
 int last_loop_time_us = 0;      // stores the previous loop time
+Buggy_state buggy_state;        // stores buggy states when performing actions
 
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN);
@@ -158,6 +213,27 @@ Encoder encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN);
 
 VectorProcessor vp;
 
+PID PID_motor_left( 
+    PID_M_L_KP, 
+    PID_M_L_KI,
+    PID_M_L_KD,
+    PID_M_TAU,
+    PID_M_MIN_OUT,
+    PID_M_MAX_OUT,
+    PID_M_MIN_INT,
+    PID_M_MAX_INT
+);
+
+PID PID_motor_right(
+    PID_M_R_KP, 
+    PID_M_R_KI,
+    PID_M_R_KD,
+    PID_M_TAU,
+    PID_M_MIN_OUT,
+    PID_M_MAX_OUT,
+    PID_M_MIN_INT,
+    PID_M_MAX_INT
+);
 
 
 void control_update_ISR(void)
@@ -166,10 +242,15 @@ void control_update_ISR(void)
     encoder_right.update();
     vp.update(
         encoder_left.get_tick_count(), 
-        encoder_right.get_tick_count()
-        );
+        encoder_right.get_tick_count());
 
     // PID Calculations here
+    PID_motor_left.update(vp.get_left_set_speed(), encoder_left.get_speed());
+    PID_motor_right.update(vp.get_right_set_speed(), encoder_right.get_speed());
+
+    // Apply PID output
+    motor_left.set_duty_cycle(PID_motor_left.get_output());
+    motor_right.set_duty_cycle(PID_motor_right.get_output());
 }
 
 
@@ -335,6 +416,23 @@ int main()
         /* END OF BLUEOOTH COMMAND HANDLING  */
 
 
+        switch (buggy_state) 
+        {   
+            case square_mode_start:
+                vp.reset_distance_travelled();
+                encoder_left.reset();
+                encoder_right.reset();
+                buggy_state = square_mode_running;
+            case square_mode_running:
+                // different distances change the set speed and angle
+                break;
+            default:
+                break;
+        }    
+
+
+        // Bunch of debug code:
+
         // pc.printf("Left Encoder Pulse Count: %d \n", encoder_left.get_pulse_count());
         // pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_pulse_count());
         // float freq_l = encoder_left.get_freq(global_timer.read_us());
@@ -342,12 +440,10 @@ int main()
         // pc.printf("Left Encoder Freq: %.2f \n", freq_l);
         // pc.printf("Right Encoder Freq: %.2f \n", freq_r);
 
-
         // float angle = vp.get_angle(freq_l, freq_r, global_timer.read_us());
         // total_angle += angle;
         // pc.printf("Angle Calculated: %.2f Degrees \n", angle);
         // pc.printf("Cumulative Angle: %.2f Degrees \n \n", total_angle);
-
 
 
         /*      SIMULATE FUTURE CODE:    */

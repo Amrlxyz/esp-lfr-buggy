@@ -39,7 +39,7 @@ PID::PID(
         output = 0;
 
         // sample_time
-        sample_time = 1.0f / CONTROL_UPDATE_RATE;
+        sample_time = CONTROL_UPDATE_PERIOD;
     }
 
 
