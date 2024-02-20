@@ -6,47 +6,54 @@ class PID
 {
 private:
 
-    float Kp; 
-    float Ki; 
-    float Kd; 
-    float limMin; 
-    float limMax; 
-    float limMinInt; 
-    float limMaxInt; 
+    // Controller gains
+    float kp; 
+    float ki; 
+    float kd; 
+
+    // Derivative low-pass filter time constant
+    /*  The derivative low-pass filter can be controlled by the constant 'tau', 
+        which is the time constant of the filter (-3dB frequency in Hz, fc = 1 / (2*pi*tau)).
+        A larger value of tau means the signal is filtered more heavily. 
+        As tau approaches zero, the differentiator approaches a 'pure differentiator' with no filtering. */
+    float tau;
+
+    // Output limits
+    float lim_min_output; 
+    float lim_max_output; 
+
+    // Integrator Limits
+    float lim_min_int; 
+    float lim_max_int; 
+
+    // Controller memory
     float integrator; 
-    float prevError; 
-    float differentiator; 
-    float position;
-    float prevposition; 
-    float output; 
-    float setposition;
+    float prev_error;           // Required by Integrator 
+    float differentiator;
+    float prev_measurement;     // Required by Differentiator
+
+    // controller output
+    float output;
+
+    // sample time (secs)
+    float sample_time;
 
 public:
 
-    PID(
-        float Kp, 
-        float Ki, 
-        float Kd, 
-        float limMin, 
-        float limMax, 
-        float limMinInt, 
-        float limMaxInt,
-        float setposition);
+    PID(float kp_,
+        float ki_,
+        float kd_,
+        float tau_,
+        float lim_min_output_, 
+        float lim_max_output_, 
+        float lim_min_int_, 
+        float lim_max_int_);
 
-    void set(   
-        float Kp1, 
-        float Ki1, 
-        float Kd1, 
-        float limMin1, 
-        float limMax1, 
-        float limMinInt1, 
-        float limMaxInt1);
+    void update(float set_point, float measurement);
 
+    // void reset();
 
-    void reset();
-
-
-    float getoutput(float setposition, float position);
+    float get_output(void);
 };
 
 
@@ -57,9 +64,6 @@ int main(){
     PIDmotorController rightmotor(0,0,0,0,0,0,0,0);
     PIDmotorController angle(0,0,0,0,0,0,0,0);
     angle.set(1.2,0.5,0.05,-200,200,-200,200);
-
-
-
 
 }
 */
