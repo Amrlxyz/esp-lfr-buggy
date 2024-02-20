@@ -146,7 +146,7 @@ int main()
 
     global_timer.start();           // Starts the global program timer
 
-    while(!bt.writeable()) {};      // wait for the bluetooth to be ready
+    while (!bt.ready()) {};         // while bluetooth not ready, loop and do nothing
 
     Encoder encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN, global_timer.read_us());
     Encoder encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN, global_timer.read_us());
@@ -154,34 +154,39 @@ int main()
     VectorProcessor vp(global_timer.read_us());
     float total_angle = 0;
 
-    while(1)
+    while (1)
     {
         // Checks for recieved bluetooth commands
         if (bt.data_recieved_complete()) {
-            switch (bt.parse_data())
+            if (bt.parse_data())
             {
-                case bt.uturn:
-                    bt.send_fstring("Making a U-turn");
-                    // U-turn code here
-                    break;
-                case bt.get_run_time:
-                    bt.send_fstring("Time: %.2f s", global_timer.read());
-                    break;
-                case bt.set_value:
-                    bt.send_fstring("Duty Cycle: %f", bt.float_data1);
-                    motor_left.set_duty_cycle(bt.float_data1);
-                    motor_right.set_duty_cycle(bt.float_data1);
-                    break;
-                case bt.get_encoderL_pulses:
-                    bt.send_fstring("L Enc: %d", main_loop_counter);
-                    break;
-                case bt.get_encoderR_pulses:
-                    bt.send_fstring("R Enc: %d", main_loop_counter);
-                    break;
-                // case others:
-                default:
-                    bt.send_fstring("Received: %s\n", bt.get_data());
-                    break;
+                
+                // case bt.uturn:
+                //     bt.send_fstring("Making a U-turn");
+                //     // U-turn code here
+                //     break;
+                // case bt.get_run_time:
+                //     bt.send_fstring("Time: %.2f s", global_timer.read());
+                //     break;
+                // case bt.set_value:
+                //     bt.send_fstring("Duty Cycle: %f", bt.float_data1);
+                //     motor_left.set_duty_cycle(bt.float_data1);
+                //     motor_right.set_duty_cycle(bt.float_data1);
+                //     break;
+                // case bt.get_encoderL_pulses:
+                //     bt.send_fstring("L Enc: %d", main_loop_counter);
+                //     break;
+                // case bt.get_encoderR_pulses:
+                //     bt.send_fstring("R Enc: %d", main_loop_counter);
+                //     break;
+                // // case others:
+                // default:
+                    
+                //     break;
+            }
+            else
+            {
+                bt.send_fstring("Invalid Command \n", bt.get_data());
             }
             bt.reset_rx_buffer();
         }

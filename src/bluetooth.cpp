@@ -51,25 +51,120 @@ void Bluetooth::reset_rx_buffer(void)
 }
 
 
-char* Bluetooth::get_data()
-{   
-    /* returns data recieved as a character array*/
-    return rx_buffer;
-}
-
-
-Bluetooth::BluetoothCommand Bluetooth::parse_data()
+bool Bluetooth::parse_data(void)
 {   
     /*  This function reads the incoming data and checks for 
-        specific command format and returns the command type */
+        specific command format and returns the command type 
+        returns false if parsing failed     */
 
     // command parsing -> to-do 
-    if (rx_buffer[0] == 'V')
+    switch (rx_buffer[0]) 
     {
-        sscanf(rx_buffer, "%*s %f", &float_data1);
-        return set_value;
+        case 'E': case 'e':
+            cmd_type = execute;
+            break;
+        case 'S': case 's':
+            cmd_type = set;
+            break;
+        case 'G': case 'g':
+            cmd_type = get;
+            break;
+        case 'C': case 'c':
+            cmd_type = continous;
+            continous_update = !continous_update;
+            return true;
+        default:
+            return false;
     }
-    return get_run_time;
+
+    if (cmd_type == execute)
+    {
+        switch (rx_buffer[1])
+        {
+            case 'S':
+                exec_type = stop;
+                break;
+            case 'U':
+                exec_type = uturn;
+                break;
+            case 'E':
+                exec_type = encoder_test;
+                break;
+            case 'M':
+                exec_type = motor_pwm_test;
+                break;
+            case 'Q':
+                exec_type = square_test;
+                break;
+            case 'L':
+                exec_type = toggle_led_test;
+                break;
+            default:
+                return false;
+        }
+    }
+    else
+    {
+        switch (rx_buffer[1])
+        {
+            case 'P':
+                data_type = pwm_duty;
+                break;
+            case 'T':
+                data_type = ticks_cumulative;
+                break;
+            case 'V':
+                data_type = velocity;
+                break;
+            case 'G':
+                data_type = gains_PID;
+                break;
+            case 'C':
+                data_type = current_usage;
+                break;
+            case 'R':
+                data_type = runtime;
+                break;
+            case 'X':
+                data_type = loop_time;
+                break;
+            case 'Y':
+                data_type = loop_count;
+                break;
+            default:
+                return false;
+        }
+        
+        switch (rx_buffer[2]) 
+        {
+            case 'L':
+                obj_type = motor_left;
+                break;
+            case 'R':
+                obj_type = motor_right;
+                break;
+            case 'B':
+                obj_type = motor_both;
+                break;
+            case 'S':
+                obj_type = sensor;
+                break;
+            default:
+                obj_type = no_obj;
+                break;
+        }
+    }
+
+    if (cmd_type == set)
+    {   
+        int data_amount = (data_type == gains_PID) ? 3 : 1;
+        if (sscanf(rx_buffer, "%*s %f %f %f", &data1, &data2, &data3) != data_amount)
+        {
+            return false;
+        }
+    } 
+
+    return true;
 }
 
 
@@ -96,8 +191,19 @@ void Bluetooth::send_fstring(const char* format, ...)
 }
 
 
-bool Bluetooth::writeable(void)
+bool Bluetooth::is_ready(void)
 {   
     /* returns true if bluetooth module is ready */
     return bt_serial.writeable();
+}
+
+bool Bluetooth::is_continous(void)
+{
+    return continous_update;
+}
+
+char* Bluetooth::get_data(void)
+{   
+    /* returns data recieved as a character array*/
+    return rx_buffer;
 }
