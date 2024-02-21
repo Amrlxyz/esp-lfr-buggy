@@ -467,5 +467,6 @@ int main()
         pc.printf("Loop Time: %d us / %d \n \n", global_timer.read_us() - last_loop_time_us, global_timer.read_us());
         last_loop_time_us = global_timer.read_us();
         main_loop_counter++;
+        
     }
 }
