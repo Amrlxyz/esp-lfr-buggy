@@ -190,6 +190,7 @@ typedef enum
 {
     square_mode_start,
     square_mode_running,
+    PID_test,
     inactive,
 } Buggy_state;
 
@@ -203,7 +204,7 @@ Ticker control_ticker;
 
 int main_loop_counter = 0;      // just for fun (not important)
 int last_loop_time_us = 0;      // stores the previous loop time
-Buggy_state buggy_state;        // stores buggy states when performing actions
+Buggy_state buggy_state = inactive;        // stores buggy states when performing actions
 
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN);
@@ -249,8 +250,11 @@ void control_update_ISR(void)
     PID_motor_right.update(vp.get_right_set_speed(), encoder_right.get_speed());
 
     // Apply PID output
-    motor_left.set_duty_cycle(PID_motor_left.get_output());
-    motor_right.set_duty_cycle(PID_motor_right.get_output());
+    if (buggy_state != inactive)
+    {
+        motor_left.set_duty_cycle(PID_motor_left.get_output());
+        motor_right.set_duty_cycle(PID_motor_right.get_output());
+    }
 }
 
 
@@ -293,6 +297,9 @@ int main()
                                         break;
                                 }
                                 break;
+                            case bt.speed:
+                                vp.set_set_velocity(bt.data1); /// temporary to debug pid
+                                break;
                             default:
                                 break;
                         }
@@ -304,9 +311,11 @@ int main()
                                 // stop evrything
                                 motor_left.set_duty_cycle(0.0);
                                 motor_right.set_duty_cycle(0.0);
+                                buggy_state = inactive;
                                 break;
                             case bt.uturn:
                                 // enable uturn code
+                                buggy_state = PID_test; // temporary to test PID
                                 break;
                             case bt.encoder_test:
                                 motor_left.set_duty_cycle(0.0);
@@ -324,6 +333,7 @@ int main()
                                 break;
                             case bt.square_test:
                                 // enable move a in a square code
+                                buggy_state = square_mode_start;
                                 break;
                             case bt.toggle_led_test:
                                 LED = !LED;
@@ -343,6 +353,7 @@ int main()
             bt.reset_rx_buffer();
         }
 
+        // Handling sending data through BT 
         if (bt.is_continous() || bt.is_send_once())
         {   
             switch (bt.data_type)
@@ -426,6 +437,8 @@ int main()
             case square_mode_running:
                 // different distances change the set speed and angle
                 break;
+            case PID_test:
+                break;
             default:
                 break;
         }    
@@ -447,87 +460,12 @@ int main()
 
 
         /*      SIMULATE FUTURE CODE:    */
-        wait_us(1'000'0);
+        wait_us(1'000);
+
 
         /*       END OF LOOP      */
+        pc.printf("Loop Time: %d us / %d \n \n", global_timer.read_us() - last_loop_time_us, global_timer.read_us());
         last_loop_time_us = global_timer.read_us();
         main_loop_counter++;
-        // pc.printf("Loop Time: %d us / %d \n \n", global_timer.read_us() - last_loop_time_us, global_timer.read_us());
     }
 }
-
-
-
-/*
-
-class Digital_Line_Sensor{
-    private:
-    DigitalIn Sensor_Pin; //takes in a digital value of the voltage output from the resistor in the line sensor circuit
-    public:
-    Digital_Line_Sensor(PinName pin):Sensor_Pin(pin){};
-    int sensor_read(){
-        //reads the sensor output as an int
-    };
-};
-
-class Analog_Line_Sensor{
-    private:
-    AnalogIn Sensor_Pin; //takes in an analog value of the voltage output from the resistor in the line sensor circuit
-    public:
-    Analog_Line_Sensor(PinName pin):Sensor_Pin(pin){};
-    double sensor_read(){
-        //reads the sensor output as a double
-    };
-};
-
-class Control{
-    private:
-    double PID_P, PID_I, PID_D, Error; //value of the coeeficient of the PID system
-                                       //Error value that is the input to the PID system
-    public:
-    Control(PinName p, PinName i, PinName d):PID_P(p), PID_I(i), PID_D(d){};
-    double pid_control(double Line_Sensor_Value){
-        //PID control function which returns a value to be used by the motors
-    };
-};
-
-void bluetooth_signal_received(){
-    //an ISR that is called when a bluetooth signal is recieved
-};
-
-class Battery{
-    private:
-    AnalogIn Battery_Voltage_Norm; //takes in an analog value to the battery voltage as a range from 0.00 to 1.00
-    public:
-    Battery(PinName pin):Battery_Voltage_Norm(pin){};
-    float battery_SOC(){
-        //returns a float value of the battery SOT to be used
-    };
-};
-
-
-
-int main() {
-    
- Motor motor1(PB_6,PC_7,PA_9);
- motor1.set_duty_cycle(0.5);
- motor1.set_bipolar_mode(0);
-    while(1) {
-        motor1.direction_mode(0);
-        wait(4);
-        motor1.direction_mode(1);
-        wait(4);
-    }
-}
-
-//This program demonstrates Nucleo board PWM signal generation using mbed
-//by flashing the on-chip LED1 (PA_5)
-//using PWM signal with 50% duty cycle and 0.4s period.
-//#include "mbed.h"
-PwmOut LED(D9); //set PA_5 "LED1" as PwmOut
-int main() {
- LED.period(0.4); // 0.4 second period
- LED.write(0.50); // 50% duty cycle, relative to period
- while(1);
-}
-*/

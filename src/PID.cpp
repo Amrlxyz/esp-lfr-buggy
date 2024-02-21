@@ -98,20 +98,11 @@ float PID::get_output(void)
 }
 
 
-
-// void PID::reset(void) 
-// {
-//     Kp = 0;
-//     Ki = 0;
-//     Kd = 0;
-//     integrator = 0;
-//     prevError = 0;
-//     differentiator = 0;
-//     prevposition = 0;
-//     output = 0;
-//     limMin = 0; 
-//     limMax = 0; 
-//     limMinInt= 0; 
-//     limMaxInt = 0; 
-//     setposition = 0;
-// }
+void PID::reset(void) 
+{
+    integrator = 0;
+    prev_error = 0;
+    differentiator = 0;
+    prev_measurement = 0;
+    output = 0;
+}

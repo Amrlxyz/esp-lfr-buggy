@@ -51,7 +51,7 @@ public:
 
     void update(float set_point, float measurement);
 
-    // void reset();
+    void reset();
 
     float get_output(void);
 };
