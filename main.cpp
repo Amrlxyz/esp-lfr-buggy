@@ -271,7 +271,7 @@ int main()
                         bt.send_fstring("Runtime: %f", global_timer.read());
                         break;
                     case bt.loop_time:              // X
-                        bt.send_fstring("Loop: %dus", global_timer.read_us() - last_loop_time_us);
+                        bt.send_fstring("Loop: %dus", loop_time_diff);
                         break;
                     case bt.loop_count:             // Y
                         bt.send_fstring("Loop no: %d", main_loop_counter);
@@ -284,22 +284,18 @@ int main()
 
             // PC Serial Debugging code
 
-            pc.printf("Left Encoder Pulse Count: %d \n", encoder_left.get_tick_count());
-            pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_tick_count());
-            // float freq_l = encoder_left.get_freq(global_timer.read_us());
-            // float freq_r = encoder_right.get_freq(global_timer.read_us());
-            // pc.printf("Left Encoder Freq: %.2f \n", encoder_left.get_tick_count());
-            // pc.printf("Right Encoder Freq: %.2f \n", freq_r);
+            pc.printf("Left  Motor Duty Cycle: %.2f \n", motor_left.get_duty_cycle());
+            pc.printf("Right Motor Duty Cycle: %.2f \n", motor_right.get_duty_cycle());
 
-            // float angle = vp.get_angle(freq_l, freq_r, global_timer.read_us());
-            // total_angle += angle;
-            // pc.printf("Angle Calculated: %.2f Degrees \n", angle);
-            // pc.printf("Cumulative Angle: %.2f Degrees \n \n", total_angle);
+            pc.printf("Left  Encoder Tick Count: %d \n", encoder_left.get_tick_count());
+            pc.printf("Right Encoder Tick Count: %d \n", encoder_right.get_tick_count());
+            
+            pc.printf("Left  Motor Speed (m/s): %.3f \n", encoder_right.get_speed());
+            pc.printf("Right Motor Speed (m/s): %.3f \n", encoder_right.get_speed());
 
-            pc.printf("Left Encoder Pulse Count: %.2f \n", motor_left.get_duty_cycle());
-            pc.printf("Right Encoder Pulse Count: %.2f \n", motor_right.get_duty_cycle());
+            pc.printf("Cumulative Angle: %.2f Degrees \n \n", vp.get_cumulative_angle_deg());
+            pc.printf("Loop Time: %d us / Global Time: %d us \n \n", loop_time_diff, global_timer.read_us());
 
-            pc.printf("Loop Time: %d us / %d \n \n", loop_time_diff, global_timer.read_us());
             serial_update = false;
         }
         /* ---  END OF SERIAL UPDATE CODE  --- */
