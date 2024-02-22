@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "mbed.h"
 #include "constants.h"
 

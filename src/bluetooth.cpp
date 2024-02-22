@@ -1,7 +1,6 @@
 #include "mbed.h"
 #include "bluetooth.h"
 #include "constants.h"
-// #include <stdlib.h>
 
 
 /* Uses default BT baud rate if not specified and initialise BT objects using init() */

@@ -1,189 +1,14 @@
 #include "mbed.h"
+#include "QEI.h"
+
 #include "constants.h"
 #include "pin_assignments.h"
 #include "bluetooth.h"
 #include "motor.h"
-#include "QEI.h"
+#include "encoder.h"
+#include "vector_processor.h"
 #include "PID.h"
-// #include <cstdio>
-
-
-class Encoder
-{
-protected:
-
-    QEI qei;
-    volatile int curr_tick_count;
-    volatile int prev_tick_count;
-    volatile int tick_diff;
-    volatile float rotational_freq;
-    volatile float speed;
-    volatile float rpm;
-
-public:
-
-    Encoder(PinName CH_A, PinName CH_B): qei(CH_A, CH_B, NC, PULSE_PER_REV, QEI::X4_ENCODING) 
-    {
-        prev_tick_count = 0;
-    }
-
-    void update(void)
-    {
-        // update pulse diff
-        curr_tick_count = qei.getPulses();
-        tick_diff = curr_tick_count - prev_tick_count;
-        prev_tick_count = curr_tick_count;
-
-        // update rotational freq
-        rotational_freq = ((float) tick_diff / (4 * PULSE_PER_REV)) * CONTROL_UPDATE_RATE;
-
-        // update rpm
-        rpm = rotational_freq * 60;
-
-        // update speed
-        speed = 2 * PI * WHEEL_RADIUS * rotational_freq;
-    }
-
-    void reset(void)
-    {
-        qei.reset();
-    }
-
-    int get_tick_count(void)
-    {
-        return curr_tick_count;
-    }
-
-    float get_rotational_freq(void)
-    {
-        return rotational_freq;
-    }
-
-    float get_rpm(void)
-    {
-        return rpm;
-    }
-
-    float get_speed(void)
-    {
-        return speed;
-    }
-};
-
-
-class VectorProcessor
-{
-protected:
-    
-    volatile float prev_cumulative_angle_deg;
-    volatile float cumulative_angle_deg;
-    volatile float angle_delta;
-    volatile float left_set_speed;
-    volatile float right_set_speed;
-    float set_velocity; 
-    float set_angle;
-    float distance_travelled;
-
-public:
-
-    VectorProcessor(void) 
-    {
-        prev_cumulative_angle_deg = 0.0;
-        cumulative_angle_deg = 0.0;
-        set_velocity = 0;
-        set_angle = 0;
-    };
-    
-    void update(float tick_count_left, float tick_count_right)
-    {
-        cumulative_angle_deg = (float) (360 * WHEEL_RADIUS) * (tick_count_left - tick_count_right) / (WHEEL_SEPERATION * 4 * PULSE_PER_REV);
-        angle_delta = cumulative_angle_deg - prev_cumulative_angle_deg;
-
-        // angle error calculate
-        float angle_error = set_angle - cumulative_angle_deg;
-
-        // calculate speed for each motor
-        float constant_speed_term = WHEEL_SEPERATION * angle_error * PI / (CONTROL_UPDATE_RATE * 360);
-
-        left_set_speed  =  constant_speed_term + set_velocity;
-        right_set_speed = -constant_speed_term + set_velocity;
-    }
-
-    float get_cumulative_angle_deg(void)
-    {
-        return cumulative_angle_deg;
-    }
-
-    float get_angle_delta(void)
-    {
-        return angle_delta;
-    }
-
-    float get_left_set_speed(void)
-    {
-        return left_set_speed;
-    } 
-
-    float get_right_set_speed(void)
-    {
-        return right_set_speed;
-    }
-
-    void set_set_velocity(float vel)
-    {
-        set_velocity = vel;
-    }
-
-    void set_set_angle(float ang)
-    {
-        set_angle = ang;
-    }
-
-    float get_distance_travelled(void)
-    {
-        return distance_travelled;
-    }
-
-    void reset_distance_travelled(void)
-    {
-        distance_travelled = 0;
-    }
-};
-
-
-class MotorDriverBoard
-{
-protected:
-    
-    DigitalOut board_enable;
-    bool enable_state;
-
-public:
-
-    MotorDriverBoard(PinName enable_pin): board_enable(enable_pin) {};
-    MotorDriverBoard(PinName enable_pin, bool state): board_enable(enable_pin)
-    {
-        enable_state = state;
-        board_enable.write(state);
-    }
-
-    void enable(void)
-    {
-        enable_state = true;
-        board_enable.write(true);
-    }
-    
-    void disable(void)
-    {
-        enable_state = true;
-        board_enable.write(true);
-    }
-
-    bool get_enable_state(void)
-    {
-        return enable_state;
-    }
-};
+#include "motor_driver_board.h"
 
 
 typedef enum
@@ -192,7 +17,7 @@ typedef enum
     square_mode_running,
     PID_test,
     inactive,
-} Buggy_state;
+} Buggy_states;
 
 
 DigitalOut LED(LED_PIN);                // Debug LED set
@@ -202,9 +27,9 @@ MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, true);
 Timer global_timer;                     // set up global program timer
 Ticker control_ticker;
 
-int main_loop_counter = 0;      // just for fun (not important)
-int last_loop_time_us = 0;      // stores the previous loop time
-Buggy_state buggy_state = inactive;        // stores buggy states when performing actions
+int main_loop_counter = 0;                  // just for fun (not important)
+int last_loop_time_us = 0;                  // stores the previous loop time
+Buggy_states buggy_state = inactive;        // stores buggy states when performing actions
 
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN);
@@ -213,6 +38,7 @@ Encoder encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN);
 Encoder encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN);
 
 VectorProcessor vp;
+
 
 PID PID_motor_left( 
     PID_M_L_KP, 
@@ -258,20 +84,18 @@ void control_update_ISR(void)
 }
 
 
+
 int main()
 {
     while (!bt.is_ready()) {};          // while bluetooth not ready, loop and do nothing
 
-    motor_left.set_duty_cycle(0.2);
-    motor_right.set_duty_cycle(0.2);
-
-    global_timer.start();               // Starts the global program timer
-    control_ticker.attach_us(&control_update_ISR, CONTROL_UPDATE_PERIOD_US);
+    control_ticker.attach_us(&control_update_ISR, CONTROL_UPDATE_PERIOD_US);        // Starts the control ISR update ticker
+    global_timer.start();                                                           // Starts the global program timer
 
 
     while (1)
     {
-        /*  BLUETOOTH COMMAND HANDLING  */
+        /* --- START OF BLUETOOTH COMMAND HANDLING --- */
         if (bt.data_recieved_complete()) 
         {
             if (bt.parse_data())
@@ -362,13 +186,13 @@ int main()
                     switch (bt.obj_type)
                     {
                         case bt.motor_left:
-                            bt.send_fstring("PWM L: %f", motor_left.get_duty_cycle());
+                            bt.send_fstring("DC L: %f", motor_left.get_duty_cycle());
                             break;
                         case bt.motor_right:
-                            bt.send_fstring("PWM R: %f", motor_right.get_duty_cycle());
+                            bt.send_fstring("DC R: %f", motor_right.get_duty_cycle());
                             break;
                         case bt.motor_both:
-                            bt.send_fstring("PWM L: %.2f / R: %.2f", motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
+                            bt.send_fstring("DC L:%.3f/ R:%.3f", motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
                             break;
                         default:
                             break;
@@ -381,7 +205,7 @@ int main()
                             bt.send_fstring("Ticks L: %d", encoder_left.get_tick_count());
                             break;
                         case bt.motor_right:
-                            bt.send_fstring("Ticks L: %d", encoder_right.get_tick_count());
+                            bt.send_fstring("Ticks R: %d", encoder_right.get_tick_count());
                             break;
                         case bt.motor_both:
                             bt.send_fstring("L:%7d R:%7d", encoder_left.get_tick_count(), encoder_right.get_tick_count());
@@ -397,10 +221,10 @@ int main()
                             bt.send_fstring("Speed L: %f", encoder_left.get_speed());
                             break;
                         case bt.motor_right:
-                            bt.send_fstring("Speed L: %f", encoder_right.get_speed());
+                            bt.send_fstring("Speed R: %f", encoder_right.get_speed());
                             break;
                         case bt.motor_both:
-                            bt.send_fstring("S L: %.3f / R: %.3f", encoder_left.get_speed(), encoder_right.get_speed());
+                            bt.send_fstring("S L:%.3f/ R:%.3f", encoder_left.get_speed(), encoder_right.get_speed());
                             break;
                         default:
                             break;
@@ -424,9 +248,10 @@ int main()
             }
             bt.set_send_once(false); 
         }
-        /* END OF BLUEOOTH COMMAND HANDLING  */
+        /* ---  END OF BLUETOOTH COMMAND HANDLING  --- */
 
 
+        /* --- START OF BUGGY ACTIONS/STATE LOGIC CODE --- */ 
         switch (buggy_state) 
         {   
             case square_mode_start:
@@ -442,15 +267,16 @@ int main()
             default:
                 break;
         }    
+        /* ---  END OF BUGGY ACTIONS/STATE LOGIC CODE  --- */ 
 
 
         // Bunch of debug code:
 
-        // pc.printf("Left Encoder Pulse Count: %d \n", encoder_left.get_pulse_count());
-        // pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_pulse_count());
+        pc.printf("Left Encoder Pulse Count: %d \n", encoder_left.get_tick_count());
+        pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_tick_count());
         // float freq_l = encoder_left.get_freq(global_timer.read_us());
         // float freq_r = encoder_right.get_freq(global_timer.read_us());
-        // pc.printf("Left Encoder Freq: %.2f \n", freq_l);
+        // pc.printf("Left Encoder Freq: %.2f \n", encoder_left.get_tick_count());
         // pc.printf("Right Encoder Freq: %.2f \n", freq_r);
 
         // float angle = vp.get_angle(freq_l, freq_r, global_timer.read_us());
@@ -458,9 +284,12 @@ int main()
         // pc.printf("Angle Calculated: %.2f Degrees \n", angle);
         // pc.printf("Cumulative Angle: %.2f Degrees \n \n", total_angle);
 
+        // motor_left.set_duty_cycle(0.01);
+        // motor_right.set_duty_cycle(0.01);
 
-        /*      SIMULATE FUTURE CODE:    */
-        wait_us(1'000);
+
+        /*      ARTIFICIAL DELAY FOR DEBUGGING:    */
+        wait_us(1'000'00);
 
 
         /*       END OF LOOP      */
