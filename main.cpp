@@ -26,9 +26,12 @@ Bluetooth bt(BT_TX_PIN, BT_RX_PIN);
 MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, true);
 Timer global_timer;                     // set up global program timer
 Ticker control_ticker;
+Ticker serial_ticker;
 
+volatile bool serial_update = false;
 int main_loop_counter = 0;                  // just for fun (not important)
 int last_loop_time_us = 0;                  // stores the previous loop time
+int loop_time_diff = 0;
 Buggy_states buggy_state = inactive;        // stores buggy states when performing actions
 
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN);
@@ -84,12 +87,18 @@ void control_update_ISR(void)
 }
 
 
+void serial_update_ISR(void)
+{
+    serial_update = true;
+}
+
 
 int main()
 {
     while (!bt.is_ready()) {};          // while bluetooth not ready, loop and do nothing
 
     control_ticker.attach_us(&control_update_ISR, CONTROL_UPDATE_PERIOD_US);        // Starts the control ISR update ticker
+    control_ticker.attach(&serial_update_ISR, SERIAL_UPDATE_PERIOD);                // Starts the control ISR update ticker
     global_timer.start();                                                           // Starts the global program timer
 
 
@@ -176,78 +185,6 @@ int main()
             }
             bt.reset_rx_buffer();
         }
-
-        // Handling sending data through BT 
-        if (bt.is_continous() || bt.is_send_once())
-        {   
-            switch (bt.data_type)
-            {
-                case bt.pwm_duty:               // P
-                    switch (bt.obj_type)
-                    {
-                        case bt.motor_left:
-                            bt.send_fstring("DC L: %f", motor_left.get_duty_cycle());
-                            break;
-                        case bt.motor_right:
-                            bt.send_fstring("DC R: %f", motor_right.get_duty_cycle());
-                            break;
-                        case bt.motor_both:
-                            bt.send_fstring("DC L:%.3f/ R:%.3f", motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case bt.ticks_cumulative:       // T
-                    switch (bt.obj_type)
-                    {
-                        case bt.motor_left:
-                            bt.send_fstring("Ticks L: %d", encoder_left.get_tick_count());
-                            break;
-                        case bt.motor_right:
-                            bt.send_fstring("Ticks R: %d", encoder_right.get_tick_count());
-                            break;
-                        case bt.motor_both:
-                            bt.send_fstring("L:%7d R:%7d", encoder_left.get_tick_count(), encoder_right.get_tick_count());
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case bt.speed:                  // V
-                    switch (bt.obj_type)
-                    {
-                        case bt.motor_left:
-                            bt.send_fstring("Speed L: %f", encoder_left.get_speed());
-                            break;
-                        case bt.motor_right:
-                            bt.send_fstring("Speed R: %f", encoder_right.get_speed());
-                            break;
-                        case bt.motor_both:
-                            bt.send_fstring("S L:%.3f/ R:%.3f", encoder_left.get_speed(), encoder_right.get_speed());
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case bt.gains_PID:              // G
-                case bt.current_usage:          // C
-                    bt.send_fstring("Feature WIP");
-                    break;
-                case bt.runtime:                // R
-                    bt.send_fstring("Runtime: %f", global_timer.read());
-                    break;
-                case bt.loop_time:              // X
-                    bt.send_fstring("Loop: %dus", global_timer.read_us() - last_loop_time_us);
-                    break;
-                case bt.loop_count:             // Y
-                    bt.send_fstring("Loop no: %d", main_loop_counter);
-                    break;
-                default:
-                    break;
-            }
-            bt.set_send_once(false); 
-        }
         /* ---  END OF BLUETOOTH COMMAND HANDLING  --- */
 
 
@@ -269,33 +206,112 @@ int main()
         }    
         /* ---  END OF BUGGY ACTIONS/STATE LOGIC CODE  --- */ 
 
+        
+        /* --- START OF SERIAL UPDATE CODE --- */
+        if (serial_update)
+        {
+            // Handling sending data through BT 
+            if (bt.is_continous() || bt.is_send_once())
+            {   
+                switch (bt.data_type)
+                {
+                    case bt.pwm_duty:               // P
+                        switch (bt.obj_type)
+                        {
+                            case bt.motor_left:
+                                bt.send_fstring("DC L: %.2f", motor_left.get_duty_cycle());
+                                break;
+                            case bt.motor_right:
+                                bt.send_fstring("DC R: %.2f", motor_right.get_duty_cycle());
+                                break;
+                            case bt.motor_both:
+                                bt.send_fstring("DC L:%.2f/ R:%.2f", motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case bt.ticks_cumulative:       // T
+                        switch (bt.obj_type)
+                        {
+                            case bt.motor_left:
+                                bt.send_fstring("Ticks L: %d", encoder_left.get_tick_count());
+                                break;
+                            case bt.motor_right:
+                                bt.send_fstring("Ticks R: %d", encoder_right.get_tick_count());
+                                break;
+                            case bt.motor_both:
+                                bt.send_fstring("L:%7d R:%7d", encoder_left.get_tick_count(), encoder_right.get_tick_count());
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case bt.speed:                  // V
+                        switch (bt.obj_type)
+                        {
+                            case bt.motor_left:
+                                bt.send_fstring("Speed L: %f", encoder_left.get_speed());
+                                break;
+                            case bt.motor_right:
+                                bt.send_fstring("Speed R: %f", encoder_right.get_speed());
+                                break;
+                            case bt.motor_both:
+                                bt.send_fstring("S L:%.3f/ R:%.3f", encoder_left.get_speed(), encoder_right.get_speed());
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case bt.gains_PID:              // G
+                    case bt.current_usage:          // C
+                        bt.send_fstring("Feature WIP");
+                        break;
+                    case bt.runtime:                // R
+                        bt.send_fstring("Runtime: %f", global_timer.read());
+                        break;
+                    case bt.loop_time:              // X
+                        bt.send_fstring("Loop: %dus", global_timer.read_us() - last_loop_time_us);
+                        break;
+                    case bt.loop_count:             // Y
+                        bt.send_fstring("Loop no: %d", main_loop_counter);
+                        break;
+                    default:
+                        break;
+                }
+                bt.set_send_once(false); 
+            }
 
-        // Bunch of debug code:
+            // PC Serial Debugging code
 
-        pc.printf("Left Encoder Pulse Count: %d \n", encoder_left.get_tick_count());
-        pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_tick_count());
-        // float freq_l = encoder_left.get_freq(global_timer.read_us());
-        // float freq_r = encoder_right.get_freq(global_timer.read_us());
-        // pc.printf("Left Encoder Freq: %.2f \n", encoder_left.get_tick_count());
-        // pc.printf("Right Encoder Freq: %.2f \n", freq_r);
+            pc.printf("Left Encoder Pulse Count: %d \n", encoder_left.get_tick_count());
+            pc.printf("Right Encoder Pulse Count: %d \n", encoder_right.get_tick_count());
+            // float freq_l = encoder_left.get_freq(global_timer.read_us());
+            // float freq_r = encoder_right.get_freq(global_timer.read_us());
+            // pc.printf("Left Encoder Freq: %.2f \n", encoder_left.get_tick_count());
+            // pc.printf("Right Encoder Freq: %.2f \n", freq_r);
 
-        // float angle = vp.get_angle(freq_l, freq_r, global_timer.read_us());
-        // total_angle += angle;
-        // pc.printf("Angle Calculated: %.2f Degrees \n", angle);
-        // pc.printf("Cumulative Angle: %.2f Degrees \n \n", total_angle);
+            // float angle = vp.get_angle(freq_l, freq_r, global_timer.read_us());
+            // total_angle += angle;
+            // pc.printf("Angle Calculated: %.2f Degrees \n", angle);
+            // pc.printf("Cumulative Angle: %.2f Degrees \n \n", total_angle);
 
-        // motor_left.set_duty_cycle(0.01);
-        // motor_right.set_duty_cycle(0.01);
+            pc.printf("Left Encoder Pulse Count: %.2f \n", motor_left.get_duty_cycle());
+            pc.printf("Right Encoder Pulse Count: %.2f \n", motor_right.get_duty_cycle());
+
+            pc.printf("Loop Time: %d us / %d \n \n", loop_time_diff, global_timer.read_us());
+            serial_update = false;
+        }
+        /* ---  END OF SERIAL UPDATE CODE  --- */
 
 
         /*      ARTIFICIAL DELAY FOR DEBUGGING:    */
-        wait_us(1'000'00);
+        // wait_us(1'000'00);
 
 
         /*       END OF LOOP      */
-        pc.printf("Loop Time: %d us / %d \n \n", global_timer.read_us() - last_loop_time_us, global_timer.read_us());
+        loop_time_diff = global_timer.read_us() - last_loop_time_us;
         last_loop_time_us = global_timer.read_us();
         main_loop_counter++;
-        
     }
 }

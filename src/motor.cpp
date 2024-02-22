@@ -24,8 +24,8 @@ void Motor::set_bipolar_mode(bool BipState)
 
 void Motor::set_duty_cycle(float DutyCycle)
 {
-    duty_cycle = 1 - DutyCycle;
-    PWM_pin.write(duty_cycle); 
+    duty_cycle = DutyCycle;
+    PWM_pin.write(1 - DutyCycle); 
 };
 
 bool Motor::get_direction(void)
@@ -38,7 +38,7 @@ bool Motor::get_bipolar(void)
     return bipolar;
 };
 
-bool Motor::get_duty_cycle(void)
+float Motor::get_duty_cycle(void)
 {
     return duty_cycle;
 };

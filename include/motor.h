@@ -31,6 +31,6 @@ public:
 
     bool get_bipolar();
 
-    bool get_duty_cycle();
+    float get_duty_cycle();
 
 };

@@ -170,10 +170,11 @@ bool Bluetooth::parse_data(void)
 void Bluetooth::send_buffer(char* char_arr)
 {   
     /*  sends the char array one by one */
-    for(int i = 0; i < BT_BUFFER_SIZE; i++)
+    for(int i = 0; i < BT_BUFFER_SIZE - 1; i++)
     {
         bt_serial.putc(char_arr[i]); 
     }
+    bt_serial.putc('\n');
 }
 
 
@@ -183,10 +184,10 @@ void Bluetooth::send_fstring(const char* format, ...)
         used to pass printf arguments into a function */
     va_list args;               // standard macro
     va_start(args, format);     // standard macro
-    vsnprintf(tx_buffer, BT_BUFFER_SIZE, format, args); // converts the format string input to a character array and stores into tx_buffer
+    vsnprintf(tx_buffer, BT_BUFFER_SIZE + 1, format, args);     // converts the format string input to a character array and stores into tx_buffer
     va_end(args);               // standard macro
     send_buffer(tx_buffer);     // sends the character array to be transmitted using bluetooth
-    memset(tx_buffer, '\0', BT_BUFFER_SIZE);            // reset the tx_buffer
+    memset(tx_buffer, '\0', BT_BUFFER_SIZE);                    // reset the tx_buffer
 }
 
 
