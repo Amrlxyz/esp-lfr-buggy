@@ -13,8 +13,12 @@ VectorProcessor::VectorProcessor(void)
 
 void VectorProcessor::update(float tick_count_left, float tick_count_right)
 {
+    // Angle calculations
     cumulative_angle_deg = (float) (360 * WHEEL_RADIUS) * (tick_count_left - tick_count_right) / (WHEEL_SEPERATION * 4 * PULSE_PER_REV);
     angle_delta = cumulative_angle_deg - prev_cumulative_angle_deg;
+
+    // distance travelled calculation
+    distance_travelled = ((float) (tick_count_left + tick_count_right) / (2 * PULSE_PER_REV * 4)) * 2 * PI * WHEEL_RADIUS;
 
     // angle error calculate
     float angle_error = set_angle - cumulative_angle_deg;

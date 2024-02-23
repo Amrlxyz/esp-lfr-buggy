@@ -33,6 +33,7 @@ int main_loop_counter = 0;                  // just for fun (not important)
 int last_loop_time_us = 0;                  // stores the previous loop time
 int loop_time_diff = 0;
 Buggy_states buggy_state = inactive;        // stores buggy states when performing actions
+int square_stages = 0;
 
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN);
@@ -73,18 +74,18 @@ void control_update_ISR(void)
     vp.update(
         encoder_left.get_tick_count(), 
         encoder_right.get_tick_count());
-    // printf("%f \n", encoder_left.get_speed());
+    // printf("Left: %f, Right: %f\n", encoder_left.get_speed(), encoder_right.get_speed());
 
     // PID Calculations here
     PID_motor_left.update(vp.get_left_set_speed(), encoder_left.get_speed());
     PID_motor_right.update(vp.get_right_set_speed(), encoder_right.get_speed());
 
     // Apply PID output
-    if (buggy_state != inactive)
-    {
-        motor_left.set_duty_cycle(PID_motor_left.get_output());
-        motor_right.set_duty_cycle(PID_motor_right.get_output());
-    }
+    // if (buggy_state != inactive)
+    // {
+    //     motor_left.set_duty_cycle(PID_motor_left.get_output());
+    //     motor_right.set_duty_cycle(PID_motor_right.get_output());
+    // }
 }
 
 
@@ -197,6 +198,79 @@ int main()
                 encoder_right.reset();
                 buggy_state = square_mode_running;
             case square_mode_running:
+                switch (square_stages)
+                {
+                    case 0:
+                        motor_left.set_duty_cycle(0.4);
+                        motor_right.set_duty_cycle(0.4);
+                        square_stages++;
+                        break;
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                        if (vp.get_distance_travelled() >= 1.0) // wait to move 1m then, start turning right
+                        {
+                            motor_left.set_duty_cycle(0.4);
+                            motor_right.set_duty_cycle(0.0);
+                            square_stages++;
+                        }
+                        break;
+                    case 2:
+                    case 4:
+                    case 6:
+                        if (vp.get_cumulative_angle_deg() >= 90.0) // wait to turn 90 and start moving straight
+                        {
+                            motor_left.set_duty_cycle(0.4);
+                            motor_right.set_duty_cycle(0.4);
+                            square_stages++;
+                            encoder_left.reset();
+                            encoder_right.reset();
+                        }
+                        break;
+                    case 8:
+                        if (vp.get_cumulative_angle_deg() >= 180.0) // wait to turn 180 and then move straihgt
+                        {
+                            motor_left.set_duty_cycle(0.4);
+                            motor_right.set_duty_cycle(0.4);
+                            square_stages++;
+                            encoder_left.reset();
+                            encoder_right.reset();
+                        }
+                        break;
+                    case 9:
+                    case 11:
+                    case 13:
+                        if (vp.get_distance_travelled() >= 1.0) // wait to move 1m then, start turning left
+                        {
+                            motor_left.set_duty_cycle(0.0);
+                            motor_right.set_duty_cycle(0.4);
+                            square_stages++;
+                        }
+                        break;
+                    case 10:
+                    case 12:
+                    case 14:
+                        if (vp.get_cumulative_angle_deg() <= -90.0) // wait to turn 90 and start moving straight
+                        {
+                            motor_left.set_duty_cycle(0.4);
+                            motor_right.set_duty_cycle(0.4);
+                            square_stages++;
+                            encoder_left.reset();
+                            encoder_right.reset();
+                        }
+                        break;
+                    case 15:
+                        if (vp.get_distance_travelled() >= 1.0)
+                        {
+                            motor_left.set_duty_cycle(0.0);
+                            motor_right.set_duty_cycle(0.0);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
                 // different distances change the set speed and angle
                 break;
             case PID_test:
@@ -290,10 +364,16 @@ int main()
             pc.printf("Left  Encoder Tick Count: %d \n", encoder_left.get_tick_count());
             pc.printf("Right Encoder Tick Count: %d \n", encoder_right.get_tick_count());
             
-            pc.printf("Left  Motor Speed (m/s): %.3f \n", encoder_left.get_speed());
-            pc.printf("Right Motor Speed (m/s): %.3f \n", encoder_right.get_speed());
+            pc.printf("Left  Motor Speed (m/s): %.5f \n", encoder_left.get_speed());
+            pc.printf("Right Motor Speed (m/s): %.5f \n", encoder_right.get_speed());
 
-            pc.printf("Cumulative Angle: %.2f Degrees \n \n", vp.get_cumulative_angle_deg());
+            pc.printf("\n");
+
+            pc.printf("Cumulative Angle: %.3f Degrees \n", vp.get_cumulative_angle_deg());
+            pc.printf("Distance Travelled: %.3f Metres \n", vp.get_distance_travelled());
+
+            pc.printf("\n");
+
             pc.printf("Loop Time: %d us / Global Time: %d us \n \n", loop_time_diff, global_timer.read_us());
 
             serial_update = false;
@@ -303,6 +383,7 @@ int main()
 
         /*      ARTIFICIAL DELAY FOR DEBUGGING:    */
         // wait_us(1'000'00);
+
 
 
         /*       END OF LOOP      */
