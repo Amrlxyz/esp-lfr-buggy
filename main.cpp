@@ -201,7 +201,9 @@ int main()
                 switch (square_stages)
                 {
                     case 0:
+                        motor_left.set_direction(1);
                         motor_left.set_duty_cycle(0.4);
+                        motor_right.set_direction(1);
                         motor_right.set_duty_cycle(0.4);
                         square_stages++;
                         break;
@@ -211,8 +213,10 @@ int main()
                     case 7:
                         if (vp.get_distance_travelled() >= 1.0) // wait to move 1m then, start turning right
                         {
-                            motor_left.set_duty_cycle(0.4);
-                            motor_right.set_duty_cycle(0.0);
+                            motor_left.set_direction(1);
+                            motor_left.set_duty_cycle(0.3);
+                            motor_right.set_direction(0);
+                            motor_right.set_duty_cycle(0.3);
                             square_stages++;
                         }
                         break;
@@ -221,7 +225,9 @@ int main()
                     case 6:
                         if (vp.get_cumulative_angle_deg() >= 90.0) // wait to turn 90 and start moving straight
                         {
+                            motor_left.set_direction(1);
                             motor_left.set_duty_cycle(0.4);
+                            motor_right.set_direction(1);
                             motor_right.set_duty_cycle(0.4);
                             square_stages++;
                             encoder_left.reset();
@@ -231,7 +237,9 @@ int main()
                     case 8:
                         if (vp.get_cumulative_angle_deg() >= 180.0) // wait to turn 180 and then move straihgt
                         {
+                            motor_left.set_direction(1);
                             motor_left.set_duty_cycle(0.4);
+                            motor_right.set_direction(1);
                             motor_right.set_duty_cycle(0.4);
                             square_stages++;
                             encoder_left.reset();
@@ -243,8 +251,10 @@ int main()
                     case 13:
                         if (vp.get_distance_travelled() >= 1.0) // wait to move 1m then, start turning left
                         {
-                            motor_left.set_duty_cycle(0.0);
-                            motor_right.set_duty_cycle(0.4);
+                            motor_left.set_direction(0);
+                            motor_left.set_duty_cycle(0.3);
+                            motor_right.set_direction(1);
+                            motor_right.set_duty_cycle(0.3);
                             square_stages++;
                         }
                         break;
@@ -253,7 +263,9 @@ int main()
                     case 14:
                         if (vp.get_cumulative_angle_deg() <= -90.0) // wait to turn 90 and start moving straight
                         {
+                            motor_left.set_direction(1);
                             motor_left.set_duty_cycle(0.4);
+                            motor_right.set_direction(1);
                             motor_right.set_duty_cycle(0.4);
                             square_stages++;
                             encoder_left.reset();
@@ -263,7 +275,9 @@ int main()
                     case 15:
                         if (vp.get_distance_travelled() >= 1.0)
                         {
+                            motor_left.set_direction(1);
                             motor_left.set_duty_cycle(0.0);
+                            motor_right.set_direction(1);
                             motor_right.set_duty_cycle(0.0);
                         }
                         break;
