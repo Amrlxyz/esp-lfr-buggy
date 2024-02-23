@@ -73,6 +73,7 @@ void control_update_ISR(void)
     vp.update(
         encoder_left.get_tick_count(), 
         encoder_right.get_tick_count());
+    // printf("%f \n", encoder_left.get_speed());
 
     // PID Calculations here
     PID_motor_left.update(vp.get_left_set_speed(), encoder_left.get_speed());
@@ -98,9 +99,8 @@ int main()
     while (!bt.is_ready()) {};          // while bluetooth not ready, loop and do nothing
 
     control_ticker.attach_us(&control_update_ISR, CONTROL_UPDATE_PERIOD_US);        // Starts the control ISR update ticker
-    control_ticker.attach(&serial_update_ISR, SERIAL_UPDATE_PERIOD);                // Starts the control ISR update ticker
+    serial_ticker.attach(&serial_update_ISR, SERIAL_UPDATE_PERIOD);                 // Starts the control ISR update ticker
     global_timer.start();                                                           // Starts the global program timer
-
 
     while (1)
     {
@@ -290,7 +290,7 @@ int main()
             pc.printf("Left  Encoder Tick Count: %d \n", encoder_left.get_tick_count());
             pc.printf("Right Encoder Tick Count: %d \n", encoder_right.get_tick_count());
             
-            pc.printf("Left  Motor Speed (m/s): %.3f \n", encoder_right.get_speed());
+            pc.printf("Left  Motor Speed (m/s): %.3f \n", encoder_left.get_speed());
             pc.printf("Right Motor Speed (m/s): %.3f \n", encoder_right.get_speed());
 
             pc.printf("Cumulative Angle: %.2f Degrees \n \n", vp.get_cumulative_angle_deg());

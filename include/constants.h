@@ -18,9 +18,9 @@
 #define PID_M_R_KD          0.0
 
 // Control Timing Constants
-#define CONTROL_UPDATE_RATE         10                                  // Hz
-#define CONTROL_UPDATE_PERIOD       (1.0f / CONTROL_UPDATE_RATE)        // Seconds
-#define CONTROL_UPDATE_PERIOD_US    (1'000'000 / CONTROL_UPDATE_RATE)   // Micro Seconds
+#define CONTROL_UPDATE_RATE         10                                      // Hz
+#define CONTROL_UPDATE_PERIOD       (1.0f / CONTROL_UPDATE_RATE)            // Seconds
+#define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
 #define SERIAL_UPDATE_PERIOD        1     // Seconds
