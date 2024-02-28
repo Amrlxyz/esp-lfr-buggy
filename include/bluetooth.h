@@ -37,7 +37,9 @@ public:
         uturn,                  // U
         encoder_test,           // E
         motor_pwm_test,         // M
+        straight_test,          // C
         square_test,            // Q
+        PID_test,               // P
         toggle_led_test,        // L
     } BluetoothCommandExecTypes;
 

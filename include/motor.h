@@ -19,7 +19,7 @@ public:
     Motor(PinName pwm, PinName dir, PinName bip);
 
     // controls the motor direction
-    void set_direction(int DirState);
+    void set_direction(bool DirState);
     
     // controls whether its bipolar or unipolar PWM operation 
     void set_bipolar_mode(bool BipState);

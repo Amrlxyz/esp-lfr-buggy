@@ -26,7 +26,7 @@ void Bluetooth::data_recieved_ISR(void)
     if (!data_complete)
     {
         rx_buffer[rx_index++] = c;
-        if (c == '-' || rx_index == BT_BUFFER_SIZE)
+        if (c == '/' || rx_index == BT_BUFFER_SIZE)
         {
             data_complete = true;
         }
@@ -92,8 +92,14 @@ bool Bluetooth::parse_data(void)
             case 'M':
                 exec_type = motor_pwm_test;
                 break;
+            case 'C':
+                exec_type = straight_test;
+                break;
             case 'Q':
                 exec_type = square_test;
+                break;
+            case 'P':
+                exec_type = PID_test;
                 break;
             case 'L':
                 exec_type = toggle_led_test;

@@ -2,6 +2,7 @@
 
 #include "mbed.h"
 #include "constants.h"
+#include "PID.h"
 
 
 class VectorProcessor
@@ -16,6 +17,7 @@ protected:
     float set_velocity; 
     float set_angle;
     float distance_travelled;
+    PID PID_angle;
 
 public:
 
@@ -24,6 +26,8 @@ public:
     void update(float tick_count_left, float tick_count_right);
 
     void reset_distance_travelled(void);
+
+    void reset_PID_angle(void);
 
     float get_distance_travelled(void);
     

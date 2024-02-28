@@ -15,6 +15,9 @@ protected:
     volatile int tick_diff;
     volatile float rotational_freq;
     volatile float speed;
+    volatile float prev_speed;
+    volatile float filtered_speed;
+    volatile float prev_filtered_speed;
     volatile float rpm;
 
 public:
@@ -40,4 +43,7 @@ public:
 
     // Returns the wheel tangential speed
     float get_speed(void);
+
+    // Returns the lowpass-filtered speed 
+    float get_filtered_speed(void);
 };

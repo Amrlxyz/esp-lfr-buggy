@@ -7,6 +7,10 @@
 Encoder::Encoder(PinName CH_A, PinName CH_B): qei(CH_A, CH_B, NC, PULSE_PER_REV, QEI::X4_ENCODING) 
 {
     prev_tick_count = 0;
+    speed = 0;
+    prev_speed = 0;
+    filtered_speed = 0;
+    prev_filtered_speed = 0;
 }
 
 void Encoder::update(void)
@@ -22,8 +26,18 @@ void Encoder::update(void)
     // update rpm
     rpm = rotational_freq * 60;
 
-    // update speed
+    // calculate raw speed
     speed = 2 * PI * WHEEL_RADIUS * rotational_freq;
+
+    // low pass filter for speed
+    float b0 = 0.0591174;
+    float b1 = 0.0591174;
+    float a0 = 0.88176521;
+
+    filtered_speed = prev_filtered_speed * a0 + speed * b0 + prev_speed * b1;
+
+    prev_filtered_speed = filtered_speed;
+    prev_speed = speed;
 }
 
 void Encoder::reset(void)
@@ -50,4 +64,9 @@ float Encoder::get_rpm(void)
 float Encoder::get_speed(void)
 {
     return speed;
+}
+
+float Encoder::get_filtered_speed(void)
+{
+    return filtered_speed;
 }

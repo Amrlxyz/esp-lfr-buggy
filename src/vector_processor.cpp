@@ -1,9 +1,10 @@
 #include "mbed.h"
 #include "constants.h"
 #include "vector_processor.h"
+#include "PID.h"
 
 
-VectorProcessor::VectorProcessor(void) 
+VectorProcessor::VectorProcessor(void):PID_angle(PID_A_KP, PID_A_KI, PID_A_KD, PID_A_TAU, PID_A_MIN_OUT, PID_A_MAX_OUT, PID_A_MIN_INT, PID_A_MAX_INT)
 {
     prev_cumulative_angle_deg = 0.0;
     cumulative_angle_deg = 0.0;
@@ -20,14 +21,11 @@ void VectorProcessor::update(float tick_count_left, float tick_count_right)
     // distance travelled calculation
     distance_travelled = ((float) (tick_count_left + tick_count_right) / (2 * PULSE_PER_REV * 4)) * 2 * PI * WHEEL_RADIUS;
 
-    // angle error calculate
-    float angle_error = set_angle - cumulative_angle_deg;
-
     // calculate speed for each motor
-    float constant_speed_term = WHEEL_SEPERATION * angle_error * PI / (CONTROL_UPDATE_RATE * 360);
+    PID_angle.update(set_angle, cumulative_angle_deg);
 
-    left_set_speed  =  constant_speed_term + set_velocity;
-    right_set_speed = -constant_speed_term + set_velocity;
+    left_set_speed  = set_velocity + PID_angle.get_output();
+    right_set_speed = set_velocity - PID_angle.get_output();
 }
 
 float VectorProcessor::get_cumulative_angle_deg(void)
@@ -68,4 +66,9 @@ float VectorProcessor::get_distance_travelled(void)
 void VectorProcessor::reset_distance_travelled(void)
 {
     distance_travelled = 0;
+}
+
+void VectorProcessor::reset_PID_angle(void)
+{
+    PID_angle.reset();
 }
