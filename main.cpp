@@ -118,6 +118,20 @@ void stop_motors(void)
 }
 
 
+void update_motor_board(void)
+{
+    // Disabling the driver board if in inactive state
+    if (buggy_state == inactive || buggy_state == task_test_inactive) 
+    {
+        driver_board.disable();
+    } 
+    else 
+    {
+        driver_board.enable();
+    }
+}
+
+
 /* MAIN FUNCTION */
 int main()
 {
@@ -221,16 +235,6 @@ int main()
                             default:
                                 break;
                         }
-
-                        if (buggy_state == inactive || buggy_state == task_test_inactive)
-                        {
-                            driver_board.disable();
-                        }
-                        else
-                        {
-                            driver_board.enable();
-                        }
-
                         break;
                     default:
                         break;
@@ -246,6 +250,7 @@ int main()
 
 
         /* --- START OF BUGGY ACTIONS/STATE LOGIC CODE --- */ 
+        update_motor_board();
         switch (buggy_state) 
         {   
             case square_mode:

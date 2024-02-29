@@ -18,8 +18,8 @@ void MotorDriverBoard::enable(void)
 
 void MotorDriverBoard::disable(void)
 {
-    enable_state = true;
-    board_enable.write(true);
+    enable_state = false;
+    board_enable.write(false);
 }
 
 bool MotorDriverBoard::get_enable_state(void)

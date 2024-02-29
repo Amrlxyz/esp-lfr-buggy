@@ -17,7 +17,7 @@ void Encoder::update(void)
 {
     // update pulse diff
     curr_tick_count = qei.getPulses();
-    tick_diff = curr_tick_count - prev_tick_count;
+    int tick_diff = curr_tick_count - prev_tick_count;
     prev_tick_count = curr_tick_count;
 
     // update rotational freq
@@ -43,7 +43,15 @@ void Encoder::update(void)
 void Encoder::reset(void)
 {
     qei.reset();
+
     curr_tick_count = 0;
+    prev_tick_count = 0;
+    rotational_freq = 0;
+    speed = 0;
+    filtered_speed = 0;
+    prev_speed = 0;
+    prev_filtered_speed = 0;
+    rpm = 0;
 }
 
 int Encoder::get_tick_count(void)

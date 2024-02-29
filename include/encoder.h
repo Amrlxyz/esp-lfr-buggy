@@ -12,11 +12,10 @@ protected:
     QEI qei;
     volatile int curr_tick_count;
     volatile int prev_tick_count;
-    volatile int tick_diff;
     volatile float rotational_freq;
     volatile float speed;
-    volatile float prev_speed;
     volatile float filtered_speed;
+    volatile float prev_speed;
     volatile float prev_filtered_speed;
     volatile float rpm;
 
