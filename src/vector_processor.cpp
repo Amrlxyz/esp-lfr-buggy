@@ -10,6 +10,8 @@ VectorProcessor::VectorProcessor(void):PID_angle(PID_A_KP, PID_A_KI, PID_A_KD, P
     cumulative_angle_deg = 0.0;
     set_velocity = 0;
     set_angle = 0;
+    left_set_speed = 0;
+    right_set_speed = 0;
 };
 
 void VectorProcessor::update(float tick_count_left, float tick_count_right)
@@ -71,4 +73,21 @@ void VectorProcessor::reset_distance_travelled(void)
 void VectorProcessor::reset_PID_angle(void)
 {
     PID_angle.reset();
+}
+
+void VectorProcessor::reset_angle(void)
+{
+    prev_cumulative_angle_deg = 0.0;
+    cumulative_angle_deg = 0.0;
+}
+
+void VectorProcessor::reset_all(void)
+{
+    reset_angle();
+    reset_PID_angle();
+    reset_distance_travelled();
+    set_velocity = 0;
+    set_angle = 0;
+    left_set_speed = 0;
+    right_set_speed = 0;
 }

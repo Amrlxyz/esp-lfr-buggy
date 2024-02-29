@@ -13,8 +13,7 @@
 
 typedef enum
 {
-    square_mode_start,
-    square_mode_running,
+    square_mode,
     straight_test,
     PID_test,
     inactive,
@@ -87,7 +86,7 @@ void control_update_ISR(void)
     pc.printf("%.4f\n", vp.get_cumulative_angle_deg());
 
     /* Apply PID output */
-    if (buggy_state == PID_test)
+    if (buggy_state == PID_test || buggy_state == square_mode)
     {
         motor_left.set_duty_cycle(PID_motor_left.get_output());
         motor_right.set_duty_cycle(PID_motor_right.get_output());
@@ -109,13 +108,13 @@ void serial_update_ISR(void)
 
 void stop_reset(void)
 {
-    motor_left.set_duty_cycle(0.0);
-    motor_right.set_duty_cycle(0.0);
+    // motor_left.set_duty_cycle(0.0);
+    // motor_right.set_duty_cycle(0.0);
     bt.send_fstring("%d, %.4f, %.4f", square_stages, vp.get_cumulative_angle_deg(), vp.get_distance_travelled());
-    wait_us(1'000'000);
-    encoder_left.reset();
-    encoder_right.reset();
-    vp.reset_distance_travelled();
+    // wait_us(1'000'000);
+    // encoder_left.reset();
+    // encoder_right.reset();
+    // vp.reset_distance_travelled();
 }
 
 
@@ -128,6 +127,14 @@ int main()
     serial_ticker.attach(&serial_update_ISR, SERIAL_UPDATE_PERIOD);                 // Starts the control ISR update ticker
 
     float right_speed_offset = -0.02;
+    
+    // Square task variables
+    float square_angle_set = 0.0;
+    float square_distance_set = 0.0;
+    float square_velocity_set = 0.4;
+    float square_turning_left_angle = 98;
+    float square_turning_right_angle = 94;
+    float square_distance = 1.01;
 
     while (1)
     {
@@ -197,13 +204,17 @@ int main()
                                 break;
                             case bt.square_test:
                                 // enable move a in a square code
-                                buggy_state = square_mode_start;
+                                encoder_left.reset();
+                                encoder_right.reset();
+                                vp.reset_all();
+                                buggy_state = square_mode;
                                 break;
                             case bt.PID_test:
                                 // test the pid implementation
+                                vp.reset_distance_travelled();
+                                vp.reset_PID_angle();
                                 PID_motor_left.reset();
                                 PID_motor_right.reset();
-                                vp.reset_PID_angle();
                                 vp.set_set_angle(90);
                                 vp.set_set_velocity(0.0);
                                 buggy_state = PID_test;
@@ -229,87 +240,84 @@ int main()
 
         float straight_speed = 0.25;
         float turn_speed = 0.25;
-        float distance_travelling = 0.3;
+        float distance_travelling = 0.4;
         float turning_angle = 89.0;
 
         /* --- START OF BUGGY ACTIONS/STATE LOGIC CODE --- */ 
         switch (buggy_state) 
         {   
-            case square_mode_start:
-                vp.reset_distance_travelled();
-                encoder_left.reset();
-                encoder_right.reset();
-                buggy_state = square_mode_running;
-            case square_mode_running:
+            case square_mode:
                 switch (square_stages)
                 {
                     case 0:
-                        motor_left.set_duty_cycle(straight_speed);
-                        motor_right.set_duty_cycle(straight_speed + right_speed_offset);
+                        square_distance_set += square_distance;
+                        vp.set_set_angle(square_angle_set);
+                        vp.set_set_velocity(square_velocity_set);
                         square_stages++;
+                        stop_reset();
                         break;
+                    case 7:
                     case 1:
                     case 3:
                     case 5:
-                    case 7:
-                        if (vp.get_distance_travelled() >= distance_travelling) // wait to move 1m then, start turning right
+                        if (vp.get_distance_travelled() >= square_distance_set) // wait to move 1m then, start turning right
                         {
-                            stop_reset();
-                            motor_left.set_duty_cycle(turn_speed);
-                            motor_right.set_duty_cycle(-(straight_speed + right_speed_offset));
+                            if (square_stages == 7)
+                            {
+                                square_angle_set += square_turning_right_angle;
+                            }
+                            square_angle_set += square_turning_right_angle;
+                            vp.set_set_angle(square_angle_set);
+                            vp.set_set_velocity(0);
                             square_stages++;
+                            stop_reset();
                         }
                         break;
                     case 2:
                     case 4:
                     case 6:
-                        if (vp.get_cumulative_angle_deg() >= turning_angle) // wait to turn 90 and start moving straight
-                        {
-                            stop_reset();
-                            motor_left.set_duty_cycle(straight_speed);
-                            motor_right.set_duty_cycle(straight_speed + right_speed_offset);
-                            square_stages++;
-                        }
-                        break;
                     case 8:
-                        if (vp.get_cumulative_angle_deg() >= turning_angle * 2) // wait to turn 180 and then move straihgt
+                        if (vp.get_cumulative_angle_deg() >= square_angle_set) // wait to turn 90 and start moving straight
                         {
-                            stop_reset();
-                            motor_left.set_duty_cycle(straight_speed);
-                            motor_right.set_duty_cycle(straight_speed + right_speed_offset);
+                            square_distance_set += square_distance;
+                            vp.set_set_angle(square_angle_set);
+                            vp.set_set_velocity(square_velocity_set);
                             square_stages++;
+                            stop_reset();
                         }
                         break;
                     case 9:
                     case 11:
                     case 13:
-                        if (vp.get_distance_travelled() >= distance_travelling) // wait to move 1m then, start turning left
+                        if (vp.get_distance_travelled() >= square_distance_set) // wait to move 1m then, start turning left
                         {
-                            stop_reset();
-                            motor_left.set_duty_cycle(-turn_speed);
-                            motor_right.set_duty_cycle(straight_speed + right_speed_offset);
+                            square_angle_set -= square_turning_left_angle;
+                            vp.set_set_angle(square_angle_set);
+                            vp.set_set_velocity(0);
                             square_stages++;
+                            stop_reset();
                         }
                         break;
                     case 10:
                     case 12:
                     case 14:
-                        if (vp.get_cumulative_angle_deg() <= -turning_angle) // wait to turn -90 and start moving straight
+                        if (vp.get_cumulative_angle_deg() <= square_angle_set) // wait to turn -90 and start moving straight
                         {
-                            stop_reset();
-                            motor_left.set_duty_cycle(straight_speed);
-                            motor_right.set_duty_cycle(straight_speed + right_speed_offset);
+                            square_distance_set += square_distance;
+                            vp.set_set_angle(square_angle_set);
+                            vp.set_set_velocity(square_velocity_set);
                             square_stages++;
+                            stop_reset();
                         }
                         break;
                     case 15:
-                        if (vp.get_distance_travelled() >= distance_travelling)  // Stop
+                        if (vp.get_distance_travelled() >= square_distance_set)  // Stop
                         {
-                            stop_reset();
                             motor_left.set_duty_cycle(0.0);
                             motor_right.set_duty_cycle(0.0);
                             square_stages = 0;
                             buggy_state = inactive;
+                            stop_reset();
                         }
                         break;
                     default:

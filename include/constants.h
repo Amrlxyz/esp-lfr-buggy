@@ -24,9 +24,9 @@
 #define PID_A_MIN_OUT       -PID_M_MAX_OUT
 #define PID_A_MAX_OUT       0.3
 #define PID_A_MIN_INT       -PID_M_MAX_INT
-#define PID_A_MAX_INT       0.25
-#define PID_A_KP            0.005
-#define PID_A_KI            0.005
+#define PID_A_MAX_INT       0.3
+#define PID_A_KP            0.1
+#define PID_A_KI            0
 #define PID_A_KD            0
 
 /* OTHER CONSTANTS */

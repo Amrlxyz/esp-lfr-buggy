@@ -29,6 +29,10 @@ public:
 
     void reset_PID_angle(void);
 
+    void reset_angle(void);
+
+    void reset_all(void);
+
     float get_distance_travelled(void);
     
     float get_cumulative_angle_deg(void);
