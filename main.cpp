@@ -150,8 +150,8 @@ int main()
     float square_angle_set = 0.0;
     float square_distance_set = 0.0;
     float square_velocity_set = 0.4;
-    float square_turning_left_angle = 103;  // increase to turn more
-    float square_turning_right_angle = 94;  // decrease to turn more 
+    float square_turning_right_angle = 92;  
+    float square_turning_left_angle = 101.5;  
     float square_distance = 1.01;
 
     while (1)
@@ -203,15 +203,15 @@ int main()
                             case bt.encoder_test:
                                 stop_motors();
                                 bt.set_continous(true);
-                                bt.data_type = bt.ticks_cumulative;
-                                bt.obj_type = bt.motor_both;
+                                bt.data_type_sent = bt.ticks_cumulative;
+                                bt.obj_type_sent = bt.motor_both;
                                 buggy_state = task_test;
                                 break;
                             case bt.motor_pwm_test:
                                 stop_motors();
                                 bt.set_continous(true);
-                                bt.data_type = bt.pwm_duty;
-                                bt.obj_type = bt.motor_both;
+                                bt.data_type_sent = bt.pwm_duty;
+                                bt.obj_type_sent = bt.motor_both;
                                 buggy_state = task_test_inactive;
                                 break;
                             case bt.straight_test:
@@ -361,10 +361,10 @@ int main()
             // Handling sending data through BT 
             if (bt.is_continous() || bt.is_send_once())
             {   
-                switch (bt.data_type)
+                switch (bt.data_type_sent)
                 {
                     case bt.pwm_duty:               // P
-                        switch (bt.obj_type)
+                        switch (bt.obj_type_sent)
                         {
                             case bt.motor_left:
                                 bt.send_fstring("DC L: %.2f", motor_left.get_duty_cycle());
@@ -380,7 +380,7 @@ int main()
                         }
                         break;
                     case bt.ticks_cumulative:       // T
-                        switch (bt.obj_type)
+                        switch (bt.obj_type_sent)
                         {
                             case bt.motor_left:
                                 bt.send_fstring("Ticks L: %d", encoder_left.get_tick_count());
@@ -396,7 +396,7 @@ int main()
                         }
                         break;
                     case bt.speed:                  // V
-                        switch (bt.obj_type)
+                        switch (bt.obj_type_sent)
                         {
                             case bt.motor_left:
                                 bt.send_fstring("Speed L: %f", encoder_left.get_speed());

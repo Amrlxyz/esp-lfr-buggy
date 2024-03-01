@@ -68,6 +68,10 @@ public:
     BluetoothCommandExecTypes   exec_type;
     BluetoothCommandDataTypes   data_type;
     BluetoothCommandObjects     obj_type;
+    
+    BluetoothCommandDataTypes   data_type_sent;
+    BluetoothCommandObjects     obj_type_sent;
+    
     float data1, data2, data3;                      // Stores float data from command
     // int   int_data1, int_data2, intdata_3;       // Stores int data from command
 

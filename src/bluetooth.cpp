@@ -158,6 +158,12 @@ bool Bluetooth::parse_data(void)
                 obj_type = no_obj;
                 break;
         }
+
+        if (cmd_type == get)
+        {
+            data_type_sent = data_type;
+            obj_type_sent = obj_type;
+        }
     }
 
     if (cmd_type == set)
