@@ -11,6 +11,67 @@
 #include "motor_driver_board.h"
 
 
+class SensorArray
+{
+protected:
+
+    AnalogIn sens3L_;
+    AnalogIn sens2L_;
+    AnalogIn sens1L_;
+    AnalogIn sens1R_;
+    AnalogIn sens2R_;
+    AnalogIn sens3R_;
+
+    float val_3L;
+    float val_2L;
+    float val_1L;
+    float val_1R;
+    float val_2R;
+    float val_3R;
+
+    float output;
+
+public:
+
+    SensorArray(PinName sens3L, PinName sens2L, PinName sens1L, PinName sens1R, PinName sens2R, PinName sens3R):
+                sens3L_(sens3L),
+                sens2L_(sens2L),
+                sens1L_(sens1L),
+                sens1R_(sens1R),
+                sens2R_(sens2R),
+                sens3R_(sens3R){reset();};
+
+    void reset(void)
+    {
+        val_3L = 0;
+        val_2L = 0;
+        val_1L = 0;
+        val_1R = 0;
+        val_2R = 0;
+        val_3R = 0;
+        output = 0;
+    }
+
+    void update(void)
+    {
+        val_3L = sens3L_.read(); 
+        val_2L = sens2L_.read();
+        val_1L = sens1L_.read();
+        val_1R = sens1R_.read();
+        val_2R = sens2R_.read();
+        val_3R = sens3R_.read();
+
+        output = val_3L * (-3) + val_2L * (-2) + val_1L * (-1) + val_1R * (1) + val_2R * (2) + val_3R * (3);
+    }
+
+    float get_output(void)
+    {
+        return output;
+    }
+};
+
+
+
 /* BUGGY STATES TYPE */
 typedef enum
 {
@@ -36,6 +97,7 @@ DigitalOut LED(LED_PIN);                    // Debug LED set
 Serial pc(USBTX, USBRX, 115200);            // set up serial comm with pc
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN);     
 MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, true);
+SensorArray sensor_array(SENSOR3L_IN_PIN, SENSOR2L_IN_PIN, SENSOR1L_IN_PIN, SENSOR1R_IN_PIN, SENSOR2R_IN_PIN, SENSOR3R_IN_PIN);
 Timer global_timer;                         // set up global program timer
 Ticker control_ticker;
 Ticker serial_ticker;

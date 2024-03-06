@@ -28,12 +28,12 @@
 #define BT_RX_PIN               PA_12
 
 // Sensor Analog Input Pins
-#define SENSOR1_IN_PIN          PB_2
-#define SENSOR2_IN_PIN          PB_1
-#define SENSOR3_IN_PIN          PB_15
-#define SENSOR4_IN_PIN          PB_14
-#define SENSOR5_IN_PIN          PB_13
-#define SENSOR6_IN_PIN          PC_4
+#define SENSOR3L_IN_PIN         PB_2
+#define SENSOR2L_IN_PIN         PB_1
+#define SENSOR1L_IN_PIN         PB_15
+#define SENSOR1R_IN_PIN         PB_14
+#define SENSOR2R_IN_PIN         PB_13
+#define SENSOR3R_IN_PIN         PC_4
 
 // Sensor Digital Output Control Pin
 #define SENSOR1_OUT_PIN         PC_2
