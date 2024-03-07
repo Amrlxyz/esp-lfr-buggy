@@ -29,6 +29,16 @@
 #define PID_A_KI            0
 #define PID_A_KD            0
 
+// Sensor PID Constants
+#define PID_SENS_TAU        1
+#define PID_SENS_MIN_OUT    -PID_SENS_MAX_OUT
+#define PID_SENS_MAX_OUT    3
+#define PID_SENS_MIN_INT    -PID_A_MAX_INT
+#define PID_SENS_MAX_INT    2
+#define PID_SENS_KP         1
+#define PID_SENS_KI         2
+#define PID_SENS_KD         0
+
 /* OTHER CONSTANTS */
 
 // Control Timing Constants

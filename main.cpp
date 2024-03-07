@@ -15,6 +15,8 @@ class SensorArray
 {
 protected:
 
+
+
     AnalogIn sens3L_;
     AnalogIn sens2L_;
     AnalogIn sens1L_;
@@ -78,6 +80,8 @@ typedef enum
     square_mode,
     straight_test,
     PID_test,
+    line_test,
+    line_follow,
     task_test,
     task_test_inactive,
     inactive,               // motor driver off
@@ -108,6 +112,7 @@ Encoder encoder_left(MOTORL_CHA_PIN, MOTORL_CHB_PIN);
 Encoder encoder_right(MOTORR_CHA_PIN, MOTORR_CHB_PIN);
 PID PID_motor_left(PID_M_L_KP, PID_M_L_KI, PID_M_L_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT);
 PID PID_motor_right(PID_M_R_KP, PID_M_R_KI, PID_M_R_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT);
+PID PID_sensor_array(PID_SENS_KP, PID_SENS_KI, PID_SENS_KD, PID_SENS_TAU, PID_SENS_MIN_OUT, PID_SENS_MAX_OUT, PID_SENS_MIN_INT, PID_SENS_MAX_INT);
 VectorProcessor vp;
 
 
@@ -118,7 +123,9 @@ void control_update_ISR(void)
     int curr_time = global_timer.read_us();
 
 
+
     /* Run all the update functions: */
+    sensor_array.update();
     encoder_left.update();
     encoder_right.update();
     vp.update(
@@ -129,7 +136,7 @@ void control_update_ISR(void)
     /* PID Calculations: */
     PID_motor_left.update(vp.get_left_set_speed(), encoder_left.get_filtered_speed());
     PID_motor_right.update(vp.get_right_set_speed(), encoder_right.get_filtered_speed());
-
+    PID_sensor_array.update(0, sensor_array.get_output()); 
     // pc.printf("%.4f,%.4f\n", encoder_left.get_speed(), encoder_left.get_filtered_speed());
     // pc.printf("%.4f\n", vp.get_cumulative_angle_deg());
 
@@ -169,6 +176,7 @@ void reset_everything(void)
     encoder_right.reset();
     PID_motor_left.reset();
     PID_motor_right.reset();
+    PID_sensor_array.reset();
     vp.reset_all();
 }
 
@@ -215,6 +223,8 @@ int main()
     float square_turning_right_angle = 92;  
     float square_turning_left_angle = 101.5;  
     float square_distance = 1.01;
+
+    float sensor_array_value;
 
     while (1)
     {
@@ -411,6 +421,11 @@ int main()
                     reset_everything();
                 }
                 break;
+            case line_test:
+                sensor_array_value = sensor_array.get_output();
+                break;
+            case line_follow:
+
             default:
                 break;
         }    
@@ -519,6 +534,8 @@ int main()
             pc.printf("\n");
 
             pc.printf("Calculation ISR Time: %d us / Global Time: %d us \n", ISR_exec_time, global_timer.read_us());
+
+            pc.printf("sensor value: %.5f \n", sensor_array_value);
 
             pc_serial_update = false;
         }
