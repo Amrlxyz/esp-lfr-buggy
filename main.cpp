@@ -15,19 +15,19 @@ class SensorArray
 {
 protected:
 
-    DigitalOut led3L_;
-    DigitalOut led2L_;
-    DigitalOut led1L_;
-    DigitalOut led1R_;
-    DigitalOut led2R_;
-    DigitalOut led3R_;
+    DigitalOut led0_;
+    DigitalOut led1_;
+    DigitalOut led2_;
+    DigitalOut led3_;
+    DigitalOut led4_;
+    DigitalOut led5_;
 
-    AnalogIn sens3L_;
-    AnalogIn sens2L_;
-    AnalogIn sens1L_;
-    AnalogIn sens1R_;
-    AnalogIn sens2R_;
-    AnalogIn sens3R_;
+    AnalogIn sens0_;
+    AnalogIn sens1_;
+    AnalogIn sens2_;
+    AnalogIn sens3_;
+    AnalogIn sens4_;
+    AnalogIn sens5_;
 
     float output;
 
@@ -35,14 +35,14 @@ protected:
 
 public:
 
-    SensorArray(PinName sens3L, PinName sens2L, PinName sens1L, PinName sens1R, PinName sens2R, PinName sens3R,
-                PinName led3L, PinName led2L, PinName led1L, PinName led1R, PinName led2R, PinName led3R):
-                sens3L_(sens3L), led3L_(led3L),
-                sens2L_(sens2L), led2L_(led2L),
-                sens1L_(sens1L), led1L_(led1L),
-                sens1R_(sens1R), led1R_(led1R),
-                sens2R_(sens2R), led2R_(led2R),
-                sens3R_(sens3R), led3R_(led3R) 
+    SensorArray(PinName sens0, PinName sens1, PinName sens2, PinName sens3, PinName sens4, PinName sens5,
+                PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5):
+                sens0_(sens0), led0_(led0),
+                sens1_(sens1), led1_(led1),
+                sens2_(sens2), led2_(led2),
+                sens3_(sens3), led3_(led3),
+                sens4_(sens4), led4_(led4),
+                sens5_(sens5), led5_(led5) 
                 {
                     reset();
                     set_all_led_on(false);
@@ -61,12 +61,12 @@ public:
 
     void set_all_led_on(bool status)
     {
-        led3L_ = status;
-        led2L_ = status;
-        led1L_ = status;
-        led1R_ = status;
-        led2R_ = status;
-        led3R_ = status;
+        led0_ = status;
+        led1_ = status;
+        led2_ = status;
+        led3_ = status;
+        led4_ = status;
+        led5_ = status;
     }
 
     
@@ -75,29 +75,29 @@ public:
     
     void update(void)
     {
-        float val_3L_sample_total = 0;
-        float val_2L_sample_total = 0;
-        float val_1L_sample_total = 0;
-        float val_1R_sample_total = 0;
-        float val_2R_sample_total = 0;
-        float val_3R_sample_total = 0;
+        float val_0_sample_total = 0;
+        float val_1_sample_total = 0;
+        float val_2_sample_total = 0;
+        float val_3_sample_total = 0;
+        float val_4_sample_total = 0;
+        float val_5_sample_total = 0;
 
         for (int i = 0; i < SENS_SAMPLE_COUNT; i++)
         {            
-            val_3L_sample_total += sens3L_.read(); 
-            val_2L_sample_total += sens2L_.read();
-            val_1L_sample_total += sens1L_.read();
-            val_1R_sample_total += sens1R_.read();
-            val_2R_sample_total += sens2R_.read();
-            val_3R_sample_total += sens3R_.read();
+            val_0_sample_total += sens0_.read(); 
+            val_1_sample_total += sens1_.read();
+            val_2_sample_total += sens2_.read();
+            val_3_sample_total += sens3_.read();
+            val_4_sample_total += sens4_.read();
+            val_5_sample_total += sens5_.read();
         }
 
-        sens_values[0] = val_3L_sample_total / SENS_SAMPLE_COUNT;
-        sens_values[1] = val_2L_sample_total / SENS_SAMPLE_COUNT;
-        sens_values[2] = val_1L_sample_total / SENS_SAMPLE_COUNT;
-        sens_values[3] = val_1R_sample_total / SENS_SAMPLE_COUNT;
-        sens_values[4] = val_2R_sample_total / SENS_SAMPLE_COUNT;
-        sens_values[5] = val_3R_sample_total / SENS_SAMPLE_COUNT;
+        sens_values[0] = val_0_sample_total / SENS_SAMPLE_COUNT;
+        sens_values[1] = val_1_sample_total / SENS_SAMPLE_COUNT;
+        sens_values[2] = val_2_sample_total / SENS_SAMPLE_COUNT;
+        sens_values[3] = val_3_sample_total / SENS_SAMPLE_COUNT;
+        sens_values[4] = val_4_sample_total / SENS_SAMPLE_COUNT;
+        sens_values[5] = val_5_sample_total / SENS_SAMPLE_COUNT;
 
         output = sens_values[0] * (-3) + sens_values[1] * (-2) + sens_values[2] * (-1) + sens_values[3] * (1) + sens_values[4] * (2) + sens_values[5] * (3);
     }
@@ -153,8 +153,8 @@ DigitalOut LED(LED_PIN);                    // Debug LED set
 Serial pc(USBTX, USBRX, 115200);            // set up serial comm with pc
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN);     
 MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, true);
-SensorArray sensor_array(SENSOR3L_IN_PIN, SENSOR2L_IN_PIN, SENSOR1L_IN_PIN, SENSOR1R_IN_PIN, SENSOR2R_IN_PIN, SENSOR3R_IN_PIN,
-                        SENSOR3L_OUT_PIN, SENSOR2L_OUT_PIN, SENSOR1L_OUT_PIN, SENSOR1R_OUT_PIN, SENSOR2R_OUT_PIN, SENSOR3R_OUT_PIN);
+SensorArray sensor_array(SENSOR0_IN_PIN, SENSOR1_IN_PIN, SENSOR2_IN_PIN, SENSOR3_IN_PIN, SENSOR4_IN_PIN, SENSOR5_IN_PIN,
+                        SENSOR0_OUT_PIN, SENSOR1_OUT_PIN, SENSOR2_OUT_PIN, SENSOR3_OUT_PIN, SENSOR4_OUT_PIN, SENSOR5_OUT_PIN);
 Timer global_timer;                         // set up global program timer
 Ticker control_ticker;
 Ticker serial_ticker;
