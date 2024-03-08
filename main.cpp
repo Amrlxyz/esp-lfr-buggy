@@ -45,7 +45,7 @@ public:
                 sens5_(sens5), led5_(led5) 
                 {
                     reset();
-                    set_all_led_on(false);
+                    set_all_led_on(true);
                 };
 
     
@@ -61,12 +61,12 @@ public:
 
     void set_all_led_on(bool status)
     {
-        led0_ = status;
-        led1_ = status;
-        led2_ = status;
-        led3_ = status;
-        led4_ = status;
-        led5_ = status;
+        led0_.write(status);
+        led1_.write(status);
+        led2_.write(status);
+        led3_.write(status);
+        led4_.write(status);
+        led5_.write(status);
     }
 
     
