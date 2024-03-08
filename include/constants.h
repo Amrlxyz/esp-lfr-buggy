@@ -39,15 +39,27 @@
 #define PID_SENS_KI         2
 #define PID_SENS_KD         0
 
+
+
 /* OTHER CONSTANTS */
 
+// Sensor Array Constants
+#define SENS_SAMPLE_COUNT       5
+
+
+// Square Task Constants
+#define SQUARE_VELOCITY_SET                 0.4
+#define SQUARE_TURNING_RIGHT_ANGLE          92
+#define SQUARE_TURNING_LEFT_ANGLE           101.5
+#define SQUARE_DISTANCE                     1.01
+
 // Control Timing Constants
-#define CONTROL_UPDATE_RATE         100                                     // Hz
+#define CONTROL_UPDATE_RATE         10                                     // Hz
 #define CONTROL_UPDATE_PERIOD       (1.0f / CONTROL_UPDATE_RATE)            // Seconds
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
-#define SERIAL_UPDATE_PERIOD        1     // Seconds
+#define SERIAL_UPDATE_PERIOD        .2     // Seconds
 
 // Encoder Constants
 #define WHEEL_SEPERATION    0.188       // metres

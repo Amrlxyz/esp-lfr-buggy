@@ -15,7 +15,12 @@ class SensorArray
 {
 protected:
 
-
+    DigitalOut led3L_;
+    DigitalOut led2L_;
+    DigitalOut led1L_;
+    DigitalOut led1R_;
+    DigitalOut led2R_;
+    DigitalOut led3R_;
 
     AnalogIn sens3L_;
     AnalogIn sens2L_;
@@ -24,49 +29,95 @@ protected:
     AnalogIn sens2R_;
     AnalogIn sens3R_;
 
-    float val_3L;
-    float val_2L;
-    float val_1L;
-    float val_1R;
-    float val_2R;
-    float val_3R;
-
     float output;
+
+    float sens_values[6];
 
 public:
 
-    SensorArray(PinName sens3L, PinName sens2L, PinName sens1L, PinName sens1R, PinName sens2R, PinName sens3R):
-                sens3L_(sens3L),
-                sens2L_(sens2L),
-                sens1L_(sens1L),
-                sens1R_(sens1R),
-                sens2R_(sens2R),
-                sens3R_(sens3R){reset();};
+    SensorArray(PinName sens3L, PinName sens2L, PinName sens1L, PinName sens1R, PinName sens2R, PinName sens3R,
+                PinName led3L, PinName led2L, PinName led1L, PinName led1R, PinName led2R, PinName led3R):
+                sens3L_(sens3L), led3L_(led3L),
+                sens2L_(sens2L), led2L_(led2L),
+                sens1L_(sens1L), led1L_(led1L),
+                sens1R_(sens1R), led1R_(led1R),
+                sens2R_(sens2R), led2R_(led2R),
+                sens3R_(sens3R), led3R_(led3R) 
+                {
+                    reset();
+                    set_all_led_on(false);
+                };
 
+    
     void reset(void)
     {
-        val_3L = 0;
-        val_2L = 0;
-        val_1L = 0;
-        val_1R = 0;
-        val_2R = 0;
-        val_3R = 0;
+        for (int i = 0; i < sizeof(sens_values) / sizeof(sens_values[0]); i++) 
+        {
+            sens_values[i] = 0;
+        }
         output = 0;
     }
 
-    void update(void)
-    {
-        val_3L = sens3L_.read(); 
-        val_2L = sens2L_.read();
-        val_1L = sens1L_.read();
-        val_1R = sens1R_.read();
-        val_2R = sens2R_.read();
-        val_3R = sens3R_.read();
 
-        output = val_3L * (-3) + val_2L * (-2) + val_1L * (-1) + val_1R * (1) + val_2R * (2) + val_3R * (3);
+    void set_all_led_on(bool status)
+    {
+        led3L_ = status;
+        led2L_ = status;
+        led1L_ = status;
+        led1R_ = status;
+        led2R_ = status;
+        led3R_ = status;
     }
 
-    float get_output(void)
+    
+    float read(AnalogIn sensor){return 0;}
+
+    
+    void update(void)
+    {
+        float val_3L_sample_total = 0;
+        float val_2L_sample_total = 0;
+        float val_1L_sample_total = 0;
+        float val_1R_sample_total = 0;
+        float val_2R_sample_total = 0;
+        float val_3R_sample_total = 0;
+
+        for (int i = 0; i < SENS_SAMPLE_COUNT; i++)
+        {            
+            val_3L_sample_total += sens3L_.read(); 
+            val_2L_sample_total += sens2L_.read();
+            val_1L_sample_total += sens1L_.read();
+            val_1R_sample_total += sens1R_.read();
+            val_2R_sample_total += sens2R_.read();
+            val_3R_sample_total += sens3R_.read();
+        }
+
+        sens_values[0] = val_3L_sample_total / SENS_SAMPLE_COUNT;
+        sens_values[1] = val_2L_sample_total / SENS_SAMPLE_COUNT;
+        sens_values[2] = val_1L_sample_total / SENS_SAMPLE_COUNT;
+        sens_values[3] = val_1R_sample_total / SENS_SAMPLE_COUNT;
+        sens_values[4] = val_2R_sample_total / SENS_SAMPLE_COUNT;
+        sens_values[5] = val_3R_sample_total / SENS_SAMPLE_COUNT;
+
+        output = sens_values[0] * (-3) + sens_values[1] * (-2) + sens_values[2] * (-1) + sens_values[3] * (1) + sens_values[4] * (2) + sens_values[5] * (3);
+    }
+
+    
+    float get_sens_output(int index)
+    {
+        if ((index < sizeof(sens_values) / sizeof(sens_values[0])) && (index >= 0))
+        {
+            return sens_values[index]; 
+        }
+        return -1;
+    }
+
+    float* get_sens_output_array(void)
+    {
+        return sens_values;
+    } 
+
+    float get_array_output(void)
     {
         return output;
     }
@@ -93,6 +144,7 @@ Buggy_states buggy_state = inactive;        // stores buggy states when performi
 volatile bool pc_serial_update = false;
 volatile bool bt_serial_update = false;
 int ISR_exec_time = 0;
+int loop_exec_time = 0;
 int square_stages = 0;
 
 
@@ -101,7 +153,8 @@ DigitalOut LED(LED_PIN);                    // Debug LED set
 Serial pc(USBTX, USBRX, 115200);            // set up serial comm with pc
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN);     
 MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, true);
-SensorArray sensor_array(SENSOR3L_IN_PIN, SENSOR2L_IN_PIN, SENSOR1L_IN_PIN, SENSOR1R_IN_PIN, SENSOR2R_IN_PIN, SENSOR3R_IN_PIN);
+SensorArray sensor_array(SENSOR3L_IN_PIN, SENSOR2L_IN_PIN, SENSOR1L_IN_PIN, SENSOR1R_IN_PIN, SENSOR2R_IN_PIN, SENSOR3R_IN_PIN,
+                        SENSOR3L_OUT_PIN, SENSOR2L_OUT_PIN, SENSOR1L_OUT_PIN, SENSOR1R_OUT_PIN, SENSOR2R_OUT_PIN, SENSOR3R_OUT_PIN);
 Timer global_timer;                         // set up global program timer
 Ticker control_ticker;
 Ticker serial_ticker;
@@ -122,24 +175,19 @@ void control_update_ISR(void)
     // Get the current time to measure the execution time
     int curr_time = global_timer.read_us();
 
-
-
     /* Run all the update functions: */
     sensor_array.update();
     encoder_left.update();
     encoder_right.update();
-    vp.update(
-        encoder_left.get_tick_count(), 
-        encoder_right.get_tick_count());
-
+    vp.update(encoder_left.get_tick_count(), encoder_right.get_tick_count());
 
     /* PID Calculations: */
     PID_motor_left.update(vp.get_left_set_speed(), encoder_left.get_filtered_speed());
     PID_motor_right.update(vp.get_right_set_speed(), encoder_right.get_filtered_speed());
-    PID_sensor_array.update(0, sensor_array.get_output()); 
+    PID_sensor_array.update(0, sensor_array.get_array_output());
+    
     // pc.printf("%.4f,%.4f\n", encoder_left.get_speed(), encoder_left.get_filtered_speed());
     // pc.printf("%.4f\n", vp.get_cumulative_angle_deg());
-
 
     /* Apply PID output */
     if (buggy_state == PID_test || buggy_state == square_mode)
@@ -164,12 +212,6 @@ void serial_update_ISR(void)
 
 
 /* OTHER FUNCTIONS */
-void square_stage_end(void)
-{
-    bt.send_fstring("%d, %.4f, %.4f", square_stages, vp.get_cumulative_angle_deg(), vp.get_distance_travelled());
-}
-
-
 void reset_everything(void)
 {
     encoder_left.reset();
@@ -212,22 +254,14 @@ int main()
     control_ticker.attach_us(&control_update_ISR, CONTROL_UPDATE_PERIOD_US);        // Starts the control ISR update ticker
     serial_ticker.attach(&serial_update_ISR, SERIAL_UPDATE_PERIOD);                 // Starts the control ISR update ticker
 
-    // Straight test variables
-    float straight_right_speed_offset = -0.02;
-    float straight_speed = 0.25;
-
-    // Square task variables
-    float square_angle_set = 0.0;
-    float square_distance_set = 0.0;
-    float square_velocity_set = 0.4;
-    float square_turning_right_angle = 92;  
-    float square_turning_left_angle = 101.5;  
-    float square_distance = 1.01;
-
-    float sensor_array_value;
+    // Initialise Program Variables
+    float square_angle_set = 0;                   
+    float square_distance_set = 0;
 
     while (1)
     {
+        int curr_time = global_timer.read_us();
+
         /* --- START OF BLUETOOTH COMMAND HANDLING --- */
         if (bt.data_recieved_complete()) 
         {
@@ -255,7 +289,6 @@ int main()
                                 }
                                 break;
                             case bt.speed:                  // S
-                                straight_right_speed_offset = bt.data1;
                                 break;
                             default:
                                 break;
@@ -329,11 +362,10 @@ int main()
                 switch (square_stages)
                 {
                     case 0:
-                        square_distance_set += square_distance;
+                        square_distance_set += SQUARE_DISTANCE;
                         vp.set_set_angle(square_angle_set);
-                        vp.set_set_velocity(square_velocity_set);
+                        vp.set_set_velocity(SQUARE_VELOCITY_SET);
                         square_stages++;
-                        square_stage_end();
                         break;
                     case 7:
                     case 1:
@@ -343,13 +375,12 @@ int main()
                         {
                             if (square_stages == 7)
                             {
-                                square_angle_set += square_turning_right_angle;
+                                square_angle_set += SQUARE_TURNING_RIGHT_ANGLE;
                             }
-                            square_angle_set += square_turning_right_angle;
+                            square_angle_set += SQUARE_TURNING_RIGHT_ANGLE;
                             vp.set_set_angle(square_angle_set);
                             vp.set_set_velocity(0);
                             square_stages++;
-                            square_stage_end();
                         }
                         break;
                     case 2:
@@ -358,11 +389,10 @@ int main()
                     case 8:
                         if (vp.get_cumulative_angle_deg() >= square_angle_set) // wait to turn 90 and start moving straight
                         {
-                            square_distance_set += square_distance;
+                            square_distance_set += SQUARE_DISTANCE;
                             vp.set_set_angle(square_angle_set);
-                            vp.set_set_velocity(square_velocity_set);
+                            vp.set_set_velocity(SQUARE_VELOCITY_SET);
                             square_stages++;
-                            square_stage_end();
                         }
                         break;
                     case 9:
@@ -370,11 +400,10 @@ int main()
                     case 13:
                         if (vp.get_distance_travelled() >= square_distance_set) // wait to move 1m then, start turning left
                         {
-                            square_angle_set -= square_turning_left_angle;
+                            square_angle_set -= SQUARE_TURNING_LEFT_ANGLE;
                             vp.set_set_angle(square_angle_set);
                             vp.set_set_velocity(0);
                             square_stages++;
-                            square_stage_end();
                         }
                         break;
                     case 10:
@@ -382,36 +411,22 @@ int main()
                     case 14:
                         if (vp.get_cumulative_angle_deg() <= square_angle_set) // wait to turn -90 and start moving straight
                         {
-                            square_distance_set += square_distance;
+                            square_distance_set += SQUARE_DISTANCE;
                             vp.set_set_angle(square_angle_set);
-                            vp.set_set_velocity(square_velocity_set);
+                            vp.set_set_velocity(SQUARE_VELOCITY_SET);
                             square_stages++;
-                            square_stage_end();
                         }
                         break;
                     case 15:
                         if (vp.get_distance_travelled() >= square_distance_set)  // Stop
                         {
-                            motor_left.set_duty_cycle(0.0);
-                            motor_right.set_duty_cycle(0.0);
-                            square_stages = 0;
                             buggy_state = inactive;
-                            square_stage_end();
+                            stop_motors();
+                            square_stages = 0;
                         }
                         break;
                     default:
                         break;
-                }
-                break;
-            case straight_test:
-                motor_left.set_duty_cycle(straight_speed);
-                motor_right.set_duty_cycle(straight_speed + straight_right_speed_offset);
-                if (vp.get_distance_travelled() >= 1)
-                {
-                    buggy_state = inactive;
-                    motor_left.set_duty_cycle(0.0);
-                    motor_right.set_duty_cycle(0.0);
-                    reset_everything();
                 }
                 break;
             case PID_test:
@@ -422,10 +437,9 @@ int main()
                 }
                 break;
             case line_test:
-                sensor_array_value = sensor_array.get_output();
                 break;
             case line_follow:
-
+                break;
             default:
                 break;
         }    
@@ -515,27 +529,27 @@ int main()
             pc.printf("\n");
             pc.printf("\n");
 
-            pc.printf("Square State: %d \n", square_stages);
+            pc.printf("                        L   |   R   \n");
+            pc.printf("Duty Cycle:          %6.2f | %6.2f \n",  motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
+            pc.printf("Encoder Ticks:       %6d | %6d \n",      encoder_left.get_tick_count(), encoder_right.get_tick_count());
+            pc.printf("Motor Speed (m/s):   %6.4f | %6.4f \n",  encoder_left.get_speed(), encoder_right.get_speed());
 
-            pc.printf("Left  Motor Duty Cycle: %.2f \n", motor_left.get_duty_cycle());
-            pc.printf("Right Motor Duty Cycle: %.2f \n", motor_right.get_duty_cycle());
+            pc.printf("\n");
 
-            pc.printf("Left  Encoder Tick Count: %d \n", encoder_left.get_tick_count());
-            pc.printf("Right Encoder Tick Count: %d \n", encoder_right.get_tick_count());
+            pc.printf("Cumulative Angle:    %7.4f Degrees \n", vp.get_cumulative_angle_deg());
+            pc.printf("Distance Travelled:  %7.4f Metres \n", vp.get_distance_travelled());
+            pc.printf("Sensor Values:  \n");
+
+            float* sens = sensor_array.get_sens_output_array();
+            for (int i = 0; i < 6; i++)
+            {
+                pc.printf("%d: %4.2f | ", i, sens[i]);
+            }
+            pc.printf("Out: %f\n", sensor_array.get_array_output());
             
-            pc.printf("Left  Motor Speed (m/s): %.5f \n", encoder_left.get_speed());
-            pc.printf("Right Motor Speed (m/s): %.5f \n", encoder_right.get_speed());
-
             pc.printf("\n");
 
-            pc.printf("Cumulative Angle: %.3f Degrees \n", vp.get_cumulative_angle_deg());
-            pc.printf("Distance Travelled: %.3f Metres \n", vp.get_distance_travelled());
-
-            pc.printf("\n");
-
-            pc.printf("Calculation ISR Time: %d us / Global Time: %d us \n", ISR_exec_time, global_timer.read_us());
-
-            pc.printf("sensor value: %.5f \n", sensor_array_value);
+            pc.printf("Calculation ISR Time: %d us / Main Loop Time: %d us / Global Time: %d us \n", ISR_exec_time, loop_exec_time, global_timer.read_us());
 
             pc_serial_update = false;
         }
@@ -543,5 +557,6 @@ int main()
 
 
         /*       END OF LOOP      */
+        loop_exec_time = global_timer.read_us() - curr_time;
     }
 }
