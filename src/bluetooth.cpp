@@ -104,6 +104,9 @@ bool Bluetooth::parse_data(void)
             case 'L':
                 exec_type = toggle_led_test;
                 break;
+            case 'F':
+                exec_type = line_follow;
+                break;
             default:
                 return false;
         }

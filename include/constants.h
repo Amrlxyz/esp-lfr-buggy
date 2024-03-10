@@ -29,17 +29,6 @@
 #define PID_A_KI            0
 #define PID_A_KD            0
 
-// Sensor PID Constants
-#define PID_SENS_TAU        1
-#define PID_SENS_MIN_OUT    -PID_SENS_MAX_OUT
-#define PID_SENS_MAX_OUT    3
-#define PID_SENS_MIN_INT    -PID_A_MAX_INT
-#define PID_SENS_MAX_INT    2
-#define PID_SENS_KP         1
-#define PID_SENS_KI         2
-#define PID_SENS_KD         0
-
-
 
 /* OTHER CONSTANTS */
 
@@ -59,12 +48,15 @@
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
-#define SERIAL_UPDATE_PERIOD        .2     // Seconds
+#define SERIAL_UPDATE_PERIOD        .1     // Seconds
 
 // Encoder Constants
 #define WHEEL_SEPERATION    0.188       // metres
 #define WHEEL_RADIUS        0.0415      // metres
 #define PULSE_PER_REV       256         
+#define LP_SPEED_B0         0.0591174
+#define LP_SPEED_B1         0.0591174
+#define LP_SPEED_A0         0.88176521
 
 // Motor Constants
 #define MOTOR_PWM_FREQ      20'000

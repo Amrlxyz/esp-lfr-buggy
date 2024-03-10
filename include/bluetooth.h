@@ -41,6 +41,7 @@ public:
         square_test,            // Q
         PID_test,               // P
         toggle_led_test,        // L
+        line_follow,            // F
     } BluetoothCommandExecTypes;
 
     typedef enum

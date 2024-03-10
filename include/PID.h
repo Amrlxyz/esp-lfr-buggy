@@ -55,15 +55,3 @@ public:
 
     float get_output(void);
 };
-
-
-/*
-int main(){
-    
-    PIDmotorController leftmotor(0,0,0,0,0,0,0,0);
-    PIDmotorController rightmotor(0,0,0,0,0,0,0,0);
-    PIDmotorController angle(0,0,0,0,0,0,0,0);
-    angle.set(1.2,0.5,0.05,-200,200,-200,200);
-
-}
-*/
