@@ -100,7 +100,7 @@ public:
 
         output = (sens_values[0] * (-3) + sens_values[1] * (-2) + sens_values[2] * (-1) + sens_values[3] * (1) + sens_values[4] * (2) + sens_values[5] * (3));
 
-        angle_output = output * (-15);
+        angle_output = output * (SENS_ANGLE_COEFF);
     }
 
     
@@ -141,7 +141,7 @@ enum
     task_test,
     task_test_inactive,
     inactive,               // motor driver off
-} buggy_state = inactive;  // stores buggy states when performing actions
+} buggy_state = inactive;   // stores buggy states when performing actions
 
 
 /* BUGGY STATUS */
@@ -155,9 +155,15 @@ struct
 
     float cumulative_angle_deg;
     float distance_travelled;
-
-    int square_stage;
 } buggy_status = {0};
+
+
+struct
+{
+    float set_angle;
+    float set_distance;
+    int stage;
+} square_task = {0};
 
 
 /* GLOBAL VARIBLES DECLARATIONS */
@@ -169,15 +175,15 @@ int loop_exec_time = 0;
 
 /* OBJECTS DECLARATIONS */
 DigitalOut LED(LED_PIN);                    // Debug LED set
-DigitalOut driver_board_enable(DRIVER_ENABLE_PIN);
 Serial pc(USBTX, USBRX, 115200);            // set up serial comm with pc
-Bluetooth bt(BT_TX_PIN, BT_RX_PIN);     
-SensorArray sensor_array(SENSOR0_IN_PIN, SENSOR1_IN_PIN, SENSOR2_IN_PIN, SENSOR3_IN_PIN, SENSOR4_IN_PIN, SENSOR5_IN_PIN,
-                        SENSOR0_OUT_PIN, SENSOR1_OUT_PIN, SENSOR2_OUT_PIN, SENSOR3_OUT_PIN, SENSOR4_OUT_PIN, SENSOR5_OUT_PIN);
 Timer global_timer;                         // set up global program timer
 Ticker control_ticker;
 Ticker serial_ticker;
 
+Bluetooth bt(BT_TX_PIN, BT_RX_PIN);     
+MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, DRIVER_MONITOR_PIN);
+SensorArray sensor_array(SENSOR0_IN_PIN, SENSOR1_IN_PIN, SENSOR2_IN_PIN, SENSOR3_IN_PIN, SENSOR4_IN_PIN, SENSOR5_IN_PIN,
+                        SENSOR0_OUT_PIN, SENSOR1_OUT_PIN, SENSOR2_OUT_PIN, SENSOR3_OUT_PIN, SENSOR4_OUT_PIN, SENSOR5_OUT_PIN);
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN, MOTORL_CHA_PIN, MOTORL_CHB_PIN);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN, MOTORR_CHA_PIN, MOTORR_CHB_PIN);
 PID PID_motor_left(PID_M_L_KP, PID_M_L_KI, PID_M_L_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT);
@@ -185,25 +191,12 @@ PID PID_motor_right(PID_M_R_KP, PID_M_R_KI, PID_M_R_KD, PID_M_TAU, PID_M_MIN_OUT
 PID PID_angle(PID_A_KP, PID_A_KI, PID_A_KD, PID_A_TAU, PID_A_MIN_OUT, PID_A_MAX_OUT, PID_A_MIN_INT, PID_A_MAX_INT);
 
 
+
 /* HELPER FUNCTIONS */
 void stop_motors(void)
 {
     motor_left.set_duty_cycle(0.0);
     motor_right.set_duty_cycle(0.0);
-}
-
-
-void update_motor_board(void)
-{
-    // Disabling the driver board if in inactive state
-    if (buggy_state == inactive || buggy_state == task_test_inactive) 
-    {
-        driver_board_enable.write(0);
-    } 
-    else 
-    {
-        driver_board_enable.write(1);
-    }
 }
 
 
@@ -217,19 +210,14 @@ void update_buggy_status(int tick_count_left, int tick_count_right)
 }
 
 
-void reset_buggy_status(void)
-{
-    buggy_status = {0};
-}
-
-
 void reset_everything(void)
 {
     motor_left.reset();
     motor_right.reset();
     PID_motor_left.reset();
     PID_motor_right.reset();
-    reset_buggy_status();
+
+    buggy_status = {0};
 }
 
 
@@ -243,6 +231,7 @@ void control_update_ISR(void)
     sensor_array.update();
     motor_left.update();
     motor_right.update();
+    driver_board.update_measurements();
     update_buggy_status(motor_left.get_tick_count(), motor_right.get_tick_count());
 
     // pc.printf("%.4f,%.4f\n", motor_left.get_speed(), motor_left.get_filtered_speed());
@@ -291,16 +280,13 @@ int main()
 {
     while (!bt.is_ready()) {};          // while bluetooth not ready, loop and do nothing
 
-    driver_board_enable.write(0);
+    driver_board.disable();
+    sensor_array.set_all_led_on(true);
+
     global_timer.start();                                                           // Starts the global program timer
     control_ticker.attach_us(&control_update_ISR, CONTROL_UPDATE_PERIOD_US);        // Starts the control ISR update ticker
     serial_ticker.attach(&serial_update_ISR, SERIAL_UPDATE_PERIOD);                 // Starts the control ISR update ticker
 
-    sensor_array.set_all_led_on(true);
-
-    // Initialise Program Variables
-    float square_angle_set = 0;                   
-    float square_distance_set = 0;
 
     while (1)
     {
@@ -402,74 +388,74 @@ int main()
 
 
         /* --- START OF BUGGY ACTIONS/STATE LOGIC CODE --- */ 
-        update_motor_board();
+        driver_board.update_enable(buggy_state != inactive && buggy_state != task_test_inactive);
         switch (buggy_state) 
         {   
             case square_mode:
-                switch (buggy_status.square_stage)
+                switch (square_task.stage)
                 {
                     case 0:
-                        square_distance_set += SQUARE_DISTANCE;
-                        buggy_status.set_angle = square_angle_set;
+                        square_task.set_distance += SQUARE_DISTANCE;
+                        buggy_status.set_angle = square_task.set_angle;
                         buggy_status.set_velocity = SQUARE_VELOCITY_SET;
-                        buggy_status.square_stage++;
+                        square_task.stage++;
                         break;
                     case 7:
                     case 1:
                     case 3:
                     case 5:
-                        if (buggy_status.distance_travelled >= square_distance_set) // wait to move 1m then, start turning right
+                        if (buggy_status.distance_travelled >= square_task.set_distance) // wait to move 1m then, start turning right
                         {
-                            if (buggy_status.square_stage == 7)
+                            if (square_task.stage == 7)
                             {
-                                square_angle_set += SQUARE_TURNING_RIGHT_ANGLE;
+                                square_task.set_angle += SQUARE_TURNING_RIGHT_ANGLE;
                             }
-                            square_angle_set += SQUARE_TURNING_RIGHT_ANGLE;
-                            buggy_status.set_angle = square_angle_set;
+                            square_task.set_angle += SQUARE_TURNING_RIGHT_ANGLE;
+                            buggy_status.set_angle = square_task.set_angle;
                             buggy_status.set_velocity = 0;
-                            buggy_status.square_stage++;
+                            square_task.stage++;
                         }
                         break;
                     case 2:
                     case 4:
                     case 6:
                     case 8:
-                        if (buggy_status.cumulative_angle_deg >= square_angle_set) // wait to turn 90 and start moving straight
+                        if (buggy_status.cumulative_angle_deg >= square_task.set_angle) // wait to turn 90 and start moving straight
                         {
-                            square_distance_set += SQUARE_DISTANCE;
-                            buggy_status.set_angle = square_angle_set;
+                            square_task.set_distance += SQUARE_DISTANCE;
+                            buggy_status.set_angle = square_task.set_angle;
                             buggy_status.set_velocity = SQUARE_VELOCITY_SET;
-                            buggy_status.square_stage++;
+                            square_task.stage++;
                         }
                         break;
                     case 9:
                     case 11:
                     case 13:
-                        if (buggy_status.distance_travelled >= square_distance_set) // wait to move 1m then, start turning left
+                        if (buggy_status.distance_travelled >= square_task.set_distance) // wait to move 1m then, start turning left
                         {
-                            square_angle_set -= SQUARE_TURNING_LEFT_ANGLE;
-                            buggy_status.set_angle = square_angle_set;
+                            square_task.set_angle -= SQUARE_TURNING_LEFT_ANGLE;
+                            buggy_status.set_angle = square_task.set_angle;
                             buggy_status.set_velocity = 0;
-                            buggy_status.square_stage++;
+                            square_task.stage++;
                         }
                         break;
                     case 10:
                     case 12:
                     case 14:
-                        if (buggy_status.cumulative_angle_deg <= square_angle_set) // wait to turn -90 and start moving straight
+                        if (buggy_status.cumulative_angle_deg <= square_task.set_angle) // wait to turn -90 and start moving straight
                         {
-                            square_distance_set += SQUARE_DISTANCE;
-                            buggy_status.set_angle = square_angle_set;
+                            square_task.set_distance += SQUARE_DISTANCE;
+                            buggy_status.set_angle = square_task.set_angle;
                             buggy_status.set_velocity = SQUARE_VELOCITY_SET;
-                            buggy_status.square_stage++;
+                            square_task.stage++;
                         }
                         break;
                     case 15:
-                        if (buggy_status.distance_travelled >= square_distance_set)  // Stop
+                        if (buggy_status.distance_travelled >= square_task.set_distance)  // Stop
                         {
                             buggy_state = inactive;
                             stop_motors();
-                            buggy_status.square_stage = 0;
+                            square_task.stage = 0;
                         }
                         break;
                     default:

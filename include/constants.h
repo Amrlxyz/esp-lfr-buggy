@@ -34,6 +34,7 @@
 
 // Sensor Array Constants
 #define SENS_SAMPLE_COUNT       5
+#define SENS_ANGLE_COEFF        -15
 
 
 // Square Task Constants
