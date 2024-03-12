@@ -191,7 +191,6 @@ PID PID_motor_right(PID_M_R_KP, PID_M_R_KI, PID_M_R_KD, PID_M_TAU, PID_M_MIN_OUT
 PID PID_angle(PID_A_KP, PID_A_KI, PID_A_KD, PID_A_TAU, PID_A_MIN_OUT, PID_A_MAX_OUT, PID_A_MIN_INT, PID_A_MAX_INT);
 
 
-
 /* HELPER FUNCTIONS */
 void stop_motors(void)
 {
@@ -231,7 +230,9 @@ void control_update_ISR(void)
     sensor_array.update();
     motor_left.update();
     motor_right.update();
+
     driver_board.update_measurements();
+
     update_buggy_status(motor_left.get_tick_count(), motor_right.get_tick_count());
 
     // pc.printf("%.4f,%.4f\n", motor_left.get_speed(), motor_left.get_filtered_speed());
@@ -470,7 +471,7 @@ int main()
                 }
                 break;
             case line_follow:
-                sensor_array.get_angle_output();
+                buggy_status.set_velocity = LINE_FOLLOW_VELOCITY;
                 break;
             default:
                 break;
@@ -580,6 +581,7 @@ int main()
                 pc.printf("%d:%6.4f,", i, sens[i]);
             }
             pc.printf("Out:%f\n", sensor_array.get_array_output());
+            // pc.printf("%d, %d\n", ISR_exec_time, loop_exec_time);
 
             pc_serial_update = false;
         }

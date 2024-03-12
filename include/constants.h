@@ -36,6 +36,8 @@
 #define SENS_SAMPLE_COUNT       5
 #define SENS_ANGLE_COEFF        -15
 
+// Line Follow Constants
+#define LINE_FOLLOW_VELOCITY    0.5
 
 // Square Task Constants
 #define SQUARE_VELOCITY_SET                 0.4

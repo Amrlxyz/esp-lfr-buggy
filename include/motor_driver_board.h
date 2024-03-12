@@ -2,6 +2,9 @@
 
 #include "mbed.h"
 
+#include "ds2781.h"
+#include "OneWire_Methods.h"
+
 
 class MotorDriverBoard
 {
@@ -10,7 +13,6 @@ protected:
     DigitalOut board_enable;
     bool enable_state;
 
-    DigitalInOut one_wire_pin;
     int VoltageReading, CurrentReading;
     float Voltage, Current;
 

@@ -1,13 +1,16 @@
 #include "mbed.h"
-#include "constants.h"
 #include "motor_driver_board.h"
+#include "constants.h"
+#include "pin_assignments.h"
 
 #include "ds2781.h"
 #include "OneWire_Methods.h"
-#include "pin_assignments.h"
 
 
-MotorDriverBoard::MotorDriverBoard(PinName enable_pin, PinName monitor_pin): board_enable(enable_pin), one_wire_pin(DRIVER_MONITOR_PIN) 
+DigitalInOut one_wire_pin(DRIVER_MONITOR_PIN);
+
+
+MotorDriverBoard::MotorDriverBoard(PinName enable_pin, PinName monitor_pin): board_enable(enable_pin)
 {
     disable();
 }
