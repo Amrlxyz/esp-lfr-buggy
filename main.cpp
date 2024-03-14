@@ -231,7 +231,7 @@ void control_update_ISR(void)
     motor_left.update();
     motor_right.update();
 
-    driver_board.update_measurements();
+    // driver_board.update_measurements();
 
     update_buggy_status(motor_left.get_tick_count(), motor_right.get_tick_count());
 
@@ -248,14 +248,16 @@ void control_update_ISR(void)
     }
 
     /* Calculate and apply PID output on certain modes only*/
-    if (buggy_state == PID_test || buggy_state == square_mode)
+    if (buggy_state == PID_test ||
+        buggy_state == square_mode || 
+        buggy_state == line_follow)
     {
-        buggy_status.left_set_speed  = buggy_status.set_velocity + PID_angle.get_output();
-        buggy_status.right_set_speed = buggy_status.set_velocity - PID_angle.get_output();    
+        buggy_status.left_set_speed  = buggy_status.set_velocity - PID_angle.get_output();
+        buggy_status.right_set_speed = buggy_status.set_velocity;
 
         /* PID Calculations: */
         PID_motor_left.update(buggy_status.left_set_speed, motor_left.get_filtered_speed());
-        PID_motor_right.update(buggy_status.left_set_speed, motor_right.get_filtered_speed());
+        PID_motor_right.update(buggy_status.right_set_speed, motor_right.get_filtered_speed());
 
         motor_left.set_duty_cycle(PID_motor_left.get_output());
         motor_right.set_duty_cycle(PID_motor_right.get_output());
@@ -369,6 +371,7 @@ int main()
                                 buggy_state = task_test_inactive;
                                 break;
                             case bt.line_follow:
+                                reset_everything();
                                 buggy_state = line_follow;
                                 break;
                             default:
@@ -581,6 +584,7 @@ int main()
                 pc.printf("%d:%6.4f,", i, sens[i]);
             }
             pc.printf("Out:%f\n", sensor_array.get_array_output());
+
             // pc.printf("%d, %d\n", ISR_exec_time, loop_exec_time);
 
             pc_serial_update = false;

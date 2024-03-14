@@ -5,9 +5,9 @@
 // General Motor PID constants
 #define PID_M_TAU           1
 #define PID_M_MIN_OUT       -PID_M_MAX_OUT
-#define PID_M_MAX_OUT       0.5
+#define PID_M_MAX_OUT       0.9
 #define PID_M_MIN_INT       -PID_M_MAX_INT
-#define PID_M_MAX_INT       0.4
+#define PID_M_MAX_INT       0.5
 
 // Left Motor PID Constants
 #define PID_M_L_KP          1
@@ -34,10 +34,10 @@
 
 // Sensor Array Constants
 #define SENS_SAMPLE_COUNT       5
-#define SENS_ANGLE_COEFF        -15
+#define SENS_ANGLE_COEFF        -1
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY    0.5
+#define LINE_FOLLOW_VELOCITY    0.6
 
 // Square Task Constants
 #define SQUARE_VELOCITY_SET                 0.4
@@ -46,12 +46,12 @@
 #define SQUARE_DISTANCE                     1.01
 
 // Control Timing Constants
-#define CONTROL_UPDATE_RATE         10                                     // Hz
+#define CONTROL_UPDATE_RATE         100                                     // Hz
 #define CONTROL_UPDATE_PERIOD       (1.0f / CONTROL_UPDATE_RATE)            // Seconds
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
-#define SERIAL_UPDATE_PERIOD        .1     // Seconds
+#define SERIAL_UPDATE_PERIOD        1     // Seconds
 
 // Encoder Constants
 #define WHEEL_SEPERATION    0.188       // metres
