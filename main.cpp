@@ -238,7 +238,7 @@ void control_update_ISR(void)
     // pc.printf("%.4f,%.4f\n", motor_left.get_speed(), motor_left.get_filtered_speed());
     // pc.printf("%.4f\n", buggy_status.cumulative_angle_deg);
 
-    if (buggy_state == square_mode)
+    if (buggy_state == square_mode || buggy_state == PID_test)
     {
         PID_angle.update(buggy_status.set_angle, buggy_status.cumulative_angle_deg);
     }
@@ -252,7 +252,7 @@ void control_update_ISR(void)
         buggy_state == square_mode || 
         buggy_state == line_follow)
     {
-        buggy_status.left_set_speed  = buggy_status.set_velocity - PID_angle.get_output();
+        buggy_status.left_set_speed  = buggy_status.set_velocity;
         buggy_status.right_set_speed = buggy_status.set_velocity;
 
         /* PID Calculations: */
@@ -262,8 +262,16 @@ void control_update_ISR(void)
         motor_left.set_duty_cycle(PID_motor_left.get_output());
         motor_right.set_duty_cycle(PID_motor_right.get_output());
 
-        // pc.printf("SetL:%.4f,SetR:%.4f,FiltL:%.4f,ErrL:%.4f,OutL:%.4f,OutR:%.4f\n", buggy_status.left_set_speed, buggy_status.left_set_speed, motor_left.get_filtered_speed(), buggy_status.left_set_speed - motor_left.get_filtered_speed(), PID_motor_left.get_output(), PID_motor_right.get_output());
-        // pc.printf("R - Meas: %f, Out: %f\n", motor_right.get_speed(), PID_motor_right.get_output());
+        float* out_arr = PID_motor_left.get_terms();
+
+        pc.printf("%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n", 
+                        out_arr[0], //= set_point;
+                        out_arr[1], //= measurement;
+                        out_arr[2], //= error;
+                        out_arr[3], //= propotional;
+                        out_arr[4], //= integrator;
+                        out_arr[5], //= differentiator;
+                        out_arr[6]); //= output;
     }
 
     // Measure control ISR execution time
@@ -284,12 +292,12 @@ int main()
     while (!bt.is_ready()) {};          // while bluetooth not ready, loop and do nothing
 
     driver_board.disable();
-    sensor_array.set_all_led_on(true);
+    sensor_array.set_all_led_on(false);
+    // pc.printf("set_point,measurement,error,proportional,integrator,differentiator,output\n");
 
     global_timer.start();                                                           // Starts the global program timer
     control_ticker.attach_us(&control_update_ISR, CONTROL_UPDATE_PERIOD_US);        // Starts the control ISR update ticker
     serial_ticker.attach(&serial_update_ISR, SERIAL_UPDATE_PERIOD);                 // Starts the control ISR update ticker
-
 
     while (1)
     {
@@ -323,6 +331,22 @@ int main()
                                 break;
                             case bt.speed:                  // S
                                 break;
+                            case bt.gains_PID:
+                                switch (bt.obj_type)
+                                {
+                                    case bt.motor_left:
+                                        PID_motor_left.set_constants(bt.data1, bt.data2, bt.data3);
+                                        break;
+                                    case bt.motor_right:
+                                        PID_motor_right.set_constants(bt.data1, bt.data2, bt.data3);
+                                        break;
+                                    case bt.sensor:
+                                        PID_angle.set_constants(bt.data1, bt.data2, bt.data3);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
                             default:
                                 break;
                         }
@@ -332,8 +356,8 @@ int main()
                         {
                             case bt.stop:
                                 // EMERGENCY STOP
-                                stop_motors();
                                 buggy_state = inactive;
+                                stop_motors();
                                 break;
                             case bt.uturn:
                                 buggy_state = inactive; // WIP
@@ -362,7 +386,7 @@ int main()
                                 break;
                             case bt.PID_test:
                                 reset_everything();
-                                buggy_status.set_angle = 90;
+                                buggy_status.set_angle = 0;
                                 buggy_status.set_velocity = 0.0;
                                 buggy_state = PID_test;
                                 break;
@@ -384,7 +408,7 @@ int main()
             }
             else
             {
-                bt.send_fstring("Invalid Command", bt.get_data());
+                bt.send_fstring("Err: %s", bt.get_data());
             }
             bt.reset_rx_buffer();
         }
@@ -467,7 +491,19 @@ int main()
                 }
                 break;
             case PID_test:
-                if (buggy_status.distance_travelled >= 0.5)
+                if (buggy_status.distance_travelled <= 0.1)
+                {
+                    buggy_status.set_velocity = 0.1;
+                }
+                if (buggy_status.distance_travelled >= 0.1)
+                {
+                    buggy_status.set_velocity = 0.3;
+                }
+                if (buggy_status.distance_travelled >= 0.3)
+                {
+                    buggy_status.set_velocity = 0.5;
+                }
+                if (buggy_status.distance_travelled >= 0.6)
                 {
                     buggy_state = inactive;
                     reset_everything();
@@ -539,6 +575,8 @@ int main()
                         }
                         break;
                     case bt.gains_PID:              // G
+                        bt.send_fstring("P:%.3f,I:%.3f,D:%.3f", bt.data1, bt.data2, bt.data3);
+                        break;
                     case bt.current_usage:          // C
                         bt.send_fstring("Feature WIP");
                         break;
@@ -578,12 +616,12 @@ int main()
 
             // pc.printf("Calculation ISR Time: %d us / Main Loop Time: %d us / Global Time: %d us \n", ISR_exec_time, loop_exec_time, global_timer.read_us());
 
-            float* sens = sensor_array.get_sens_output_array();
-            for (int i = 0; i < 6; i++)
-            {
-                pc.printf("%d:%6.4f,", i, sens[i]);
-            }
-            pc.printf("Out:%f\n", sensor_array.get_array_output());
+            // float* sens = sensor_array.get_sens_output_array();
+            // for (int i = 0; i < 6; i++)
+            // {
+            //     pc.printf("%d:%6.4f,", i, sens[i]);
+            // }
+            // pc.printf("Out:%f\n", sensor_array.get_array_output());
 
             // pc.printf("%d, %d\n", ISR_exec_time, loop_exec_time);
 

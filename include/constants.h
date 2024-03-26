@@ -7,11 +7,11 @@
 #define PID_M_MIN_OUT       -PID_M_MAX_OUT
 #define PID_M_MAX_OUT       0.9
 #define PID_M_MIN_INT       -PID_M_MAX_INT
-#define PID_M_MAX_INT       0.5
+#define PID_M_MAX_INT       0.9
 
 // Left Motor PID Constants
-#define PID_M_L_KP          1
-#define PID_M_L_KI          2
+#define PID_M_L_KP          2
+#define PID_M_L_KI          10
 #define PID_M_L_KD          0
 
 // Right Motor PID Constants
@@ -22,7 +22,7 @@
 // Angle PID Constants
 #define PID_A_TAU           1
 #define PID_A_MIN_OUT       -PID_M_MAX_OUT
-#define PID_A_MAX_OUT       0.3
+#define PID_A_MAX_OUT       0.6
 #define PID_A_MIN_INT       -PID_M_MAX_INT
 #define PID_A_MAX_INT       0.3
 #define PID_A_KP            0.1
@@ -37,7 +37,7 @@
 #define SENS_ANGLE_COEFF        -1
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY    0.6
+#define LINE_FOLLOW_VELOCITY    0.4
 
 // Square Task Constants
 #define SQUARE_VELOCITY_SET                 0.4
@@ -51,7 +51,7 @@
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
-#define SERIAL_UPDATE_PERIOD        1     // Seconds
+#define SERIAL_UPDATE_PERIOD        0.5     // Seconds
 
 // Encoder Constants
 #define WHEEL_SEPERATION    0.188       // metres

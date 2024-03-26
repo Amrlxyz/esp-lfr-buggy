@@ -43,14 +43,16 @@ PID::PID(
     }
 
 
-void PID::update(float set_point, float measurement) 
+void PID::update(float set_point_, float measurement_) 
 {
     /* Error */
-    float error = set_point - measurement;
+    error = set_point_ - measurement_;
+    measurement = measurement_;
+    set_point = set_point_;
 
 
     /* --- PROPOTIONAL TERM ---  */
-    float proportional = kp * error;
+    proportional = kp * error;
 
     
     /* --- INTEGRAL TERM ---  */
@@ -74,7 +76,7 @@ void PID::update(float set_point, float measurement)
 
 
     //  Compute Output
-    output = proportional + ki * integrator + kd * differentiator;
+    output = proportional + integrator + differentiator;
 
     // Apply limits
     if (output > lim_max_output) 
@@ -105,4 +107,24 @@ void PID::reset(void)
     differentiator = 0;
     prev_measurement = 0;
     output = 0;
+}
+
+
+void PID::set_constants(float kp_, float ki_, float kd_)
+{
+    kp = kp_;
+    ki = ki_;
+    kd = kd_;
+}
+
+float* PID::get_terms(void)
+{
+    output_arr[0] = set_point;
+    output_arr[1] = measurement;
+    output_arr[2] = error;
+    output_arr[3] = proportional;
+    output_arr[4] = integrator;
+    output_arr[5] = differentiator;
+    output_arr[6] = output;
+    return output_arr;
 }

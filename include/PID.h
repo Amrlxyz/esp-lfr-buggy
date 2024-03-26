@@ -32,6 +32,13 @@ private:
     float differentiator;
     float prev_measurement;     // Required by Differentiator
 
+    // Terms
+    float set_point;
+    float error;
+    float measurement;
+    float proportional;
+    float output_arr[7];
+
     // controller output
     float output;
 
@@ -49,7 +56,11 @@ public:
         float lim_min_int_, 
         float lim_max_int_);
 
+    float* get_terms(void);
+
     void update(float set_point, float measurement);
+
+    void set_constants(float kp_, float ki_, float kd_);
 
     void reset();
 
