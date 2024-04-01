@@ -23,9 +23,20 @@ private:
     volatile float prev_filtered_speed;
     volatile float rpm;
 
+    const int pwm_freq;
+    const int update_rate; 
+    const int pulse_per_rev;
+    const float wheel_radius;
+    const float LP_a0; 
+    const float LP_b0;
+    const float LP_b1;
+
+    const float pi = 3.14159265;
+
 public:
 
-    Motor(PinName pwm, PinName dir, PinName bip, PinName CH_A, PinName CH_B);
+    Motor(PinName pwm, PinName dir, PinName bip, PinName CH_A, PinName CH_B, 
+            int pulsePerRev, int pwmFreq, int updateRate, float LowPass_a0, float LowPass_b0, float LowPass_b1, float wheelRadius);
 
     // controls the motor direction
     void set_direction(bool DirState);
