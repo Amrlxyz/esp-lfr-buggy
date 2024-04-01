@@ -1,11 +1,9 @@
 #include "mbed.h"
+
 #include "bluetooth.h"
-#include "constants.h"
 
 
-/* Uses default BT baud rate if not specified and initialise BT objects using init() */
 Bluetooth::Bluetooth(PinName TX_pin, PinName RX_pin, int baud_rate): bt_serial(TX_pin, RX_pin, baud_rate) {init();};
-Bluetooth::Bluetooth(PinName TX_pin, PinName RX_pin): bt_serial(TX_pin, RX_pin, BT_BAUD_RATE) {init();};
 
 
 void Bluetooth::init(void)
@@ -26,7 +24,7 @@ void Bluetooth::data_recieved_ISR(void)
     if (!data_complete)
     {
         rx_buffer[rx_index++] = c;
-        if (c == '/' || rx_index == BT_BUFFER_SIZE)
+        if (c == '/' || rx_index == buffer_size)
         {
             data_complete = true;
         }
@@ -44,7 +42,7 @@ bool Bluetooth::data_recieved_complete(void)
 void Bluetooth::reset_rx_buffer(void)
 {   
     /* Resets the rx_buffer. Ideally used after processing recieved data*/ 
-    memset(rx_buffer, '\0', BT_BUFFER_SIZE);
+    memset(rx_buffer, '\0', buffer_size);
     data_complete = false;
     rx_index = 0;
 }
@@ -185,7 +183,7 @@ bool Bluetooth::parse_data(void)
 void Bluetooth::send_buffer(char* char_arr)
 {   
     /*  sends the char array one by one */
-    for(int i = 0; i < BT_BUFFER_SIZE - 1; i++)
+    for(int i = 0; i < buffer_size - 1; i++)
     {
         bt_serial.putc(char_arr[i]); 
     }
@@ -199,10 +197,10 @@ void Bluetooth::send_fstring(const char* format, ...)
         used to pass printf arguments into a function */
     va_list args;               // standard macro
     va_start(args, format);     // standard macro
-    vsnprintf(tx_buffer, BT_BUFFER_SIZE + 1, format, args);     // converts the format string input to a character array and stores into tx_buffer
+    vsnprintf(tx_buffer, buffer_size + 1, format, args);     // converts the format string input to a character array and stores into tx_buffer
     va_end(args);               // standard macro
     send_buffer(tx_buffer);     // sends the character array to be transmitted using bluetooth
-    memset(tx_buffer, '\0', BT_BUFFER_SIZE);                    // reset the tx_buffer
+    memset(tx_buffer, '\0', buffer_size);                    // reset the tx_buffer
 }
 
 

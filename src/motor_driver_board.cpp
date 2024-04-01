@@ -38,7 +38,7 @@ void MotorDriverBoard::update_measurements(void)
     Current = CurrentReading / 6400.0;
 }
 
-void MotorDriverBoard::update_enable(bool expression)
+void MotorDriverBoard::set_enable(bool expression)
 {
     enable_state = expression;
     board_enable.write(expression);

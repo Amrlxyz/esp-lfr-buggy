@@ -33,11 +33,12 @@ private:
     float prev_measurement;     // Required by Differentiator
 
     // Terms
+    float time_index;
     float set_point;
     float error;
     float measurement;
     float proportional;
-    float output_arr[7];
+    float output_arr[8];
 
     // controller output
     float output;

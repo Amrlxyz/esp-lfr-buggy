@@ -40,6 +40,7 @@ PID::PID(
 
         // sample_time
         sample_time = CONTROL_UPDATE_PERIOD;
+        time_index = 0;
     }
 
 
@@ -77,6 +78,7 @@ void PID::update(float set_point_, float measurement_)
 
     //  Compute Output
     output = proportional + integrator + differentiator;
+    time_index += sample_time;
 
     // Apply limits
     if (output > lim_max_output) 
@@ -106,6 +108,14 @@ void PID::reset(void)
     prev_error = 0;
     differentiator = 0;
     prev_measurement = 0;
+    
+    time_index = 0;
+    set_point = 0;
+    measurement = 0;
+    error = 0;
+    proportional = 0;
+    integrator = 0;
+    differentiator = 0;
     output = 0;
 }
 
@@ -119,12 +129,13 @@ void PID::set_constants(float kp_, float ki_, float kd_)
 
 float* PID::get_terms(void)
 {
-    output_arr[0] = set_point;
-    output_arr[1] = measurement;
-    output_arr[2] = error;
-    output_arr[3] = proportional;
-    output_arr[4] = integrator;
-    output_arr[5] = differentiator;
-    output_arr[6] = output;
+    output_arr[0] = time_index;
+    output_arr[1] = set_point;
+    output_arr[2] = measurement;
+    output_arr[3] = error;
+    output_arr[4] = proportional;
+    output_arr[5] = integrator;
+    output_arr[6] = differentiator;
+    output_arr[7] = output;
     return output_arr;
 }

@@ -7,127 +7,7 @@
 #include "motor.h"
 #include "PID.h"
 #include "motor_driver_board.h"
-
-
-class SensorArray
-{
-protected:
-
-    DigitalOut led0_;
-    DigitalOut led1_;
-    DigitalOut led2_;
-    DigitalOut led3_;
-    DigitalOut led4_;
-    DigitalOut led5_;
-
-    AnalogIn sens0_;
-    AnalogIn sens1_;
-    AnalogIn sens2_;
-    AnalogIn sens3_;
-    AnalogIn sens4_;
-    AnalogIn sens5_;
-
-    float output;
-    float angle_output;
-    float sens_values[6];
-
-public:
-
-    SensorArray(PinName sens0, PinName sens1, PinName sens2, PinName sens3, PinName sens4, PinName sens5,
-                PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5):
-                sens0_(sens0), led0_(led0),
-                sens1_(sens1), led1_(led1),
-                sens2_(sens2), led2_(led2),
-                sens3_(sens3), led3_(led3),
-                sens4_(sens4), led4_(led4),
-                sens5_(sens5), led5_(led5) 
-                {
-                    reset();
-                    set_all_led_on(false);
-                };
-
-    
-    void reset(void)
-    {
-        for (int i = 0; i < sizeof(sens_values) / sizeof(sens_values[0]); i++) 
-        {
-            sens_values[i] = 0;
-        }
-        output = 0;
-        angle_output = 0;
-    }
-
-
-    void set_all_led_on(bool status)
-    {
-        led0_ = status;
-        led1_ = status;
-        led2_ = status;
-        led3_ = status;
-        led4_ = status;
-        led5_ = status;
-    }
-
-    
-    float read(AnalogIn sensor){return 0;}
-
-    
-    void update(void)
-    {
-        float val_0_sample_total = 0;
-        float val_1_sample_total = 0;
-        float val_2_sample_total = 0;
-        float val_3_sample_total = 0;
-        float val_4_sample_total = 0;
-        float val_5_sample_total = 0;
-
-        for (int i = 0; i < SENS_SAMPLE_COUNT; i++)
-        {            
-            val_0_sample_total += sens0_.read(); 
-            val_1_sample_total += sens1_.read();
-            val_2_sample_total += sens2_.read();
-            val_3_sample_total += sens3_.read();
-            val_4_sample_total += sens4_.read();
-            val_5_sample_total += sens5_.read();
-        }
-
-        sens_values[0] = val_0_sample_total / SENS_SAMPLE_COUNT;
-        sens_values[1] = val_1_sample_total / SENS_SAMPLE_COUNT;
-        sens_values[2] = val_2_sample_total / SENS_SAMPLE_COUNT;
-        sens_values[3] = val_3_sample_total / SENS_SAMPLE_COUNT;
-        sens_values[4] = val_4_sample_total / SENS_SAMPLE_COUNT;
-        sens_values[5] = val_5_sample_total / SENS_SAMPLE_COUNT;
-
-        output = (sens_values[0] * (-3) + sens_values[1] * (-2) + sens_values[2] * (-1) + sens_values[3] * (1) + sens_values[4] * (2) + sens_values[5] * (3));
-
-        angle_output = output * (SENS_ANGLE_COEFF);
-    }
-
-    
-    float get_sens_output(int index)
-    {
-        if ((index < sizeof(sens_values) / sizeof(sens_values[0])) && (index >= 0))
-        {
-            return sens_values[index]; 
-        }
-        return -1;
-    }
-
-    float* get_sens_output_array(void)
-    {
-        return sens_values;
-    } 
-
-    float get_array_output(void)
-    {
-        return output;
-    }
-
-    float get_angle_output(void)
-    {
-        return angle_output;
-    }
-};
+#include "sensor_array.h"
 
 
 /* BUGGY STATES TYPE */
@@ -183,7 +63,7 @@ Ticker serial_ticker;
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN);     
 MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, DRIVER_MONITOR_PIN);
 SensorArray sensor_array(SENSOR0_IN_PIN, SENSOR1_IN_PIN, SENSOR2_IN_PIN, SENSOR3_IN_PIN, SENSOR4_IN_PIN, SENSOR5_IN_PIN,
-                        SENSOR0_OUT_PIN, SENSOR1_OUT_PIN, SENSOR2_OUT_PIN, SENSOR3_OUT_PIN, SENSOR4_OUT_PIN, SENSOR5_OUT_PIN);
+                        SENSOR0_OUT_PIN, SENSOR1_OUT_PIN, SENSOR2_OUT_PIN, SENSOR3_OUT_PIN, SENSOR4_OUT_PIN, SENSOR5_OUT_PIN, SENS_SAMPLE_COUNT);
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN, MOTORL_CHA_PIN, MOTORL_CHB_PIN);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN, MOTORR_CHA_PIN, MOTORR_CHB_PIN);
 PID PID_motor_left(PID_M_L_KP, PID_M_L_KI, PID_M_L_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT);
@@ -232,46 +112,47 @@ void control_update_ISR(void)
     motor_right.update();
 
     // driver_board.update_measurements();
-
     update_buggy_status(motor_left.get_tick_count(), motor_right.get_tick_count());
 
     // pc.printf("%.4f,%.4f\n", motor_left.get_speed(), motor_left.get_filtered_speed());
     // pc.printf("%.4f\n", buggy_status.cumulative_angle_deg);
-
-    if (buggy_state == square_mode || buggy_state == PID_test)
-    {
-        PID_angle.update(buggy_status.set_angle, buggy_status.cumulative_angle_deg);
-    }
-    else if (buggy_state == line_follow)
-    {
-        PID_angle.update(0, sensor_array.get_angle_output());
-    }
 
     /* Calculate and apply PID output on certain modes only*/
     if (buggy_state == PID_test ||
         buggy_state == square_mode || 
         buggy_state == line_follow)
     {
-        buggy_status.left_set_speed  = buggy_status.set_velocity;
-        buggy_status.right_set_speed = buggy_status.set_velocity;
+        // Update set PID_angle depending on buggy mode
+        if (buggy_state == square_mode || buggy_state == PID_test)
+        {
+            PID_angle.update(buggy_status.set_angle, buggy_status.cumulative_angle_deg);
+        }
+        else if (buggy_state == line_follow)
+        {
+            PID_angle.update(0, sensor_array.get_angle_output());
+        }
 
-        /* PID Calculations: */
+        // Calculate Motor Set Speeds
+        buggy_status.left_set_speed  = buggy_status.set_velocity + PID_angle.get_output();
+        buggy_status.right_set_speed = buggy_status.set_velocity - PID_angle.get_output();
+
+        // Calculate Motor PID and apply the output: 
         PID_motor_left.update(buggy_status.left_set_speed, motor_left.get_filtered_speed());
         PID_motor_right.update(buggy_status.right_set_speed, motor_right.get_filtered_speed());
-
         motor_left.set_duty_cycle(PID_motor_left.get_output());
         motor_right.set_duty_cycle(PID_motor_right.get_output());
 
-        float* out_arr = PID_motor_left.get_terms();
-
-        pc.printf("%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n", 
-                        out_arr[0], //= set_point;
-                        out_arr[1], //= measurement;
-                        out_arr[2], //= error;
-                        out_arr[3], //= propotional;
-                        out_arr[4], //= integrator;
-                        out_arr[5], //= differentiator;
-                        out_arr[6]); //= output;
+        // Sends PID Data to the PC
+        float* out_arr = PID_angle.get_terms();
+        pc.printf("%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n", 
+                        out_arr[0], //= time_index
+                        out_arr[1], //= set_point
+                        out_arr[2], //= measurement
+                        out_arr[3], //= error
+                        out_arr[4], //= propotional
+                        out_arr[5], //= integrator
+                        out_arr[6], //= differentiator
+                        out_arr[7]); //= output
     }
 
     // Measure control ISR execution time
@@ -292,7 +173,7 @@ int main()
     while (!bt.is_ready()) {};          // while bluetooth not ready, loop and do nothing
 
     driver_board.disable();
-    sensor_array.set_all_led_on(false);
+    sensor_array.set_all_led_on(true);
     // pc.printf("set_point,measurement,error,proportional,integrator,differentiator,output\n");
 
     global_timer.start();                                                           // Starts the global program timer
@@ -412,13 +293,35 @@ int main()
             }
             bt.reset_rx_buffer();
         }
+
+        if (pc.readable())
+        {
+            switch (pc.getc()) 
+            {
+            case 'r':
+                reset_everything();
+                buggy_state = line_follow;
+                break;
+            case 's':
+                buggy_state = inactive;
+                stop_motors();
+                break;
+            default:
+                break;
+            }
+
+        }
         /* ---  END OF BLUETOOTH COMMAND HANDLING  --- */
 
 
         /* --- START OF BUGGY ACTIONS/STATE LOGIC CODE --- */ 
-        driver_board.update_enable(buggy_state != inactive && buggy_state != task_test_inactive);
+        driver_board.set_enable(buggy_state != inactive && buggy_state != task_test_inactive);
         switch (buggy_state) 
         {   
+            case inactive:
+                stop_motors();
+                driver_board.disable();
+                break;
             case square_mode:
                 switch (square_task.stage)
                 {

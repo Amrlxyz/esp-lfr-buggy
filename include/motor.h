@@ -1,7 +1,6 @@
 #pragma once
 
 #include "mbed.h"
-#include "constants.h"
 #include "QEI.h"
 
 class Motor

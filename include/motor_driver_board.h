@@ -22,7 +22,7 @@ public:
 
     void update_measurements(void);
 
-    void update_enable(bool expression);
+    void set_enable(bool expression);
 
     void enable(void);
     

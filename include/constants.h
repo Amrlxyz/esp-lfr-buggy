@@ -51,7 +51,7 @@
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
-#define SERIAL_UPDATE_PERIOD        0.5     // Seconds
+#define SERIAL_UPDATE_PERIOD        1     // Seconds
 
 // Encoder Constants
 #define WHEEL_SEPERATION    0.188       // metres
