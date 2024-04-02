@@ -5,13 +5,13 @@
 // General Motor PID constants
 #define PID_M_TAU           1
 #define PID_M_MIN_OUT       -PID_M_MAX_OUT
-#define PID_M_MAX_OUT       0.5
+#define PID_M_MAX_OUT       0.9
 #define PID_M_MIN_INT       -PID_M_MAX_INT
-#define PID_M_MAX_INT       0.4
+#define PID_M_MAX_INT       0.9
 
 // Left Motor PID Constants
-#define PID_M_L_KP          1
-#define PID_M_L_KI          2
+#define PID_M_L_KP          2
+#define PID_M_L_KI          10
 #define PID_M_L_KD          0
 
 // Right Motor PID Constants
@@ -22,14 +22,28 @@
 // Angle PID Constants
 #define PID_A_TAU           1
 #define PID_A_MIN_OUT       -PID_M_MAX_OUT
-#define PID_A_MAX_OUT       0.3
+#define PID_A_MAX_OUT       0.6
 #define PID_A_MIN_INT       -PID_M_MAX_INT
 #define PID_A_MAX_INT       0.3
 #define PID_A_KP            0.1
 #define PID_A_KI            0
 #define PID_A_KD            0
 
+
 /* OTHER CONSTANTS */
+
+// Sensor Array Constants
+#define SENS_SAMPLE_COUNT       5
+#define SENS_ANGLE_COEFF        -1
+
+// Line Follow Constants
+#define LINE_FOLLOW_VELOCITY    0.4
+
+// Square Task Constants
+#define SQUARE_VELOCITY_SET                 0.4
+#define SQUARE_TURNING_RIGHT_ANGLE          92
+#define SQUARE_TURNING_LEFT_ANGLE           101.5
+#define SQUARE_DISTANCE                     1.01
 
 // Control Timing Constants
 #define CONTROL_UPDATE_RATE         100                                     // Hz
@@ -43,6 +57,9 @@
 #define WHEEL_SEPERATION    0.188       // metres
 #define WHEEL_RADIUS        0.0415      // metres
 #define PULSE_PER_REV       256         
+#define LP_SPEED_B0         0.0591174
+#define LP_SPEED_B1         0.0591174
+#define LP_SPEED_A0         0.88176521
 
 // Motor Constants
 #define MOTOR_PWM_FREQ      20'000

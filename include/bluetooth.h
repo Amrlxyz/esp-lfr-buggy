@@ -1,20 +1,22 @@
 #pragma once
 
 #include "mbed.h"
-#include "constants.h"
 
 
 class Bluetooth
 {
 protected:
 
+    const int buffer_size = 20;
+
     RawSerial bt_serial;                // creates the RawSerial object to connect with the bluetooth module 
     bool continous_update;              // if this is true, sends data on each loop without bt commands.
     bool send_once;                     // true when get cmd is used
     volatile int rx_index;              // keeps track of the next memory location to store the next char recieved
     volatile bool data_complete;        // true if the incoming data if fully recieved
-    char tx_buffer[BT_BUFFER_SIZE + 1]; // buffer to store transmit data
-    char rx_buffer[BT_BUFFER_SIZE + 1]; // buffer to store recieved data
+    char tx_buffer[20 + 1];    // buffer to store transmit data
+    char rx_buffer[20 + 1];    // buffer to store recieved data
+    
 
     /* This function used to initialise the Bluetooth object */
     void init(void);
@@ -41,6 +43,7 @@ public:
         square_test,            // Q
         PID_test,               // P
         toggle_led_test,        // L
+        line_follow,            // F
     } BluetoothCommandExecTypes;
 
     typedef enum
@@ -78,8 +81,6 @@ public:
 
     /// Constructors, if baud rate not specified the default BT baud rate is used
     Bluetooth(PinName TX_pin, PinName RX_pin, int baud_rate);
-    /// Constructors, if baud rate not specified the default BT baud rate is used
-    Bluetooth(PinName TX_pin, PinName RX_pin);
 
     /*  Returns true if incoming data is fully recieved*/
     void data_recieved_ISR(void);

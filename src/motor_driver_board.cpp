@@ -1,14 +1,20 @@
 #include "mbed.h"
-#include "constants.h"
 #include "motor_driver_board.h"
+#include "constants.h"
+#include "pin_assignments.h"
+
+#include "ds2781.h"
+#include "OneWire_Methods.h"
 
 
-MotorDriverBoard::MotorDriverBoard(PinName enable_pin): board_enable(enable_pin) {};
-MotorDriverBoard::MotorDriverBoard(PinName enable_pin, bool state): board_enable(enable_pin)
+DigitalInOut one_wire_pin(DRIVER_MONITOR_PIN);
+
+
+MotorDriverBoard::MotorDriverBoard(PinName enable_pin, PinName monitor_pin): board_enable(enable_pin)
 {
-    enable_state = state;
-    board_enable.write(state);
+    disable();
 }
+
 
 void MotorDriverBoard::enable(void)
 {
@@ -16,11 +22,38 @@ void MotorDriverBoard::enable(void)
     board_enable.write(true);
 }
 
+
 void MotorDriverBoard::disable(void)
 {
     enable_state = false;
     board_enable.write(false);
 }
+
+
+void MotorDriverBoard::update_measurements(void)
+{
+    VoltageReading = ReadVoltage();
+    Voltage = VoltageReading * 0.00967;
+    CurrentReading = ReadCurrent();
+    Current = CurrentReading / 6400.0;
+}
+
+void MotorDriverBoard::set_enable(bool expression)
+{
+    enable_state = expression;
+    board_enable.write(expression);
+}
+
+float MotorDriverBoard::get_voltage(void) 
+{
+    return Voltage;
+}
+
+float MotorDriverBoard::get_current(void)
+{
+    return Current;
+}
+
 
 bool MotorDriverBoard::get_enable_state(void)
 {

@@ -1,0 +1,5 @@
+<map id="ReadVoltage" name="ReadVoltage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="221,13,316,40"/>
+<area shape="rect" id="Node000002" href="$class_motor_driver_board.html#a2680220ee95803ef1d39503e47e56475" title=" " alt="" coords="5,5,173,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,29,173,29,173,24,205,24"/>
+</map>
