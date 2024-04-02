@@ -1,7 +1,0 @@
-<map id="Bluetooth::Bluetooth" name="Bluetooth::Bluetooth">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,145,32"/>
-<area shape="rect" id="Node000002" href="$class_bluetooth.html#af5eca873435207a9ebc7d940f94b4464" title=" " alt="" coords="193,5,294,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,16,177,16,177,21,145,21"/>
-<area shape="rect" id="Node000003" href="$class_bluetooth.html#a83f85524b8f26b6e5802c4a1f645c68d" title="Construct a new Bluetooth object." alt="" coords="342,5,533,32"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="295,16,326,16,326,21,295,21"/>
-</map>

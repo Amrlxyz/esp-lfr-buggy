@@ -1,7 +1,0 @@
-<map id="include/PID.h" name="include/PID.h">
-<area shape="rect" id="Node000001" title="PID class library." alt="" coords="45,5,144,32"/>
-<area shape="rect" id="Node000002" href="$main_8cpp.html" title="main buggy code This file contains all the buggy logic" alt="" coords="5,80,80,107"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,46,54,81,49,78,74,43"/>
-<area shape="rect" id="Node000003" href="$_p_i_d_8cpp.html" title=" " alt="" coords="103,80,193,107"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="115,43,141,78,137,81,111,46"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="SensorArray::set_all_led_on" name="SensorArray::set_all_led_on">
-<area shape="rect" id="Node000001" title=" " alt="" coords="227,23,366,65"/>
-<area shape="rect" id="Node000002" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="67,5,117,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="211,36,117,24,117,19,212,31"/>
-<area shape="rect" id="Node000003" href="$class_sensor_array.html#a9194f2993ce680b1f2f9fa3ba7c7c35a" title=" " alt="" coords="5,56,179,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="211,57,179,61,179,56,211,52"/>
-</map>
