@@ -1,0 +1,7 @@
+<map id="reset_everything" name="reset_everything">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,121,57"/>
+<area shape="rect" id="Node000002" href="$class_p_i_d.html#af9677e76cb1beffbcf3f54cbc627c530" title=" " alt="" coords="175,5,254,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,32,159,25,159,31,121,37"/>
+<area shape="rect" id="Node000003" href="$class_motor.html#a6d3499cd2bc1a315ffae9f397c6e3233" title=" " alt="" coords="169,56,260,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="121,51,153,56,153,62,121,56"/>
+</map>
