@@ -81,8 +81,6 @@ public:
 
     /// Constructors, if baud rate not specified the default BT baud rate is used
     Bluetooth(PinName TX_pin, PinName RX_pin, int baud_rate);
-    /// Constructors, if baud rate not specified the default BT baud rate is used
-    Bluetooth(PinName TX_pin, PinName RX_pin);
 
     /*  Returns true if incoming data is fully recieved*/
     void data_recieved_ISR(void);

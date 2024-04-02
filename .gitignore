@@ -6,3 +6,4 @@ compile_commands.json
 mbed-os
 QEI
 Nucleo_F401RE_DS271_Battery_Monitor
+.vscode

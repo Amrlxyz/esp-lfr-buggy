@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['gains_5fpid_0',['gains_PID',['../class_bluetooth.html#a89fad624b75df3f350914771224c3fdda401a685c1cc461f0e445657376311f07',1,'Bluetooth']]],
+  ['get_1',['get',['../class_bluetooth.html#a35092a94af3442ae8f82a92b9341cedea8ed023236e8c7cc340e21e9b872a58df',1,'Bluetooth']]],
+  ['get_5fangle_5foutput_2',['get_angle_output',['../class_sensor_array.html#a246bb721bd2c549a464926bc45530864',1,'SensorArray']]],
+  ['get_5farray_5foutput_3',['get_array_output',['../class_sensor_array.html#a125722cbd712c7cde32fd391555d030e',1,'SensorArray']]],
+  ['get_5fbipolar_5fmode_4',['get_bipolar_mode',['../class_motor.html#af6d85c3658b3f523e6ef940a29410270',1,'Motor']]],
+  ['get_5fcurrent_5',['get_current',['../class_motor_driver_board.html#ac84ec5e04204544a83a5715ed1ffcf93',1,'MotorDriverBoard']]],
+  ['get_5fdata_6',['get_data',['../class_bluetooth.html#ab24a6a51f47143590b1d4f6873a4747d',1,'Bluetooth']]],
+  ['get_5fdirection_7',['get_direction',['../class_motor.html#afccab98ca0cef41c88889d1a230bef10',1,'Motor']]],
+  ['get_5fduty_5fcycle_8',['get_duty_cycle',['../class_motor.html#a3ed780e05e0369a8b0c1e327497337e7',1,'Motor']]],
+  ['get_5fenable_5fstate_9',['get_enable_state',['../class_motor_driver_board.html#a6ef9d2539c0297bfad92e709d2e8e130',1,'MotorDriverBoard']]],
+  ['get_5ffiltered_5fspeed_10',['get_filtered_speed',['../class_motor.html#a13544e4db01ed838ed83a387f3aa6066',1,'Motor']]],
+  ['get_5foutput_11',['get_output',['../class_p_i_d.html#a5b2dd162af971a196f0039e118af899f',1,'PID']]],
+  ['get_5frotational_5ffreq_12',['get_rotational_freq',['../class_motor.html#a2a6c1183affac7ed4f32da6bbc544976',1,'Motor']]],
+  ['get_5frpm_13',['get_rpm',['../class_motor.html#a24d16ad361826403869f68d7ac27a1bb',1,'Motor']]],
+  ['get_5fsens_5foutput_14',['get_sens_output',['../class_sensor_array.html#a6be65a711ed96de814305f40d793f5a8',1,'SensorArray']]],
+  ['get_5fsens_5foutput_5farray_15',['get_sens_output_array',['../class_sensor_array.html#a3d8cc02b22b6b2a6ce4739844a6cf0b6',1,'SensorArray']]],
+  ['get_5fspeed_16',['get_speed',['../class_motor.html#a053255271560b8caff94f5e4a7b068a0',1,'Motor']]],
+  ['get_5fterms_17',['get_terms',['../class_p_i_d.html#a7dff750acff6ecc586c0194ccc4e3059',1,'PID']]],
+  ['get_5ftick_5fcount_18',['get_tick_count',['../class_motor.html#a9fa0a51efff1b1e0bedfaf81586108a9',1,'Motor']]],
+  ['get_5fvoltage_19',['get_voltage',['../class_motor_driver_board.html#a1998bf94bc85a267c84d54cf69d5526e',1,'MotorDriverBoard']]],
+  ['global_5ftimer_20',['global_timer',['../main_8cpp.html#ad4ea2e4dd12263d3f035d99fcb7c54ea',1,'main.cpp']]]
+];
