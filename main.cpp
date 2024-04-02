@@ -53,7 +53,6 @@ int ISR_exec_time = 0;
 int loop_exec_time = 0;
 
 
-
 /* OBJECTS DECLARATIONS */
 DigitalOut LED(LED_PIN);                    // Debug LED set
 Serial pc(USBTX, USBRX, 115200);            // set up serial comm with pc
