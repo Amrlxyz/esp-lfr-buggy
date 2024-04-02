@@ -1,3 +1,10 @@
+/**
+ * @file motor.h
+ * @brief Motor and Encoder class library
+ * 
+ * 
+ */
+
 #pragma once
 
 #include "mbed.h"

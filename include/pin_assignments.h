@@ -1,3 +1,10 @@
+/**
+ * @file pin_assignments.h
+ * @brief MCU pin assigments in one file for easy changing
+ * 
+ * 
+ */
+
 #pragma once
 
 // Debug LED pin

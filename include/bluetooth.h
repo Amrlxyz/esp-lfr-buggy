@@ -1,3 +1,17 @@
+/**
+ * @file bluetooth.h
+ * @brief BLE HM-10 Library 
+ * 
+ * Library to interface with the HM-10 Bluetooth Low Energy Module
+ *  
+ * BLE has a standard of 20 bytes maximum per packet so it cant be used like a normal UART serial 
+ * 
+ * It works quite differently, so it Utilises RawSerial to get and send individual characters
+ * 
+ * Has functions that sends and recieves individual characters in a loop (keep in mind 20 bytes limit)
+ * 
+ */
+
 #pragma once
 
 #include "mbed.h"
@@ -78,11 +92,19 @@ public:
     float data1, data2, data3;                      // Stores float data from command
     // int   int_data1, int_data2, intdata_3;       // Stores int data from command
 
+    Bluetooth(PinName TX_pin, PinName RX_pin, int baud_rate); 
+    /**
+     * @brief Construct a new Bluetooth object
+     * 
+     * @param TX_pin 
+     * @param RX_pin 
+     * @param baud_rate 
+     */
 
-    /// Constructors, if baud rate not specified the default BT baud rate is used
-    Bluetooth(PinName TX_pin, PinName RX_pin, int baud_rate);
-
-    /*  Returns true if incoming data is fully recieved*/
+    /**
+     * @brief Returns true if incoming data is fully recieved
+     * 
+     */
     void data_recieved_ISR(void);
 
     /*  This ISR will run for every character recieved by the bluetooth module.

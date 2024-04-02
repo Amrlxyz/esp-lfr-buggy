@@ -1,3 +1,10 @@
+/**
+ * @file sensor_array.h
+ * @brief Sensor Array PCB interface class library  
+ * 
+ * 
+ */
+
 #pragma once
 
 #include "mbed.h"

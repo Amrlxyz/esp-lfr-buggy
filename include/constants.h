@@ -1,3 +1,12 @@
+/**
+ * @file constants.h
+ * @brief contains all the constant variables for easy access from one file
+ * 
+ * All constants are in metres, seconds, hertz unless otherwise stated
+ *  
+ */
+
+
 #pragma once
 
 /* PID CONSTANTS */
@@ -51,21 +60,27 @@
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
-#define SERIAL_UPDATE_PERIOD        1     // Seconds
+#define SERIAL_UPDATE_PERIOD        1     /// Seconds
 
 // Encoder Constants
-#define WHEEL_SEPERATION    0.188       // metres
-#define WHEEL_RADIUS        0.0415      // metres
+
+/** @addtogroup Encoder_Constants
+ *  @{
+ */
+#define WHEEL_SEPERATION    0.188       
+#define WHEEL_RADIUS        0.0415      
 #define PULSE_PER_REV       256         
 #define LP_SPEED_B0         0.0591174
 #define LP_SPEED_B1         0.0591174
 #define LP_SPEED_A0         0.88176521
+/** @}*/
+
 
 // Motor Constants
-#define MOTOR_PWM_FREQ      20'000
+#define MOTOR_PWM_FREQ      20000
 
 // Bluetooth HM10 module default config constants
-#define BT_BUFFER_SIZE      20
+#define BT_BUFFER_SIZE      20 
 #define BT_BAUD_RATE        9600
 
 // Maths constant

@@ -1,3 +1,10 @@
+/**
+ * @file main.cpp
+ * @brief main buggy code
+ * This file contains all the buggy logic
+ * 
+ */
+
 #include "mbed.h"
 #include "QEI.h"
 
