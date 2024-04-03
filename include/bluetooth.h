@@ -21,78 +21,22 @@ class Bluetooth
 {
 protected:
 
-    const int buffer_size = 20;
+    const static int buffer_size = 20;
 
     RawSerial bt_serial;                // creates the RawSerial object to connect with the bluetooth module 
     bool continous_update;              // if this is true, sends data on each loop without bt commands.
     bool send_once;                     // true when get cmd is used
     volatile int rx_index;              // keeps track of the next memory location to store the next char recieved
     volatile bool data_complete;        // true if the incoming data if fully recieved
-    char tx_buffer[20 + 1];    // buffer to store transmit data
-    char rx_buffer[20 + 1];    // buffer to store recieved data
+    char tx_buffer[buffer_size + 1];    // buffer to store transmit data
+    char rx_buffer[buffer_size + 1];    // buffer to store recieved data
     
-
     /* This function used to initialise the Bluetooth object */
     void init(void);
     
+
 public:
 
-    // Possible bluetooth command types
-    typedef enum
-    {
-        execute,                // E
-        get,                    // G
-        set,                    // S
-        continous,              // C
-        // invalid,
-    } BluetoothCommandTypes;
-
-    typedef enum
-    {   
-        stop,                   // S
-        uturn,                  // U
-        encoder_test,           // E
-        motor_pwm_test,         // M
-        straight_test,          // C
-        square_test,            // Q
-        PID_test,               // P
-        toggle_led_test,        // L
-        line_follow,            // F
-    } BluetoothCommandExecTypes;
-
-    typedef enum
-    {
-        pwm_duty,               // P
-        ticks_cumulative,       // T
-        speed,                  // S
-        gains_PID,              // G
-        current_usage,          // C
-        runtime,                // R
-        loop_time,              // X
-        loop_count,             // Y
-    } BluetoothCommandDataTypes;
-
-    typedef enum
-    {
-        motor_left,         // L // PID, Encoder Ticks, Velocity
-        motor_right,        // R // PID, Encoder Ticks, Velocity
-        motor_both,         // B
-        sensor,             // S
-        no_obj,             // default case
-    } BluetoothCommandObjects;
-
-    BluetoothCommandTypes       cmd_type;
-    BluetoothCommandExecTypes   exec_type;
-    BluetoothCommandDataTypes   data_type;
-    BluetoothCommandObjects     obj_type;
-    
-    BluetoothCommandDataTypes   data_type_sent;
-    BluetoothCommandObjects     obj_type_sent;
-    
-    float data1, data2, data3;                      // Stores float data from command
-    // int   int_data1, int_data2, intdata_3;       // Stores int data from command
-
-    Bluetooth(PinName TX_pin, PinName RX_pin, int baud_rate); 
     /**
      * @brief Construct a new Bluetooth object
      * 
@@ -100,6 +44,7 @@ public:
      * @param RX_pin 
      * @param baud_rate 
      */
+    Bluetooth(PinName TX_pin, PinName RX_pin, int baud_rate); 
 
     /**
      * @brief Returns true if incoming data is fully recieved
@@ -118,7 +63,7 @@ public:
     void reset_rx_buffer(void);
 
     /*  parse the recieved data to bluetooth command */
-    bool parse_data(void);
+    // bool parse_data(void);
 
     /*  Sends character array */
     void send_buffer(char* char_arr);
@@ -137,7 +82,7 @@ public:
     bool is_send_once(void);
 
     /*  returns the raw data recieved as a character array */
-    char* get_data(void);
+    char* get_rx_buffer(void);
     
 
     void set_send_once(bool status);
@@ -147,3 +92,57 @@ public:
 };
 
 
+
+    // // Possible bluetooth command types
+    // typedef enum
+    // {
+    //     execute = 'E',                // E
+    //     get,                    // G
+    //     set,                    // S
+    //     continous,              // C
+    //     // invalid,
+    // } BluetoothCommandTypes;
+
+    // typedef enum
+    // {   
+    //     stop,                   // S
+    //     uturn,                  // U
+    //     encoder_test,           // E
+    //     motor_pwm_test,         // M
+    //     straight_test,          // C
+    //     square_test,            // Q
+    //     PID_test,               // P
+    //     toggle_led_test,        // L
+    //     line_follow,            // F
+    // } BluetoothCommandExecTypes;
+
+    // typedef enum
+    // {
+    //     pwm_duty,               // P
+    //     ticks_cumulative,       // T
+    //     speed,                  // S
+    //     gains_PID,              // G
+    //     current_usage,          // C
+    //     runtime,                // R
+    //     loop_time,              // X
+    //     loop_count,             // Y
+    // } BluetoothCommandDataTypes;
+
+    // typedef enum
+    // {
+    //     motor_left,         // L // PID, Encoder Ticks, Velocity
+    //     motor_right,        // R // PID, Encoder Ticks, Velocity
+    //     motor_both,         // B
+    //     sensor,             // S
+    //     no_obj,             // default case
+    // } BluetoothCommandObjects;
+
+    // BluetoothCommandTypes       cmd_type;
+    // BluetoothCommandExecTypes   exec_type;
+    // BluetoothCommandDataTypes   data_type;
+    // BluetoothCommandObjects     obj_type;
+    
+    // BluetoothCommandDataTypes   data_type_sent;
+    // BluetoothCommandObjects     obj_type_sent; 
+    
+    // float data1, data2, data3;                      // Stores float data from command

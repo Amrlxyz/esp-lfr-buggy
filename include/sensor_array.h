@@ -14,42 +14,34 @@ class SensorArray
 {
 protected:
 
-    DigitalOut led0_;
-    DigitalOut led1_;
-    DigitalOut led2_;
-    DigitalOut led3_;
-    DigitalOut led4_;
-    DigitalOut led5_;
-
-    AnalogIn sens0_;
-    AnalogIn sens1_;
-    AnalogIn sens2_;
-    AnalogIn sens3_;
-    AnalogIn sens4_;
-    AnalogIn sens5_;
+    DigitalOut led[6];
+    AnalogIn sens[6];
 
     float output;
-    float angle_output;
     float sens_values[6];
     
     const int sample_count_;
+    const float detect_thresh_;
+    bool line_detected;
 
-    float read(AnalogIn sensor);
-
+    float read(AnalogIn sensor); // WIP
 
 public:
 
     SensorArray(PinName sens0, PinName sens1, PinName sens2, PinName sens3, PinName sens4, PinName sens5,
-                PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count);
+                PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_thresh);
 
     
     void reset(void);
 
     
-    void set_all_led_on(bool status);
-
-    
     void update(void);
+
+
+    bool is_line_detected(void);
+
+
+    void set_all_led_on(bool status);
 
     
     float get_sens_output(int index);
@@ -59,7 +51,4 @@ public:
 
 
     float get_array_output(void);
-
-
-    float get_angle_output(void);
 };

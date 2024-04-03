@@ -17,8 +17,47 @@
 #include "sensor_array.h"
 
 
-/* BUGGY STATES TYPE */
-enum
+/* BT COMMAND CHARS */
+enum bt_cmd_chars
+{
+    // 1 - cmd types
+    ch_execute = 'E',                // E
+    ch_get = 'G',                    // G
+    ch_set = 'S',                    // S
+    ch_continous = 'C',              // C
+
+    // 2 - exec types
+    ch_stop = 'S',                   // S
+    ch_uturn = 'U',                  // U
+    ch_encoder_test = 'E',           // E
+    ch_motor_pwm_test = 'M',         // M
+    ch_straight_test = 'C',          // C
+    ch_square_test = 'Q',            // Q
+    ch_PID_test = 'P',               // P
+    ch_toggle_led_test = 'L',        // L
+    ch_line_follow = 'F',            // F
+
+    // 2 - data types
+    ch_pwm_duty = 'P',               // P
+    ch_ticks_cumulative = 'T',       // T
+    ch_speed = 'S',                  // S
+    ch_gains_PID = 'G',              // G
+    ch_current_usage = 'C',          // C
+    ch_runtime = 'R',                // R
+    ch_loop_time = 'X',              // X
+    ch_loop_count = 'Y',             // Y
+
+    // 3 - obj types
+    ch_motor_left = 'L',         // L // PID, Encoder Ticks, Velocity
+    ch_motor_right = 'R',        // R // PID, Encoder Ticks, Velocity
+    ch_motor_both = 'B',         // B
+    ch_sensor = 'S',             // S
+    ch_no_obj = 'D',             // default case
+};
+
+
+/* BUGGY MODES */
+enum Buggy_modes
 {
     square_mode,
     straight_test,
@@ -27,12 +66,15 @@ enum
     line_follow,
     task_test,
     task_test_inactive,
-    inactive,               // motor driver off
-} buggy_state = inactive;   // stores buggy states when performing actions
+    inactive,
+    uturn,
+    static_tracking,
+} buggy_mode = inactive, 
+  prev_buggy_mode = inactive;       // stores buggy states when performing actions
 
 
 /* BUGGY STATUS */
-struct
+struct Buggy_statuses
 {
     float set_velocity;
     float set_angle;
@@ -42,15 +84,15 @@ struct
 
     float cumulative_angle_deg;
     float distance_travelled;
+
+    float lf_line_last_seen;
+
+    // square task variables
+    float sq_set_angle;
+    float sq_set_distance;
+    int sq_stage;
+
 } buggy_status = {0};
-
-
-struct
-{
-    float set_angle;
-    float set_distance;
-    int stage;
-} square_task = {0};
 
 
 /* GLOBAL VARIBLES DECLARATIONS */
@@ -58,6 +100,10 @@ volatile bool pc_serial_update = false;
 volatile bool bt_serial_update = false;
 int ISR_exec_time = 0;
 int loop_exec_time = 0;
+
+float bt_float_data[3] = {0};
+char bt_data_sent;
+char bt_obj_sent;
 
 
 /* OBJECTS DECLARATIONS */
@@ -70,7 +116,7 @@ Ticker serial_ticker;
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN, BT_BAUD_RATE);     
 MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, DRIVER_MONITOR_PIN);
 SensorArray sensor_array(SENSOR0_IN_PIN, SENSOR1_IN_PIN, SENSOR2_IN_PIN, SENSOR3_IN_PIN, SENSOR4_IN_PIN, SENSOR5_IN_PIN,
-                        SENSOR0_OUT_PIN, SENSOR1_OUT_PIN, SENSOR2_OUT_PIN, SENSOR3_OUT_PIN, SENSOR4_OUT_PIN, SENSOR5_OUT_PIN, SENS_SAMPLE_COUNT);
+                        SENSOR0_OUT_PIN, SENSOR1_OUT_PIN, SENSOR2_OUT_PIN, SENSOR3_OUT_PIN, SENSOR4_OUT_PIN, SENSOR5_OUT_PIN, SENS_SAMPLE_COUNT, SENS_DETECT_THRESH);
 Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN, MOTORL_CHA_PIN, MOTORL_CHB_PIN, PULSE_PER_REV, MOTOR_PWM_FREQ, CONTROL_UPDATE_RATE, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN, MOTORR_CHA_PIN, MOTORR_CHB_PIN, PULSE_PER_REV, MOTOR_PWM_FREQ, CONTROL_UPDATE_RATE, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS);
 PID PID_motor_left(PID_M_L_KP, PID_M_L_KI, PID_M_L_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT);
@@ -107,6 +153,122 @@ void reset_everything(void)
 }
 
 
+bool bt_parse_rx(char* rx_buffer)
+{   
+    /*  This function reads the incoming data and checks for 
+        specific command format and returns the command type 
+        returns false if parsing failed     */
+
+    // command parsing -> to-do 
+
+    char cmd_type = rx_buffer[0];
+    char exec_type = rx_buffer[1];
+    char data_type = rx_buffer[1];
+    char obj_type = rx_buffer[2];
+
+    int data_amount;
+
+    switch(rx_buffer[0])
+    {
+        case ch_continous:
+            bt.set_continous(!bt.is_continous());
+            break;
+        case ch_get:
+            bt.set_send_once(true);
+            bt_data_sent = data_type;
+            bt_obj_sent = obj_type;
+            break;
+        case ch_set:  
+            data_amount = (data_type == ch_gains_PID) ? 3 : 1;
+            if (sscanf(rx_buffer, "%*s %f %f %f", &bt_float_data[0], &bt_float_data[1], &bt_float_data[2]) != data_amount)
+            {
+                return false;
+            }
+
+            switch (data_type)
+            {
+                case ch_pwm_duty:               // P
+                    switch (obj_type)
+                    {
+                        case ch_motor_left:
+                            motor_left.set_duty_cycle(bt_float_data[0]);
+                            break;
+                        case ch_motor_right:
+                            motor_right.set_duty_cycle(bt_float_data[0]);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case ch_speed:                  // S
+                    break;
+                case ch_gains_PID:
+                    switch (obj_type)
+                    {
+                        case ch_motor_left:
+                            PID_motor_left.set_constants(bt_float_data[0], bt_float_data[1], bt_float_data[2]);
+                            break;
+                        case ch_motor_right:
+                            PID_motor_right.set_constants(bt_float_data[0], bt_float_data[1], bt_float_data[2]);
+                            break;
+                        case ch_sensor:
+                            PID_angle.set_constants(bt_float_data[0], bt_float_data[1], bt_float_data[2]);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case ch_execute:
+            switch (exec_type)
+            {
+                case ch_stop:
+                    buggy_mode = inactive;
+                    break;
+                case ch_uturn:
+                    buggy_mode = uturn;
+                    break;
+                case ch_encoder_test:
+                    bt_data_sent = ch_ticks_cumulative;
+                    bt_obj_sent = ch_motor_both;
+                    buggy_mode = task_test;
+                    break;
+                case ch_motor_pwm_test:
+                    bt_data_sent = ch_pwm_duty;
+                    bt_obj_sent = ch_motor_both;
+                    buggy_mode = task_test_inactive;
+                    break;
+                case ch_straight_test:
+                    buggy_mode = straight_test;
+                    break;
+                case ch_square_test:
+                    buggy_mode = square_mode;
+                    break;
+                case ch_PID_test:
+                    buggy_mode = PID_test;
+                    break;
+                case ch_toggle_led_test:
+                    LED = !LED;
+                    break;
+                case ch_line_follow:
+                    buggy_mode = line_follow;
+                    break;
+                default:
+                    break;
+            }
+            break;
+
+        default:
+            return false;
+            break;
+    }
+    return true;
+}
+
+
 /* ISR FUNCTIONS */
 void control_update_ISR(void)
 {   
@@ -125,18 +287,22 @@ void control_update_ISR(void)
     // pc.printf("%.4f\n", buggy_status.cumulative_angle_deg);
 
     /* Calculate and apply PID output on certain modes only*/
-    if (buggy_state == PID_test ||
-        buggy_state == square_mode || 
-        buggy_state == line_follow)
+    if (buggy_mode == PID_test ||
+        buggy_mode == square_mode || 
+        buggy_mode == line_follow ||
+        buggy_mode == uturn ||
+        buggy_mode == static_tracking)
     {
         // Update set PID_angle depending on buggy mode
-        if (buggy_state == square_mode || buggy_state == PID_test)
+        if (buggy_mode == square_mode || 
+            buggy_mode == PID_test ||
+            buggy_mode == uturn)
         {
             PID_angle.update(buggy_status.set_angle, buggy_status.cumulative_angle_deg);
         }
-        else if (buggy_state == line_follow)
+        else
         {
-            PID_angle.update(0, sensor_array.get_angle_output());
+            PID_angle.update(buggy_status.set_angle, sensor_array.get_array_output());
         }
 
         // Calculate Motor Set Speeds
@@ -194,109 +360,10 @@ int main()
         /* --- START OF BLUETOOTH COMMAND HANDLING --- */
         if (bt.data_recieved_complete()) 
         {
-            if (bt.parse_data())
+            char* rx_buf = bt.get_rx_buffer(); 
+            if (!bt_parse_rx(rx_buf))
             {
-                switch(bt.cmd_type)
-                {
-                    case bt.get:
-                        bt.set_send_once(true);
-                        break;
-                    case bt.set:
-                        switch (bt.data_type)
-                        {
-                            case bt.pwm_duty:               // P
-                                switch (bt.obj_type)
-                                {
-                                    case bt.motor_left:
-                                        motor_left.set_duty_cycle(bt.data1);
-                                        break;
-                                    case bt.motor_right:
-                                        motor_right.set_duty_cycle(bt.data1);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                break;
-                            case bt.speed:                  // S
-                                break;
-                            case bt.gains_PID:
-                                switch (bt.obj_type)
-                                {
-                                    case bt.motor_left:
-                                        PID_motor_left.set_constants(bt.data1, bt.data2, bt.data3);
-                                        break;
-                                    case bt.motor_right:
-                                        PID_motor_right.set_constants(bt.data1, bt.data2, bt.data3);
-                                        break;
-                                    case bt.sensor:
-                                        PID_angle.set_constants(bt.data1, bt.data2, bt.data3);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-                        break;
-                    case bt.execute:
-                        switch (bt.exec_type)
-                        {
-                            case bt.stop:
-                                // EMERGENCY STOP
-                                buggy_state = inactive;
-                                stop_motors();
-                                break;
-                            case bt.uturn:
-                                buggy_state = inactive; // WIP
-                                break;
-                            case bt.encoder_test:
-                                stop_motors();
-                                bt.set_continous(true);
-                                bt.data_type_sent = bt.ticks_cumulative;
-                                bt.obj_type_sent = bt.motor_both;
-                                buggy_state = task_test;
-                                break;
-                            case bt.motor_pwm_test:
-                                stop_motors();
-                                bt.set_continous(true);
-                                bt.data_type_sent = bt.pwm_duty;
-                                bt.obj_type_sent = bt.motor_both;
-                                buggy_state = task_test_inactive;
-                                break;
-                            case bt.straight_test:
-                                reset_everything();
-                                buggy_state = straight_test;
-                                break;
-                            case bt.square_test:
-                                reset_everything();
-                                buggy_state = square_mode;
-                                break;
-                            case bt.PID_test:
-                                reset_everything();
-                                buggy_status.set_angle = 0;
-                                buggy_status.set_velocity = 0.0;
-                                buggy_state = PID_test;
-                                break;
-                            case bt.toggle_led_test:
-                                LED = !LED;
-                                buggy_state = task_test_inactive;
-                                break;
-                            case bt.line_follow:
-                                reset_everything();
-                                buggy_state = line_follow;
-                                break;
-                            default:
-                                break;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                bt.send_fstring("Err: %s", bt.get_data());
+                bt.send_fstring("Err: %s", rx_buf);
             }
             bt.reset_rx_buffer();
         }
@@ -307,10 +374,10 @@ int main()
             {
             case 'r':
                 reset_everything();
-                buggy_state = line_follow;
+                buggy_mode = line_follow;
                 break;
             case 's':
-                buggy_state = inactive;
+                buggy_mode = inactive;
                 stop_motors();
                 break;
             default:
@@ -322,78 +389,120 @@ int main()
 
 
         /* --- START OF BUGGY ACTIONS/STATE LOGIC CODE --- */ 
-        driver_board.set_enable(buggy_state != inactive && buggy_state != task_test_inactive);
-        switch (buggy_state) 
+        // Buggy mode transition code
+        if (buggy_mode != prev_buggy_mode)
+        {
+            driver_board.set_enable(buggy_mode != inactive && 
+                                    buggy_mode != task_test_inactive);
+
+            switch (buggy_mode)
+            {
+                case PID_test:
+                    reset_everything();
+                    buggy_status.set_angle = 0;
+                    buggy_status.set_velocity = 0.0;
+                    break;
+                case square_mode:
+                case straight_test:
+                    reset_everything();
+                    break;
+                case task_test:
+                case task_test_inactive:
+                    bt.set_continous(true);
+                    break;
+                case uturn:
+                    reset_everything();
+                    buggy_status.set_angle = 180;
+                    buggy_status.set_velocity = 0.0;
+                    break;
+                case static_tracking:
+                    reset_everything();
+                    buggy_status.set_angle = 0;
+                    buggy_status.set_velocity = 0.0;
+                    break;
+                case line_follow:
+                    reset_everything();
+                    buggy_status.set_angle = 0;
+                    buggy_status.set_velocity = LINE_FOLLOW_VELOCITY;
+                    break;
+                default:
+                    break;
+            }            
+            prev_buggy_mode = buggy_mode;
+        }
+
+        // Buggy mode continous logic
+        switch (buggy_mode) 
         {   
             case inactive:
                 stop_motors();
                 driver_board.disable();
                 break;
             case square_mode:
-                switch (square_task.stage)
+                switch (buggy_status.sq_stage)
                 {
                     case 0:
-                        square_task.set_distance += SQUARE_DISTANCE;
-                        buggy_status.set_angle = square_task.set_angle;
+                        buggy_status.sq_set_distance += SQUARE_DISTANCE;
+                        buggy_status.set_angle = buggy_status.sq_set_angle;
                         buggy_status.set_velocity = SQUARE_VELOCITY_SET;
-                        square_task.stage++;
+                        buggy_status.sq_stage++;
                         break;
                     case 7:
                     case 1:
                     case 3:
                     case 5:
-                        if (buggy_status.distance_travelled >= square_task.set_distance) // wait to move 1m then, start turning right
+                        if (buggy_status.distance_travelled >= buggy_status.sq_set_distance) // wait to move 1m then, start turning right
                         {
-                            if (square_task.stage == 7)
+                            if (buggy_status.sq_stage == 7)
                             {
-                                square_task.set_angle += SQUARE_TURNING_RIGHT_ANGLE;
+                                buggy_status.sq_set_angle += SQUARE_TURNING_RIGHT_ANGLE;
                             }
-                            square_task.set_angle += SQUARE_TURNING_RIGHT_ANGLE;
-                            buggy_status.set_angle = square_task.set_angle;
+                            buggy_status.sq_set_angle += SQUARE_TURNING_RIGHT_ANGLE;
+                            buggy_status.set_angle = buggy_status.sq_set_angle;
                             buggy_status.set_velocity = 0;
-                            square_task.stage++;
+                            buggy_status.sq_stage++;
                         }
                         break;
                     case 2:
                     case 4:
                     case 6:
                     case 8:
-                        if (buggy_status.cumulative_angle_deg >= square_task.set_angle) // wait to turn 90 and start moving straight
+                        if (buggy_status.cumulative_angle_deg >= buggy_status.sq_set_angle) // wait to turn 90 and start moving straight
                         {
-                            square_task.set_distance += SQUARE_DISTANCE;
-                            buggy_status.set_angle = square_task.set_angle;
+                            buggy_status.sq_set_distance += SQUARE_DISTANCE;
+                            buggy_status.set_angle = buggy_status.sq_set_angle;
                             buggy_status.set_velocity = SQUARE_VELOCITY_SET;
-                            square_task.stage++;
+                            buggy_status.sq_stage++;
                         }
                         break;
                     case 9:
                     case 11:
                     case 13:
-                        if (buggy_status.distance_travelled >= square_task.set_distance) // wait to move 1m then, start turning left
+                        if (buggy_status.distance_travelled >= buggy_status.sq_set_distance) // wait to move 1m then, start turning left
                         {
-                            square_task.set_angle -= SQUARE_TURNING_LEFT_ANGLE;
-                            buggy_status.set_angle = square_task.set_angle;
+                            buggy_status.sq_set_angle -= SQUARE_TURNING_LEFT_ANGLE;
+                            buggy_status.set_angle = buggy_status.sq_set_angle;
                             buggy_status.set_velocity = 0;
-                            square_task.stage++;
+                            buggy_status.sq_stage++;
                         }
                         break;
                     case 10:
                     case 12:
                     case 14:
-                        if (buggy_status.cumulative_angle_deg <= square_task.set_angle) // wait to turn -90 and start moving straight
+                        if (buggy_status.cumulative_angle_deg <= buggy_status.sq_set_angle) // wait to turn -90 and start moving straight
                         {
-                            square_task.set_distance += SQUARE_DISTANCE;
-                            buggy_status.set_angle = square_task.set_angle;
+                            buggy_status.sq_set_distance += SQUARE_DISTANCE;
+                            buggy_status.set_angle = buggy_status.sq_set_angle;
                             buggy_status.set_velocity = SQUARE_VELOCITY_SET;
-                            square_task.stage++;
+                            buggy_status.sq_stage++;
                         }
                         break;
                     case 15:
-                        if (buggy_status.distance_travelled >= square_task.set_distance)  // Stop
+                        if (buggy_status.distance_travelled >= buggy_status.sq_set_distance)  // Stop
                         {
-                            buggy_state = inactive;
+                            buggy_mode = inactive;
                             stop_motors();
-                            square_task.stage = 0;
+                            buggy_status.sq_stage = 0;
                         }
                         break;
                     default:
@@ -415,13 +524,27 @@ int main()
                 }
                 if (buggy_status.distance_travelled >= 0.6)
                 {
-                    buggy_state = inactive;
+                    buggy_mode = inactive;
                     reset_everything();
                 }
                 break;
+
+            case uturn:
+                if (buggy_status.cumulative_angle_deg >= buggy_status.set_angle - 10)
+                {
+                    buggy_mode = static_tracking;
+                }
+                
             case line_follow:
-                buggy_status.set_velocity = LINE_FOLLOW_VELOCITY;
-                break;
+                if (sensor_array.is_line_detected())
+                {
+                    buggy_status.lf_line_last_seen = buggy_status.distance_travelled;
+                }
+                if (buggy_status.distance_travelled - buggy_status.lf_line_last_seen >= LINE_FOLLOW_STOP_DISTANCE)
+                {
+                    buggy_mode = inactive;
+                    stop_motors();
+                }
             default:
                 break;
         }    
@@ -434,69 +557,69 @@ int main()
             // Handling sending data through BT 
             if (bt.is_continous() || bt.is_send_once())
             {   
-                switch (bt.data_type_sent)
+                switch (bt_data_sent)
                 {
-                    case bt.pwm_duty:               // P
-                        switch (bt.obj_type_sent)
+                    case ch_pwm_duty:               // P
+                        switch (bt_obj_sent)
                         {
-                            case bt.motor_left:
+                            case ch_motor_left:
                                 bt.send_fstring("DC L: %.2f", motor_left.get_duty_cycle());
                                 break;
-                            case bt.motor_right:
+                            case ch_motor_right:
                                 bt.send_fstring("DC R: %.2f", motor_right.get_duty_cycle());
                                 break;
-                            case bt.motor_both:
+                            case ch_motor_both:
                                 bt.send_fstring("DC L:%.2f/ R:%.2f", motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
                                 break;
                             default:
                                 break;
                         }
                         break;
-                    case bt.ticks_cumulative:       // T
-                        switch (bt.obj_type_sent)
+                    case ch_ticks_cumulative:       // T
+                        switch (bt_obj_sent)
                         {
-                            case bt.motor_left:
+                            case ch_motor_left:
                                 bt.send_fstring("Ticks L: %d", motor_left.get_tick_count());
                                 break;
-                            case bt.motor_right:
+                            case ch_motor_right:
                                 bt.send_fstring("Ticks R: %d", motor_right.get_tick_count());
                                 break;
-                            case bt.motor_both:
+                            case ch_motor_both:
                                 bt.send_fstring("L:%7d R:%7d", motor_left.get_tick_count(), motor_right.get_tick_count());
                                 break;
                             default:
                                 break;
                         }
                         break;
-                    case bt.speed:                  // V
-                        switch (bt.obj_type_sent)
+                    case ch_speed:                  // V
+                        switch (bt_obj_sent)
                         {
-                            case bt.motor_left:
+                            case ch_motor_left:
                                 bt.send_fstring("Speed L: %f", motor_left.get_speed());
                                 break;
-                            case bt.motor_right:
+                            case ch_motor_right:
                                 bt.send_fstring("Speed R: %f", motor_right.get_speed());
                                 break;
-                            case bt.motor_both:
+                            case ch_motor_both:
                                 bt.send_fstring("S L:%.3f/ R:%.3f", motor_left.get_speed(), motor_right.get_speed());
                                 break;
                             default:
                                 break;
                         }
                         break;
-                    case bt.gains_PID:              // G
-                        bt.send_fstring("P:%.3f,I:%.3f,D:%.3f", bt.data1, bt.data2, bt.data3);
+                    case ch_gains_PID:              // G
+                        bt.send_fstring("P:%.3f,I:%.3f,D:%.3f", bt_float_data[0], bt_float_data[1], bt_float_data[2]);
                         break;
-                    case bt.current_usage:          // C
+                    case ch_current_usage:          // C
                         bt.send_fstring("Feature WIP");
                         break;
-                    case bt.runtime:                // R
+                    case ch_runtime:                // R
                         bt.send_fstring("Runtime: %f", global_timer.read());
                         break;
-                    case bt.loop_time:              // X
+                    case ch_loop_time:              // X
                         bt.send_fstring("ISR: %dus", ISR_exec_time);
                         break;
-                    case bt.loop_count:             // Y
+                    case ch_loop_count:             // Y
                         bt.send_fstring("removed feature");
                         break;
                     default:

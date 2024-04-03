@@ -48,138 +48,6 @@ void Bluetooth::reset_rx_buffer(void)
 }
 
 
-bool Bluetooth::parse_data(void)
-{   
-    /*  This function reads the incoming data and checks for 
-        specific command format and returns the command type 
-        returns false if parsing failed     */
-
-    // command parsing -> to-do 
-    switch (rx_buffer[0]) 
-    {
-        case 'E': case 'e':
-            cmd_type = execute;
-            break;
-        case 'S': case 's':
-            cmd_type = set;
-            break;
-        case 'G': case 'g':
-            cmd_type = get;
-            break;
-        case 'C': case 'c':
-            cmd_type = continous;
-            continous_update = !continous_update;
-            return true;
-        default:
-            return false;
-    }
-
-    if (cmd_type == execute)
-    {
-        switch (rx_buffer[1])
-        {
-            case 'S':
-                exec_type = stop;
-                break;
-            case 'U':
-                exec_type = uturn;
-                break;
-            case 'E':
-                exec_type = encoder_test;
-                break;
-            case 'M':
-                exec_type = motor_pwm_test;
-                break;
-            case 'C':
-                exec_type = straight_test;
-                break;
-            case 'Q':
-                exec_type = square_test;
-                break;
-            case 'P':
-                exec_type = PID_test;
-                break;
-            case 'L':
-                exec_type = toggle_led_test;
-                break;
-            case 'F':
-                exec_type = line_follow;
-                break;
-            default:
-                return false;
-        }
-    }
-    else
-    {
-        switch (rx_buffer[1])
-        {
-            case 'P':
-                data_type = pwm_duty;
-                break;
-            case 'T':
-                data_type = ticks_cumulative;
-                break;
-            case 'S':
-                data_type = speed;
-                break;
-            case 'G':
-                data_type = gains_PID;
-                break;
-            case 'C':
-                data_type = current_usage;
-                break;
-            case 'R':
-                data_type = runtime;
-                break;
-            case 'X':
-                data_type = loop_time;
-                break;
-            case 'Y':
-                data_type = loop_count;
-                break;
-            default:
-                return false;
-        }
-        
-        switch (rx_buffer[2]) 
-        {
-            case 'L':
-                obj_type = motor_left;
-                break;
-            case 'R':
-                obj_type = motor_right;
-                break;
-            case 'B':
-                obj_type = motor_both;
-                break;
-            case 'S':
-                obj_type = sensor;
-                break;
-            default:
-                obj_type = no_obj;
-                break;
-        }
-
-        if (cmd_type == get)
-        {
-            data_type_sent = data_type;
-            obj_type_sent = obj_type;
-        }
-    }
-
-    if (cmd_type == set)
-    {   
-        int data_amount = (data_type == gains_PID) ? 3 : 1;
-        if (sscanf(rx_buffer, "%*s %f %f %f", &data1, &data2, &data3) != data_amount)
-        {
-            return false;
-        }
-    } 
-
-    return true;
-}
-
-
 void Bluetooth::send_buffer(char* char_arr)
 {   
     /*  sends the char array one by one */
@@ -217,7 +85,7 @@ bool Bluetooth::is_continous(void)
 }
 
 
-char* Bluetooth::get_data(void)
+char* Bluetooth::get_rx_buffer(void)
 {   
     /* returns data recieved as a character array*/
     return rx_buffer;
@@ -240,3 +108,136 @@ void Bluetooth::set_continous(bool status)
 {
     continous_update = status; 
 }
+
+
+
+// bool Bluetooth::parse_data(void)
+// {   
+//     /*  This function reads the incoming data and checks for 
+//         specific command format and returns the command type 
+//         returns false if parsing failed     */
+
+//     // command parsing -> to-do 
+//     switch (rx_buffer[0]) 
+//     {
+//         case 'E': case 'e':
+//             cmd_type = execute;
+//             break;
+//         case 'S': case 's':
+//             cmd_type = set;
+//             break;
+//         case 'G': case 'g':
+//             cmd_type = get;
+//             break;
+//         case 'C': case 'c':
+//             cmd_type = continous;
+//             continous_update = !continous_update;
+//             return true;
+//         default:
+//             return false;
+//     }
+
+//     if (cmd_type == execute)
+//     {
+//         switch (rx_buffer[1])
+//         {
+//             case 'S':
+//                 exec_type = stop;
+//                 break;
+//             case 'U':
+//                 exec_type = uturn;
+//                 break;
+//             case 'E':
+//                 exec_type = encoder_test;
+//                 break;
+//             case 'M':
+//                 exec_type = motor_pwm_test;
+//                 break;
+//             case 'C':
+//                 exec_type = straight_test;
+//                 break;
+//             case 'Q':
+//                 exec_type = square_test;
+//                 break;
+//             case 'P':
+//                 exec_type = PID_test;
+//                 break;
+//             case 'L':
+//                 exec_type = toggle_led_test;
+//                 break;
+//             case 'F':
+//                 exec_type = line_follow;
+//                 break;
+//             default:
+//                 return false;
+//         }
+//     }
+//     else
+//     {
+//         switch (rx_buffer[1])
+//         {
+//             case 'P':
+//                 data_type = pwm_duty;
+//                 break;
+//             case 'T':
+//                 data_type = ticks_cumulative;
+//                 break;
+//             case 'S':
+//                 data_type = speed;
+//                 break;
+//             case 'G':
+//                 data_type = gains_PID;
+//                 break;
+//             case 'C':
+//                 data_type = current_usage;
+//                 break;
+//             case 'R':
+//                 data_type = runtime;
+//                 break;
+//             case 'X':
+//                 data_type = loop_time;
+//                 break;
+//             case 'Y':
+//                 data_type = loop_count;
+//                 break;
+//             default:
+//                 return false;
+//         }
+        
+//         switch (rx_buffer[2]) 
+//         {
+//             case 'L':
+//                 obj_type = motor_left;
+//                 break;
+//             case 'R':
+//                 obj_type = motor_right;
+//                 break;
+//             case 'B':
+//                 obj_type = motor_both;
+//                 break;
+//             case 'S':
+//                 obj_type = sensor;
+//                 break;
+//             default:
+//                 obj_type = no_obj;
+//                 break;
+//         }
+
+//         if (cmd_type == get)
+//         {
+//             data_type_sent = data_type;
+//             obj_type_sent = obj_type;
+//         }
+//     }
+
+//     if (cmd_type == set)
+//     {   
+//         int data_amount = (data_type == gains_PID) ? 3 : 1;
+//         if (sscanf(rx_buffer, "%*s %f %f %f", &data1, &data2, &data3) != data_amount)
+//         {
+//             return false;
+//         }
+//     } 
+
+//     return true;
+// }
