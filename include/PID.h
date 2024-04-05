@@ -45,7 +45,7 @@ private:
     float error;
     float measurement;
     float proportional;
-    float output_arr[8];
+    float *output_arr[8];
 
     // controller output
     float output;
@@ -64,7 +64,7 @@ public:
         float lim_min_int_, 
         float lim_max_int_);
 
-    float* get_terms(void);
+    float** get_terms(void);
 
     void update(float set_point, float measurement);
 

@@ -53,7 +53,12 @@ void Bluetooth::send_buffer(char* char_arr)
     /*  sends the char array one by one */
     for(int i = 0; i < buffer_size - 1; i++)
     {
-        bt_serial.putc(char_arr[i]); 
+        char ch = char_arr[i];
+        bt_serial.putc(ch);
+        if (ch == '\0')
+        {
+            break;
+        }
     }
     bt_serial.putc('\n');
 }

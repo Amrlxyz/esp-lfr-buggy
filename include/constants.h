@@ -42,7 +42,7 @@
 /* OTHER CONSTANTS */
 
 // Sensor Array Constants
-#define SENS_SAMPLE_COUNT       5
+#define SENS_SAMPLE_COUNT       5   // 5 - 311us, 3 - 195us   
 #define SENS_ANGLE_COEFF        -5
 #define SENS_DETECT_THRESH      0.3
 
@@ -65,24 +65,31 @@
 #define SERIAL_UPDATE_PERIOD        1     /// Seconds
 
 // Encoder Constants
-
 /** @addtogroup Encoder_Constants
  *  @{
  */
 #define WHEEL_SEPERATION    0.188       
 #define WHEEL_RADIUS        0.0415      
 #define PULSE_PER_REV       256         
-#define LP_SPEED_B0         0.0591174
-#define LP_SPEED_B1         0.0591174
-#define LP_SPEED_A0         0.88176521
+#define LP_SPEED_B0         0.1802684       
+#define LP_SPEED_B1         0.1802684       
+#define LP_SPEED_A0         0.63946321      
 /** @}*/
 
+// 2 Hz Pole Freq:
+// Filter coefficients b_i: [0.0591174 0.0591174]
+// Filter coefficients a_i: [0.88176521]
+// 5 Hz Pole Freq:
+// Filter coefficients b_i: [0.13575525 0.13575525]
+// Filter coefficients a_i: [0.7284895]
+// 7 Hz Pole Freq:
+// Filter coefficients b_i: [0.1802684 0.1802684]
+// Filter coefficients a_i: [0.63946321]
 
 // Motor Constants
 #define MOTOR_PWM_FREQ      20000
 
 // Bluetooth HM10 module default config constants
-#define BT_BUFFER_SIZE      20 
 #define BT_BAUD_RATE        9600
 
 // Maths constant
