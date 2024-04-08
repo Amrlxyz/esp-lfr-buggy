@@ -64,13 +64,13 @@ public:
         float lim_min_int_, 
         float lim_max_int_);
 
-    float* get_terms(void);
+    float* get_terms(void); //returns an array containing the time index, set point, sensor measured value, error, values of each PID terms and total output of the PID
 
-    void update(float set_point, float measurement);
+    void update(float set_point, float measurement); //updates the output of PID controller based on the real time measurement
 
-    void set_constants(float kp_, float ki_, float kd_);
+    void set_constants(float kp_, float ki_, float kd_); //takes in the 3 parameters to set the PID coefficients values
 
-    void reset();
+    void reset(); //resets the PID controller
 
-    float get_output(void);
+    float get_output(void); //returns the output of the PID controller
 };

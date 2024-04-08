@@ -14,31 +14,32 @@ class Motor
 {
 private:
 
-    PwmOut PWM_pin;
-    DigitalOut Direction, Bipolar;
-    float duty_cycle;
-    bool direction;
-    bool bipolar;
+    PwmOut PWM_pin; //creates a pulse-width-modulated(PWM) pin
+    DigitalOut Direction, Bipolar; //pins responsible for controlling direction and whether the H-bridge is bipolar or unipolar 
+    float duty_cycle; //duty cycle of the PWM
+    bool direction; //boolean state of the direction pin
+    bool bipolar; //boolean state of the bipolar pin where: HIGH means its bipolar and LOW means its unipolar
 
-    QEI qei;
-    volatile int curr_tick_count;
-    volatile int prev_tick_count;
-    volatile float rotational_freq;
-    volatile float speed;
-    volatile float filtered_speed;
-    volatile float prev_speed;
-    volatile float prev_filtered_speed;
-    volatile float rpm;
+    QEI qei; //quadrature encoder object from an imported library
+    volatile int curr_tick_count; //the latest cumulative tick count recorded
+    volatile int prev_tick_count; //the cumulative tick count recorded before the latest cumulative tick count
+    volatile float rotational_freq; //rotational frequency of the wheel
+    volatile float speed; //latest tangential speed of the wheel before filtering out the noise
+    volatile float filtered_speed; //latest tangential speed of the wheel after filtering out the noise
+    volatile float prev_speed;  //previous tangential speed of the wheel after filtering out the noise
+    volatile float prev_filtered_speed; //previous tangential speed of the wheel before filtering out the noise
+    volatile float rpm; //latest rounds per minute of the wheel
 
-    const int pwm_freq;
-    const int update_rate; 
-    const int pulse_per_rev;
-    const float wheel_radius;
+    const int pwm_freq; //frequency at which the PWM is operating at
+    const int update_rate; //rate of which the values are updated
+    const int pulse_per_rev; //the tick counts counted by the encoder per revolution
+    const float wheel_radius; //radius of the buggy wheel
+    //Low pass filter constants
     const float LP_a0; 
     const float LP_b0;
     const float LP_b1;
-
-    const float pi = 3.14159265;
+    
+    const float pi = 3.14159265; //value of pi used
 
 public:
 
