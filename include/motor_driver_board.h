@@ -12,7 +12,14 @@
 #include "ds2781.h"
 #include "OneWire_Methods.h"
 
-
+/**
+ * @brief Contains all the functionality of the ESP motor driver board.
+ * 
+ * Functionality:
+ * - enable/disable the board using the "enable" pin
+ * - read voltage and current used by the whole driver board
+ * 
+ */
 class MotorDriverBoard
 {
 protected:
@@ -27,17 +34,50 @@ public:
 
     MotorDriverBoard(PinName enable_pin, PinName monitor_pin);
 
-    void update_measurements(void);     ///< updates the measurements of voltage and current values
+    /**
+     * @brief updates the measurements of voltage and current values
+     * 
+     */
+    void update_measurements(void);     
 
-    void set_enable(bool expression);   ///< enable pin will be set to the boolean value in the paremeter
+    /**
+     * @brief enable pin will be set to the boolean value in the paremeter
+     * 
+     * @param expression 
+     */
+    void set_enable(bool expression);   
 
-    void enable(void);                  ///< causes the enable pin to be set to HIGH
+    /**
+     * @brief causes the enable pin to be set to HIGH
+     * 
+     */
+    void enable(void);                  
     
-    void disable(void);                 ///< causes the enable pin to be set to LOW
+    /**
+     * @brief causes the enable pin to be set to LOW
+     * 
+     */
+    void disable(void);                 
 
-    float get_voltage(void);            ///< returns the actual voltage value
+    /**
+     * @brief returns the actual voltage value
+     * 
+     * @return float 
+     */
+    float get_voltage(void);            
 
-    float get_current(void);            ///< returns the actual cuurent value
+    /**
+     * @brief returns the actual curent value
+     * 
+     * @return float 
+     */
+    float get_current(void);            
 
-    bool get_enable_state(void);        ///< returns the state of the enable pin
+    /**
+     * @brief returns the state of the enable pin
+     * 
+     * @return true 
+     * @return false 
+     */
+    bool get_enable_state(void);
 };
