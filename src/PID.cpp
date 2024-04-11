@@ -1,6 +1,5 @@
 #include "mbed.h"
 #include "PID.h"
-#include "constants.h"
 
 
 PID::PID(
@@ -11,7 +10,8 @@ PID::PID(
         float lim_min_output_, 
         float lim_max_output_, 
         float lim_min_int_, 
-        float lim_max_int_)
+        float lim_max_int_,
+        float update_period)
     {
         // Controller gains
         kp = kp_; 
@@ -39,8 +39,18 @@ PID::PID(
         output = 0;
 
         // sample_time
-        sample_time = CONTROL_UPDATE_PERIOD;
+        sample_time = update_period;
         time_index = 0;
+
+        // set pointer to terms
+        output_arr[0] = &time_index;
+        output_arr[1] = &set_point;
+        output_arr[2] = &measurement;
+        output_arr[3] = &error;
+        output_arr[4] = &proportional;
+        output_arr[5] = &integrator;
+        output_arr[6] = &differentiator;
+        output_arr[7] = &output;
     }
 
 
@@ -127,15 +137,7 @@ void PID::set_constants(float kp_, float ki_, float kd_)
     kd = kd_;
 }
 
-float* PID::get_terms(void)
+float** PID::get_terms(void)
 {
-    output_arr[0] = time_index;
-    output_arr[1] = set_point;
-    output_arr[2] = measurement;
-    output_arr[3] = error;
-    output_arr[4] = proportional;
-    output_arr[5] = integrator;
-    output_arr[6] = differentiator;
-    output_arr[7] = output;
     return output_arr;
 }

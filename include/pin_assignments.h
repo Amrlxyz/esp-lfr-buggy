@@ -1,6 +1,6 @@
 /**
  * @file pin_assignments.h
- * @brief MCU pin assigments in one file for easy changing
+ * @brief MCU pin assigments in one file for easy modification
  * 
  * 
  */
