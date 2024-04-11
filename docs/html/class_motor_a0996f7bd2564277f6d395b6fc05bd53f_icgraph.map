@@ -1,0 +1,5 @@
+<map id="Motor::set_bipolar_mode" name="Motor::set_bipolar_mode">
+<area shape="rect" id="Node000001" title="Set the bipolar mode of the motor." alt="" coords="149,5,313,32"/>
+<area shape="rect" id="Node000002" href="$class_motor.html#accee7767e6d84441c45cb3b32a3ee000" title="Construct a new Motor object." alt="" coords="5,5,101,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,21,101,21,101,16,133,16"/>
+</map>

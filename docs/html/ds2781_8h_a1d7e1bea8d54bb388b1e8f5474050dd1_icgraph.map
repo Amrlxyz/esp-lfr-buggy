@@ -1,0 +1,9 @@
+<map id="ReadVoltage" name="ReadVoltage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="465,13,561,40"/>
+<area shape="rect" id="Node000002" href="$class_motor_driver_board.html#a2680220ee95803ef1d39503e47e56475" title="updates the measurements of voltage and current values" alt="" coords="250,5,417,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="450,29,418,29,418,24,450,24"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html#a39195dff981a54ac9b42522c56e28111" title="Send data to the bt module." alt="" coords="103,13,202,40"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="235,29,202,29,202,24,235,24"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,55,40"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,29,55,29,55,24,87,24"/>
+</map>

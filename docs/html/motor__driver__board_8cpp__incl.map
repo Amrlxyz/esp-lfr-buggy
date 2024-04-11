@@ -1,0 +1,20 @@
+<map id="src/motor_driver_board.cpp" name="src/motor_driver_board.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="176,5,353,32"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,155,70,181"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,25,142,31,108,42,76,59,50,82,42,95,38,109,36,140,31,139,33,108,37,92,46,78,73,54,106,37,140,26,175,20"/>
+<area shape="rect" id="Node000003" href="$motor__driver__board_8h.html" title="ESP Motor Driver Board Interface library" alt="" coords="60,80,202,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="242,35,168,75,166,70,240,30"/>
+<area shape="rect" id="Node000004" href="$ds2781_8h.html" title=" " alt="" coords="100,155,175,181"/>
+<area shape="poly" id="edge9_Node000001_Node000004" title=" " alt="" coords="261,33,243,69,215,108,172,147,168,143,212,105,239,66,256,31"/>
+<area shape="rect" id="Node000006" href="$_one_wire___methods_8h.html" title=" " alt="" coords="213,155,353,181"/>
+<area shape="poly" id="edge10_Node000001_Node000006" title=" " alt="" coords="268,32,282,139,277,139,263,33"/>
+<area shape="rect" id="Node000007" href="$constants_8h.html" title="contains all the constant variables for easy access from one file" alt="" coords="328,80,417,107"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="284,30,342,69,339,73,281,35"/>
+<area shape="rect" id="Node000008" href="$pin__assignments_8h.html" title="MCU pin assigments in one file for easy modification." alt="" coords="440,80,571,107"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="307,30,450,73,448,78,305,35"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="116,109,67,147,64,143,113,105"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="135,107,138,139,132,139,129,107"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="158,105,244,145,241,150,156,110"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="105,229,170,256"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="140,182,140,214,135,214,135,182"/>
+</map>

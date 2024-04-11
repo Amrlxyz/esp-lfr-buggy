@@ -1,0 +1,10 @@
+<map id="Bluetooth::is_continous" name="Bluetooth::is_continous">
+<area shape="rect" id="Node000001" title="returns true if continous update is enabled" alt="" coords="250,31,407,57"/>
+<area shape="rect" id="Node000002" href="$main_8cpp.html#acbb67905d42ded30a6eaa423ea036db0" title="Parse recieved bluetooth data." alt="" coords="108,5,197,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,33,197,28,198,22,235,28"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#a39195dff981a54ac9b42522c56e28111" title="Send data to the bt module." alt="" coords="103,56,202,83"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="235,60,203,65,202,60,234,55"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,55,57"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,34,56,42,55,36,92,28"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="87,59,54,52,56,46,88,53"/>
+</map>

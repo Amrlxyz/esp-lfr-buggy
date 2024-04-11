@@ -1,0 +1,5 @@
+<map id="MotorDriverBoard::MotorDriverBoard" name="MotorDriverBoard::MotorDriverBoard">
+<area shape="rect" id="Node000001" title="Construct a new MotorDriverBoard object." alt="" coords="5,5,199,48"/>
+<area shape="rect" id="Node000002" href="$class_motor_driver_board.html#a701a92a3e90eb7f7d1a5a69f077dd278" title="causes the enable pin to be set to LOW" alt="" coords="247,13,416,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,24,231,24,231,29,199,29"/>
+</map>
