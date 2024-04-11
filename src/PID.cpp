@@ -1,6 +1,5 @@
 #include "mbed.h"
 #include "PID.h"
-#include "constants.h"
 
 
 PID::PID(
@@ -11,7 +10,8 @@ PID::PID(
         float lim_min_output_, 
         float lim_max_output_, 
         float lim_min_int_, 
-        float lim_max_int_)
+        float lim_max_int_,
+        float update_period)
     {
         // Controller gains
         kp = kp_; 
@@ -39,7 +39,7 @@ PID::PID(
         output = 0;
 
         // sample_time
-        sample_time = CONTROL_UPDATE_PERIOD;
+        sample_time = update_period;
         time_index = 0;
 
         // set pointer to terms

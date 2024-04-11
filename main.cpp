@@ -72,25 +72,29 @@ enum Buggy_modes
 };
 
 
-/* BUGGY STATUS */
+/**
+ * @brief Represents the status of a buggy.
+ * 
+ * This struct holds various parameters related to the state of the buggy, including velocities,
+ * angles, distances, and task-specific variables.
+ */
 struct Buggy_status
 {
-    float set_velocity;
-    float set_angle;
+    float set_velocity;         /**< @brief The set velocity for the buggy. */
+    float set_angle;            /**< @brief The set angle for the buggy. */
 
-    float left_set_speed;
-    float right_set_speed;
+    float left_set_speed;       /**< @brief The set speed of the left wheel. */
+    float right_set_speed;      /**< @brief The set speed of the right wheel. */
 
-    float cumulative_angle_deg;
-    float distance_travelled;
+    float cumulative_angle_deg; /**< @brief The cumulative angle (in degrees) traveled by the buggy. */
+    float distance_travelled;   /**< @brief The distance travelled by the buggy. */
 
-    float lf_line_last_seen;
+    float lf_line_last_seen;    /**< @brief The position of the last seen line by the left front sensor. */
 
     // square task variables
-    float sq_set_angle;
-    float sq_set_distance;
-    int sq_stage;
-
+    float sq_set_angle;         /**< @brief The set angle for the square task. */
+    float sq_set_distance;      /**< @brief The set distance for the square task. */
+    int sq_stage;               /**< @brief The current stage of the square task. */
 };
 
 
