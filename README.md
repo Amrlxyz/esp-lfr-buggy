@@ -1,6 +1,6 @@
-# Line Following Robot (ESP Project)
+# ESP Line Following Robot
 
-### Group 48 - Line Following Robot Buggy for 2nd Year ESP (Embedded Systems Project)
+**GROUP 48:** 2nd Year Embedded Systems Project (ESP) 2023/24.
 
 Project is in collaboration with 5 teammates: 
 - [@Amrlxyz](https://github.com/Amrlxyz)
@@ -11,7 +11,7 @@ Project is in collaboration with 5 teammates:
 
 ## Gallery
 
-![Buggy Render](https://github.com/Amrlxyz/esp-lfr-buggy/blob/TDB/misc/Buggy%20Render.JPG)
+![Buggy Render](https://github.com/Amrlxyz/esp-lfr-buggy/blob/TDB/misc/Buggy%20Render.JPG?raw=true)
 
 *Final Buggy Render Using SolidWorks*
 
