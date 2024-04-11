@@ -1,7 +1,0 @@
-<map id="Motor::get_speed" name="Motor::get_speed">
-<area shape="rect" id="Node000001" title="Get the tangential speed of the wheel." alt="" coords="250,5,372,32"/>
-<area shape="rect" id="Node000002" href="$main_8cpp.html#a39195dff981a54ac9b42522c56e28111" title="Send data to the bt module." alt="" coords="103,5,202,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,21,202,21,202,16,234,16"/>
-<area shape="rect" id="Node000003" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
-</map>

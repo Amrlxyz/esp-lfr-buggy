@@ -1,7 +1,0 @@
-<map id="Motor::get_filtered_speed" name="Motor::get_filtered_speed">
-<area shape="rect" id="Node000001" title="Get the low&#45;pass filtered speed of the wheel." alt="" coords="285,5,410,48"/>
-<area shape="rect" id="Node000002" href="$main_8cpp.html#ab1059bc314d55652ae71b3d07c89e44d" title="ISR updating the control algorithm." alt="" coords="103,13,237,40"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="270,29,237,29,237,24,270,24"/>
-<area shape="rect" id="Node000003" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,55,40"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,29,55,29,55,24,87,24"/>
-</map>

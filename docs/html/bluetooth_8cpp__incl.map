@@ -1,8 +1,0 @@
-<map id="src/bluetooth.cpp" name="src/bluetooth.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,127,32"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="34,155,98,181"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,33,54,80,54,111,60,139,55,140,49,111,49,80,59,32"/>
-<area shape="rect" id="Node000003" href="$bluetooth_8h.html" title="BLE HM&#45;10 Library." alt="" coords="63,80,149,107"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="75,31,94,65,89,68,71,34"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="101,109,83,142,78,140,97,106"/>
-</map>

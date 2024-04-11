@@ -1,7 +1,0 @@
-<map id="OneWire_Reset" name="OneWire_Reset">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,119,57"/>
-<area shape="rect" id="Node000002" href="$_one_wire___methods_8cpp.html#a143434a9ef4789a991f53fd4d15678c6" title=" " alt="" coords="167,5,279,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,32,151,27,152,33,120,38"/>
-<area shape="rect" id="Node000003" href="$main_8cpp.html#a6eba6e3cd7b6f678e12db566d13c23e9" title=" " alt="" coords="204,56,242,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="120,50,189,61,188,67,119,56"/>
-</map>
