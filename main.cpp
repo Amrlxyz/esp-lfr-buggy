@@ -559,16 +559,16 @@ void control_update_ISR(void)
         motor_right.set_duty_cycle(PID_motor_right.get_output());
 
         // Sends PID Data to the PC
-        float** out_arr = PID_angle.get_terms();
-        pc.printf("%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n", 
-                        *out_arr[0], //= time_index
-                        *out_arr[1], //= set_point
-                        *out_arr[2], //= measurement
-                        *out_arr[3], //= error
-                        *out_arr[4], //= propotional
-                        *out_arr[5], //= integrator
-                        *out_arr[6], //= differentiator
-                        *out_arr[7]); //= output
+        // float** out_arr = PID_angle.get_terms();
+        // pc.printf("%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n", 
+        //                 *out_arr[0], //= time_index
+        //                 *out_arr[1], //= set_point
+        //                 *out_arr[2], //= measurement
+        //                 *out_arr[3], //= error
+        //                 *out_arr[4], //= propotional
+        //                 *out_arr[5], //= integrator
+        //                 *out_arr[6], //= differentiator
+        //                 *out_arr[7]); //= output
     }
 
     // Measure control ISR execution time
