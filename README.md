@@ -11,7 +11,7 @@ Project is in collaboration with 5 teammates:
 
 ## Gallery
 
-![Buggy Render](https://example.com/documentation)
+![Buggy Render](https://github.com/Amrlxyz/esp-lfr-buggy/blob/TDB/misc/Buggy%20Render.JPG)
 
 *Final Buggy Render Using SolidWorks*
 
@@ -29,12 +29,12 @@ Project is in collaboration with 5 teammates:
 
 ## API Documentation
 
-Link to documentation: [Example Documentation URL](https://example.com/documentation)
+Link to documentation: [Github Pages](https://amrlxyz.github.io/esp-lfr-buggy/)
 
 ## How to Use
 
 1. Use the wiring diagram to connect the components.
-2. It is recommended to clone the project to Keil Studio Cloud.
+2. Clone the project directly to Keil Studio Cloud.
 3. Compile and run the project.
 
 NOTE: The buggy is controlled using Bluetooth Command is required to control the buggy
