@@ -19,6 +19,9 @@
  * - enable/disable the board using the "enable" pin
  * - read voltage and current used by the whole driver board
  * 
+ * Uses this Library by Sam Walsh to interface with the current/voltage IC.
+ * https://os.mbed.com/users/EmbeddedSam/code/Nucleo_F401RE_DS271_Battery_Monitor/
+ * 
  */
 class MotorDriverBoard
 {
@@ -32,6 +35,12 @@ protected:
 
 public:
 
+    /**
+     * @brief Construct a new MotorDriverBoard object
+     * 
+     * @param enable_pin motor driver board enable (EN) pin
+     * @param monitor_pin motor driver board monitor (OneWire) pin
+     */
     MotorDriverBoard(PinName enable_pin, PinName monitor_pin);
 
     /**
@@ -43,7 +52,7 @@ public:
     /**
      * @brief enable pin will be set to the boolean value in the paremeter
      * 
-     * @param expression 
+     * @param expression boolean value or operation to be applied
      */
     void set_enable(bool expression);   
 
@@ -62,22 +71,22 @@ public:
     /**
      * @brief returns the actual voltage value
      * 
-     * @return float 
+     * @return float voltage
      */
     float get_voltage(void);            
 
     /**
      * @brief returns the actual curent value
      * 
-     * @return float 
+     * @return float current
      */
     float get_current(void);            
 
     /**
      * @brief returns the state of the enable pin
      * 
-     * @return true 
-     * @return false 
+     * @return true if pin is enabled
+     * @return false if pin is disabled
      */
     bool get_enable_state(void);
 };

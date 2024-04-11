@@ -65,16 +65,12 @@
 #define SERIAL_UPDATE_PERIOD        1     /// Seconds
 
 // Encoder Constants
-/** @addtogroup Encoder_Constants
- *  @{
- */
 #define WHEEL_SEPERATION    0.188       
 #define WHEEL_RADIUS        0.0415      
 #define PULSE_PER_REV       256         
 #define LP_SPEED_B0         0.1802684       
 #define LP_SPEED_B1         0.1802684       
 #define LP_SPEED_A0         0.63946321      
-/** @}*/
 
 // 2 Hz Pole Freq:
 // Filter coefficients b_i: [0.0591174 0.0591174]
