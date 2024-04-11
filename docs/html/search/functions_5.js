@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['get_5farray_5foutput_0',['get_array_output',['../class_sensor_array.html#a125722cbd712c7cde32fd391555d030e',1,'SensorArray']]],
+  ['get_5fbipolar_5fmode_1',['get_bipolar_mode',['../class_motor.html#af6d85c3658b3f523e6ef940a29410270',1,'Motor']]],
+  ['get_5fcurrent_2',['get_current',['../class_motor_driver_board.html#ac84ec5e04204544a83a5715ed1ffcf93',1,'MotorDriverBoard']]],
+  ['get_5fdirection_3',['get_direction',['../class_motor.html#afccab98ca0cef41c88889d1a230bef10',1,'Motor']]],
+  ['get_5fduty_5fcycle_4',['get_duty_cycle',['../class_motor.html#a3ed780e05e0369a8b0c1e327497337e7',1,'Motor']]],
+  ['get_5fenable_5fstate_5',['get_enable_state',['../class_motor_driver_board.html#a6ef9d2539c0297bfad92e709d2e8e130',1,'MotorDriverBoard']]],
+  ['get_5ffiltered_5fspeed_6',['get_filtered_speed',['../class_motor.html#a13544e4db01ed838ed83a387f3aa6066',1,'Motor']]],
+  ['get_5foutput_7',['get_output',['../class_p_i_d.html#a5b2dd162af971a196f0039e118af899f',1,'PID']]],
+  ['get_5frotational_5ffreq_8',['get_rotational_freq',['../class_motor.html#a2a6c1183affac7ed4f32da6bbc544976',1,'Motor']]],
+  ['get_5frpm_9',['get_rpm',['../class_motor.html#a24d16ad361826403869f68d7ac27a1bb',1,'Motor']]],
+  ['get_5frx_5fbuffer_10',['get_rx_buffer',['../class_bluetooth.html#a7783adfe36362b71967e4d08a65a788a',1,'Bluetooth']]],
+  ['get_5fsens_5foutput_11',['get_sens_output',['../class_sensor_array.html#a6be65a711ed96de814305f40d793f5a8',1,'SensorArray']]],
+  ['get_5fsens_5foutput_5farray_12',['get_sens_output_array',['../class_sensor_array.html#a3d8cc02b22b6b2a6ce4739844a6cf0b6',1,'SensorArray']]],
+  ['get_5fspeed_13',['get_speed',['../class_motor.html#a053255271560b8caff94f5e4a7b068a0',1,'Motor']]],
+  ['get_5fterms_14',['get_terms',['../class_p_i_d.html#a1f4aed76541746be32dc9d7ded5b7cc5',1,'PID']]],
+  ['get_5ftick_5fcount_15',['get_tick_count',['../class_motor.html#a9fa0a51efff1b1e0bedfaf81586108a9',1,'Motor']]],
+  ['get_5fvoltage_16',['get_voltage',['../class_motor_driver_board.html#a1998bf94bc85a267c84d54cf69d5526e',1,'MotorDriverBoard']]]
+];

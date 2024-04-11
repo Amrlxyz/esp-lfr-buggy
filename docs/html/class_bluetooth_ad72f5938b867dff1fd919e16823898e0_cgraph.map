@@ -1,0 +1,5 @@
+<map id="Bluetooth::send_fstring" name="Bluetooth::send_fstring">
+<area shape="rect" id="Node000001" title="Sends formatted string to the bluetooth." alt="" coords="5,5,160,32"/>
+<area shape="rect" id="Node000002" href="$class_bluetooth.html#a9e90d0e511be94da7483ab2fe3d20bf4" title="Sends character array to the bluetooth." alt="" coords="208,5,358,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,16,192,16,192,21,160,21"/>
+</map>

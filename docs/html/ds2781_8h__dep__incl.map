@@ -1,0 +1,12 @@
+<map id="include/ds2781.h" name="include/ds2781.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="132,5,252,32"/>
+<area shape="rect" id="Node000002" href="$motor__driver__board_8h.html" title="ESP Motor Driver Board Interface library" alt="" coords="18,80,155,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,44,115,82,112,77,162,40"/>
+<area shape="rect" id="Node000004" href="$motor__driver__board_8cpp.html" title=" " alt="" coords="103,171,281,197"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="195,47,195,170,189,170,189,47"/>
+<area shape="rect" id="Node000005" href="$ds2781_8cpp.html" title=" " alt="" coords="229,88,339,115"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="219,40,272,86,268,90,216,44"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html" title="main buggy code This file contains all the buggy logic" alt="" coords="5,171,80,197"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="70,138,52,171,47,169,65,135"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="127,130,177,168,174,172,124,135"/>
+</map>

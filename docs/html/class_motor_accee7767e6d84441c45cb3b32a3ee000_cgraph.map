@@ -1,0 +1,10 @@
+<map id="Motor::Motor" name="Motor::Motor">
+<area shape="rect" id="Node000001" title="Construct a new Motor object." alt="" coords="5,56,101,83"/>
+<area shape="rect" id="Node000002" href="$class_motor.html#a0996f7bd2564277f6d395b6fc05bd53f" title="Set the bipolar mode of the motor." alt="" coords="149,5,313,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,53,166,34,167,39,102,58"/>
+<area shape="rect" id="Node000003" href="$class_motor.html#a1036611ac5c81da2df48ba3ea8d870bd" title="Set the direction of the motor." alt="" coords="361,81,497,108"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="101,70,346,86,345,92,101,75"/>
+<area shape="rect" id="Node000004" href="$class_motor.html#a16a90b803a442cb2eae9974586a2ea8f" title="Set the duty cycle of the motor." alt="" coords="156,107,306,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="102,80,167,99,166,104,101,85"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="306,108,345,103,346,108,306,113"/>
+</map>

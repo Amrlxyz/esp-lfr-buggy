@@ -1,0 +1,115 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,909,55,936"/>
+<area shape="rect" id="Node000002" href="$main_8cpp.html#acbb67905d42ded30a6eaa423ea036db0" title="Parse recieved bluetooth data." alt="" coords="143,157,232,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="30,909,50,715,71,570,100,422,137,296,172,198,177,200,142,298,105,423,76,571,55,715,35,909"/>
+<area shape="rect" id="Node000006" href="$class_bluetooth.html#ae5692fc7fdfb254e24f438fab5b2765b" title="Set the continous property to the bool value passed." alt="" coords="324,5,489,32"/>
+<area shape="poly" id="edge60_Node000001_Node000006" title=" " alt="" coords="29,909,35,757,49,515,70,278,84,192,92,163,100,144,120,120,143,99,196,67,253,44,308,29,309,34,254,49,198,72,146,104,124,124,105,147,97,164,89,193,75,279,54,515,40,758,34,909"/>
+<area shape="rect" id="Node000010" href="$main_8cpp.html#a39195dff981a54ac9b42522c56e28111" title="Send data to the bt module." alt="" coords="138,435,237,461"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="30,909,52,782,72,694,100,604,133,532,167,473,171,476,138,534,105,606,78,695,57,783,36,909"/>
+<area shape="rect" id="Node000017" href="$class_bluetooth.html#ad72f5938b867dff1fd919e16823898e0" title="Sends formatted string to the bluetooth." alt="" coords="329,611,483,637"/>
+<area shape="poly" id="edge57_Node000001_Node000017" title=" " alt="" coords="30,908,38,852,53,776,73,702,86,673,101,654,124,637,150,625,204,609,261,604,314,606,313,611,261,609,205,614,151,630,127,642,105,658,91,676,78,704,58,777,44,853,36,909"/>
+<area shape="rect" id="Node000025" href="$main_8cpp.html#a6eba6e3cd7b6f678e12db566d13c23e9" title=" " alt="" coords="968,661,1006,688"/>
+<area shape="poly" id="edge50_Node000001_Node000025" title=" " alt="" coords="28,909,30,867,39,809,48,778,61,748,78,721,101,698,127,684,162,676,248,669,405,672,617,672,952,672,952,677,617,677,405,677,248,674,163,681,129,689,104,702,83,724,66,751,53,780,44,810,35,867,34,909"/>
+<area shape="rect" id="Node000029" href="$main_8cpp.html#ab1059bc314d55652ae71b3d07c89e44d" title="ISR updating the control algorithm." alt="" coords="120,1048,255,1075"/>
+<area shape="poly" id="edge35_Node000001_Node000029" title=" " alt="" coords="39,935,62,984,81,1011,104,1034,111,1038,108,1043,101,1038,77,1014,58,986,34,938"/>
+<area shape="rect" id="Node000037" href="$class_bluetooth.html#a641eb5a0aacad826977d8f6dce1f79b8" title="Returns true if incoming data is fully recieved." alt="" coords="106,763,269,805"/>
+<area shape="poly" id="edge45_Node000001_Node000037" title=" " alt="" coords="35,907,60,863,78,838,101,815,106,812,109,816,104,819,83,841,64,866,40,910"/>
+<area shape="rect" id="Node000038" href="$class_motor_driver_board.html#a701a92a3e90eb7f7d1a5a69f077dd278" title="causes the enable pin to be set to LOW" alt="" coords="103,829,272,856"/>
+<area shape="poly" id="edge46_Node000001_Node000038" title=" " alt="" coords="44,907,70,886,101,866,115,859,117,864,104,870,73,890,48,911"/>
+<area shape="rect" id="Node000039" href="$class_bluetooth.html#a7783adfe36362b71967e4d08a65a788a" title="returns the raw data recieved as a character array" alt="" coords="108,880,267,907"/>
+<area shape="poly" id="edge47_Node000001_Node000039" title=" " alt="" coords="55,916,97,908,98,913,56,921"/>
+<area shape="rect" id="Node000040" href="$class_sensor_array.html#a88b40d7590d708473c9e15d1cd4a4591" title="Checks if a line is detected (in the last update)." alt="" coords="118,931,257,973"/>
+<area shape="poly" id="edge48_Node000001_Node000040" title=" " alt="" coords="56,925,103,934,102,939,55,930"/>
+<area shape="rect" id="Node000041" href="$class_bluetooth.html#afa1d2eeb0651790a0d3a3a0b247fe24b" title="returns true if bluetooth module is ready" alt="" coords="121,997,254,1024"/>
+<area shape="poly" id="edge49_Node000001_Node000041" title=" " alt="" coords="46,935,71,959,104,983,116,989,113,994,101,988,68,963,42,938"/>
+<area shape="rect" id="Node000042" href="$main_8cpp.html#a4553963c239316efafb949c46168c518" title="Send data to the pc." alt="" coords="756,956,859,983"/>
+<area shape="poly" id="edge51_Node000001_Node000042" title=" " alt="" coords="36,936,42,967,55,1007,75,1049,104,1085,125,1100,145,1108,185,1113,226,1117,249,1123,273,1135,289,1149,297,1163,306,1175,321,1186,355,1197,389,1202,423,1202,458,1198,526,1177,592,1145,652,1105,705,1064,781,992,785,996,708,1068,655,1110,594,1149,528,1182,459,1203,424,1208,388,1207,353,1202,319,1190,302,1179,293,1166,285,1152,271,1140,247,1128,225,1122,184,1119,144,1113,123,1104,101,1089,71,1052,50,1009,37,968,31,937"/>
+<area shape="rect" id="Node000043" href="$main_8cpp.html#a41e1c0745ad1e409f6a32e416307cb56" title="Reset all buggy values and all objects variables." alt="" coords="130,1400,245,1427"/>
+<area shape="poly" id="edge53_Node000001_Node000043" title=" " alt="" coords="34,936,37,1026,47,1162,56,1232,69,1297,85,1350,105,1386,117,1397,114,1401,101,1390,80,1352,64,1298,51,1233,42,1162,32,1027,29,937"/>
+<area shape="rect" id="Node000046" href="$class_bluetooth.html#abc47a4af0baaf6ae23231e49b7aac010" title="Resets the recieved data buffer for new incoming data." alt="" coords="122,1149,253,1192"/>
+<area shape="poly" id="edge56_Node000001_Node000046" title=" " alt="" coords="35,936,40,974,52,1024,73,1080,87,1105,105,1129,115,1138,111,1142,101,1132,83,1108,68,1082,47,1026,35,975,30,937"/>
+<area shape="rect" id="Node000047" href="$main_8cpp.html#a69844253683680ca21d64d986e03babe" title="ISR to update flag to send data to pc/bt in main()" alt="" coords="124,1216,251,1243"/>
+<area shape="poly" id="edge58_Node000001_Node000047" title=" " alt="" coords="36,936,59,1074,79,1152,91,1182,105,1202,112,1209,109,1213,101,1206,87,1184,74,1153,53,1075,30,937"/>
+<area shape="rect" id="Node000048" href="$class_sensor_array.html#aba4c72a4e3bbe7994b5a5fcb98fe886f" title="Sets the status of all LEDs." alt="" coords="118,1267,257,1309"/>
+<area shape="poly" id="edge59_Node000001_Node000048" title=" " alt="" coords="35,936,43,1003,56,1097,77,1191,90,1228,105,1253,107,1256,104,1260,101,1256,85,1230,72,1193,51,1098,37,1003,30,937"/>
+<area shape="rect" id="Node000049" href="$class_motor_driver_board.html#a893aebb1d49eec1b0e0d102fd9f16957" title="enable pin will be set to the boolean value in the paremeter" alt="" coords="114,1333,261,1376"/>
+<area shape="poly" id="edge61_Node000001_Node000049" title=" " alt="" coords="35,936,40,1014,53,1129,74,1244,88,1289,105,1320,106,1321,102,1324,100,1323,83,1291,69,1245,47,1130,35,1015,29,937"/>
+<area shape="rect" id="Node000050" href="$main_8cpp.html#a4f089b490d9d445d79fa9e73e85aed65" title="Set pwm dc to 0 for both motors." alt="" coords="141,712,234,739"/>
+<area shape="poly" id="edge62_Node000001_Node000050" title=" " alt="" coords="30,908,37,876,49,833,70,788,84,767,101,749,125,734,127,739,104,753,88,770,74,791,54,835,42,877,36,909"/>
+<area shape="rect" id="Node000003" href="$class_bluetooth.html#ae7a2813bf139a42a5134713c5b8c9939" title="returns true if continous update is enabled" alt="" coords="328,208,485,235"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="233,178,331,201,330,207,232,184"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#a5e48045a4072975fd32e2daee4a02228" title=" " alt="" coords="383,56,429,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="208,154,257,124,319,92,367,76,369,81,321,97,260,128,211,159"/>
+<area shape="rect" id="Node000005" href="$class_p_i_d.html#aa3cc231cd26b1cc957bc77af2eefeff2" title="Takes in the 3 parameters to set the PID coefficients values." alt="" coords="340,107,472,133"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="232,158,330,135,331,140,233,163"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="201,155,318,42,330,36,332,41,322,46,205,159"/>
+<area shape="rect" id="Node000007" href="$class_motor.html#a16a90b803a442cb2eae9974586a2ea8f" title="Set the duty cycle of the motor." alt="" coords="331,712,481,739"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="196,183,231,282,275,422,286,487,289,540,297,590,307,617,322,648,345,677,372,701,369,705,341,681,318,651,302,619,292,591,284,540,281,488,269,423,226,284,191,185"/>
+<area shape="rect" id="Node000009" href="$class_bluetooth.html#a668f77350b9862f85f5cc0cda28cbc6c" title="Set the send once property to the bool value passed." alt="" coords="320,157,492,184"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="232,168,304,168,304,173,232,173"/>
+<area shape="rect" id="Node000008" href="$class_motor.html#a1036611ac5c81da2df48ba3ea8d870bd" title="Set the direction of the motor." alt="" coords="547,712,684,739"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="482,723,532,723,532,728,482,728"/>
+<area shape="poly" id="edge15_Node000010_Node000003" title=" " alt="" coords="191,433,207,396,234,345,271,291,293,266,318,245,326,240,329,244,322,249,297,270,275,294,238,348,212,398,196,435"/>
+<area shape="poly" id="edge19_Node000010_Node000009" title=" " alt="" coords="189,433,202,388,227,323,265,254,290,222,318,194,324,190,327,194,322,198,294,225,270,257,232,325,207,389,194,435"/>
+<area shape="rect" id="Node000011" href="$class_motor_driver_board.html#ac84ec5e04204544a83a5715ed1ffcf93" title="returns the actual curent value" alt="" coords="333,493,479,536"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="235,459,320,486,318,491,233,465"/>
+<area shape="rect" id="Node000012" href="$class_motor.html#a3ed780e05e0369a8b0c1e327497337e7" title="Get the duty cycle of the motor." alt="" coords="331,560,481,587"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="205,460,254,502,287,525,321,546,335,552,333,557,319,550,284,530,251,506,201,464"/>
+<area shape="rect" id="Node000013" href="$class_motor.html#a053255271560b8caff94f5e4a7b068a0" title="Get the tangential speed of the wheel." alt="" coords="345,259,467,285"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="195,432,242,367,277,328,319,295,329,289,332,294,321,300,281,332,246,370,199,436"/>
+<area shape="rect" id="Node000014" href="$class_motor.html#a9fa0a51efff1b1e0bedfaf81586108a9" title="Get the cumulative tick count." alt="" coords="333,763,480,789"/>
+<area shape="poly" id="edge13_Node000010_Node000014" title=" " alt="" coords="193,461,203,515,226,592,243,635,264,676,290,715,322,749,326,752,323,756,318,753,286,718,259,679,238,637,221,594,198,516,188,462"/>
+<area shape="rect" id="Node000015" href="$class_motor_driver_board.html#a1998bf94bc85a267c84d54cf69d5526e" title="returns the actual voltage value" alt="" coords="333,309,479,352"/>
+<area shape="poly" id="edge14_Node000010_Node000015" title=" " alt="" coords="206,432,256,398,319,362,330,356,332,361,321,366,259,403,209,436"/>
+<area shape="rect" id="Node000016" href="$class_bluetooth.html#ad5dc6865758ae4f2edd848afdd503c1e" title="returns true if send once is enabled" alt="" coords="324,376,488,403"/>
+<area shape="poly" id="edge16_Node000010_Node000016" title=" " alt="" coords="236,432,338,405,340,410,238,437"/>
+<area shape="poly" id="edge17_Node000010_Node000017" title=" " alt="" coords="199,460,246,526,281,564,322,596,331,602,328,606,318,601,277,568,242,529,195,464"/>
+<area shape="rect" id="Node000019" href="$class_motor_driver_board.html#a2680220ee95803ef1d39503e47e56475" title="updates the measurements of voltage and current values" alt="" coords="323,427,490,469"/>
+<area shape="poly" id="edge20_Node000010_Node000019" title=" " alt="" coords="237,445,307,445,307,451,237,451"/>
+<area shape="rect" id="Node000018" href="$class_bluetooth.html#a9e90d0e511be94da7483ab2fe3d20bf4" title="Sends character array to the bluetooth." alt="" coords="540,611,691,637"/>
+<area shape="poly" id="edge18_Node000017_Node000018" title=" " alt="" coords="484,621,525,621,525,627,484,627"/>
+<area shape="rect" id="Node000020" href="$ds2781_8cpp.html#af8a939403a48744a8124c2d9a9b02a11" title=" " alt="" coords="569,485,662,512"/>
+<area shape="poly" id="edge21_Node000019_Node000020" title=" " alt="" coords="491,466,555,481,553,487,490,471"/>
+<area shape="rect" id="Node000028" href="$ds2781_8cpp.html#a1d7e1bea8d54bb388b1e8f5474050dd1" title=" " alt="" coords="568,435,663,461"/>
+<area shape="poly" id="edge31_Node000019_Node000028" title=" " alt="" coords="490,445,552,445,552,451,490,451"/>
+<area shape="rect" id="Node000021" href="$_one_wire___methods_8cpp.html#a9189854c20b5c91f35cf0f150a81f49c" title=" " alt="" coords="739,435,876,461"/>
+<area shape="poly" id="edge22_Node000020_Node000021" title=" " alt="" coords="662,484,739,463,740,468,663,489"/>
+<area shape="rect" id="Node000024" href="$_one_wire___methods_8cpp.html#a7314e5938b3ad60b701799fe6b74ab9b" title=" " alt="" coords="751,536,864,563"/>
+<area shape="poly" id="edge25_Node000020_Node000024" title=" " alt="" coords="663,508,740,529,739,534,662,514"/>
+<area shape="rect" id="Node000026" href="$_one_wire___methods_8cpp.html#abbbb3dbe5568c178791d19b7e8a64790" title=" " alt="" coords="739,485,876,512"/>
+<area shape="poly" id="edge28_Node000020_Node000026" title=" " alt="" coords="663,496,723,496,723,501,663,501"/>
+<area shape="rect" id="Node000022" href="$_one_wire___methods_8cpp.html#ac06e54be6891384d157fef3c72cd1af5" title=" " alt="" coords="925,435,1050,461"/>
+<area shape="poly" id="edge23_Node000021_Node000022" title=" " alt="" coords="876,445,909,445,909,451,876,451"/>
+<area shape="rect" id="Node000023" href="$_one_wire___methods_8cpp.html#a143434a9ef4789a991f53fd4d15678c6" title=" " alt="" coords="1098,485,1211,512"/>
+<area shape="poly" id="edge24_Node000022_Node000023" title=" " alt="" coords="1035,459,1094,478,1093,483,1033,465"/>
+<area shape="poly" id="edge26_Node000024_Node000023" title=" " alt="" coords="864,543,952,535,1050,521,1087,514,1088,519,1051,527,953,540,865,548"/>
+<area shape="poly" id="edge27_Node000024_Node000025" title=" " alt="" coords="830,561,957,651,954,655,827,565"/>
+<area shape="rect" id="Node000027" href="$_one_wire___methods_8cpp.html#a36a43ae21bba5d18821d2d21c47e773d" title=" " alt="" coords="924,485,1050,512"/>
+<area shape="poly" id="edge29_Node000026_Node000027" title=" " alt="" coords="877,496,908,496,908,501,877,501"/>
+<area shape="poly" id="edge30_Node000027_Node000023" title=" " alt="" coords="1051,496,1083,496,1083,501,1051,501"/>
+<area shape="poly" id="edge32_Node000028_Node000021" title=" " alt="" coords="664,445,724,445,724,451,664,451"/>
+<area shape="poly" id="edge33_Node000028_Node000024" title=" " alt="" coords="665,458,692,471,707,484,717,497,726,509,740,522,748,527,745,531,737,526,722,513,713,500,704,488,689,476,663,463"/>
+<area shape="poly" id="edge34_Node000028_Node000026" title=" " alt="" coords="664,458,740,478,738,483,663,463"/>
+<area shape="poly" id="edge40_Node000029_Node000007" title=" " alt="" coords="253,1047,270,1034,292,999,301,964,299,929,293,894,287,858,286,822,295,786,318,749,320,746,324,750,322,752,299,788,291,823,292,858,299,893,305,928,306,964,297,1001,274,1038,256,1051"/>
+<area shape="poly" id="edge39_Node000029_Node000014" title=" " alt="" coords="253,1047,270,1034,289,1005,297,977,297,948,293,919,289,890,290,860,298,830,318,800,321,797,324,801,322,803,303,832,295,860,295,889,299,918,302,948,302,978,294,1008,274,1038,257,1051"/>
+<area shape="rect" id="Node000030" href="$class_sensor_array.html#a125722cbd712c7cde32fd391555d030e" title="Gets the output value of the sensor array." alt="" coords="329,813,484,856"/>
+<area shape="poly" id="edge36_Node000029_Node000030" title=" " alt="" coords="253,1046,270,1034,285,1014,293,994,294,953,296,910,303,888,318,866,320,864,324,868,322,870,308,891,301,911,300,953,298,995,290,1017,274,1038,257,1050"/>
+<area shape="rect" id="Node000031" href="$class_motor.html#a13544e4db01ed838ed83a387f3aa6066" title="Get the low&#45;pass filtered speed of the wheel." alt="" coords="344,880,469,923"/>
+<area shape="poly" id="edge37_Node000029_Node000031" title=" " alt="" coords="252,1045,270,1034,281,1022,288,1010,294,985,300,959,307,946,318,933,329,924,332,929,322,937,311,949,305,961,299,987,293,1012,286,1025,274,1038,255,1050"/>
+<area shape="rect" id="Node000032" href="$class_p_i_d.html#a5b2dd162af971a196f0039e118af899f" title="Get the output of the PID controller." alt="" coords="351,947,462,973"/>
+<area shape="poly" id="edge38_Node000029_Node000032" title=" " alt="" coords="247,1045,271,1034,285,1022,294,1009,303,996,319,983,335,975,337,979,321,988,307,1000,298,1012,289,1025,273,1038,249,1050"/>
+<area shape="rect" id="Node000033" href="$class_p_i_d.html#aeee74e9710b69e0f24092f4e01284a95" title="Updates the output of PID controller based on the real time measurement." alt="" coords="362,997,451,1024"/>
+<area shape="poly" id="edge41_Node000029_Node000033" title=" " alt="" coords="248,1045,346,1022,347,1027,249,1050"/>
+<area shape="rect" id="Node000034" href="$class_motor.html#a1b70870daea3a394303d05d64edf6f00" title="Calculate and update all the speed variables." alt="" coords="356,1048,457,1075"/>
+<area shape="poly" id="edge42_Node000029_Node000034" title=" " alt="" coords="255,1059,340,1059,340,1064,255,1064"/>
+<area shape="rect" id="Node000035" href="$class_sensor_array.html#a43a269e321e0567f996ab57bff26d6af" title="Updates the sensor array." alt="" coords="336,1099,476,1125"/>
+<area shape="poly" id="edge43_Node000029_Node000035" title=" " alt="" coords="249,1073,331,1092,330,1097,248,1078"/>
+<area shape="rect" id="Node000036" href="$main_8cpp.html#a69bdbd2ce224da71b012eb0d92a6dd92" title="Update buggy status variables." alt="" coords="334,1149,479,1176"/>
+<area shape="poly" id="edge44_Node000029_Node000036" title=" " alt="" coords="235,1073,273,1091,288,1103,298,1114,307,1125,321,1135,333,1141,330,1146,319,1140,304,1129,294,1117,284,1107,271,1096,233,1078"/>
+<area shape="poly" id="edge52_Node000042_Node000025" title=" " alt="" coords="815,954,968,700,972,703,819,957"/>
+<area shape="rect" id="Node000044" href="$class_p_i_d.html#af9677e76cb1beffbcf3f54cbc627c530" title="Reset the PID controller." alt="" coords="367,1375,446,1401"/>
+<area shape="poly" id="edge54_Node000043_Node000044" title=" " alt="" coords="245,1404,351,1392,351,1397,246,1409"/>
+<area shape="rect" id="Node000045" href="$class_motor.html#a6d3499cd2bc1a315ffae9f397c6e3233" title="Reset the encoder tick count." alt="" coords="361,1425,452,1452"/>
+<area shape="poly" id="edge55_Node000043_Node000045" title=" " alt="" coords="246,1417,345,1429,345,1434,245,1423"/>
+<area shape="poly" id="edge63_Node000050_Node000007" title=" " alt="" coords="235,723,315,723,315,728,235,728"/>
+</map>
