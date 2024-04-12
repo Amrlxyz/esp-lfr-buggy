@@ -43,8 +43,8 @@
 
 // Sensor Array Constants
 #define SENS_SAMPLE_COUNT       5   // 5 - 311us, 3 - 195us   
-#define SENS_ANGLE_COEFF        -5
-#define SENS_DETECT_THRESH      0.2
+#define SENS_ANGLE_COEFF        -1
+#define SENS_DETECT_THRESH      0.25
 
 // Line Follow Constants
 #define LINE_FOLLOW_VELOCITY        0.3
@@ -62,7 +62,7 @@
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
-#define SERIAL_UPDATE_PERIOD        0.5     /// Seconds
+#define SERIAL_UPDATE_PERIOD        1     /// Seconds
 
 // Encoder Constants
 #define WHEEL_SEPERATION    0.188       

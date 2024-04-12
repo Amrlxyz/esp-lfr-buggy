@@ -400,7 +400,7 @@ void reset_everything(void)
     PID_motor_left.reset();
     PID_motor_right.reset();
 
-    buggy_status = {0};
+    memset(&buggy_status, 0, sizeof(buggy_status));
 }
 
 
@@ -554,7 +554,7 @@ void control_update_ISR(void)
         }
         else
         {
-            PID_angle.update(buggy_status.set_angle, sensor_array.get_array_output());
+            PID_angle.update(buggy_status.set_angle, SENS_ANGLE_COEFF * sensor_array.get_array_output());
         }
 
         // Calculate Motor Set Speeds
@@ -692,12 +692,12 @@ void pc_send_data(void)
 
     // pc.printf("Calculation ISR Time: %d us / Main Loop Time: %d us / Global Time: %d us \n", ISR_exec_time, loop_exec_time, global_timer.read_us());
 
-    float* sens = sensor_array.get_sens_output_array();
-    for (int i = 0; i < 6; i++)
-    {
-        pc.printf("%d:%6.4f,", i, sens[i]);
-    }
-    pc.printf("Out:%f\n", sensor_array.get_array_output());
+    // float* sens = sensor_array.get_sens_output_array();
+    // for (int i = 0; i < 6; i++)
+    // {
+    //     pc.printf("%d:%6.4f,", i, sens[i]);
+    // }
+    // pc.printf("Out:%f\n", sensor_array.get_array_output());
 
     // pc.printf("%d, %d\n", ISR_exec_time, loop_exec_time);
 }
