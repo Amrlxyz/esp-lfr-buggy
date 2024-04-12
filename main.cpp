@@ -177,7 +177,7 @@ int main()
             {
             case 'r':
                 reset_everything();
-                buggy_mode = line_follow;
+                buggy_mode = PID_test;
                 break;
             case 's':
                 buggy_mode = inactive;
@@ -337,17 +337,18 @@ int main()
                 {
                     buggy_mode = static_tracking;
                 }
-                
+                break;
             case line_follow:
                 if (sensor_array.is_line_detected())
                 {
                     buggy_status.lf_line_last_seen = buggy_status.distance_travelled;
                 }
-                if (buggy_status.distance_travelled - buggy_status.lf_line_last_seen >= LINE_FOLLOW_STOP_DISTANCE)
+                else if (buggy_status.distance_travelled - buggy_status.lf_line_last_seen >= LINE_FOLLOW_STOP_DISTANCE)
                 {
                     buggy_mode = inactive;
                     stop_motors();
                 }
+                break;
             default:
                 break;
         }    
@@ -568,7 +569,7 @@ void control_update_ISR(void)
         motor_right.set_duty_cycle(PID_motor_right.get_output());
 
         // Sends PID Data to the PC
-        // float** out_arr = PID_angle.get_terms();
+        // float** out_arr = PID_motor_left.get_terms();
         // pc.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n", 
         //                 *out_arr[0], //= time_index
         //                 *out_arr[1], //= set_point
@@ -652,7 +653,7 @@ void bt_send_data(void)
                 break;
             case ch_current_usage:          // C          
                 driver_board.update_measurements();
-                bt.send_fstring("%f.3V, %f.3A", driver_board.get_voltage(), driver_board.get_current());
+                bt.send_fstring("%.3fV, %.3fA\n", driver_board.get_voltage(), driver_board.get_current());
                 break;
             case ch_runtime:                // R
                 bt.send_fstring("Runtime: %f", global_timer.read());
@@ -664,7 +665,7 @@ void bt_send_data(void)
                 bt.send_fstring("removed feature");
                 break;
             default:
-                bt.send_fstring("Err: No Data");
+                bt.send_fstring("Err: No Data\n");
                 break;
         }
         bt.set_send_once(false); 
