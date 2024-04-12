@@ -7,9 +7,10 @@ float SensorArray::read(AnalogIn sensor){return 0;}
 
 
 SensorArray::SensorArray(PinName sens0, PinName sens1, PinName sens2, PinName sens3, PinName sens4, PinName sens5,
-            PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_thresh): 
+            PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_thresh, float angle_coefficient): 
             sample_count_(sample_count),
             detect_thresh_(detect_thresh),
+            angle_coeff(angle_coefficient),
             led{led0, led1, led2, led3, led4, led5}, // Initialize led array
             sens{sens0, sens1, sens2, sens3, sens4, sens5} // Initialize sens array
             {
@@ -60,7 +61,7 @@ void SensorArray::update(void)
         }
     }
 
-    output = (sens_values[0] * (-5) + sens_values[1] * (-3) + sens_values[2] * (-1) + sens_values[3] * (1) + sens_values[4] * (3) + sens_values[5] * (5));
+    output = angle_coeff * (sens_values[0] * (-5) + sens_values[1] * (-3) + sens_values[2] * (-1) + sens_values[3] * (1) + sens_values[4] * (3) + sens_values[5] * (5));
 }
 
 
