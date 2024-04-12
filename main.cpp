@@ -1,6 +1,7 @@
 /**
  * @file main.cpp
  * @brief main buggy code
+ *
  * This file contains all the buggy logic
  * 
  */
@@ -36,6 +37,7 @@ enum Bt_cmd_chars
     ch_PID_test = 'P',               // P
     ch_toggle_led_test = 'L',        // L
     ch_line_follow = 'F',            // F
+    ch_static_tracking = 'T',        // T
 
     // 2 - data types
     ch_pwm_duty = 'P',               // P
@@ -123,12 +125,12 @@ Ticker serial_ticker;
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN, BT_BAUD_RATE);     
 MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, DRIVER_MONITOR_PIN);
 SensorArray sensor_array(SENSOR0_IN_PIN, SENSOR1_IN_PIN, SENSOR2_IN_PIN, SENSOR3_IN_PIN, SENSOR4_IN_PIN, SENSOR5_IN_PIN,
-                        SENSOR0_OUT_PIN, SENSOR1_OUT_PIN, SENSOR2_OUT_PIN, SENSOR3_OUT_PIN, SENSOR4_OUT_PIN, SENSOR5_OUT_PIN, SENS_SAMPLE_COUNT, SENS_DETECT_THRESH);
-Motor motor_left(MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN, MOTORL_CHA_PIN, MOTORL_CHB_PIN, PULSE_PER_REV, MOTOR_PWM_FREQ, CONTROL_UPDATE_RATE, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS);
+                         SENSOR0_OUT_PIN, SENSOR1_OUT_PIN, SENSOR2_OUT_PIN, SENSOR3_OUT_PIN, SENSOR4_OUT_PIN, SENSOR5_OUT_PIN, SENS_SAMPLE_COUNT, SENS_DETECT_THRESH);
+Motor motor_left (MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN, MOTORL_CHA_PIN, MOTORL_CHB_PIN, PULSE_PER_REV, MOTOR_PWM_FREQ, CONTROL_UPDATE_RATE, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS);
 Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN, MOTORR_CHA_PIN, MOTORR_CHB_PIN, PULSE_PER_REV, MOTOR_PWM_FREQ, CONTROL_UPDATE_RATE, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS);
-PID PID_motor_left(PID_M_L_KP, PID_M_L_KI, PID_M_L_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT);
-PID PID_motor_right(PID_M_R_KP, PID_M_R_KI, PID_M_R_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT);
-PID PID_angle(PID_A_KP, PID_A_KI, PID_A_KD, PID_A_TAU, PID_A_MIN_OUT, PID_A_MAX_OUT, PID_A_MIN_INT, PID_A_MAX_INT);
+PID PID_motor_left (PID_M_L_KP, PID_M_L_KI, PID_M_L_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT, CONTROL_UPDATE_PERIOD);
+PID PID_motor_right(PID_M_R_KP, PID_M_R_KI, PID_M_R_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT, CONTROL_UPDATE_PERIOD);
+PID PID_angle(PID_A_KP, PID_A_KI, PID_A_KD, PID_A_TAU, PID_A_MIN_OUT, PID_A_MAX_OUT, PID_A_MIN_INT, PID_A_MAX_INT, CONTROL_UPDATE_PERIOD);
 
 
 // Helper Function Prototypes:
@@ -505,6 +507,9 @@ bool bt_parse_rx(char* rx_buffer)
                 case ch_line_follow:
                     buggy_mode = line_follow;
                     break;
+                case ch_static_tracking:
+                    buggy_mode = static_tracking;
+                    break;
                 default:
                     break;
             }
@@ -564,7 +569,7 @@ void control_update_ISR(void)
 
         // Sends PID Data to the PC
         // float** out_arr = PID_angle.get_terms();
-        // pc.printf("%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n", 
+        // pc.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n", 
         //                 *out_arr[0], //= time_index
         //                 *out_arr[1], //= set_point
         //                 *out_arr[2], //= measurement
@@ -647,7 +652,7 @@ void bt_send_data(void)
                 break;
             case ch_current_usage:          // C          
                 driver_board.update_measurements();
-                bt.send_fstring("%f.3V, %f.3C", driver_board.get_voltage(), driver_board.get_current());
+                bt.send_fstring("%f.3V, %f.3A", driver_board.get_voltage(), driver_board.get_current());
                 break;
             case ch_runtime:                // R
                 bt.send_fstring("Runtime: %f", global_timer.read());
@@ -685,14 +690,14 @@ void pc_send_data(void)
     // pc.printf("Distance Travelled:  %7.4f Metres \n", buggy_status.distance_travelled);
     // pc.printf("Sensor Values:  \n");
 
-    pc.printf("Calculation ISR Time: %d us / Main Loop Time: %d us / Global Time: %d us \n", ISR_exec_time, loop_exec_time, global_timer.read_us());
+    // pc.printf("Calculation ISR Time: %d us / Main Loop Time: %d us / Global Time: %d us \n", ISR_exec_time, loop_exec_time, global_timer.read_us());
 
-    // float* sens = sensor_array.get_sens_output_array();
-    // for (int i = 0; i < 6; i++)
-    // {
-    //     pc.printf("%d:%6.4f,", i, sens[i]);
-    // }
-    // pc.printf("Out:%f\n", sensor_array.get_array_output());
+    float* sens = sensor_array.get_sens_output_array();
+    for (int i = 0; i < 6; i++)
+    {
+        pc.printf("%d:%6.4f,", i, sens[i]);
+    }
+    pc.printf("Out:%f\n", sensor_array.get_array_output());
 
     // pc.printf("%d, %d\n", ISR_exec_time, loop_exec_time);
 }

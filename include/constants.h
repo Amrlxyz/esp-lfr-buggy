@@ -44,11 +44,11 @@
 // Sensor Array Constants
 #define SENS_SAMPLE_COUNT       5   // 5 - 311us, 3 - 195us   
 #define SENS_ANGLE_COEFF        -5
-#define SENS_DETECT_THRESH      0.3
+#define SENS_DETECT_THRESH      0.2
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY        0.4
-#define LINE_FOLLOW_STOP_DISTANCE   0.15
+#define LINE_FOLLOW_VELOCITY        0.3
+#define LINE_FOLLOW_STOP_DISTANCE   0.20
 
 // Square Task Constants
 #define SQUARE_VELOCITY_SET                 0.4
@@ -62,15 +62,15 @@
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
-#define SERIAL_UPDATE_PERIOD        1     /// Seconds
+#define SERIAL_UPDATE_PERIOD        0.5     /// Seconds
 
 // Encoder Constants
 #define WHEEL_SEPERATION    0.188       
 #define WHEEL_RADIUS        0.0415      
 #define PULSE_PER_REV       256         
-#define LP_SPEED_B0         0.1802684       
-#define LP_SPEED_B1         0.1802684       
-#define LP_SPEED_A0         0.63946321      
+#define LP_SPEED_B0         0.0591174       
+#define LP_SPEED_B1         0.0591174       
+#define LP_SPEED_A0         0.88176521      
 
 // 2 Hz Pole Freq:
 // Filter coefficients b_i: [0.0591174 0.0591174]
