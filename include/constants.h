@@ -48,7 +48,7 @@
 
 // Line Follow Constants
 #define LINE_FOLLOW_VELOCITY        0.5
-#define LINE_FOLLOW_STOP_DISTANCE   0.40
+#define LINE_FOLLOW_STOP_DISTANCE   0.30
 
 // Square Task Constants
 #define SQUARE_VELOCITY_SET                 0.4
