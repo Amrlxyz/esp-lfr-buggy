@@ -61,7 +61,7 @@ void SensorArray::update(void)
         }
     }
 
-    output = angle_coeff * (sens_values[0] * (-5) + sens_values[1] * (-3) + sens_values[2] * (-1) + sens_values[3] * (1) + sens_values[4] * (3) + sens_values[5] * (5));
+    output = angle_coeff * (sens_values[0] * coef[0] + sens_values[1] * coef[1] + sens_values[2] * coef[2] + sens_values[3] * coef[3] + sens_values[4] * coef[4] + sens_values[5] * coef[5]);
 }
 
 

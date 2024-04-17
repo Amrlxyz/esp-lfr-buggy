@@ -29,26 +29,27 @@
 #define PID_M_R_KD          PID_M_L_KD 
 
 // Angle PID Constants
-#define PID_A_TAU           1
+#define PID_A_TAU           0.1
 #define PID_A_MIN_OUT       -PID_M_MAX_OUT
 #define PID_A_MAX_OUT       0.6
 #define PID_A_MIN_INT       -PID_M_MAX_INT
 #define PID_A_MAX_INT       0.3
 #define PID_A_KP            0.1
 #define PID_A_KI            0
-#define PID_A_KD            0
+#define PID_A_KD            0.1
 
 
 /* OTHER CONSTANTS */
 
 // Sensor Array Constants
 #define SENS_SAMPLE_COUNT       5   // 5 - 311us, 3 - 195us   
-#define SENS_ANGLE_COEFF        -1
+#define SENS_ANGLE_COEFF        1
 #define SENS_DETECT_THRESH      0.25
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY        0.5
+#define LINE_FOLLOW_VELOCITY        0.8
 #define LINE_FOLLOW_STOP_DISTANCE   0.30
+#define UTURN_ANGLE                 180
 
 // Square Task Constants
 #define SQUARE_VELOCITY_SET                 0.4
@@ -57,7 +58,7 @@
 #define SQUARE_DISTANCE                     1.01
 
 // Control Timing Constants
-#define CONTROL_UPDATE_RATE         100                                     // Hz
+#define CONTROL_UPDATE_RATE         500                                     // Hz
 #define CONTROL_UPDATE_PERIOD       (1.0f / CONTROL_UPDATE_RATE)            // Seconds
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 

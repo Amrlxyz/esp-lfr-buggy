@@ -219,7 +219,7 @@ int main()
                     break;
                 case uturn:
                     reset_everything();
-                    buggy_status.set_angle = 180;
+                    buggy_status.set_angle = UTURN_ANGLE;
                     buggy_status.set_velocity = 0.0;
                     break;
                 case static_tracking:
@@ -338,7 +338,7 @@ int main()
                 break;
 
             case uturn:
-                if (buggy_status.cumulative_angle_deg >= buggy_status.set_angle - 10)
+                if (buggy_status.cumulative_angle_deg >= buggy_status.set_angle)
                 {
                     buggy_mode = static_tracking;
                 }
