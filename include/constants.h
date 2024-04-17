@@ -29,7 +29,7 @@
 #define PID_M_R_KD          PID_M_L_KD 
 
 // Angle PID Constants
-#define PID_A_TAU           0.1
+#define PID_A_TAU           0.01
 #define PID_A_MIN_OUT       -PID_M_MAX_OUT
 #define PID_A_MAX_OUT       0.6
 #define PID_A_MIN_INT       -PID_M_MAX_INT
