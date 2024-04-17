@@ -44,11 +44,11 @@
 // Sensor Array Constants
 #define SENS_SAMPLE_COUNT       5   // 5 - 311us, 3 - 195us   
 #define SENS_ANGLE_COEFF        -1
-#define SENS_DETECT_THRESH      0.10
+#define SENS_DETECT_THRESH      0.25
 
 // Line Follow Constants
 #define LINE_FOLLOW_VELOCITY        0.5
-#define LINE_FOLLOW_STOP_DISTANCE   0.3
+#define LINE_FOLLOW_STOP_DISTANCE   0.40
 
 // Square Task Constants
 #define SQUARE_VELOCITY_SET                 0.4

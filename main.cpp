@@ -38,6 +38,7 @@ enum Bt_cmd_chars
     ch_toggle_led_test = 'L',        // L
     ch_line_follow = 'F',            // F
     ch_static_tracking = 'T',        // T
+    ch_line_follow_auto = 'A',       // A
 
     // 2 - data types
     ch_pwm_duty = 'P',               // P
@@ -71,6 +72,7 @@ enum Buggy_modes
     inactive,
     uturn,
     static_tracking,
+    line_follow_auto,
 };
 
 
@@ -192,6 +194,8 @@ int main()
 
 
         /* --- START OF BUGGY ACTIONS/STATE LOGIC CODE --- */ 
+        update_buggy_status(motor_left.get_tick_count(), motor_right.get_tick_count());
+
         // Buggy mode transition code
         if (buggy_mode != prev_buggy_mode)
         {
@@ -223,6 +227,7 @@ int main()
                     buggy_status.set_angle = 0;
                     buggy_status.set_velocity = 0.0;
                     break;
+                case line_follow_auto:
                 case line_follow:
                     reset_everything();
                     buggy_status.set_angle = 0;
@@ -339,6 +344,8 @@ int main()
                 }
                 break;
             case line_follow:
+                break;
+            case line_follow_auto:
                 if (sensor_array.is_line_detected())
                 {
                     buggy_status.lf_line_last_seen = buggy_status.distance_travelled;
@@ -511,6 +518,9 @@ bool bt_parse_rx(char* rx_buffer)
                 case ch_static_tracking:
                     buggy_mode = static_tracking;
                     break;
+                case ch_line_follow_auto:
+                    buggy_mode = line_follow_auto;
+                    break;
                 default:
                     break;
             }
@@ -534,8 +544,6 @@ void control_update_ISR(void)
     motor_left.update();
     motor_right.update();
 
-    update_buggy_status(motor_left.get_tick_count(), motor_right.get_tick_count());
-
     // pc.printf("%.4f,%.4f\n", motor_left.get_speed(), motor_left.get_filtered_speed());
     // pc.printf("%.4f\n", buggy_status.cumulative_angle_deg);
 
@@ -543,6 +551,7 @@ void control_update_ISR(void)
     if (buggy_mode == PID_test ||
         buggy_mode == square_mode || 
         buggy_mode == line_follow ||
+        buggy_mode == line_follow_auto ||
         buggy_mode == uturn ||
         buggy_mode == static_tracking)
     {
