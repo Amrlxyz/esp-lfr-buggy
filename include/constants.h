@@ -38,6 +38,16 @@
 #define PID_A_KI            0
 #define PID_A_KD            0.1
 
+// Sensor PID Constants
+#define PID_S_TAU           0.01
+#define PID_S_MIN_OUT       -PID_M_MAX_OUT
+#define PID_S_MAX_OUT       0.6
+#define PID_S_MIN_INT       -PID_M_MAX_INT
+#define PID_S_MAX_INT       0.3
+#define PID_S_KP            0.1
+#define PID_S_KI            0
+#define PID_S_KD            0.1
+
 
 /* OTHER CONSTANTS */
 

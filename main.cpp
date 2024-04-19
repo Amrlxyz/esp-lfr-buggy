@@ -129,10 +129,11 @@ MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, DRIVER_MONITOR_PIN);
 SensorArray sensor_array(SENSOR0_IN_PIN, SENSOR1_IN_PIN, SENSOR2_IN_PIN, SENSOR3_IN_PIN, SENSOR4_IN_PIN, SENSOR5_IN_PIN,
                          SENSOR0_OUT_PIN, SENSOR1_OUT_PIN, SENSOR2_OUT_PIN, SENSOR3_OUT_PIN, SENSOR4_OUT_PIN, SENSOR5_OUT_PIN, SENS_SAMPLE_COUNT, SENS_DETECT_THRESH, SENS_ANGLE_COEFF);
 Motor motor_left (MOTORL_PWM_PIN, MOTORL_DIRECTION_PIN, MOTORL_BIPOLAR_PIN, MOTORL_CHA_PIN, MOTORL_CHB_PIN, PULSE_PER_REV, MOTOR_PWM_FREQ, CONTROL_UPDATE_RATE, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS);
-Motor motor_right(MOTORR_PWM_PIN , MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN, MOTORR_CHA_PIN, MOTORR_CHB_PIN, PULSE_PER_REV, MOTOR_PWM_FREQ, CONTROL_UPDATE_RATE, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS);
+Motor motor_right(MOTORR_PWM_PIN, MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN, MOTORR_CHA_PIN, MOTORR_CHB_PIN, PULSE_PER_REV, MOTOR_PWM_FREQ, CONTROL_UPDATE_RATE, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS);
 PID PID_motor_left (PID_M_L_KP, PID_M_L_KI, PID_M_L_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT, CONTROL_UPDATE_PERIOD);
 PID PID_motor_right(PID_M_R_KP, PID_M_R_KI, PID_M_R_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT, CONTROL_UPDATE_PERIOD);
-PID PID_angle(PID_A_KP, PID_A_KI, PID_A_KD, PID_A_TAU, PID_A_MIN_OUT, PID_A_MAX_OUT, PID_A_MIN_INT, PID_A_MAX_INT, CONTROL_UPDATE_PERIOD);
+PID PID_angle (PID_A_KP, PID_A_KI, PID_A_KD, PID_A_TAU, PID_A_MIN_OUT, PID_A_MAX_OUT, PID_A_MIN_INT, PID_A_MAX_INT, CONTROL_UPDATE_PERIOD);
+PID PID_sensor(PID_S_KP, PID_S_KI, PID_S_KD, PID_S_TAU, PID_S_MIN_OUT, PID_S_MAX_OUT, PID_S_MIN_INT, PID_S_MAX_INT, CONTROL_UPDATE_PERIOD);
 
 
 // Helper Function Prototypes:
@@ -544,9 +545,6 @@ void control_update_ISR(void)
     motor_left.update();
     motor_right.update();
 
-    // pc.printf("%.4f,%.4f\n", motor_left.get_speed(), motor_left.get_filtered_speed());
-    // pc.printf("%.4f\n", buggy_status.cumulative_angle_deg);
-
     /* Calculate and apply PID output on certain modes only*/
     if (buggy_mode == PID_test ||
         buggy_mode == square_mode || 
@@ -555,21 +553,21 @@ void control_update_ISR(void)
         buggy_mode == uturn ||
         buggy_mode == static_tracking)
     {
-        // Update set PID_angle depending on buggy mode
+        // Update set PID_angle and calculate motor set speed depending on buggy mode
         if (buggy_mode == square_mode || 
             buggy_mode == PID_test ||
             buggy_mode == uturn)
         {
             PID_angle.update(buggy_status.set_angle, buggy_status.cumulative_angle_deg);
+            buggy_status.left_set_speed  = buggy_status.set_velocity + PID_angle.get_output();
+            buggy_status.right_set_speed = buggy_status.set_velocity - PID_angle.get_output();
         }
         else
         {
-            PID_angle.update(buggy_status.set_angle, sensor_array.get_array_output());
+            PID_sensor.update(buggy_status.set_angle, sensor_array.get_array_output());
+            buggy_status.left_set_speed  = buggy_status.set_velocity + PID_sensor.get_output();
+            buggy_status.right_set_speed = buggy_status.set_velocity - PID_sensor.get_output();
         }
-
-        // Calculate Motor Set Speeds
-        buggy_status.left_set_speed  = buggy_status.set_velocity + PID_angle.get_output();
-        buggy_status.right_set_speed = buggy_status.set_velocity - PID_angle.get_output();
 
         // Calculate Motor PID and apply the output: 
         PID_motor_left.update(buggy_status.left_set_speed, motor_left.get_filtered_speed());
@@ -577,7 +575,7 @@ void control_update_ISR(void)
         motor_left.set_duty_cycle(PID_motor_left.get_output());
         motor_right.set_duty_cycle(PID_motor_right.get_output());
 
-        // Sends PID Data to the PC
+        // Sends PID Data to the PC (WARNING: CAN CAUSE BT MALFUNCTION)
         // float** out_arr = PID_motor_left.get_terms();
         // pc.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n", 
         //                 *out_arr[0], //= time_index
@@ -589,6 +587,10 @@ void control_update_ISR(void)
         //                 *out_arr[6], //= differentiator
         //                 *out_arr[7]); //= output
     }
+
+    // Motor LP Filter Debug:
+    // pc.printf("%.4f,%.4f\n", motor_left.get_speed(), motor_left.get_filtered_speed());
+    // pc.printf("%.4f\n", buggy_status.cumulative_angle_deg);
 
     // Measure control ISR execution time
     ISR_exec_time = global_timer.read_us() - curr_time;
