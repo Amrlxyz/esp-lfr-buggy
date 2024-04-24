@@ -70,6 +70,7 @@ enum Buggy_modes
     task_test,
     task_test_inactive,
     inactive,
+    active_stop,
     uturn,
     static_tracking,
     line_follow_auto,
@@ -112,8 +113,8 @@ float bt_float_data[3] = {0};
 char bt_data_sent;
 char bt_obj_sent;
 
-Buggy_modes  buggy_mode = inactive;          // stores buggy states when performing actions
-Buggy_modes  prev_buggy_mode = inactive;
+Buggy_modes  buggy_mode;          // stores buggy states when performing actions
+Buggy_modes  prev_buggy_mode;
 Buggy_status buggy_status = {0};
 
 
@@ -123,6 +124,7 @@ Serial pc(USBTX, USBRX, 115200);            // set up serial comm with pc
 Timer global_timer;                         // set up global program timer
 Ticker control_ticker;
 Ticker serial_ticker;
+Timeout logic_timout;
 
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN, BT_BAUD_RATE);     
 MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, DRIVER_MONITOR_PIN);
@@ -143,6 +145,7 @@ void reset_everything(void);                                            ///< Res
 bool bt_parse_rx(char* rx_buffer);                                      ///< Parse recieved bluetooth data
 void control_update_ISR(void);                                          ///< ISR updating the control algorithm
 void serial_update_ISR(void);                                           ///< ISR to update flag to send data to pc/bt in main()
+void logic_timout_ISR(void);                                            ///< Timout used for timed logic
 void bt_send_data(void);                                                ///< Send data to the bt module
 void pc_send_data(void);                                                ///< Send data to the pc
 
@@ -150,6 +153,9 @@ void pc_send_data(void);                                                ///< Sen
 /* MAIN FUNCTION */
 int main()
 {
+    buggy_mode = active_stop;
+    buggy_mode = active_stop;
+
     while (!bt.is_ready()) {};          // while bluetooth not ready, loop and do nothing
 
     sensor_array.set_all_led_on(true);
@@ -234,6 +240,12 @@ int main()
                     buggy_status.set_angle = 0;
                     buggy_status.set_velocity = LINE_FOLLOW_VELOCITY;
                     break;
+                case active_stop:
+                    reset_everything();
+                    logic_timout.attach(&logic_timout_ISR, ACTIVE_STOP_DURATION);
+                    motor_left.set_duty_cycle(-ACTIVE_STOP_SPEED);
+                    motor_right.set_duty_cycle(-ACTIVE_STOP_SPEED);
+                    break;
                 default:
                     break;
             }            
@@ -244,8 +256,8 @@ int main()
         switch (buggy_mode) 
         {   
             case inactive:
-                stop_motors();
                 driver_board.disable();
+                stop_motors();
                 break;
             case square_mode:
                 switch (buggy_status.sq_stage)
@@ -341,7 +353,7 @@ int main()
             case uturn:
                 if (buggy_status.cumulative_angle_deg >= buggy_status.set_angle)
                 {
-                    buggy_mode = static_tracking;
+                    buggy_mode = line_follow_auto;
                 }
                 break;
             case line_follow:
@@ -565,8 +577,9 @@ void control_update_ISR(void)
         else
         {
             PID_sensor.update(buggy_status.set_angle, sensor_array.get_array_output());
-            buggy_status.left_set_speed  = buggy_status.set_velocity + PID_sensor.get_output();
-            buggy_status.right_set_speed = buggy_status.set_velocity - PID_sensor.get_output();
+            float reduced_velocity = buggy_status.set_velocity * (1 - fabsf(PID_sensor.get_output()) / (PID_S_MAX_OUT * SLOW_TURNING_CONSTANT));
+            buggy_status.left_set_speed  = reduced_velocity + PID_sensor.get_output();
+            buggy_status.right_set_speed = reduced_velocity - PID_sensor.get_output();
         }
 
         // Calculate Motor PID and apply the output: 
@@ -602,6 +615,15 @@ void serial_update_ISR(void)
     pc_serial_update = true;
     bt_serial_update = true;
 }
+
+void logic_timout_ISR(void)
+{
+    if (buggy_mode == active_stop)
+    {
+        buggy_mode = inactive;
+    }
+}
+
 
 
 void bt_send_data(void)

@@ -14,39 +14,39 @@
 // General Motor PID constants
 #define PID_M_TAU           1
 #define PID_M_MIN_OUT       -PID_M_MAX_OUT
-#define PID_M_MAX_OUT       0.9
+#define PID_M_MAX_OUT       1
 #define PID_M_MIN_INT       -PID_M_MAX_INT
-#define PID_M_MAX_INT       0.9
+#define PID_M_MAX_INT       1
 
-// Left Motor PID Constants
+// Left Motor (M_L) PID Constants
 #define PID_M_L_KP          0.5
 #define PID_M_L_KI          10
 #define PID_M_L_KD          0
 
-// Right Motor PID Constants
+// Right Motor (M_R) PID Constants
 #define PID_M_R_KP          PID_M_L_KP
 #define PID_M_R_KI          PID_M_L_KI
 #define PID_M_R_KD          PID_M_L_KD 
 
-// Angle PID Constants
+// Angle (A) PID Constants - USED FOR TURNING
 #define PID_A_TAU           0.01
-#define PID_A_MIN_OUT       -PID_M_MAX_OUT
+#define PID_A_MIN_OUT       -PID_A_MAX_OUT
 #define PID_A_MAX_OUT       0.6
-#define PID_A_MIN_INT       -PID_M_MAX_INT
+#define PID_A_MIN_INT       -PID_A_MAX_INT
 #define PID_A_MAX_INT       0.3
 #define PID_A_KP            0.1
 #define PID_A_KI            0
 #define PID_A_KD            0.1
 
-// Sensor PID Constants
+// Sensor (S) PID Constants - USED FOR LINE FOLLOW
 #define PID_S_TAU           0.01
-#define PID_S_MIN_OUT       -PID_M_MAX_OUT
-#define PID_S_MAX_OUT       0.6
-#define PID_S_MIN_INT       -PID_M_MAX_INT
-#define PID_S_MAX_INT       0.3
-#define PID_S_KP            0.1
+#define PID_S_MIN_OUT       -PID_S_MAX_OUT
+#define PID_S_MAX_OUT       1
+#define PID_S_MIN_INT       -PID_S_MAX_INT
+#define PID_S_MAX_INT       1
+#define PID_S_KP            4
 #define PID_S_KI            0
-#define PID_S_KD            0.1
+#define PID_S_KD            0.2
 
 
 /* OTHER CONSTANTS */
@@ -57,9 +57,14 @@
 #define SENS_DETECT_THRESH      0.25
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY        0.8
+#define LINE_FOLLOW_VELOCITY        2
 #define LINE_FOLLOW_STOP_DISTANCE   0.30
 #define UTURN_ANGLE                 180
+#define SLOW_TURNING_CONSTANT       5
+
+// Active Stopping Constants
+#define ACTIVE_STOP_DURATION        0.5           
+#define ACTIVE_STOP_SPEED           0.5 // s
 
 // Square Task Constants
 #define SQUARE_VELOCITY_SET                 0.4
@@ -68,12 +73,12 @@
 #define SQUARE_DISTANCE                     1.01
 
 // Control Timing Constants
-#define CONTROL_UPDATE_RATE         500                                     // Hz
+#define CONTROL_UPDATE_RATE         1000                                    // Hz
 #define CONTROL_UPDATE_PERIOD       (1.0f / CONTROL_UPDATE_RATE)            // Seconds
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
-#define SERIAL_UPDATE_PERIOD        1     /// Seconds
+#define SERIAL_UPDATE_PERIOD        0.1     /// Seconds
 
 // Encoder Constants
 #define WHEEL_SEPERATION    0.188       
