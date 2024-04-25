@@ -29,6 +29,7 @@ enum Bt_cmd_chars
 
     // 2 - exec types
     ch_stop = 'S',                   // S
+    ch_active_stop = 'X',            // X
     ch_uturn = 'U',                  // U
     ch_encoder_test = 'E',           // E
     ch_motor_pwm_test = 'M',         // M
@@ -153,8 +154,8 @@ void pc_send_data(void);                                                ///< Sen
 /* MAIN FUNCTION */
 int main()
 {
-    buggy_mode = active_stop;
-    buggy_mode = active_stop;
+    buggy_mode = inactive;
+    buggy_mode = inactive;
 
     while (!bt.is_ready()) {};          // while bluetooth not ready, loop and do nothing
 
@@ -241,9 +242,11 @@ int main()
                     break;
                 case active_stop:
                     reset_everything();
-                    logic_timout.attach(&logic_timout_ISR, ACTIVE_STOP_DURATION);
-                    motor_left.set_duty_cycle(-ACTIVE_STOP_SPEED);
-                    motor_right.set_duty_cycle(-ACTIVE_STOP_SPEED);
+                    // logic_timout.attach(&logic_timout_ISR, ACTIVE_STOP_DURATION);
+                    // motor_left.set_duty_cycle(-ACTIVE_STOP_SPEED);
+                    // motor_right.set_duty_cycle(-ACTIVE_STOP_SPEED);
+                    buggy_status.set_angle = 0;
+                    buggy_status.set_velocity = 0.0;
                     break;
                 default:
                     break;
@@ -355,8 +358,6 @@ int main()
                     buggy_mode = line_follow_auto;
                 }
                 break;
-            case line_follow:
-                break;
             case line_follow_auto:
                 if (sensor_array.is_line_detected())
                 {
@@ -364,7 +365,7 @@ int main()
                 }
                 else if (buggy_status.distance_travelled - buggy_status.lf_line_last_seen >= LINE_FOLLOW_STOP_DISTANCE)
                 {
-                    buggy_mode = inactive;
+                    buggy_mode = active_stop;
                     stop_motors();
                 }
                 break;
@@ -412,12 +413,14 @@ void control_update_ISR(void)
         buggy_mode == line_follow ||
         buggy_mode == line_follow_auto ||
         buggy_mode == uturn ||
-        buggy_mode == static_tracking)
+        buggy_mode == static_tracking ||
+        buggy_mode == active_stop)
     {
         // Update set PID_angle and calculate motor set speed depending on buggy mode
         if (buggy_mode == square_mode || 
             buggy_mode == PID_test ||
-            buggy_mode == uturn)
+            buggy_mode == uturn ||
+            buggy_mode == active_stop)
         {
             PID_angle.update(buggy_status.set_angle, buggy_status.cumulative_angle_deg);
             buggy_status.left_set_speed  = buggy_status.set_velocity + PID_angle.get_output();
@@ -426,10 +429,15 @@ void control_update_ISR(void)
         else
         {
             PID_sensor.update(buggy_status.set_angle, sensor_array.get_array_output());
-            float base_speed = buggy_status.set_velocity;
-            if (PID_sensor.get_output() > SLOW_TURNING_THRESH)
+            float base_speed;
+            float pid_out_abs = fabsf(PID_sensor.get_output());
+            if (pid_out_abs > SLOW_TURNING_THRESH)
             {
-                base_speed = buggy_status.set_velocity * (1 - fabsf(PID_sensor.get_output()) / (PID_S_MAX_OUT * SLOW_TURNING_GAIN));
+                base_speed = buggy_status.set_velocity * SLOW_TURNING_GAIN; // (1 - pid_out_abs / (PID_S_MAX_OUT * SLOW_TURNING_GAIN));
+            }
+            else
+            {
+                base_speed = buggy_status.set_velocity;
             }
             buggy_status.left_set_speed  = base_speed + PID_sensor.get_output();
             buggy_status.right_set_speed = base_speed - PID_sensor.get_output();
@@ -452,6 +460,20 @@ void control_update_ISR(void)
         //                 *out_arr[5], //= integrator
         //                 *out_arr[6], //= differentiator
         //                 *out_arr[7]); //= output
+
+        float** out_arr = PID_sensor.get_terms();
+        // // pc.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n", 
+        // //             *out_arr[0], //= time_index
+        // //             *out_arr[1], //= set_point
+        // //             *out_arr[2], //= measurement
+        // //             *out_arr[3], //= error
+        // //             *out_arr[4], //= propotional
+        // //             *out_arr[5], //= integrator
+        // //             *out_arr[6], //= differentiator
+        // //             *out_arr[7]); //= output
+
+        pc.printf("o:%.2f,", *out_arr[7]);
+        pc.printf("d:%.2f\n", *out_arr[6]);
     }
 
     // Motor LP Filter Debug:
@@ -567,6 +589,9 @@ bool bt_parse_rx(char* rx_buffer)
             {
                 case ch_stop:
                     buggy_mode = inactive;
+                    break;
+                case ch_active_stop:
+                    buggy_mode = active_stop;
                     break;
                 case ch_uturn:
                     buggy_mode = uturn;
@@ -716,22 +741,38 @@ void pc_send_data(void)
     // PC Serial Debugging code:
 
     // pc.printf("\n");
-    pc.printf("\n");
+    // pc.printf("\n");
 
-    float** out_arr = PID_motor_left.get_terms();
-    // pc.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n", 
-    //                 *out_arr[0], //= time_index
-    //                 *out_arr[1], //= set_point
-    //                 *out_arr[2], //= measurement
-    //                 *out_arr[3], //= error
-    //                 *out_arr[4], //= propotional
-    //                 *out_arr[5], //= integrator
-    //                 *out_arr[6], //= differentiator
-    //                 *out_arr[7]); //= output
+    // float** out_arr = PID_motor_left.get_terms();
+    // float** out_arr2 = PID_motor_left.get_terms();
+    // // pc.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n", 
+    // //                 *out_arr[0], //= time_index
+    // //                 *out_arr[1], //= set_point
+    // //                 *out_arr[2], //= measurement
+    // //                 *out_arr[3], //= error
+    // //                 *out_arr[4], //= propotional
+    // //                 *out_arr[5], //= integrator
+    // //                 *out_arr[6], //= differentiator
+    // //                 *out_arr[7]); //= output
 
-    pc.printf("O: %.2f | %.4f\n", *out_arr[7], *out_arr[3]);
-    pc.printf("D: %.2f | %.2f\n", motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
-    pc.printf("S: %.4f | %.4f\n", motor_left.get_speed(), motor_right.get_speed());
+    // float** out_arr = PID_sensor.get_terms();
+    // // pc.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n", 
+    // //             *out_arr[0], //= time_index
+    // //             *out_arr[1], //= set_point
+    // //             *out_arr[2], //= measurement
+    // //             *out_arr[3], //= error
+    // //             *out_arr[4], //= propotional
+    // //             *out_arr[5], //= integrator
+    // //             *out_arr[6], //= differentiator
+    // //             *out_arr[7]); //= output
+
+    // pc.printf("err:%.2f,", *out_arr[3]);
+    // pc.printf("out:%.2f\n", *out_arr[7]);
+
+    // pc.printf("O: %.2f | %.4f\n", *out_arr[7], *out_arr[3]);
+    // pc.printf("O: %.2f | %.4f\n", *out_arr2[7], *out_arr2[3]);
+    // pc.printf("D: %.2f | %.2f\n", motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
+    // pc.printf("S: %.4f | %.4f\n", motor_left.get_speed(), motor_right.get_speed());
 
     // pc.printf("                        L   |   R   \n");
     // pc.printf("Duty Cycle:          %6.2f | %6.2f \n",  motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
