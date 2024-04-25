@@ -34,7 +34,7 @@
 #define PID_S_MAX_INT       0
 #define PID_S_KI            0
 
-#define PID_S_TAU           0.1
+#define PID_S_TAU           0.01
 #define PID_S_KP            0.1
 #define PID_S_KD            0.01
 
@@ -44,9 +44,9 @@
 #define PID_A_MAX_OUT       0.6
 #define PID_A_MIN_INT       -PID_A_MAX_INT
 #define PID_A_MAX_INT       0
-#define PID_A_KP            0.1
-#define PID_A_KI            0
-#define PID_A_KD            0.1
+#define PID_A_KP            0.2
+#define PID_A_KI            0.1
+#define PID_A_KD            0
 
 
 /* OTHER CONSTANTS */
@@ -57,11 +57,11 @@
 #define SENS_DETECT_THRESH      0.25
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY        1
+#define LINE_FOLLOW_VELOCITY        0.8
 #define LINE_FOLLOW_STOP_DISTANCE   0.35
-#define UTURN_ANGLE                 180
+#define UTURN_ANGLE                 190
 #define SLOW_TURNING_GAIN           0.2                       // Higher Means FASTER
-#define SLOW_TURNING_THRESH         PID_S_MAX_OUT * 0.7
+#define SLOW_TURNING_THRESH         PID_S_MAX_OUT * 1.2
 
 // Active Stopping Constants
 // #define ACTIVE_STOP_DURATION        0.5           

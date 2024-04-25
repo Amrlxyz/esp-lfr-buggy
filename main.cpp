@@ -461,19 +461,9 @@ void control_update_ISR(void)
         //                 *out_arr[6], //= differentiator
         //                 *out_arr[7]); //= output
 
-        float** out_arr = PID_sensor.get_terms();
-        // // pc.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n", 
-        // //             *out_arr[0], //= time_index
-        // //             *out_arr[1], //= set_point
-        // //             *out_arr[2], //= measurement
-        // //             *out_arr[3], //= error
-        // //             *out_arr[4], //= propotional
-        // //             *out_arr[5], //= integrator
-        // //             *out_arr[6], //= differentiator
-        // //             *out_arr[7]); //= output
-
-        pc.printf("o:%.2f,", *out_arr[7]);
-        pc.printf("d:%.2f\n", *out_arr[6]);
+        // float** out_arr = PID_sensor.get_terms();
+        // pc.printf("o:%.2f,", *out_arr[7]);
+        // pc.printf("d:%.2f\n", *out_arr[6]);
     }
 
     // Motor LP Filter Debug:
