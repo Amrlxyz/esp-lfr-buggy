@@ -186,7 +186,7 @@ int main()
             {
             case 'r':
                 reset_everything();
-                buggy_mode = PID_test;
+                buggy_mode = static_tracking;
                 break;
             case 's':
                 buggy_mode = inactive;
@@ -345,7 +345,7 @@ int main()
                 // {
                 //     buggy_status.set_velocity = 0.5;
                 // }
-                if (buggy_status.distance_travelled >= 2)
+                if (buggy_status.distance_travelled >= 5)
                 {
                     buggy_mode = inactive;
                     reset_everything();
@@ -428,10 +428,10 @@ void control_update_ISR(void)
         }
         else
         {
-            PID_sensor.update(buggy_status.set_angle, sensor_array.get_array_output());
+            PID_sensor.update(buggy_status.set_angle, sensor_array.get_filtered_output());
             float base_speed;
-            float pid_out_abs = fabsf(PID_sensor.get_output());
-            if (pid_out_abs > SLOW_TURNING_THRESH)
+            float sens_out_abs = fabsf(sensor_array.get_filtered_output());
+            if (sens_out_abs > SLOW_TURNING_THRESH)
             {
                 base_speed = buggy_status.set_velocity * SLOW_TURNING_GAIN; // (1 - pid_out_abs / (PID_S_MAX_OUT * SLOW_TURNING_GAIN));
             }
@@ -464,6 +464,10 @@ void control_update_ISR(void)
         // float** out_arr = PID_sensor.get_terms();
         // pc.printf("o:%.2f,", *out_arr[7]);
         // pc.printf("d:%.2f\n", *out_arr[6]);
+
+        // pc.printf("o:%.2f,", sensor_array.get_array_output());
+        // pc.printf("f:%.2f\n", sensor_array.get_filtered_output());
+
     }
 
     // Motor LP Filter Debug:
@@ -785,4 +789,15 @@ void pc_send_data(void)
     // pc.printf("Out:%f\n", sensor_array.get_array_output());
 
     // pc.printf("%d, %d\n", ISR_exec_time, loop_exec_time);
+
+    float** out_arr = PID_sensor.get_terms();
+    pc.printf("%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f\n", 
+                    *out_arr[0], //= time_index
+                    *out_arr[1], //= set_point
+                    *out_arr[2], //= measurement
+                    *out_arr[3], //= error
+                    *out_arr[4], //= propotional
+                    *out_arr[5], //= integrator
+                    *out_arr[6], //= differentiator
+                    *out_arr[7]); //= output
 }

@@ -22,6 +22,9 @@ private:
     AnalogIn sens[6];   // Array of AnalogIn objects to read the sensors.
 
     float output;           // The output value of the sensor array. 
+    float prev_output;
+    float filtered_output;
+    float prev_filtered_output;
     float sens_values[6];   // Array to store sensor values. 
     
     const int sample_count_;    // The number of samples to take for averaging sensor readings.
@@ -102,4 +105,6 @@ public:
      * @return The output value of the sensor array.
      */
     float get_array_output(void);
+
+    float get_filtered_output(void);
 };

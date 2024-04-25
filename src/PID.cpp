@@ -79,7 +79,6 @@ void PID::update(float set_point_, float measurement_)
         integrator = lim_min_int;
     }
 
-
     /* --- DERIVATIVE TERM --- */
     differentiator = -(2.0f * kd * (measurement - prev_measurement)	/* Note: derivative on measurement, therefore minus sign in front of equation! */
                     + (2.0f * tau - sample_time) * differentiator)
