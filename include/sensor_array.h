@@ -32,7 +32,10 @@ private:
     const float angle_coeff;    // The gain at which the sensor output is multiplied to represent the angle.
     bool line_detected;         // Flag indicating whether a line is detected. 
 
-    const int coef[6] = {5, 3, 1, -1, -3, -5};
+    float cali_coef[6] = {0};
+    const int coef[6] =  {5, 3, 1, -1, -3, -5};
+    const float cali_max = 0.9;
+
     //{15, 5, 1, -1, -5, -15};
     /**
      * @brief Reads the value from the specified AnalogIn sensor.
@@ -107,4 +110,8 @@ public:
     float get_array_output(void);
 
     float get_filtered_output(void);
+
+    void calibrate_sensors(void);
+
+    float* get_calibration_constants(void);
 };

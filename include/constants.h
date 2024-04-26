@@ -57,15 +57,16 @@
 #define SENS_DETECT_THRESH      0.25
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY        0.9
+#define LINE_FOLLOW_VELOCITY        0.5
 #define LINE_FOLLOW_STOP_DISTANCE   0.35
 #define UTURN_ANGLE                 190
 #define SLOW_TURNING_GAIN           0                       // Higher Means FASTER
 #define SLOW_TURNING_THRESH         2
 
-// Active Stopping Constants
-// #define ACTIVE_STOP_DURATION        0.5           
-// #define ACTIVE_STOP_SPEED           0.5 // s
+#define ACCEL_SPEED         1
+#define ACCEL_DISTANCE      0.5
+#define ACCEL_ANGLE         90
+
 
 // Square Task Constants
 #define SQUARE_VELOCITY_SET                 0.4

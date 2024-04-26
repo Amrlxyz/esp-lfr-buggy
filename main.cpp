@@ -77,6 +77,7 @@ enum Buggy_modes
     uturn,
     static_tracking,
     line_follow_auto,
+    calibration,
 };
 
 
@@ -99,6 +100,11 @@ struct Buggy_status
 
     float lf_line_last_seen;    /**< @brief The position of the last seen line by the left front sensor. */
 
+    // Accel Curve Variables
+    float accel_start_distance;
+    float accel_start_angle;
+    bool is_accelerating;
+
     // square task variables
     float sq_set_angle;         /**< @brief The set angle for the square task. */
     float sq_set_distance;      /**< @brief The set distance for the square task. */
@@ -116,6 +122,7 @@ float bt_float_data[3] = {0};
 char bt_data_sent;
 char bt_obj_sent;
 float* pid_constants;               // used only for sending datat to bluetooth
+float* cal_constants;
 
 Buggy_modes  buggy_mode;          // stores buggy states when performing actions
 Buggy_modes  prev_buggy_mode;
@@ -258,6 +265,15 @@ int main()
                     buggy_status.set_angle = 0;
                     buggy_status.set_velocity = 0.0;
                     break;
+                case calibration:
+                    reset_everything();
+                    sensor_array.calibrate_sensors();
+                    cal_constants = sensor_array.get_calibration_constants();
+                    for (int i = 0; i < 6; i++)
+                    {
+                        bt.send_fstring("%d:%.4f\n", i, cal_constants[i]);
+                    }
+                    break;
                 default:
                     break;
             }            
@@ -382,7 +398,35 @@ int main()
                     buggy_mode = active_stop;
                     stop_motors();
                 }
-                break;
+            case line_follow:
+                if (buggy_status.is_accelerating)
+                {
+                    float accel_distance = buggy_status.distance_travelled - buggy_status.accel_start_distance;
+                    if (accel_distance > ACCEL_DISTANCE)
+                    {
+                        buggy_status.set_velocity = lf_velocity;
+                        buggy_status.accel_start_angle = buggy_status.cumulative_angle_deg;
+                        buggy_status.is_accelerating = false;
+                    }
+                    else
+                    {
+                        buggy_status.set_velocity = ACCEL_SPEED;
+                    }
+                }
+                else 
+                {
+                    float accel_angle = buggy_status.cumulative_angle_deg - buggy_status.accel_start_angle;
+                    if (fabsf(accel_angle) > accel_angle)
+                    {
+                        buggy_status.set_velocity = ACCEL_SPEED;
+                        buggy_status.accel_start_distance = buggy_status.distance_travelled;
+                        buggy_status.is_accelerating = true;
+                    }
+                    else
+                    {
+                        buggy_status.set_velocity = lf_velocity;
+                    }
+                }
             default:
                 break;
         }    
@@ -660,6 +704,9 @@ bool bt_parse_rx(char* rx_buffer)
                     break;
                 case ch_line_follow_auto:
                     buggy_mode = line_follow_auto;
+                    break;
+                case ch_calibrate:
+                    buggy_mode = calibration;
                     break;
                 default:
                     break;

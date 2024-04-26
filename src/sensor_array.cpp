@@ -57,7 +57,30 @@ void SensorArray::update(void)
 
     for (int i = 0; i < 6; i++)
     {
-        sens_values[i] = sample_total[i] / sample_count_;  
+        sens_values[i] = sample_total[i] / sample_count_;
+
+        float old_min = cali_coef[i];
+        float old_max = cali_max;
+        float new_min = 0;
+        float new_max = 1;
+
+        // Calculate the normalized value
+        float normalized_value = (sens_values[i] - old_min) / (old_max - old_min);
+        
+        // Map the normalized value to the new range
+        float new_value = new_min + normalized_value * (new_max - new_min);
+        sens_values[i] = new_value;
+
+        // clamping the output 
+        if (sens_values[i] < 0)
+        {
+            sens_values[i] = 0;
+        }
+        else if (sens_values[i] > 1)
+        {
+            sens_values[i] = 1;
+        }
+
         if (sens_values[i] >= 0.4)
         {
             line_detected = true;
@@ -111,4 +134,28 @@ float SensorArray::get_array_output(void)
 float SensorArray::get_filtered_output(void)
 {
     return filtered_output;
+}
+
+void SensorArray::calibrate_sensors(void)
+{
+    float sample_total[6] = {0};
+
+    for (int i = 0; i < 100; i++)
+    {   
+        for (int j = 0; j < 6; j++)
+        {
+            sample_total[j] += sens[j].read();
+        }
+    }
+
+    for (int i = 0; i < 6; i++)
+    {
+        sens_values[i] = sample_total[i] / 100;
+        cali_coef[i] = sens_values[i];
+    }
+}
+
+float* SensorArray::get_calibration_constants(void)
+{
+    return cali_coef;
 }
