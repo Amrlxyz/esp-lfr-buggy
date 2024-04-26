@@ -136,7 +136,21 @@ void PID::set_constants(float kp_, float ki_, float kd_)
     kd = kd_;
 }
 
+void PID::set_tau(float tau_)
+{
+    tau = tau_;
+}
+
 float** PID::get_terms(void)
 {
     return output_arr;
+}
+
+float* PID::get_constants()
+{
+    constants_arr[0] = kp;
+    constants_arr[1] = ki;
+    constants_arr[2] = kd;
+    constants_arr[3] = tau;
+    return constants_arr;
 }

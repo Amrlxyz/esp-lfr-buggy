@@ -58,6 +58,7 @@ private:
     float measurement;
     float proportional;
     float *output_arr[8];
+    float constants_arr[4];
 
     // Controller output
     float output;
@@ -123,6 +124,8 @@ public:
      */
     void set_constants(float kp_, float ki_, float kd_);
 
+    void set_tau(float tau_);
+
     /**
      * @brief Reset the PID controller.
      * 
@@ -136,4 +139,6 @@ public:
      * @return The output of the PID controller.
      */
     float get_output(void);
+
+    float* get_constants(void);
 };

@@ -42,10 +42,11 @@ enum Bt_cmd_chars
     ch_line_follow_auto = 'A',       // A
 
     // 2 - data types
-    ch_pwm_duty = 'P',               // P
-    ch_ticks_cumulative = 'T',       // T
+    ch_pwm_duty = 'D',               // D
+    ch_ticks_cumulative = 'E',       // E
     ch_speed = 'S',                  // S
-    ch_gains_PID = 'G',              // G
+    ch_gains_PID = 'P',              // P
+    ch_tau_PID = 'T',                // T
     ch_current_usage = 'C',          // C
     ch_runtime = 'R',                // R
     ch_loop_time = 'X',              // X
@@ -113,10 +114,13 @@ int loop_exec_time = 0;
 float bt_float_data[3] = {0};
 char bt_data_sent;
 char bt_obj_sent;
+float* pid_constants;               // used only for sending datat to bluetooth
 
 Buggy_modes  buggy_mode;          // stores buggy states when performing actions
 Buggy_modes  prev_buggy_mode;
 Buggy_status buggy_status = {0};
+
+float lf_velocity = LINE_FOLLOW_VELOCITY;
 
 
 /* OBJECTS DECLARATIONS */
@@ -125,7 +129,6 @@ Serial pc(USBTX, USBRX, 115200);            // set up serial comm with pc
 Timer global_timer;                         // set up global program timer
 Ticker control_ticker;
 Ticker serial_ticker;
-Timeout logic_timout;
 
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN, BT_BAUD_RATE);     
 MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, DRIVER_MONITOR_PIN);
@@ -213,6 +216,9 @@ int main()
             {
                 case PID_test:
                     reset_everything();
+                    pid_constants = PID_motor_left.get_constants();
+                    bt.send_fstring("P:%.2f,I:%.2f", pid_constants[0], pid_constants[1]);
+                    bt.send_fstring("D:%.2f,T:%.2f\n", pid_constants[2], pid_constants[3]);
                     buggy_status.set_angle = 0;
                     buggy_status.set_velocity = 0.0;
                     break;
@@ -231,20 +237,23 @@ int main()
                     break;
                 case static_tracking:
                     reset_everything();
+                    pid_constants = PID_sensor.get_constants();
+                    bt.send_fstring("P:%.2f,I:%.2f", pid_constants[0], pid_constants[1]);
+                    bt.send_fstring("D:%.2f,T:%.2f\n", pid_constants[2], pid_constants[3]);
                     buggy_status.set_angle = 0;
                     buggy_status.set_velocity = 0.0;
                     break;
                 case line_follow_auto:
                 case line_follow:
                     reset_everything();
+                    pid_constants = PID_sensor.get_constants();
+                    bt.send_fstring("P:%.2f,I:%.2f", pid_constants[0], pid_constants[1]);
+                    bt.send_fstring("D:%.2f,T:%.2f\n", pid_constants[2], pid_constants[3]);
                     buggy_status.set_angle = 0;
-                    buggy_status.set_velocity = LINE_FOLLOW_VELOCITY;
+                    buggy_status.set_velocity = lf_velocity;
                     break;
                 case active_stop:
                     reset_everything();
-                    // logic_timout.attach(&logic_timout_ISR, ACTIVE_STOP_DURATION);
-                    // motor_left.set_duty_cycle(-ACTIVE_STOP_SPEED);
-                    // motor_right.set_duty_cycle(-ACTIVE_STOP_SPEED);
                     buggy_status.set_angle = 0;
                     buggy_status.set_velocity = 0.0;
                     break;
@@ -335,19 +344,23 @@ int main()
             case PID_test:
                 if (buggy_status.distance_travelled <= 0.1)
                 {
-                    buggy_status.set_velocity = 2;
+                    buggy_status.set_velocity = 0.2;
                 }
-                // if (buggy_status.distance_travelled >= 0.1)
-                // {
-                //     buggy_status.set_velocity = 0.3;
-                // }
-                // if (buggy_status.distance_travelled >= 0.3)
-                // {
-                //     buggy_status.set_velocity = 0.5;
-                // }
-                if (buggy_status.distance_travelled >= 5)
+                if (buggy_status.distance_travelled >= 0.1)
                 {
-                    buggy_mode = inactive;
+                    buggy_status.set_velocity = 0.5;
+                }
+                if (buggy_status.distance_travelled >= 0.4)
+                {
+                    buggy_status.set_velocity = 1;
+                }
+                if (buggy_status.distance_travelled >= 1)
+                {
+                    buggy_status.set_velocity = 0.5;
+                }
+                if (buggy_status.distance_travelled >= 1.6)
+                {
+                    buggy_mode = active_stop;
                     reset_everything();
                 }
                 break;
@@ -557,6 +570,7 @@ bool bt_parse_rx(char* rx_buffer)
                     }
                     break;
                 case ch_speed:                  // S
+                    lf_velocity = bt_float_data[0];
                     break;
                 case ch_gains_PID:
                     switch (obj_type)
@@ -567,8 +581,32 @@ bool bt_parse_rx(char* rx_buffer)
                         case ch_motor_right:
                             PID_motor_right.set_constants(bt_float_data[0], bt_float_data[1], bt_float_data[2]);
                             break;
+                        case ch_motor_both:
+                            PID_motor_left.set_constants(bt_float_data[0], bt_float_data[1], bt_float_data[2]);
+                            PID_motor_right.set_constants(bt_float_data[0], bt_float_data[1], bt_float_data[2]);
+                            break;
                         case ch_sensor:
                             PID_angle.set_constants(bt_float_data[0], bt_float_data[1], bt_float_data[2]);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case ch_tau_PID:
+                    switch (obj_type)
+                    {
+                        case ch_motor_left:
+                            PID_motor_left.set_tau(bt_float_data[0]);
+                            break;
+                        case ch_motor_right:
+                            PID_motor_right.set_tau(bt_float_data[0]);
+                            break;
+                        case ch_motor_both:
+                            PID_motor_left.set_tau(bt_float_data[0]);
+                            PID_motor_right.set_tau(bt_float_data[0]);
+                            break;
+                        case ch_sensor:
+                            PID_angle.set_tau(bt_float_data[0]);
                             break;
                         default:
                             break;
@@ -631,15 +669,6 @@ bool bt_parse_rx(char* rx_buffer)
             break;
     }
     return true;
-}
-
-
-void logic_timout_ISR(void)
-{
-    if (buggy_mode == active_stop)
-    {
-        buggy_mode = inactive;
-    }
 }
 
 
@@ -706,7 +735,22 @@ void bt_send_data(void)
                 }
                 break;
             case ch_gains_PID:              // G
-                bt.send_fstring("P:%.3f,I:%.3f,D:%.3f", bt_float_data[0], bt_float_data[1], bt_float_data[2]);
+                switch (bt_obj_sent)
+                {
+                    case ch_motor_left:
+                        pid_constants = PID_motor_left.get_constants();
+                        break;
+                    case ch_motor_right:
+                        pid_constants = PID_motor_right.get_constants();
+                        break;
+                    case ch_sensor:
+                        pid_constants = PID_sensor.get_constants();
+                        break;
+                    default:
+                        break;
+                }
+                bt.send_fstring("P:%.2f,I:%.2f", pid_constants[0], pid_constants[1]);
+                bt.send_fstring("D:%.2f,T:%.2f\n", pid_constants[2], pid_constants[3]);
                 break;
             case ch_current_usage:          // C          
                 driver_board.update_measurements();
@@ -732,41 +776,9 @@ void bt_send_data(void)
 
 void pc_send_data(void)
 {
-    // PC Serial Debugging code:
-
-    // pc.printf("\n");
     // pc.printf("\n");
 
-    // float** out_arr = PID_motor_left.get_terms();
-    // float** out_arr2 = PID_motor_left.get_terms();
-    // // pc.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n", 
-    // //                 *out_arr[0], //= time_index
-    // //                 *out_arr[1], //= set_point
-    // //                 *out_arr[2], //= measurement
-    // //                 *out_arr[3], //= error
-    // //                 *out_arr[4], //= propotional
-    // //                 *out_arr[5], //= integrator
-    // //                 *out_arr[6], //= differentiator
-    // //                 *out_arr[7]); //= output
-
-    // float** out_arr = PID_sensor.get_terms();
-    // // pc.printf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n", 
-    // //             *out_arr[0], //= time_index
-    // //             *out_arr[1], //= set_point
-    // //             *out_arr[2], //= measurement
-    // //             *out_arr[3], //= error
-    // //             *out_arr[4], //= propotional
-    // //             *out_arr[5], //= integrator
-    // //             *out_arr[6], //= differentiator
-    // //             *out_arr[7]); //= output
-
-    // pc.printf("err:%.2f,", *out_arr[3]);
-    // pc.printf("out:%.2f\n", *out_arr[7]);
-
-    // pc.printf("O: %.2f | %.4f\n", *out_arr[7], *out_arr[3]);
-    // pc.printf("O: %.2f | %.4f\n", *out_arr2[7], *out_arr2[3]);
-    // pc.printf("D: %.2f | %.2f\n", motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
-    // pc.printf("S: %.4f | %.4f\n", motor_left.get_speed(), motor_right.get_speed());
+    //// ---- General Troubleshoot Data ---- ////
 
     // pc.printf("                        L   |   R   \n");
     // pc.printf("Duty Cycle:          %6.2f | %6.2f \n",  motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
@@ -780,6 +792,11 @@ void pc_send_data(void)
     // pc.printf("Sensor Values:  \n");
 
     // pc.printf("Calculation ISR Time: %d us / Main Loop Time: %d us / Global Time: %d us \n", ISR_exec_time, loop_exec_time, global_timer.read_us());
+    
+    // pc.printf("%d, %d\n", ISR_exec_time, loop_exec_time);
+
+
+    //// ---- Sensor Output Data ---- ////
 
     // float* sens = sensor_array.get_sens_output_array();
     // for (int i = 0; i < 6; i++)
@@ -788,16 +805,25 @@ void pc_send_data(void)
     // }
     // pc.printf("Out:%f\n", sensor_array.get_array_output());
 
-    // pc.printf("%d, %d\n", ISR_exec_time, loop_exec_time);
 
-    float** out_arr = PID_sensor.get_terms();
-    pc.printf("%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f\n", 
-                    *out_arr[0], //= time_index
-                    *out_arr[1], //= set_point
-                    *out_arr[2], //= measurement
-                    *out_arr[3], //= error
-                    *out_arr[4], //= propotional
-                    *out_arr[5], //= integrator
-                    *out_arr[6], //= differentiator
-                    *out_arr[7]); //= output
+    //// ---- PID Troubleshoot Data ---- ////
+
+    // float** out_arr = PID_sensor.get_terms();
+    // pc.printf("%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f\n", 
+    //                 *out_arr[0], //= time_index
+    //                 *out_arr[1], //= set_point
+    //                 *out_arr[2], //= measurement
+    //                 *out_arr[3], //= error
+    //                 *out_arr[4], //= propotional
+    //                 *out_arr[5], //= integrator
+    //                 *out_arr[6], //= differentiator
+    //                 *out_arr[7]); //= output
+    
+    // pc.printf("err:%.2f,", *out_arr[3]);
+    // pc.printf("out:%.2f\n", *out_arr[7]);
+
+    // pc.printf("O: %.2f | %.4f\n", *out_arr[7], *out_arr[3]);
+    // pc.printf("O: %.2f | %.4f\n", *out_arr2[7], *out_arr2[3]);
+    // pc.printf("D: %.2f | %.2f\n", motor_left.get_duty_cycle(), motor_right.get_duty_cycle());
+    // pc.printf("S: %.4f | %.4f\n", motor_left.get_speed(), motor_right.get_speed());
 }
