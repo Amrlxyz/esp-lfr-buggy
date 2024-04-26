@@ -34,9 +34,9 @@
 #define PID_S_MAX_INT       0
 #define PID_S_KI            0
 
-#define PID_S_TAU           1
-#define PID_S_KP            0.1
-#define PID_S_KD            0.1
+#define PID_S_TAU           0.5
+#define PID_S_KP            0.2
+#define PID_S_KD            4
 
 // Angle (A) PID Constants - USED FOR TURNING
 #define PID_A_TAU           0.01
@@ -54,18 +54,18 @@
 // Sensor Array Constants
 #define SENS_SAMPLE_COUNT       5   // 5 - 311us, 3 - 195us   
 #define SENS_ANGLE_COEFF        1
-#define SENS_DETECT_THRESH      0.25
+#define SENS_DETECT_THRESH      0.2
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY        0.5
-#define LINE_FOLLOW_STOP_DISTANCE   0.35
-#define UTURN_ANGLE                 190
+#define LINE_FOLLOW_VELOCITY        0.9
+#define LINE_FOLLOW_STOP_DISTANCE   0.2
+#define UTURN_ANGLE                 210
 #define SLOW_TURNING_GAIN           0                       // Higher Means FASTER
 #define SLOW_TURNING_THRESH         2
 
-#define ACCEL_SPEED         1
+#define ACCEL_SPEED         0.5
 #define ACCEL_DISTANCE      0.5
-#define ACCEL_ANGLE         90
+#define ACCEL_ANGLE         60
 
 
 // Square Task Constants

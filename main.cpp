@@ -259,6 +259,9 @@ int main()
                     bt.send_fstring("D:%.3f\nT:%.3f\n", pid_constants[2], pid_constants[3]);
                     buggy_status.set_angle = 0;
                     buggy_status.set_velocity = lf_velocity;
+                    buggy_status.accel_start_angle = buggy_status.cumulative_angle_deg;
+                    buggy_status.accel_start_distance = buggy_status.distance_travelled;
+                    buggy_status.is_accelerating = false;
                     break;
                 case active_stop:
                     reset_everything();
@@ -399,34 +402,40 @@ int main()
                     stop_motors();
                 }
             case line_follow:
-                if (buggy_status.is_accelerating)
-                {
-                    float accel_distance = buggy_status.distance_travelled - buggy_status.accel_start_distance;
-                    if (accel_distance > ACCEL_DISTANCE)
-                    {
-                        buggy_status.set_velocity = lf_velocity;
-                        buggy_status.accel_start_angle = buggy_status.cumulative_angle_deg;
-                        buggy_status.is_accelerating = false;
-                    }
-                    else
-                    {
-                        buggy_status.set_velocity = ACCEL_SPEED;
-                    }
-                }
-                else 
-                {
-                    float accel_angle = buggy_status.cumulative_angle_deg - buggy_status.accel_start_angle;
-                    if (fabsf(accel_angle) > accel_angle)
-                    {
-                        buggy_status.set_velocity = ACCEL_SPEED;
-                        buggy_status.accel_start_distance = buggy_status.distance_travelled;
-                        buggy_status.is_accelerating = true;
-                    }
-                    else
-                    {
-                        buggy_status.set_velocity = lf_velocity;
-                    }
-                }
+                //// comment this disable accel
+                // if (buggy_status.is_accelerating)
+                // {
+                //     float accel_distance = buggy_status.distance_travelled - buggy_status.accel_start_distance;
+                //     if (accel_distance > ACCEL_DISTANCE)
+                //     {
+                //         // pc.printf("SLOWING DOWN\n");
+                //         buggy_status.set_velocity = lf_velocity;
+                //         buggy_status.accel_start_angle = buggy_status.cumulative_angle_deg;
+                //         buggy_status.is_accelerating = false;
+                //     }
+                //     else
+                //     {
+                //         // pc.printf("fast\n");
+                //         buggy_status.set_velocity = ACCEL_SPEED;
+                //     }
+                // }
+                // else 
+                // {
+                //     float accel_angle = fabsf(buggy_status.cumulative_angle_deg - buggy_status.accel_start_angle);
+                //     // pc.printf("%f\n", accel_angle);
+                //     if (accel_angle > ACCEL_ANGLE)
+                //     {
+                //         // pc.printf("Accelerating!!! %f\n", accel_angle);
+                //         buggy_status.set_velocity = ACCEL_SPEED;
+                //         buggy_status.accel_start_distance = buggy_status.distance_travelled;
+                //         buggy_status.is_accelerating = true;
+                //     }
+                //     else
+                //     {
+                //         // pc.printf("slowstuff\n");
+                //         buggy_status.set_velocity = lf_velocity;
+                //     }
+                // }
             default:
                 break;
         }    

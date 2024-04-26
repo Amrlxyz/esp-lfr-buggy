@@ -34,7 +34,7 @@ private:
 
     float cali_coef[6] = {0};
     const int coef[6] =  {5, 3, 1, -1, -3, -5};
-    const float cali_max = 0.9;
+    const float cali_max = 1;
 
     //{15, 5, 1, -1, -5, -15};
     /**
