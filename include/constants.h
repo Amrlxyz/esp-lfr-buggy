@@ -34,7 +34,7 @@
 #define PID_S_MAX_INT       0
 #define PID_S_KI            0
 
-#define PID_S_TAU           0.1
+#define PID_S_TAU           1
 #define PID_S_KP            0.1
 #define PID_S_KD            0.1
 
@@ -79,7 +79,7 @@
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
-#define SERIAL_UPDATE_PERIOD        0.1     /// Seconds
+#define SERIAL_UPDATE_PERIOD        0.2     /// Seconds
 
 // Encoder Constants
 #define WHEEL_SEPERATION    0.188       

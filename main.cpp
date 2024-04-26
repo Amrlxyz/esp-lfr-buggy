@@ -33,13 +33,14 @@ enum Bt_cmd_chars
     ch_uturn = 'U',                  // U
     ch_encoder_test = 'E',           // E
     ch_motor_pwm_test = 'M',         // M
-    ch_straight_test = 'C',          // C
+    ch_straight_test = 'Z',          // C
     ch_square_test = 'Q',            // Q
     ch_PID_test = 'P',               // P
     ch_toggle_led_test = 'L',        // L
     ch_line_follow = 'F',            // F
     ch_static_tracking = 'T',        // T
     ch_line_follow_auto = 'A',       // A
+    ch_calibrate = 'C',
 
     // 2 - data types
     ch_pwm_duty = 'D',               // D
@@ -120,7 +121,7 @@ Buggy_modes  buggy_mode;          // stores buggy states when performing actions
 Buggy_modes  prev_buggy_mode;
 Buggy_status buggy_status = {0};
 
-float lf_velocity = LINE_FOLLOW_VELOCITY;
+volatile float lf_velocity = LINE_FOLLOW_VELOCITY;
 
 
 /* OBJECTS DECLARATIONS */
@@ -238,8 +239,8 @@ int main()
                 case static_tracking:
                     reset_everything();
                     pid_constants = PID_sensor.get_constants();
-                    bt.send_fstring("P:%.2f,I:%.2f", pid_constants[0], pid_constants[1]);
-                    bt.send_fstring("D:%.2f,T:%.2f\n", pid_constants[2], pid_constants[3]);
+                    bt.send_fstring("\nP:%.3f\nI:%.3f\n", pid_constants[0], pid_constants[1]);
+                    bt.send_fstring("D:%.3f\nT:%.3f\n", pid_constants[2], pid_constants[3]);
                     buggy_status.set_angle = 0;
                     buggy_status.set_velocity = 0.0;
                     break;
@@ -247,8 +248,8 @@ int main()
                 case line_follow:
                     reset_everything();
                     pid_constants = PID_sensor.get_constants();
-                    bt.send_fstring("P:%.2f,I:%.2f", pid_constants[0], pid_constants[1]);
-                    bt.send_fstring("D:%.2f,T:%.2f\n", pid_constants[2], pid_constants[3]);
+                    bt.send_fstring("\nP:%.3f\nI:%.3f\n", pid_constants[0], pid_constants[1]);
+                    bt.send_fstring("D:%.3f\nT:%.3f\n", pid_constants[2], pid_constants[3]);
                     buggy_status.set_angle = 0;
                     buggy_status.set_velocity = lf_velocity;
                     break;
@@ -444,7 +445,8 @@ void control_update_ISR(void)
             PID_sensor.update(buggy_status.set_angle, sensor_array.get_filtered_output());
             float base_speed;
             float sens_out_abs = fabsf(sensor_array.get_filtered_output());
-            if (sens_out_abs > SLOW_TURNING_THRESH)
+            // if (sens_out_abs > SLOW_TURNING_THRESH)
+            if (false)
             {
                 base_speed = buggy_status.set_velocity * SLOW_TURNING_GAIN; // (1 - pid_out_abs / (PID_S_MAX_OUT * SLOW_TURNING_GAIN));
             }
@@ -586,7 +588,7 @@ bool bt_parse_rx(char* rx_buffer)
                             PID_motor_right.set_constants(bt_float_data[0], bt_float_data[1], bt_float_data[2]);
                             break;
                         case ch_sensor:
-                            PID_angle.set_constants(bt_float_data[0], bt_float_data[1], bt_float_data[2]);
+                            PID_sensor.set_constants(bt_float_data[0], bt_float_data[1], bt_float_data[2]);
                             break;
                         default:
                             break;
@@ -606,7 +608,7 @@ bool bt_parse_rx(char* rx_buffer)
                             PID_motor_right.set_tau(bt_float_data[0]);
                             break;
                         case ch_sensor:
-                            PID_angle.set_tau(bt_float_data[0]);
+                            PID_sensor.set_tau(bt_float_data[0]);
                             break;
                         default:
                             break;
