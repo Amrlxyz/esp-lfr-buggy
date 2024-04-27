@@ -59,8 +59,8 @@ void SensorArray::update(void)
     {
         sens_values[i] = sample_total[i] / sample_count_;
 
-        float old_min = cali_coef[i];
-        float old_max = cali_max;
+        float old_min = cali_min[i];
+        float old_max = cali_max[i];
         float new_min = 0;
         float new_max = 1;
 
