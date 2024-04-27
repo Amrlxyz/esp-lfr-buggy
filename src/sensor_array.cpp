@@ -151,11 +151,11 @@ void SensorArray::calibrate_sensors(void)
     for (int i = 0; i < 6; i++)
     {
         sens_values[i] = sample_total[i] / 100;
-        cali_coef[i] = sens_values[i];
+        cali_min[i] = sens_values[i];
     }
 }
 
 float* SensorArray::get_calibration_constants(void)
 {
-    return cali_coef;
+    return cali_min;
 }

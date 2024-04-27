@@ -119,6 +119,8 @@ int ISR_exec_time = 0;
 int loop_exec_time = 0;
 
 float bt_float_data[3] = {0};
+short int data_log[LOG_SIZE][5] = {0};
+int log_index = 0;
 char bt_data_sent;
 char bt_obj_sent;
 float* pid_constants;               // used only for sending datat to bluetooth
@@ -202,6 +204,19 @@ int main()
             case 's':
                 buggy_mode = inactive;
                 stop_motors();
+                break;
+            case 'd':
+                buggy_mode = inactive;
+                for(int i = 0; i < log_index; i++)
+                {
+                    float** out_arr = PID_motor_left.get_terms();
+                    pc.printf("%f,%f,%f,%f,%f\n", 
+                                    (float) (data_log[i][0] / 1000.0), //= set_point
+                                    (float) (data_log[i][1] / 1000.0), //= measurement
+                                    (float) (data_log[i][2] / 1000.0), //= propotional
+                                    (float) (data_log[i][3] / 1000.0), //= integrator
+                                    (float) (data_log[i][4] / 1000.0)); //= differentiator
+                }
                 break;
             default:
                 break;
@@ -516,6 +531,21 @@ void control_update_ISR(void)
         PID_motor_right.update(buggy_status.right_set_speed, motor_right.get_filtered_speed());
         motor_left.set_duty_cycle(PID_motor_left.get_output());
         motor_right.set_duty_cycle(PID_motor_right.get_output());
+
+        // PID Data Logging
+        if(log_index < LOG_SIZE)
+        {
+            float** out_arr = PID_motor_left.get_terms();
+            // data_log[log_index][0] = *out_arr[0]; //= time_index
+            data_log[log_index][0] = (short int) (*out_arr[1] * 1000); //= set_point
+            data_log[log_index][1] = (short int) (*out_arr[2] * 1000); //= measurement
+            // data_log[log_index][3] = *out_arr[3]; //= error
+            data_log[log_index][2] = (short int) (*out_arr[4] * 1000); //= propotional
+            data_log[log_index][3] = (short int) (*out_arr[5] * 1000); //= integrator
+            data_log[log_index][4] = (short int) (*out_arr[6] * 1000); //= differentiator
+            // data_log[log_index][7] = *out_arr[7]; //= output
+            log_index++;
+        }
 
         // Sends PID Data to the PC (WARNING: CAN CAUSE BT MALFUNCTION)
         // float** out_arr = PID_motor_left.get_terms();
