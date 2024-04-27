@@ -505,8 +505,22 @@ void control_update_ISR(void)
             buggy_mode == active_stop)
         {
             PID_angle.update(buggy_status.set_angle, buggy_status.cumulative_angle_deg);
-            buggy_status.left_set_speed  = buggy_status.set_velocity + PID_angle.get_output();
-            buggy_status.right_set_speed = buggy_status.set_velocity - PID_angle.get_output();
+            
+            // Old Implementation:
+            // buggy_status.left_set_speed  = buggy_status.set_velocity + PID_angle.get_output();
+            // buggy_status.right_set_speed = buggy_status.set_velocity - PID_angle.get_output();
+            
+            float speed_offset = PID_angle.get_output();
+            if (speed_offset > 0)
+            {
+                buggy_status.left_set_speed  = buggy_status.set_velocity;
+                buggy_status.right_set_speed = buggy_status.set_velocity - 2 * speed_offset;
+            }
+            else 
+            {
+                buggy_status.left_set_speed  = buggy_status.set_velocity - 2 * speed_offset;
+                buggy_status.right_set_speed = buggy_status.set_velocity;
+            }
         }
         else
         {
