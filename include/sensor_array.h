@@ -28,7 +28,7 @@ private:
     float sens_values[6];   // Array to store sensor values. 
     
     const int sample_count_;    // The number of samples to take for averaging sensor readings.
-    const float detect_thresh_; // The detection threshold for line detection. 
+    const float detect_range_; // The detection threshold for line detection. 
     const float angle_coeff;    // The gain at which the sensor output is multiplied to represent the angle.
     bool line_detected;         // Flag indicating whether a line is detected. 
 
@@ -67,11 +67,11 @@ public:
      * @param sens0-sens5 Pin names for the sensors.
      * @param led0-led5 Pin names for the LEDs.
      * @param sample_count The number of samples to take for averaging sensor readings.
-     * @param detect_thresh The detection threshold for line detection.
+     * @param detect_range The detection threshold for line detection.
      * @param angle_coefficient The gain at which the sensor output is multiplied to represent the angle.
      */
     SensorArray(PinName sens0, PinName sens1, PinName sens2, PinName sens3, PinName sens4, PinName sens5,
-                PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_thresh, float angle_coefficient);
+                PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_range, float angle_coefficient);
 
     /**
      * @brief Resets the sensor array.

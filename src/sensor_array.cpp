@@ -7,9 +7,9 @@ float SensorArray::read(AnalogIn sensor){return 0;}
 
 
 SensorArray::SensorArray(PinName sens0, PinName sens1, PinName sens2, PinName sens3, PinName sens4, PinName sens5,
-            PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_thresh, float angle_coefficient): 
+            PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_range, float angle_coefficient): 
             sample_count_(sample_count),
-            detect_thresh_(detect_thresh),
+            detect_range_(detect_range),
             angle_coeff(angle_coefficient),
             led{led0, led1, led2, led3, led4, led5}, // Initialize led array
             sens{sens0, sens1, sens2, sens3, sens4, sens5} // Initialize sens array
@@ -53,7 +53,8 @@ void SensorArray::update(void)
         }
     }
 
-    line_detected = false;
+    float max_reading = 0.0;
+    float min_reading = 1.0;
 
     for (int i = 0; i < 6; i++)
     {
@@ -81,10 +82,24 @@ void SensorArray::update(void)
             sens_values[i] = 1;
         }
 
-        if (sens_values[i] >= 0.4)
+        // Find min and Max Value
+        if (sens_values[i] > max_reading)
         {
-            line_detected = true;
+            max_reading = sens_values[i];
         }
+        if (sens_values[i] < min_reading)
+        {
+            min_reading = sens_values[i];
+        }
+    }
+
+    if (max_reading - min_reading <= detect_range_)
+    {
+        line_detected = false;
+    }
+    else
+    {
+        line_detected = true;
     }
 
     output = angle_coeff * (sens_values[0] * coef[0] + sens_values[1] * coef[1] + sens_values[2] * coef[2] + sens_values[3] * coef[3] + sens_values[4] * coef[4] + sens_values[5] * coef[5]);
