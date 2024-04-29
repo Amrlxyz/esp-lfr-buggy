@@ -77,6 +77,7 @@ enum Buggy_modes
     uturn,
     static_tracking,
     line_follow_auto,
+    stop_detect_line,
     calibration,
 };
 
@@ -161,7 +162,7 @@ void reset_everything(void);                                            ///< Res
 bool bt_parse_rx(char* rx_buffer);                                      ///< Parse recieved bluetooth data
 void control_update_ISR(void);                                          ///< ISR updating the control algorithm
 void serial_update_ISR(void);                                           ///< ISR to update flag to send data to pc/bt in main()
-void logic_timout_ISR(void);                                            ///< Timout used for timed logic
+void stop_detect_ISR(void);                                     
 void bt_send_data(void);                                                ///< Send data to the bt module
 void pc_send_data(void);                                                ///< Send data to the pc
 void sensor_update_ISR();
@@ -302,6 +303,12 @@ int main()
                     buggy_status.set_velocity = 0.0;
                     bt.send_fstring("T:%.3f\n", global_timer.read());
                     break;
+                case stop_detect_line:
+                    reset_everything();
+                    logic_timout.attach(&stop_detect_ISR, STOP_DETECT_TIME);
+                    buggy_status.set_angle = 0;
+                    buggy_status.set_velocity = 0.0;
+                    break;
                 case calibration:
                     reset_everything();
                     sensor_array.calibrate_sensors();
@@ -441,7 +448,7 @@ int main()
                 }
                 else if (buggy_status.distance_travelled - buggy_status.lf_line_last_seen >= LINE_FOLLOW_STOP_DISTANCE)
                 {
-                    buggy_mode = active_stop;
+                    buggy_mode = stop_detect_line;
                     stop_motors();
                 }
             case line_follow:    
@@ -479,6 +486,11 @@ int main()
                 //         buggy_status.set_velocity = lf_velocity;
                 //     }
                 // }
+            case stop_detect_line:
+                if (sensor_array.is_line_detected())
+                {
+                    buggy_mode = line_follow_auto;
+                };
             default:
                 break;
         }    
@@ -641,6 +653,14 @@ void slow_accel_ISR(void)
         buggy_mode == line_follow)
     {
         buggy_status.set_velocity = lf_velocity;
+    }
+}
+
+void stop_detect_ISR(void)
+{
+    if (buggy_mode == stop_detect_line)
+    {
+        buggy_mode = inactive;
     }
 }
 

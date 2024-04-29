@@ -59,13 +59,16 @@
 #define SENS_DETECT_THRESH      0.10
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY        1.5
+#define LINE_FOLLOW_VELOCITY        2
 #define LINE_FOLLOW_STOP_DISTANCE   0.3
 #define UTURN_ANGLE                 210
 
 #define SLOW_ACCEL_TIME             0.4
 #define SLOW_ACCEL_DIVIDER          2
 
+#define STOP_DETECT_TIME            1             // s 
+
+// Unused
 #define SLOW_TURNING_GAIN           0                       // Higher Means FASTER
 #define SLOW_TURNING_THRESH         2
 
