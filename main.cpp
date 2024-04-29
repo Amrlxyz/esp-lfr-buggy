@@ -139,6 +139,7 @@ Serial pc(USBTX, USBRX, 115200);            // set up serial comm with pc
 Timer global_timer;                         // set up global program timer
 Ticker control_ticker;
 Ticker serial_ticker;
+Ticker sensor_ticker;
 Timeout logic_timout;
 
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN, BT_BAUD_RATE);     
@@ -150,7 +151,7 @@ Motor motor_right(MOTORR_PWM_PIN, MOTORR_DIRECTION_PIN, MOTORR_BIPOLAR_PIN, MOTO
 PID PID_motor_left (PID_M_L_KP, PID_M_L_KI, PID_M_L_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT, CONTROL_UPDATE_PERIOD);
 PID PID_motor_right(PID_M_R_KP, PID_M_R_KI, PID_M_R_KD, PID_M_TAU, PID_M_MIN_OUT, PID_M_MAX_OUT, PID_M_MIN_INT, PID_M_MAX_INT, CONTROL_UPDATE_PERIOD);
 PID PID_angle (PID_A_KP, PID_A_KI, PID_A_KD, PID_A_TAU, PID_A_MIN_OUT, PID_A_MAX_OUT, PID_A_MIN_INT, PID_A_MAX_INT, CONTROL_UPDATE_PERIOD);
-PID PID_sensor(PID_S_KP, PID_S_KI, PID_S_KD, PID_S_TAU, PID_S_MIN_OUT, PID_S_MAX_OUT, PID_S_MIN_INT, PID_S_MAX_INT, CONTROL_UPDATE_PERIOD);
+PID PID_sensor(PID_S_KP, PID_S_KI, PID_S_KD, PID_S_TAU, PID_S_MIN_OUT, PID_S_MAX_OUT, PID_S_MIN_INT, PID_S_MAX_INT, SENSOR_UPDATE_PERIOD);
 
 
 // Helper Function Prototypes:
@@ -163,6 +164,7 @@ void serial_update_ISR(void);                                           ///< ISR
 void logic_timout_ISR(void);                                            ///< Timout used for timed logic
 void bt_send_data(void);                                                ///< Send data to the bt module
 void pc_send_data(void);                                                ///< Send data to the pc
+void sensor_update_ISR();
 void slow_accel_ISR(void);
 
 
@@ -177,6 +179,7 @@ int main()
     sensor_array.set_all_led_on(true);
 
     global_timer.start();                                                           // Starts the global program timer
+    sensor_ticker.attach_us(&sensor_update_ISR, SENSOR_UPDATE_PERIOD_US);           // Starts the control ISR update ticker
     control_ticker.attach_us(&control_update_ISR, CONTROL_UPDATE_PERIOD_US);        // Starts the control ISR update ticker
     serial_ticker.attach(&serial_update_ISR, SERIAL_UPDATE_PERIOD);                 // Starts the control ISR update ticker
     
@@ -510,7 +513,6 @@ void control_update_ISR(void)
     int curr_time = global_timer.read_us();
 
     /* Run all the update functions: */
-    sensor_array.update();
     motor_left.update();
     motor_right.update();
 
@@ -624,6 +626,12 @@ void control_update_ISR(void)
 
     // Measure control ISR execution time
     ISR_exec_time = global_timer.read_us() - curr_time;
+}
+
+
+void sensor_update_ISR(void)
+{
+    sensor_array.update();
 }
 
 

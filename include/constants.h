@@ -29,7 +29,7 @@
 
 // Sensor (S) PID Constants - USED FOR LINE FOLLOW ///////////////////////////
 #define PID_S_MIN_OUT       -PID_S_MAX_OUT
-#define PID_S_MAX_OUT       1
+#define PID_S_MAX_OUT       1.5
 #define PID_S_MIN_INT       -PID_S_MAX_INT
 #define PID_S_MAX_INT       0
 #define PID_S_KI            0
@@ -56,14 +56,14 @@
 // Sensor Array Constants
 #define SENS_SAMPLE_COUNT       1   // 5 - 311us, 3 - 195us   
 #define SENS_ANGLE_COEFF        1
-#define SENS_DETECT_THRESH      0.2
+#define SENS_DETECT_THRESH      0.10
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY        2
-#define LINE_FOLLOW_STOP_DISTANCE   0.2
+#define LINE_FOLLOW_VELOCITY        1.5
+#define LINE_FOLLOW_STOP_DISTANCE   0.3
 #define UTURN_ANGLE                 210
 
-#define SLOW_ACCEL_TIME             0.2
+#define SLOW_ACCEL_TIME             0.4
 #define SLOW_ACCEL_DIVIDER          2
 
 #define SLOW_TURNING_GAIN           0                       // Higher Means FASTER
@@ -84,6 +84,11 @@
 #define CONTROL_UPDATE_RATE         2500                                    // Hz
 #define CONTROL_UPDATE_PERIOD       (1.0f / CONTROL_UPDATE_RATE)            // Seconds
 #define CONTROL_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
+
+// Control Timing Constants
+#define SENSOR_UPDATE_RATE         5000                                    // Hz
+#define SENSOR_UPDATE_PERIOD       (1.0f / CONTROL_UPDATE_RATE)            // Seconds
+#define SENSOR_UPDATE_PERIOD_US    (int)(1'000'000 / CONTROL_UPDATE_RATE)  // Micro Seconds
 
 // Serial Update Timing Constants
 #define SERIAL_UPDATE_PERIOD        0.02     /// Seconds
