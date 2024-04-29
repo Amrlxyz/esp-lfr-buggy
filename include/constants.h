@@ -35,7 +35,7 @@
 #define PID_S_KI            0
 
 #define PID_S_TAU           0.001
-#define PID_S_KP            0.25
+#define PID_S_KP            0.30
 #define PID_S_KD            0.08
 
 // 0.4 0.15 - Oscillates high freq when 0 - might need LP
@@ -59,11 +59,12 @@
 #define SENS_DETECT_THRESH      0.2
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY        1.8
+#define LINE_FOLLOW_VELOCITY        2
 #define LINE_FOLLOW_STOP_DISTANCE   0.2
 #define UTURN_ANGLE                 210
 
-#define SLOW_ACCEL_TIME             0.1
+#define SLOW_ACCEL_TIME             0.2
+#define SLOW_ACCEL_DIVIDER          2
 
 #define SLOW_TURNING_GAIN           0                       // Higher Means FASTER
 #define SLOW_TURNING_THRESH         2

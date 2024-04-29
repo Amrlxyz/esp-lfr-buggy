@@ -272,18 +272,22 @@ int main()
                 case line_follow_auto:
                 case line_follow:
                     reset_everything();
+
+                    if (!sensor_array.is_line_detected())
+                    {
+                        buggy_mode = inactive;
+                        bt.send_fstring("Line undetected\n", global_timer.read());
+                        break;
+                    }
+                    
                     pid_constants = PID_sensor.get_constants();
                     bt.send_fstring("T:%.3f\n", global_timer.read());
                     bt.send_fstring("\nP:%.3f\nI:%.3f\n", pid_constants[0], pid_constants[1]);
                     bt.send_fstring("D:%.3f\nT:%.3f\n", pid_constants[2], pid_constants[3]);
-                    sensor_array.update();
-                    if (!sensor_array.is_line_detected())
-                    {
-                        buggy_mode = inactive;
-                        break;
-                    }
+
                     buggy_status.set_angle = 0;
-                    buggy_status.set_velocity = lf_velocity/2;
+                    buggy_status.set_velocity = lf_velocity / SLOW_ACCEL_DIVIDER;
+
                     buggy_status.accel_start_angle = buggy_status.cumulative_angle_deg;
                     buggy_status.accel_start_distance = buggy_status.distance_travelled;
                     buggy_status.is_accelerating = false;
@@ -416,6 +420,14 @@ int main()
             case uturn:
                 if (buggy_status.cumulative_angle_deg >= buggy_status.set_angle)
                 {
+                    buggy_mode = inactive;
+                    while(true)
+                    {
+                        if (sensor_array.is_line_detected())
+                        {
+                            break;
+                        }
+                    }
                     buggy_mode = line_follow_auto;
                 }
                 break;
@@ -571,7 +583,7 @@ void control_update_ISR(void)
         // PID Data Logging
         if(log_index < LOG_SIZE)
         {
-            float** out_arr = PID_sensor.get_terms();
+            float** out_arr = PID_motor_left.get_terms();
             // float** out_arr = PID_motor_right.get_terms();
             // float** out_arr = PID_sensor.get_terms();
             // data_log[log_index][0] = *out_arr[0]; //= time_index
