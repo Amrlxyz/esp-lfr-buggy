@@ -19,7 +19,7 @@
 
 // Left Motor (M_L) PID Constants
 #define PID_M_L_KP          0.5
-#define PID_M_L_KI          10
+#define PID_M_L_KI          7.5
 #define PID_M_L_KD          0
 
 // Right Motor (M_R) PID Constants
@@ -34,9 +34,11 @@
 #define PID_S_MAX_INT       0
 #define PID_S_KI            0
 
-#define PID_S_TAU           0.5
-#define PID_S_KP            0.2
-#define PID_S_KD            4
+#define PID_S_TAU           0.001
+#define PID_S_KP            0.25
+#define PID_S_KD            0.08
+
+// 0.4 0.15 - Oscillates high freq when 0 - might need LP
 
 // Angle (A) PID Constants - USED FOR TURNING
 #define PID_A_TAU           0.01
@@ -57,15 +59,18 @@
 #define SENS_DETECT_THRESH      0.2
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY        0.9
+#define LINE_FOLLOW_VELOCITY        1.8
 #define LINE_FOLLOW_STOP_DISTANCE   0.2
 #define UTURN_ANGLE                 210
+
+#define SLOW_ACCEL_TIME             0.1
+
 #define SLOW_TURNING_GAIN           0                       // Higher Means FASTER
 #define SLOW_TURNING_THRESH         2
 
-#define ACCEL_SPEED         0.5
-#define ACCEL_DISTANCE      0.5
-#define ACCEL_ANGLE         60
+#define MANUAL_ACCEL_SPEED         0.5
+#define MANUAL_ACCEL_DISTANCE      0.5
+#define MANUAL_ACCEL_ANGLE         60
 
 
 // Square Task Constants
@@ -88,9 +93,9 @@
 #define WHEEL_SEPERATION    0.188       
 #define WHEEL_RADIUS        0.0415      
 #define PULSE_PER_REV       256         
-#define LP_SPEED_B0         0.1802684       
-#define LP_SPEED_B1         0.1802684       
-#define LP_SPEED_A0         0.63946321      
+#define LP_SPEED_B0         0.13575525       
+#define LP_SPEED_B1         0.13575525       
+#define LP_SPEED_A0         0.7284895      
 
 // 2 Hz Pole Freq:
 // Filter coefficients b_i: [0.0591174 0.0591174]

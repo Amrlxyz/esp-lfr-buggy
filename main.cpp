@@ -139,6 +139,7 @@ Serial pc(USBTX, USBRX, 115200);            // set up serial comm with pc
 Timer global_timer;                         // set up global program timer
 Ticker control_ticker;
 Ticker serial_ticker;
+Timeout logic_timout;
 
 Bluetooth bt(BT_TX_PIN, BT_RX_PIN, BT_BAUD_RATE);     
 MotorDriverBoard driver_board(DRIVER_ENABLE_PIN, DRIVER_MONITOR_PIN);
@@ -162,6 +163,7 @@ void serial_update_ISR(void);                                           ///< ISR
 void logic_timout_ISR(void);                                            ///< Timout used for timed logic
 void bt_send_data(void);                                                ///< Send data to the bt module
 void pc_send_data(void);                                                ///< Send data to the pc
+void slow_accel_ISR(void);
 
 
 /* MAIN FUNCTION */
@@ -205,18 +207,19 @@ int main()
                 buggy_mode = inactive;
                 stop_motors();
                 break;
-            case 'd':
+            case 'D':
                 buggy_mode = inactive;
                 for(int i = 0; i < log_index; i++)
                 {
-                    float** out_arr = PID_motor_left.get_terms();
-                    pc.printf("%f,%f,%f,%f,%f\n", 
+                    pc.printf("%.5f,%.3f,%.3f,%.3f,%.3f,%.3f\n",
+                                    (i * CONTROL_UPDATE_PERIOD),
                                     (float) (data_log[i][0] / 1000.0), //= set_point
                                     (float) (data_log[i][1] / 1000.0), //= measurement
                                     (float) (data_log[i][2] / 1000.0), //= propotional
                                     (float) (data_log[i][3] / 1000.0), //= integrator
                                     (float) (data_log[i][4] / 1000.0)); //= differentiator
                 }
+                log_index = 0;
                 break;
             default:
                 break;
@@ -270,18 +273,27 @@ int main()
                 case line_follow:
                     reset_everything();
                     pid_constants = PID_sensor.get_constants();
+                    bt.send_fstring("T:%.3f\n", global_timer.read());
                     bt.send_fstring("\nP:%.3f\nI:%.3f\n", pid_constants[0], pid_constants[1]);
                     bt.send_fstring("D:%.3f\nT:%.3f\n", pid_constants[2], pid_constants[3]);
+                    sensor_array.update();
+                    if (!sensor_array.is_line_detected())
+                    {
+                        buggy_mode = inactive;
+                        break;
+                    }
                     buggy_status.set_angle = 0;
-                    buggy_status.set_velocity = lf_velocity;
+                    buggy_status.set_velocity = lf_velocity/2;
                     buggy_status.accel_start_angle = buggy_status.cumulative_angle_deg;
                     buggy_status.accel_start_distance = buggy_status.distance_travelled;
                     buggy_status.is_accelerating = false;
+                    logic_timout.attach(&slow_accel_ISR, SLOW_ACCEL_TIME);
                     break;
                 case active_stop:
                     reset_everything();
                     buggy_status.set_angle = 0;
                     buggy_status.set_velocity = 0.0;
+                    bt.send_fstring("T:%.3f\n", global_timer.read());
                     break;
                 case calibration:
                     reset_everything();
@@ -291,6 +303,7 @@ int main()
                     {
                         bt.send_fstring("%d:%.4f\n", i, cal_constants[i]);
                     }
+                    buggy_mode = inactive;
                     break;
                 default:
                     break;
@@ -379,21 +392,21 @@ int main()
             case PID_test:
                 if (buggy_status.distance_travelled <= 0.1)
                 {
-                    buggy_status.set_velocity = 0.2;
+                    buggy_status.set_velocity = 2;
                 }
-                if (buggy_status.distance_travelled >= 0.1)
-                {
-                    buggy_status.set_velocity = 0.5;
-                }
-                if (buggy_status.distance_travelled >= 0.4)
-                {
-                    buggy_status.set_velocity = 1;
-                }
-                if (buggy_status.distance_travelled >= 1)
-                {
-                    buggy_status.set_velocity = 0.5;
-                }
-                if (buggy_status.distance_travelled >= 1.6)
+                // if (buggy_status.distance_travelled >= 0.1)
+                // {
+                //     buggy_status.set_velocity = 0.5;
+                // }
+                // if (buggy_status.distance_travelled >= 0.4)
+                // {
+                //     buggy_status.set_velocity = 1;
+                // }
+                // if (buggy_status.distance_travelled >= 1)
+                // {
+                //     buggy_status.set_velocity = 0.5;
+                // }
+                if (buggy_status.distance_travelled >= 0.7)
                 {
                     buggy_mode = active_stop;
                     reset_everything();
@@ -416,12 +429,12 @@ int main()
                     buggy_mode = active_stop;
                     stop_motors();
                 }
-            case line_follow:
+            case line_follow:    
                 //// comment this disable accel
                 // if (buggy_status.is_accelerating)
                 // {
                 //     float accel_distance = buggy_status.distance_travelled - buggy_status.accel_start_distance;
-                //     if (accel_distance > ACCEL_DISTANCE)
+                //     if (accel_distance > MANUAL_ACCEL_DISTANCE)
                 //     {
                 //         // pc.printf("SLOWING DOWN\n");
                 //         buggy_status.set_velocity = lf_velocity;
@@ -431,17 +444,17 @@ int main()
                 //     else
                 //     {
                 //         // pc.printf("fast\n");
-                //         buggy_status.set_velocity = ACCEL_SPEED;
+                //         buggy_status.set_velocity = MANUAL_ACCEL_SPEED;
                 //     }
                 // }
                 // else 
                 // {
                 //     float accel_angle = fabsf(buggy_status.cumulative_angle_deg - buggy_status.accel_start_angle);
                 //     // pc.printf("%f\n", accel_angle);
-                //     if (accel_angle > ACCEL_ANGLE)
+                //     if (accel_angle > MANUAL_ACCEL_ANGLE)
                 //     {
                 //         // pc.printf("Accelerating!!! %f\n", accel_angle);
-                //         buggy_status.set_velocity = ACCEL_SPEED;
+                //         buggy_status.set_velocity = MANUAL_ACCEL_SPEED;
                 //         buggy_status.accel_start_distance = buggy_status.distance_travelled;
                 //         buggy_status.is_accelerating = true;
                 //     }
@@ -506,38 +519,47 @@ void control_update_ISR(void)
         {
             PID_angle.update(buggy_status.set_angle, buggy_status.cumulative_angle_deg);
             
-            // Old Implementation:
-            // buggy_status.left_set_speed  = buggy_status.set_velocity + PID_angle.get_output();
-            // buggy_status.right_set_speed = buggy_status.set_velocity - PID_angle.get_output();
-            
-            float speed_offset = PID_angle.get_output();
-            if (speed_offset > 0)
-            {
-                buggy_status.left_set_speed  = buggy_status.set_velocity;
-                buggy_status.right_set_speed = buggy_status.set_velocity - 2 * speed_offset;
-            }
-            else 
-            {
-                buggy_status.left_set_speed  = buggy_status.set_velocity - 2 * speed_offset;
-                buggy_status.right_set_speed = buggy_status.set_velocity;
-            }
+            buggy_status.left_set_speed  = buggy_status.set_velocity + PID_angle.get_output();
+            buggy_status.right_set_speed = buggy_status.set_velocity - PID_angle.get_output();
+        }
+        else if (buggy_mode == static_tracking)
+        {
+            PID_sensor.update(buggy_status.set_angle, sensor_array.get_filtered_output());
+
+            buggy_status.left_set_speed  = buggy_status.set_velocity + PID_sensor.get_output();
+            buggy_status.right_set_speed = buggy_status.set_velocity - PID_sensor.get_output();
         }
         else
         {
             PID_sensor.update(buggy_status.set_angle, sensor_array.get_filtered_output());
-            float base_speed;
-            float sens_out_abs = fabsf(sensor_array.get_filtered_output());
+            
+            float base_speed = buggy_status.set_velocity;
+
+            // float sens_out_abs = fabsf(sensor_array.get_filtered_output());
             // if (sens_out_abs > SLOW_TURNING_THRESH)
-            if (false)
+            // {
+            //     base_speed = buggy_status.set_velocity * SLOW_TURNING_GAIN; // (1 - pid_out_abs / (PID_S_MAX_OUT * SLOW_TURNING_GAIN));
+            // }
+            // else
+            // {
+            //     base_speed = buggy_status.set_velocity;
+            // }
+
+            // buggy_status.left_set_speed  = base_speed + PID_sensor.get_output();
+            // buggy_status.right_set_speed = base_speed - PID_sensor.get_output();
+
+
+            float speed_offset = PID_sensor.get_output();
+            if (speed_offset > 0)
             {
-                base_speed = buggy_status.set_velocity * SLOW_TURNING_GAIN; // (1 - pid_out_abs / (PID_S_MAX_OUT * SLOW_TURNING_GAIN));
+                buggy_status.left_set_speed  = base_speed;
+                buggy_status.right_set_speed = base_speed - 2 * speed_offset;
             }
-            else
+            else 
             {
-                base_speed = buggy_status.set_velocity;
+                buggy_status.left_set_speed  = base_speed - 2 * -speed_offset;
+                buggy_status.right_set_speed = base_speed;
             }
-            buggy_status.left_set_speed  = base_speed + PID_sensor.get_output();
-            buggy_status.right_set_speed = base_speed - PID_sensor.get_output();
         }
 
         // Calculate Motor PID and apply the output: 
@@ -549,7 +571,9 @@ void control_update_ISR(void)
         // PID Data Logging
         if(log_index < LOG_SIZE)
         {
-            float** out_arr = PID_motor_left.get_terms();
+            float** out_arr = PID_sensor.get_terms();
+            // float** out_arr = PID_motor_right.get_terms();
+            // float** out_arr = PID_sensor.get_terms();
             // data_log[log_index][0] = *out_arr[0]; //= time_index
             data_log[log_index][0] = (short int) (*out_arr[1] * 1000); //= set_point
             data_log[log_index][1] = (short int) (*out_arr[2] * 1000); //= measurement
@@ -588,6 +612,16 @@ void control_update_ISR(void)
 
     // Measure control ISR execution time
     ISR_exec_time = global_timer.read_us() - curr_time;
+}
+
+
+void slow_accel_ISR(void)
+{
+    if (buggy_mode == line_follow_auto ||
+        buggy_mode == line_follow)
+    {
+        buggy_status.set_velocity = lf_velocity;
+    }
 }
 
 
@@ -905,7 +939,7 @@ void pc_send_data(void)
     // {
     //     pc.printf("%d:%6.4f,", i, sens[i]);
     // }
-    // pc.printf("Out:%f\n", sensor_array.get_array_output());
+    // pc.printf("Out:%f,F:%f\n", sensor_array.get_array_output(), sensor_array.get_filtered_output());
 
 
     //// ---- PID Troubleshoot Data ---- ////

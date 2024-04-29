@@ -36,6 +36,17 @@ private:
     float cali_max[6] = {0.90, 0.90, 0.90, 0.90, 0.90, 0.90};
     const int coef[6] = {5, 3, 1, -1, -3, -5};
 
+    // 7 Hz Pole Freq:
+    // Filter coefficients b_i: [0.1802684 0.1802684]
+    // Filter coefficients a_i: [0.63946321]
+    
+    // Filter coefficients b_i: [0.13575525 0.13575525]
+    // Filter coefficients a_i: [0.7284895]
+
+    const float LP_a0 = 0.63946321;
+    const float LP_b0 = 0.1802684;
+    const float LP_b1 = 0.1802684;
+
     //{15, 5, 1, -1, -5, -15};
     /**
      * @brief Reads the value from the specified AnalogIn sensor.
