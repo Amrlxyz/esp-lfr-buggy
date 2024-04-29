@@ -430,15 +430,14 @@ int main()
             case uturn:
                 if (buggy_status.cumulative_angle_deg >= buggy_status.set_angle)
                 {
-                    buggy_mode = inactive;
-                    while(true)
+                    if (sensor_array.is_line_detected())
                     {
-                        if (sensor_array.is_line_detected())
-                        {
-                            break;
-                        }
+                        buggy_mode = line_follow_auto;
                     }
-                    buggy_mode = line_follow_auto;
+                    else 
+                    {
+                        buggy_status.set_angle += 10;
+                    }
                 }
                 break;
             case line_follow_auto:
