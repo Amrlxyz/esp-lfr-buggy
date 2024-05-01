@@ -550,15 +550,11 @@ void control_update_ISR(void)
         }
         else if (buggy_mode == static_tracking)
         {
-            PID_sensor.update(buggy_status.set_angle, sensor_array.get_filtered_output());
-
             buggy_status.left_set_speed  = buggy_status.set_velocity + PID_sensor.get_output();
             buggy_status.right_set_speed = buggy_status.set_velocity - PID_sensor.get_output();
         }
         else
-        {
-            PID_sensor.update(buggy_status.set_angle, sensor_array.get_filtered_output());
-            
+        {   
             float base_speed = buggy_status.set_velocity;
 
             // float sens_out_abs = fabsf(sensor_array.get_filtered_output());
@@ -644,6 +640,7 @@ void control_update_ISR(void)
 void sensor_update_ISR(void)
 {
     sensor_array.update();
+    PID_sensor.update(buggy_status.set_angle, sensor_array.get_filtered_output());
 }
 
 
