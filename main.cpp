@@ -277,12 +277,12 @@ int main()
                 case line_follow:
                     reset_everything();
 
-                    if (!sensor_array.is_line_detected())
-                    {
-                        buggy_mode = inactive;
-                        bt.send_fstring("Line undetected\n", global_timer.read());
-                        break;
-                    }
+                    // if (!sensor_array.is_line_detected())
+                    // {
+                    //     buggy_mode = inactive;
+                    //     bt.send_fstring("Line undetected\n", global_timer.read());
+                    //     break;
+                    // }
                     
                     pid_constants = PID_sensor.get_constants();
                     bt.send_fstring("T:%.3f\n", global_timer.read());
@@ -433,6 +433,7 @@ int main()
                     if (sensor_array.is_line_detected())
                     {
                         buggy_mode = line_follow_auto;
+                        lf_velocity = LINE_FOLLOW_VELOCITY_UTURN;
                     }
                     else 
                     {

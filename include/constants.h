@@ -60,7 +60,8 @@
 
 // Line Follow Constants
 #define LINE_FOLLOW_VELOCITY        2
-#define LINE_FOLLOW_STOP_DISTANCE   0.25
+#define LINE_FOLLOW_VELOCITY_UTURN  1.2
+#define LINE_FOLLOW_STOP_DISTANCE   0.1
 #define UTURN_ANGLE                 190
 
 #define SLOW_ACCEL_TIME             0.4
