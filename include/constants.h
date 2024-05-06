@@ -59,9 +59,9 @@
 #define SENS_DETECT_RANGE       0.4
 
 // Line Follow Constants
-#define LINE_FOLLOW_VELOCITY        2
-#define LINE_FOLLOW_VELOCITY_UTURN  1.2
-#define LINE_FOLLOW_STOP_DISTANCE   0.1
+#define LINE_FOLLOW_VELOCITY        2.1
+#define LINE_FOLLOW_VELOCITY_UTURN  2.1
+#define LINE_FOLLOW_STOP_DISTANCE   0.3
 #define UTURN_ANGLE                 190
 
 #define SLOW_ACCEL_TIME             0.4

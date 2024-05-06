@@ -26,6 +26,7 @@ private:
     float filtered_output;
     float prev_filtered_output;
     float sens_values[6];   // Array to store sensor values. 
+    bool prev_left_true;
     
     const int sample_count_;    // The number of samples to take for averaging sensor readings.
     const float detect_range_; // The detection threshold for line detection. 

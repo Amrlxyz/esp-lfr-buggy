@@ -102,7 +102,30 @@ void SensorArray::update(void)
         line_detected = true;
     }
 
-    output = angle_coeff * (sens_values[0] * coef[0] + sens_values[1] * coef[1] + sens_values[2] * coef[2] + sens_values[3] * coef[3] + sens_values[4] * coef[4] + sens_values[5] * coef[5]);
+    if (!line_detected)
+    {
+        if (prev_left_true)
+        {
+            output = angle_coeff * 10;
+        }
+        else 
+        {
+            output = angle_coeff * -10;
+        }
+    }
+    else
+    {
+        output = angle_coeff * (sens_values[0] * coef[0] + sens_values[1] * coef[1] + sens_values[2] * coef[2] + sens_values[3] * coef[3] + sens_values[4] * coef[4] + sens_values[5] * coef[5]);
+        
+        if (output > 0)
+        {
+            prev_left_true = true;
+        }
+        else
+        {
+            prev_left_true = false;
+        }
+    }
     
     filtered_output = (prev_filtered_output * LP_a0) + (output * LP_b0) + (prev_output * LP_b1);
     prev_filtered_output = filtered_output;

@@ -448,10 +448,17 @@ int main()
                 }
                 else if (buggy_status.distance_travelled - buggy_status.lf_line_last_seen >= LINE_FOLLOW_STOP_DISTANCE)
                 {
-                    buggy_mode = stop_detect_line;
-                    stop_motors();
+                    // buggy_mode = stop_detect_line;
+                    // stop_motors();
+                    // float prev_speed = buggy_status.set_velocity;
+                    // while (!sensor_array.is_line_detected())
+                    // {
+                    //     buggy_status.set_velocity = -1;
+                    // }
+                    // buggy_status.set_velocity = prev_speed;
                 }
-            case line_follow:    
+                break;
+            case line_follow: 
                 //// comment this disable accel
                 // if (buggy_status.is_accelerating)
                 // {
@@ -486,6 +493,7 @@ int main()
                 //         buggy_status.set_velocity = lf_velocity;
                 //     }
                 // }
+                break;
             case stop_detect_line:
                 if (sensor_array.is_line_detected())
                 {
