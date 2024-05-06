@@ -22,12 +22,36 @@ private:
     AnalogIn sens[6];   // Array of AnalogIn objects to read the sensors.
 
     float output;           // The output value of the sensor array. 
+    float prev_output;
+    float filtered_output;
+    float prev_filtered_output;
     float sens_values[6];   // Array to store sensor values. 
+    bool prev_left_true;
     
     const int sample_count_;    // The number of samples to take for averaging sensor readings.
-    const float detect_thresh_; // The detection threshold for line detection. 
+    const float detect_range_; // The detection threshold for line detection. 
+    const float angle_coeff;    // The gain at which the sensor output is multiplied to represent the angle.
     bool line_detected;         // Flag indicating whether a line is detected. 
 
+    float cali_min[6] = {0.15, 0.15, 0.15, 0.15, 0.15, 0.15};
+    float cali_max[6] = {0.90, 0.90, 0.90, 0.90, 0.90, 0.90};
+    const int coef[6] = {5, 3, 1, -1, -3, -5};
+
+    // 2 Hz Pole Freq:
+    // Filter coefficients b_i: [0.0591174 0.0591174]
+    // Filter coefficients a_i: [0.88176521]
+    // 5 Hz Pole Freq:
+    // Filter coefficients b_i: [0.13575525 0.13575525]
+    // Filter coefficients a_i: [0.7284895]
+    // 7 Hz Pole Freq:
+    // Filter coefficients b_i: [0.1802684 0.1802684]
+    // Filter coefficients a_i: [0.63946321]
+
+    const float LP_a0 = 0.63946321;
+    const float LP_b0 = 0.1802684;
+    const float LP_b1 = 0.1802684;
+
+    //{15, 5, 1, -1, -5, -15};
     /**
      * @brief Reads the value from the specified AnalogIn sensor.
      * 
@@ -44,10 +68,11 @@ public:
      * @param sens0-sens5 Pin names for the sensors.
      * @param led0-led5 Pin names for the LEDs.
      * @param sample_count The number of samples to take for averaging sensor readings.
-     * @param detect_thresh The detection threshold for line detection.
+     * @param detect_range The detection threshold for line detection.
+     * @param angle_coefficient The gain at which the sensor output is multiplied to represent the angle.
      */
     SensorArray(PinName sens0, PinName sens1, PinName sens2, PinName sens3, PinName sens4, PinName sens5,
-                PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_thresh);
+                PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_range, float angle_coefficient);
 
     /**
      * @brief Resets the sensor array.
@@ -98,4 +123,10 @@ public:
      * @return The output value of the sensor array.
      */
     float get_array_output(void);
+
+    float get_filtered_output(void);
+
+    void calibrate_sensors(void);
+
+    float* get_calibration_constants(void);
 };

@@ -7,9 +7,10 @@ float SensorArray::read(AnalogIn sensor){return 0;}
 
 
 SensorArray::SensorArray(PinName sens0, PinName sens1, PinName sens2, PinName sens3, PinName sens4, PinName sens5,
-            PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_thresh): 
+            PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_range, float angle_coefficient): 
             sample_count_(sample_count),
-            detect_thresh_(detect_thresh),
+            detect_range_(detect_range),
+            angle_coeff(angle_coefficient),
             led{led0, led1, led2, led3, led4, led5}, // Initialize led array
             sens{sens0, sens1, sens2, sens3, sens4, sens5} // Initialize sens array
             {
@@ -25,6 +26,9 @@ void SensorArray::reset(void)
         sens_values[i] = 0;
     }
     output = 0;
+    prev_output = 0;
+    filtered_output = 0;
+    prev_filtered_output = 0;
 }
 
 
@@ -49,18 +53,83 @@ void SensorArray::update(void)
         }
     }
 
-    line_detected = false;
+    float max_reading = 0.0;
+    float min_reading = 1.0;
 
     for (int i = 0; i < 6; i++)
     {
-        sens_values[i] = sample_total[i] / sample_count_;  
-        if (sens_values[i] >= 0.4)
+        sens_values[i] = sample_total[i] / sample_count_;
+
+        float old_min = cali_min[i];
+        float old_max = cali_max[i];
+        float new_min = 0;
+        float new_max = 1;
+
+        // Calculate the normalized value
+        float normalized_value = (sens_values[i] - old_min) / (old_max - old_min);
+        
+        // Map the normalized value to the new range
+        float new_value = new_min + normalized_value * (new_max - new_min);
+        sens_values[i] = new_value;
+
+        // clamping the output 
+        if (sens_values[i] < 0)
         {
-            line_detected = true;
+            sens_values[i] = 0;
+        }
+        else if (sens_values[i] > 1)
+        {
+            sens_values[i] = 1;
+        }
+
+        // Find min and Max Value
+        if (sens_values[i] > max_reading)
+        {
+            max_reading = sens_values[i];
+        }
+        if (sens_values[i] < min_reading)
+        {
+            min_reading = sens_values[i];
         }
     }
 
-    output = (sens_values[0] * (-5) + sens_values[1] * (-3) + sens_values[2] * (-1) + sens_values[3] * (1) + sens_values[4] * (3) + sens_values[5] * (5));
+    if (max_reading - min_reading <= detect_range_)
+    {
+        line_detected = false;
+    }
+    else
+    {
+        line_detected = true;
+    }
+
+    if (!line_detected)
+    {
+        if (prev_left_true)
+        {
+            output = angle_coeff * 10;
+        }
+        else 
+        {
+            output = angle_coeff * -10;
+        }
+    }
+    else
+    {
+        output = angle_coeff * (sens_values[0] * coef[0] + sens_values[1] * coef[1] + sens_values[2] * coef[2] + sens_values[3] * coef[3] + sens_values[4] * coef[4] + sens_values[5] * coef[5]);
+        
+        if (output > 0)
+        {
+            prev_left_true = true;
+        }
+        else
+        {
+            prev_left_true = false;
+        }
+    }
+    
+    filtered_output = (prev_filtered_output * LP_a0) + (output * LP_b0) + (prev_output * LP_b1);
+    prev_filtered_output = filtered_output;
+    prev_output = output;
 }
 
 
@@ -87,4 +156,33 @@ float* SensorArray::get_sens_output_array(void)
 float SensorArray::get_array_output(void)
 {
     return output;
+}
+
+float SensorArray::get_filtered_output(void)
+{
+    return filtered_output;
+}
+
+void SensorArray::calibrate_sensors(void)
+{
+    float sample_total[6] = {0};
+
+    for (int i = 0; i < 100; i++)
+    {   
+        for (int j = 0; j < 6; j++)
+        {
+            sample_total[j] += sens[j].read();
+        }
+    }
+
+    for (int i = 0; i < 6; i++)
+    {
+        sens_values[i] = sample_total[i] / 100;
+        cali_min[i] = sens_values[i];
+    }
+}
+
+float* SensorArray::get_calibration_constants(void)
+{
+    return cali_min;
 }
