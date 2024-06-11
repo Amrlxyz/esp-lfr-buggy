@@ -1,7 +1,10 @@
 <map id="PID::update" name="PID::update">
-<area shape="rect" id="Node000001" title="Updates the output of PID controller based on the real time measurement." alt="" coords="285,5,374,32"/>
+<area shape="rect" id="Node000001" title="Updates the output of PID controller based on the real time measurement." alt="" coords="285,31,374,57"/>
 <area shape="rect" id="Node000002" href="$main_8cpp.html#ab1059bc314d55652ae71b3d07c89e44d" title="ISR updating the control algorithm." alt="" coords="103,5,237,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="269,21,238,21,238,16,269,16"/>
-<area shape="rect" id="Node000003" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="269,37,237,32,238,27,270,32"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#a51a5c2b534f492ee4e26bacbdfd0de5e" title=" " alt="" coords="103,56,237,83"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="270,56,238,61,237,56,269,51"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,55,57"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="88,36,55,42,54,37,87,31"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="87,57,54,51,55,46,88,52"/>
 </map>

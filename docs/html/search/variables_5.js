@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['isr_5fexec_5ftime_0',['ISR_exec_time',['../main_8cpp.html#ac3159979fe33c822b8e56c4111c0710f',1,'main.cpp']]]
+  ['global_5ftimer_0',['global_timer',['../main_8cpp.html#ad4ea2e4dd12263d3f035d99fcb7c54ea',1,'main.cpp']]]
 ];

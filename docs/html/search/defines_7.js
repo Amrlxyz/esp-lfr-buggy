@@ -1,7 +1,7 @@
 var searchData=
 [
   ['sens_5fangle_5fcoeff_0',['SENS_ANGLE_COEFF',['../constants_8h.html#a105f6f73f265b77378f9541b7d98f9c9',1,'constants.h']]],
-  ['sens_5fdetect_5fthresh_1',['SENS_DETECT_THRESH',['../constants_8h.html#a64080b5afb2febe0d901b87471659787',1,'constants.h']]],
+  ['sens_5fdetect_5frange_1',['SENS_DETECT_RANGE',['../constants_8h.html#ab1ade25c6ac96f715008d6f18e25da3f',1,'constants.h']]],
   ['sens_5fsample_5fcount_2',['SENS_SAMPLE_COUNT',['../constants_8h.html#afbe70366e94a78a77c4467e4f4b083ee',1,'constants.h']]],
   ['sensor0_5fin_5fpin_3',['SENSOR0_IN_PIN',['../pin__assignments_8h.html#a3bdccb0d89c0536d55ba0ed68bca6737',1,'pin_assignments.h']]],
   ['sensor0_5fout_5fpin_4',['SENSOR0_OUT_PIN',['../pin__assignments_8h.html#a5ebe434b66eff8530ec455fe6491d911',1,'pin_assignments.h']]],
@@ -15,10 +15,18 @@ var searchData=
   ['sensor4_5fout_5fpin_12',['SENSOR4_OUT_PIN',['../pin__assignments_8h.html#a7a3887afb16e59c74148f208b91cd0bf',1,'pin_assignments.h']]],
   ['sensor5_5fin_5fpin_13',['SENSOR5_IN_PIN',['../pin__assignments_8h.html#a513ee56da1dff279b3ab3ef958e9899c',1,'pin_assignments.h']]],
   ['sensor5_5fout_5fpin_14',['SENSOR5_OUT_PIN',['../pin__assignments_8h.html#ac005665c821b9e41e52097ebad17b6bf',1,'pin_assignments.h']]],
-  ['serial_5fupdate_5fperiod_15',['SERIAL_UPDATE_PERIOD',['../constants_8h.html#a85c928dea4d6fbf49db234c8d6280585',1,'constants.h']]],
-  ['skip_5fnetaddress_16',['SKIP_NETADDRESS',['../ds2781_8h.html#afa9979449efe7ca6e2557af393f5f072',1,'ds2781.h']]],
-  ['square_5fdistance_17',['SQUARE_DISTANCE',['../constants_8h.html#a07c58a5650e9ee8fd2259244c416ae37',1,'constants.h']]],
-  ['square_5fturning_5fleft_5fangle_18',['SQUARE_TURNING_LEFT_ANGLE',['../constants_8h.html#a5cea8b270e1900bf822ef2871bfcc89f',1,'constants.h']]],
-  ['square_5fturning_5fright_5fangle_19',['SQUARE_TURNING_RIGHT_ANGLE',['../constants_8h.html#a637b3e2f7275b8f8a3da08f03334dd3b',1,'constants.h']]],
-  ['square_5fvelocity_5fset_20',['SQUARE_VELOCITY_SET',['../constants_8h.html#a4a7d046d2315763d0edab7fdecd5852e',1,'constants.h']]]
+  ['sensor_5fupdate_5fperiod_15',['SENSOR_UPDATE_PERIOD',['../constants_8h.html#a753091aefd061446f53fe4639bdef92c',1,'constants.h']]],
+  ['sensor_5fupdate_5fperiod_5fus_16',['SENSOR_UPDATE_PERIOD_US',['../constants_8h.html#adb277b196b16572f2229fd312317d538',1,'constants.h']]],
+  ['sensor_5fupdate_5frate_17',['SENSOR_UPDATE_RATE',['../constants_8h.html#a3ce1839cf02e6106558258dcd72adb68',1,'constants.h']]],
+  ['serial_5fupdate_5fperiod_18',['SERIAL_UPDATE_PERIOD',['../constants_8h.html#a85c928dea4d6fbf49db234c8d6280585',1,'constants.h']]],
+  ['skip_5fnetaddress_19',['SKIP_NETADDRESS',['../ds2781_8h.html#afa9979449efe7ca6e2557af393f5f072',1,'ds2781.h']]],
+  ['slow_5faccel_5fdivider_20',['SLOW_ACCEL_DIVIDER',['../constants_8h.html#a50a679b58cd4f3a674a5166a1677afed',1,'constants.h']]],
+  ['slow_5faccel_5ftime_21',['SLOW_ACCEL_TIME',['../constants_8h.html#a3933c40cfe25a8e1ddfdef989c44d154',1,'constants.h']]],
+  ['slow_5fturning_5fgain_22',['SLOW_TURNING_GAIN',['../constants_8h.html#aa8286f89f792feb95b6055393b00d987',1,'constants.h']]],
+  ['slow_5fturning_5fthresh_23',['SLOW_TURNING_THRESH',['../constants_8h.html#a0d183f4ca51c765460f2cf4c8a190233',1,'constants.h']]],
+  ['square_5fdistance_24',['SQUARE_DISTANCE',['../constants_8h.html#a07c58a5650e9ee8fd2259244c416ae37',1,'constants.h']]],
+  ['square_5fturning_5fleft_5fangle_25',['SQUARE_TURNING_LEFT_ANGLE',['../constants_8h.html#a5cea8b270e1900bf822ef2871bfcc89f',1,'constants.h']]],
+  ['square_5fturning_5fright_5fangle_26',['SQUARE_TURNING_RIGHT_ANGLE',['../constants_8h.html#a637b3e2f7275b8f8a3da08f03334dd3b',1,'constants.h']]],
+  ['square_5fvelocity_5fset_27',['SQUARE_VELOCITY_SET',['../constants_8h.html#a4a7d046d2315763d0edab7fdecd5852e',1,'constants.h']]],
+  ['stop_5fdetect_5ftime_28',['STOP_DETECT_TIME',['../constants_8h.html#a27bc1a80a60e19ca96db7db946b9d74b',1,'constants.h']]]
 ];

@@ -1,7 +1,10 @@
 var struct_buggy__status =
 [
+    [ "accel_start_angle", "struct_buggy__status.html#a4b29d24b623150fba4034538d7d24602", null ],
+    [ "accel_start_distance", "struct_buggy__status.html#aed05da034fb10411e777cdb2e3051899", null ],
     [ "cumulative_angle_deg", "struct_buggy__status.html#ac7ba06487f85c376f0d3d83b109b5fa4", null ],
     [ "distance_travelled", "struct_buggy__status.html#a9063dcc70f6c521a26a23ee55fae5406", null ],
+    [ "is_accelerating", "struct_buggy__status.html#ade044707c1c97bbaebb44e4583c4a8f4", null ],
     [ "left_set_speed", "struct_buggy__status.html#a30e480f87a12befa08721d5013059fbb", null ],
     [ "lf_line_last_seen", "struct_buggy__status.html#a5e4016d181dab3351eee619179af36ae", null ],
     [ "right_set_speed", "struct_buggy__status.html#a4284a59ad56e9ff99cc8b733362394bb", null ],

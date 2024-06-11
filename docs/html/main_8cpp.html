@@ -102,7 +102,7 @@ $(function(){initNavTree('main_8cpp.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 
-<p>main buggy code This file contains all the buggy logic  
+<p>main buggy code  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;mbed.h&quot;</code><br />
 <code>#include &quot;QEI.h&quot;</code><br />
@@ -118,7 +118,7 @@ Include dependency graph for main.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp__incl.png" border="0" usemap="#amain_8cpp" alt=""/></div>
 <map name="amain_8cpp" id="amain_8cpp">
-<area shape="rect" title="main buggy code This file contains all the buggy logic" alt="" coords="397,5,471,32"/>
+<area shape="rect" title="main buggy code" alt="" coords="397,5,471,32"/>
 <area shape="rect" title=" " alt="" coords="547,155,611,181"/>
 <area shape="poly" title=" " alt="" coords="471,20,531,27,599,38,660,55,683,66,699,78,705,91,705,103,699,115,689,125,660,142,627,155,625,150,658,137,685,121,695,111,700,102,700,92,694,82,680,70,658,60,597,43,530,32,471,26"/>
 <area shape="rect" title=" " alt="" coords="5,155,60,181"/>
@@ -169,31 +169,37 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a3c24a5769355f957cb96b0da1c499414">ch_continous</a> = 'C'
 , <br />
 &#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a1e6dcc1ee885d92fb1e87fa4726963cb">ch_stop</a> = 'S'
+, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a8ac5c4700f04a299e9410583c952fb3e">ch_active_stop</a> = 'X'
 , <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761ae6ade4e9e00dab05fd540bcd5a105f1d">ch_uturn</a> = 'U'
 , <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761ac57a16144284e26db314bd4bee933682">ch_encoder_test</a> = 'E'
-, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a892bc87cfcb77e8e62205fccac50f282">ch_motor_pwm_test</a> = 'M'
 , <br />
-&#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a4e37dd9bd413d8be4c42fd41af198a3f">ch_straight_test</a> = 'C'
+&#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a892bc87cfcb77e8e62205fccac50f282">ch_motor_pwm_test</a> = 'M'
+, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a4e37dd9bd413d8be4c42fd41af198a3f">ch_straight_test</a> = 'Z'
 , <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a2b82b632f3b50f3d359fc5d3740b1b95">ch_square_test</a> = 'Q'
 , <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761ad74eff345b4e6a0874b5b515a58fd67b">ch_PID_test</a> = 'P'
-, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761aab556d4997a1a560a00b46f616efc223">ch_toggle_led_test</a> = 'L'
 , <br />
-&#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761ab78d44a43a4b3a61d342c21671b11b99">ch_line_follow</a> = 'F'
-, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a3e06b42347d20341836f805f3aa56a26">ch_pwm_duty</a> = 'P'
-, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a623c2a65b465f68dd79b84b23fbae029">ch_ticks_cumulative</a> = 'T'
+&#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761aab556d4997a1a560a00b46f616efc223">ch_toggle_led_test</a> = 'L'
+, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761ab78d44a43a4b3a61d342c21671b11b99">ch_line_follow</a> = 'F'
+, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a604b2bfc94d3f151c9907e7540e07f3d">ch_static_tracking</a> = 'T'
+, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a30baf4bb2ca26f686c113c1ed5190cea">ch_line_follow_auto</a> = 'A'
+, <br />
+&#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a2888bf7c1d5e5384fd76b918657894f4">ch_calibrate</a> = 'C'
+, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a3e06b42347d20341836f805f3aa56a26">ch_pwm_duty</a> = 'D'
+, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a623c2a65b465f68dd79b84b23fbae029">ch_ticks_cumulative</a> = 'E'
 , <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a1215e373100f5286052001c7f1275e4b">ch_speed</a> = 'S'
 , <br />
-&#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761add57aab9b2c4fdda43ec0281f6e97c98">ch_gains_PID</a> = 'G'
+&#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761add57aab9b2c4fdda43ec0281f6e97c98">ch_gains_PID</a> = 'P'
+, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a778a276e482a80747842a86214bb7a0d">ch_tau_PID</a> = 'T'
 , <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a9fcd3a7a96cb1d1f277b55394e48c2dd">ch_current_usage</a> = 'C'
 , <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761af4b4f982a05750216436419aa775c782">ch_runtime</a> = 'R'
-, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761aa39efd4dd5295c96e0e0a62b7df5c576">ch_loop_time</a> = 'X'
 , <br />
-&#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a96ce7fe3faf90f62e7b61fe8dad9205c">ch_loop_count</a> = 'Y'
+&#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761aa39efd4dd5295c96e0e0a62b7df5c576">ch_loop_time</a> = 'X'
+, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a96ce7fe3faf90f62e7b61fe8dad9205c">ch_loop_count</a> = 'Y'
 , <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a7b6e5efd0b6bf8b56d2760ac2079dee3">ch_motor_left</a> = 'L'
 , <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761af346ec9cabfdb2773c1dae9b82c810f7">ch_motor_right</a> = 'R'
-, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a4722791756ed66d1a99a34dbdc9284be">ch_motor_both</a> = 'B'
 , <br />
-&#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a31cf28a4e004cfc398d1c28490e7a9dd">ch_sensor</a> = 'S'
+&#160;&#160;<a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a4722791756ed66d1a99a34dbdc9284be">ch_motor_both</a> = 'B'
+, <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761a31cf28a4e004cfc398d1c28490e7a9dd">ch_sensor</a> = 'S'
 , <a class="el" href="#ad0fe2fc750b527c1994b0e9c05911761ab070e7b6fda96772f8bc3dde772d2e11">ch_no_obj</a> = 'D'
 <br />
  }</td></tr>
@@ -209,8 +215,13 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64a699ac7e3c380c51cc987de84e0572820">task_test_inactive</a>
 , <a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64a76c1253bb97844abbdf89af6dfc3c7d6">inactive</a>
 , <br />
-&#160;&#160;<a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64afb575f9b8a1e935c7759676dca2ccae1">uturn</a>
+&#160;&#160;<a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64a7c63769346b1381ed061a981c5fa41b8">active_stop</a>
+, <a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64afb575f9b8a1e935c7759676dca2ccae1">uturn</a>
 , <a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64a709d0acbd6574a36cf4345416e7f0cfd">static_tracking</a>
+, <a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64ab4dc188c3ef2900f593c723ea32ee170">line_follow_auto</a>
+, <br />
+&#160;&#160;<a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64a24955a3ad21a51ffd7d7ef48719b44d7">stop_detect_line</a>
+, <a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64abc0b2fd60e34526c3237afadbf9b4497">calibration</a>
 <br />
  }</td></tr>
 <tr class="separator:a5a67ae8eaa6749c3c16e78f279951d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,12 +250,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a69844253683680ca21d64d986e03babe" id="r_a69844253683680ca21d64d986e03babe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69844253683680ca21d64d986e03babe">serial_update_ISR</a> (void)</td></tr>
 <tr class="memdesc:a69844253683680ca21d64d986e03babe"><td class="mdescLeft">&#160;</td><td class="mdescRight">ISR to update flag to send data to pc/bt in <a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>  <br /></td></tr>
 <tr class="separator:a69844253683680ca21d64d986e03babe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca88d4a6c0742625ae7415a0322037b8" id="r_aca88d4a6c0742625ae7415a0322037b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca88d4a6c0742625ae7415a0322037b8">stop_detect_ISR</a> (void)</td></tr>
+<tr class="separator:aca88d4a6c0742625ae7415a0322037b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39195dff981a54ac9b42522c56e28111" id="r_a39195dff981a54ac9b42522c56e28111"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a39195dff981a54ac9b42522c56e28111">bt_send_data</a> (void)</td></tr>
 <tr class="memdesc:a39195dff981a54ac9b42522c56e28111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to the bt module.  <br /></td></tr>
 <tr class="separator:a39195dff981a54ac9b42522c56e28111"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4553963c239316efafb949c46168c518" id="r_a4553963c239316efafb949c46168c518"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4553963c239316efafb949c46168c518">pc_send_data</a> (void)</td></tr>
 <tr class="memdesc:a4553963c239316efafb949c46168c518"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to the pc.  <br /></td></tr>
 <tr class="separator:a4553963c239316efafb949c46168c518"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a5c2b534f492ee4e26bacbdfd0de5e" id="r_a51a5c2b534f492ee4e26bacbdfd0de5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51a5c2b534f492ee4e26bacbdfd0de5e">sensor_update_ISR</a> ()</td></tr>
+<tr class="separator:a51a5c2b534f492ee4e26bacbdfd0de5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa74f0c8a872d57ab1c2bb06633cf1664" id="r_aa74f0c8a872d57ab1c2bb06633cf1664"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa74f0c8a872d57ab1c2bb06633cf1664">slow_accel_ISR</a> (void)</td></tr>
+<tr class="separator:aa74f0c8a872d57ab1c2bb06633cf1664"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -260,41 +277,58 @@ Variables</h2></td></tr>
 <tr class="separator:a01a09464cce1ec1cb3655435cb3517b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add009b17ca4f8a7b16879dd10e8003be" id="r_add009b17ca4f8a7b16879dd10e8003be"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add009b17ca4f8a7b16879dd10e8003be">bt_float_data</a> [3] = {0}</td></tr>
 <tr class="separator:add009b17ca4f8a7b16879dd10e8003be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b5dff89b696a8ccb3164977775e84c1" id="r_a0b5dff89b696a8ccb3164977775e84c1"><td class="memItemLeft" align="right" valign="top">short int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b5dff89b696a8ccb3164977775e84c1">data_log</a> [LOG_SIZE][5] = {0}</td></tr>
+<tr class="separator:a0b5dff89b696a8ccb3164977775e84c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8159879301332c0c801d519a7476c211" id="r_a8159879301332c0c801d519a7476c211"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8159879301332c0c801d519a7476c211">log_index</a> = 0</td></tr>
+<tr class="separator:a8159879301332c0c801d519a7476c211"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37412ae3eceea87c33751bf7f9846ce2" id="r_a37412ae3eceea87c33751bf7f9846ce2"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37412ae3eceea87c33751bf7f9846ce2">bt_data_sent</a></td></tr>
 <tr class="separator:a37412ae3eceea87c33751bf7f9846ce2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2046de664efc4367e9b2f8940f55d8bf" id="r_a2046de664efc4367e9b2f8940f55d8bf"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2046de664efc4367e9b2f8940f55d8bf">bt_obj_sent</a></td></tr>
 <tr class="separator:a2046de664efc4367e9b2f8940f55d8bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d8334cc4483c7da721f367876d0cfdf" id="r_a5d8334cc4483c7da721f367876d0cfdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64">Buggy_modes</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d8334cc4483c7da721f367876d0cfdf">buggy_mode</a> = <a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64a76c1253bb97844abbdf89af6dfc3c7d6">inactive</a></td></tr>
+<tr class="memitem:a307ede1d51c287bcac23870988646f93" id="r_a307ede1d51c287bcac23870988646f93"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a307ede1d51c287bcac23870988646f93">pid_constants</a></td></tr>
+<tr class="separator:a307ede1d51c287bcac23870988646f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb6098d657810161cef3329614191ee0" id="r_acb6098d657810161cef3329614191ee0"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb6098d657810161cef3329614191ee0">cal_constants</a></td></tr>
+<tr class="separator:acb6098d657810161cef3329614191ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d8334cc4483c7da721f367876d0cfdf" id="r_a5d8334cc4483c7da721f367876d0cfdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64">Buggy_modes</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d8334cc4483c7da721f367876d0cfdf">buggy_mode</a></td></tr>
 <tr class="separator:a5d8334cc4483c7da721f367876d0cfdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71394be45aa25259a5668b5c9fb9770a" id="r_a71394be45aa25259a5668b5c9fb9770a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64">Buggy_modes</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71394be45aa25259a5668b5c9fb9770a">prev_buggy_mode</a> = <a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64a76c1253bb97844abbdf89af6dfc3c7d6">inactive</a></td></tr>
+<tr class="memitem:a71394be45aa25259a5668b5c9fb9770a" id="r_a71394be45aa25259a5668b5c9fb9770a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64">Buggy_modes</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71394be45aa25259a5668b5c9fb9770a">prev_buggy_mode</a></td></tr>
 <tr class="separator:a71394be45aa25259a5668b5c9fb9770a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12001063a2bea8d4cffdaddc62457283" id="r_a12001063a2bea8d4cffdaddc62457283"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_buggy__status.html">Buggy_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12001063a2bea8d4cffdaddc62457283">buggy_status</a> = {0}</td></tr>
 <tr class="separator:a12001063a2bea8d4cffdaddc62457283"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8226206f80aa947dc0f63ba7d36d1a05" id="r_a8226206f80aa947dc0f63ba7d36d1a05"><td class="memItemLeft" align="right" valign="top">volatile float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8226206f80aa947dc0f63ba7d36d1a05">lf_velocity</a> = <a class="el" href="constants_8h.html#ab1007e8ed2cd6ed377b5ddc5e0b9a19e">LINE_FOLLOW_VELOCITY</a></td></tr>
+<tr class="separator:a8226206f80aa947dc0f63ba7d36d1a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4ea2e4dd12263d3f035d99fcb7c54ea" id="r_ad4ea2e4dd12263d3f035d99fcb7c54ea"><td class="memItemLeft" align="right" valign="top">Timer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4ea2e4dd12263d3f035d99fcb7c54ea">global_timer</a></td></tr>
 <tr class="separator:ad4ea2e4dd12263d3f035d99fcb7c54ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d85d868192f11985cb9f870e75f8ed8" id="r_a5d85d868192f11985cb9f870e75f8ed8"><td class="memItemLeft" align="right" valign="top">Ticker&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d85d868192f11985cb9f870e75f8ed8">control_ticker</a></td></tr>
 <tr class="separator:a5d85d868192f11985cb9f870e75f8ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca977ddfaa168288f0916f3748e0c8ca" id="r_aca977ddfaa168288f0916f3748e0c8ca"><td class="memItemLeft" align="right" valign="top">Ticker&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca977ddfaa168288f0916f3748e0c8ca">serial_ticker</a></td></tr>
 <tr class="separator:aca977ddfaa168288f0916f3748e0c8ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cf162c0d450d3e7910a0706bb01d1fd" id="r_a4cf162c0d450d3e7910a0706bb01d1fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bluetooth.html">Bluetooth</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4cf162c0d450d3e7910a0706bb01d1fd">bt</a> (<a class="el" href="pin__assignments_8h.html#a0b4c8d9988d46bfd7ffb4fbc7301255b">BT_TX_PIN</a>, <a class="el" href="pin__assignments_8h.html#a380241e001bf0988467b3e70a33032c9">BT_RX_PIN</a>, <a class="el" href="constants_8h.html#aea9dc6a2929b2f9722afae9842e45f57">BT_BAUD_RATE</a>)</td></tr>
+<tr class="memitem:a7101a2bca55bd73ce72b8f0d75446f74" id="r_a7101a2bca55bd73ce72b8f0d75446f74"><td class="memItemLeft" align="right" valign="top">Ticker&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7101a2bca55bd73ce72b8f0d75446f74">sensor_ticker</a></td></tr>
+<tr class="separator:a7101a2bca55bd73ce72b8f0d75446f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed2579ce370491061541a6e430fcafc8" id="r_aed2579ce370491061541a6e430fcafc8"><td class="memItemLeft" align="right" valign="top">Timeout&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed2579ce370491061541a6e430fcafc8">logic_timout</a></td></tr>
+<tr class="separator:aed2579ce370491061541a6e430fcafc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cf162c0d450d3e7910a0706bb01d1fd" id="r_a4cf162c0d450d3e7910a0706bb01d1fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bluetooth.html">Bluetooth</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4cf162c0d450d3e7910a0706bb01d1fd">bt</a> (<a class="el" href="pin__assignments_8h.html#a0b4c8d9988d46bfd7ffb4fbc7301255b">BT_TX_PIN</a>, <a class="el" href="pin__assignments_8h.html#a380241e001bf0988467b3e70a33032c9">BT_RX_PIN</a>, BT_BAUD_RATE)</td></tr>
 <tr class="separator:a4cf162c0d450d3e7910a0706bb01d1fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab218a0a8bfe1f2e32678ddc95c2d81ab" id="r_ab218a0a8bfe1f2e32678ddc95c2d81ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_motor_driver_board.html">MotorDriverBoard</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab218a0a8bfe1f2e32678ddc95c2d81ab">driver_board</a> (<a class="el" href="pin__assignments_8h.html#adc406be806135aca370d0a70e71535f0">DRIVER_ENABLE_PIN</a>, <a class="el" href="pin__assignments_8h.html#af96960fe8e10d549047e4b85c0d068cc">DRIVER_MONITOR_PIN</a>)</td></tr>
 <tr class="separator:ab218a0a8bfe1f2e32678ddc95c2d81ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52cc0a718909e3b24a8cf4cd9150ce23" id="r_a52cc0a718909e3b24a8cf4cd9150ce23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_sensor_array.html">SensorArray</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52cc0a718909e3b24a8cf4cd9150ce23">sensor_array</a> (<a class="el" href="pin__assignments_8h.html#a3bdccb0d89c0536d55ba0ed68bca6737">SENSOR0_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a260a4d7878fcc948b73f60c5d675aa8f">SENSOR1_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a3af288d197ba9efc604750fd766f615b">SENSOR2_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1c60a0b303060e29aee4571e6dd7e820">SENSOR3_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a2810c23e9b5abdbd5c3905aac6ebcbf4">SENSOR4_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a513ee56da1dff279b3ab3ef958e9899c">SENSOR5_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a5ebe434b66eff8530ec455fe6491d911">SENSOR0_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1cbaa4a481d1c48c64df39724aabf636">SENSOR1_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac8fd6d20222d8f197e0aaae2bf66ed0e">SENSOR2_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1ce92a28bbbacc7ccd4eb2b218d781b9">SENSOR3_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a7a3887afb16e59c74148f208b91cd0bf">SENSOR4_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac005665c821b9e41e52097ebad17b6bf">SENSOR5_OUT_PIN</a>, <a class="el" href="constants_8h.html#afbe70366e94a78a77c4467e4f4b083ee">SENS_SAMPLE_COUNT</a>, <a class="el" href="constants_8h.html#a64080b5afb2febe0d901b87471659787">SENS_DETECT_THRESH</a>)</td></tr>
-<tr class="separator:a52cc0a718909e3b24a8cf4cd9150ce23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac366e001dc88c8ece3f95748f92070a7" id="r_ac366e001dc88c8ece3f95748f92070a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_motor.html">Motor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac366e001dc88c8ece3f95748f92070a7">motor_left</a> (<a class="el" href="pin__assignments_8h.html#a5854028e47f0b011fbc6c7bf52a34b78">MOTORL_PWM_PIN</a>, <a class="el" href="pin__assignments_8h.html#ab590c97a4987e19c3d253bd5dcc24e79">MOTORL_DIRECTION_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac9b38bed903c4dd787b36f90125f406e">MOTORL_BIPOLAR_PIN</a>, <a class="el" href="pin__assignments_8h.html#a8ed3b248525bd1974f244c4b2241fd73">MOTORL_CHA_PIN</a>, <a class="el" href="pin__assignments_8h.html#a336ecfe0d128a3f0816e7699d1b31b0a">MOTORL_CHB_PIN</a>, <a class="el" href="constants_8h.html#a188aa7b9dc2b355fa61ad0681b78ec14">PULSE_PER_REV</a>, <a class="el" href="constants_8h.html#aee59388b533f4bbe19e91d0ac0918f28">MOTOR_PWM_FREQ</a>, <a class="el" href="constants_8h.html#a65e0d2b6dd3d064ba5fa28a16d74f99f">CONTROL_UPDATE_RATE</a>, <a class="el" href="constants_8h.html#ace928619e98095d5f8c284c914b25532">LP_SPEED_A0</a>, <a class="el" href="constants_8h.html#a768df3052b3bfe478285457a6e7a86df">LP_SPEED_B0</a>, <a class="el" href="constants_8h.html#a84aa0c9d099847a01a607735da15e357">LP_SPEED_B1</a>, <a class="el" href="constants_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07">WHEEL_RADIUS</a>)</td></tr>
+<tr class="memitem:ad4a0e1ab519854772efb1772a3d24d35" id="r_ad4a0e1ab519854772efb1772a3d24d35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_sensor_array.html">SensorArray</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4a0e1ab519854772efb1772a3d24d35">sensor_array</a> (<a class="el" href="pin__assignments_8h.html#a3bdccb0d89c0536d55ba0ed68bca6737">SENSOR0_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a260a4d7878fcc948b73f60c5d675aa8f">SENSOR1_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a3af288d197ba9efc604750fd766f615b">SENSOR2_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1c60a0b303060e29aee4571e6dd7e820">SENSOR3_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a2810c23e9b5abdbd5c3905aac6ebcbf4">SENSOR4_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a513ee56da1dff279b3ab3ef958e9899c">SENSOR5_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a5ebe434b66eff8530ec455fe6491d911">SENSOR0_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1cbaa4a481d1c48c64df39724aabf636">SENSOR1_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac8fd6d20222d8f197e0aaae2bf66ed0e">SENSOR2_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1ce92a28bbbacc7ccd4eb2b218d781b9">SENSOR3_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a7a3887afb16e59c74148f208b91cd0bf">SENSOR4_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac005665c821b9e41e52097ebad17b6bf">SENSOR5_OUT_PIN</a>, <a class="el" href="constants_8h.html#afbe70366e94a78a77c4467e4f4b083ee">SENS_SAMPLE_COUNT</a>, <a class="el" href="constants_8h.html#ab1ade25c6ac96f715008d6f18e25da3f">SENS_DETECT_RANGE</a>, <a class="el" href="constants_8h.html#a105f6f73f265b77378f9541b7d98f9c9">SENS_ANGLE_COEFF</a>)</td></tr>
+<tr class="separator:ad4a0e1ab519854772efb1772a3d24d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac366e001dc88c8ece3f95748f92070a7" id="r_ac366e001dc88c8ece3f95748f92070a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_motor.html">Motor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac366e001dc88c8ece3f95748f92070a7">motor_left</a> (<a class="el" href="pin__assignments_8h.html#a5854028e47f0b011fbc6c7bf52a34b78">MOTORL_PWM_PIN</a>, <a class="el" href="pin__assignments_8h.html#ab590c97a4987e19c3d253bd5dcc24e79">MOTORL_DIRECTION_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac9b38bed903c4dd787b36f90125f406e">MOTORL_BIPOLAR_PIN</a>, <a class="el" href="pin__assignments_8h.html#a8ed3b248525bd1974f244c4b2241fd73">MOTORL_CHA_PIN</a>, <a class="el" href="pin__assignments_8h.html#a336ecfe0d128a3f0816e7699d1b31b0a">MOTORL_CHB_PIN</a>, PULSE_PER_REV, MOTOR_PWM_FREQ, <a class="el" href="constants_8h.html#a65e0d2b6dd3d064ba5fa28a16d74f99f">CONTROL_UPDATE_RATE</a>, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS)</td></tr>
 <tr class="separator:ac366e001dc88c8ece3f95748f92070a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75983c36e38c349cc95b55427481708e" id="r_a75983c36e38c349cc95b55427481708e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_motor.html">Motor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75983c36e38c349cc95b55427481708e">motor_right</a> (<a class="el" href="pin__assignments_8h.html#acaf0f9963c6cf276d5212acc2b404e2e">MOTORR_PWM_PIN</a>, <a class="el" href="pin__assignments_8h.html#a138441d2addf0f9a3743bd5edc4638e6">MOTORR_DIRECTION_PIN</a>, <a class="el" href="pin__assignments_8h.html#a2f989014bcf4c32abbae9a2dc973c122">MOTORR_BIPOLAR_PIN</a>, <a class="el" href="pin__assignments_8h.html#a568fc64e3a06177e85c714464dce7efc">MOTORR_CHA_PIN</a>, <a class="el" href="pin__assignments_8h.html#a872777023d49c40d8215d04a4e69e512">MOTORR_CHB_PIN</a>, <a class="el" href="constants_8h.html#a188aa7b9dc2b355fa61ad0681b78ec14">PULSE_PER_REV</a>, <a class="el" href="constants_8h.html#aee59388b533f4bbe19e91d0ac0918f28">MOTOR_PWM_FREQ</a>, <a class="el" href="constants_8h.html#a65e0d2b6dd3d064ba5fa28a16d74f99f">CONTROL_UPDATE_RATE</a>, <a class="el" href="constants_8h.html#ace928619e98095d5f8c284c914b25532">LP_SPEED_A0</a>, <a class="el" href="constants_8h.html#a768df3052b3bfe478285457a6e7a86df">LP_SPEED_B0</a>, <a class="el" href="constants_8h.html#a84aa0c9d099847a01a607735da15e357">LP_SPEED_B1</a>, <a class="el" href="constants_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07">WHEEL_RADIUS</a>)</td></tr>
+<tr class="memitem:a75983c36e38c349cc95b55427481708e" id="r_a75983c36e38c349cc95b55427481708e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_motor.html">Motor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75983c36e38c349cc95b55427481708e">motor_right</a> (<a class="el" href="pin__assignments_8h.html#acaf0f9963c6cf276d5212acc2b404e2e">MOTORR_PWM_PIN</a>, <a class="el" href="pin__assignments_8h.html#a138441d2addf0f9a3743bd5edc4638e6">MOTORR_DIRECTION_PIN</a>, <a class="el" href="pin__assignments_8h.html#a2f989014bcf4c32abbae9a2dc973c122">MOTORR_BIPOLAR_PIN</a>, <a class="el" href="pin__assignments_8h.html#a568fc64e3a06177e85c714464dce7efc">MOTORR_CHA_PIN</a>, <a class="el" href="pin__assignments_8h.html#a872777023d49c40d8215d04a4e69e512">MOTORR_CHB_PIN</a>, PULSE_PER_REV, MOTOR_PWM_FREQ, <a class="el" href="constants_8h.html#a65e0d2b6dd3d064ba5fa28a16d74f99f">CONTROL_UPDATE_RATE</a>, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS)</td></tr>
 <tr class="separator:a75983c36e38c349cc95b55427481708e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d52892f422c88dea975e68a3e2e8514" id="r_a1d52892f422c88dea975e68a3e2e8514"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_p_i_d.html">PID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d52892f422c88dea975e68a3e2e8514">PID_motor_left</a> (<a class="el" href="constants_8h.html#a1a5c4e00713c2661c7d0413e8d859702">PID_M_L_KP</a>, <a class="el" href="constants_8h.html#af0bd7de5233f9cb4f8fce2962ef67eee">PID_M_L_KI</a>, <a class="el" href="constants_8h.html#ae17d1364f3451deb7eb4ad724db031a8">PID_M_L_KD</a>, <a class="el" href="constants_8h.html#aad707b8c4c9d193d3bdca5d596e1e86b">PID_M_TAU</a>, <a class="el" href="constants_8h.html#a4fa1bf73e4a0c5040b54a1c2597e15fb">PID_M_MIN_OUT</a>, <a class="el" href="constants_8h.html#a56337348a0b228c6651d872637fb3e3f">PID_M_MAX_OUT</a>, <a class="el" href="constants_8h.html#a80048056e2b2d951abf003a613f31357">PID_M_MIN_INT</a>, <a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a>)</td></tr>
-<tr class="separator:a1d52892f422c88dea975e68a3e2e8514"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adba93ab060ba096a8f460790b6e45de3" id="r_adba93ab060ba096a8f460790b6e45de3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_p_i_d.html">PID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adba93ab060ba096a8f460790b6e45de3">PID_motor_right</a> (<a class="el" href="constants_8h.html#adf1292e9019c0307262df82c74a3572a">PID_M_R_KP</a>, <a class="el" href="constants_8h.html#a0d028fa6e40c65f548167eae6cd6575d">PID_M_R_KI</a>, <a class="el" href="constants_8h.html#a33704c0473cf1e248eaa5ed13e0dfda9">PID_M_R_KD</a>, <a class="el" href="constants_8h.html#aad707b8c4c9d193d3bdca5d596e1e86b">PID_M_TAU</a>, <a class="el" href="constants_8h.html#a4fa1bf73e4a0c5040b54a1c2597e15fb">PID_M_MIN_OUT</a>, <a class="el" href="constants_8h.html#a56337348a0b228c6651d872637fb3e3f">PID_M_MAX_OUT</a>, <a class="el" href="constants_8h.html#a80048056e2b2d951abf003a613f31357">PID_M_MIN_INT</a>, <a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a>)</td></tr>
-<tr class="separator:adba93ab060ba096a8f460790b6e45de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6721736d2ec46a151fa1872d4d115308" id="r_a6721736d2ec46a151fa1872d4d115308"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_p_i_d.html">PID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6721736d2ec46a151fa1872d4d115308">PID_angle</a> (<a class="el" href="constants_8h.html#a2976a7d17f5687e1994aad281539e4b9">PID_A_KP</a>, <a class="el" href="constants_8h.html#a3d7baf9f5db9b8d3513a1b8fd7b22642">PID_A_KI</a>, <a class="el" href="constants_8h.html#a969f50bdc6d34214017e3c3fa3112149">PID_A_KD</a>, <a class="el" href="constants_8h.html#ad658d849593e96c2ecd7564562d4591f">PID_A_TAU</a>, <a class="el" href="constants_8h.html#a95bc730f7acbf75c834e5829fe41b2b2">PID_A_MIN_OUT</a>, <a class="el" href="constants_8h.html#a4d170ada20026007e62ae948027c7572">PID_A_MAX_OUT</a>, <a class="el" href="constants_8h.html#a3f2d16121bef35a77b08092e6af800d2">PID_A_MIN_INT</a>, <a class="el" href="constants_8h.html#a7056c892687cc9381ae0c1f22e766f96">PID_A_MAX_INT</a>)</td></tr>
-<tr class="separator:a6721736d2ec46a151fa1872d4d115308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affffa10d442a6a608c4aed6e02cfc131" id="r_affffa10d442a6a608c4aed6e02cfc131"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_p_i_d.html">PID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#affffa10d442a6a608c4aed6e02cfc131">PID_motor_left</a> (<a class="el" href="constants_8h.html#a1a5c4e00713c2661c7d0413e8d859702">PID_M_L_KP</a>, <a class="el" href="constants_8h.html#af0bd7de5233f9cb4f8fce2962ef67eee">PID_M_L_KI</a>, <a class="el" href="constants_8h.html#ae17d1364f3451deb7eb4ad724db031a8">PID_M_L_KD</a>, <a class="el" href="constants_8h.html#aad707b8c4c9d193d3bdca5d596e1e86b">PID_M_TAU</a>, <a class="el" href="constants_8h.html#a4fa1bf73e4a0c5040b54a1c2597e15fb">PID_M_MIN_OUT</a>, <a class="el" href="constants_8h.html#a56337348a0b228c6651d872637fb3e3f">PID_M_MAX_OUT</a>, <a class="el" href="constants_8h.html#a80048056e2b2d951abf003a613f31357">PID_M_MIN_INT</a>, <a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a>, <a class="el" href="constants_8h.html#a1d242a86b4c25c11565c3b16402eecf5">CONTROL_UPDATE_PERIOD</a>)</td></tr>
+<tr class="separator:affffa10d442a6a608c4aed6e02cfc131"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f7a3176dac016a5acb507f16d05cfac" id="r_a7f7a3176dac016a5acb507f16d05cfac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_p_i_d.html">PID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f7a3176dac016a5acb507f16d05cfac">PID_motor_right</a> (<a class="el" href="constants_8h.html#adf1292e9019c0307262df82c74a3572a">PID_M_R_KP</a>, <a class="el" href="constants_8h.html#a0d028fa6e40c65f548167eae6cd6575d">PID_M_R_KI</a>, <a class="el" href="constants_8h.html#a33704c0473cf1e248eaa5ed13e0dfda9">PID_M_R_KD</a>, <a class="el" href="constants_8h.html#aad707b8c4c9d193d3bdca5d596e1e86b">PID_M_TAU</a>, <a class="el" href="constants_8h.html#a4fa1bf73e4a0c5040b54a1c2597e15fb">PID_M_MIN_OUT</a>, <a class="el" href="constants_8h.html#a56337348a0b228c6651d872637fb3e3f">PID_M_MAX_OUT</a>, <a class="el" href="constants_8h.html#a80048056e2b2d951abf003a613f31357">PID_M_MIN_INT</a>, <a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a>, <a class="el" href="constants_8h.html#a1d242a86b4c25c11565c3b16402eecf5">CONTROL_UPDATE_PERIOD</a>)</td></tr>
+<tr class="separator:a7f7a3176dac016a5acb507f16d05cfac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a412b0868b3a4e030d57c23e82953ff49" id="r_a412b0868b3a4e030d57c23e82953ff49"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_p_i_d.html">PID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a412b0868b3a4e030d57c23e82953ff49">PID_angle</a> (<a class="el" href="constants_8h.html#a2976a7d17f5687e1994aad281539e4b9">PID_A_KP</a>, <a class="el" href="constants_8h.html#a3d7baf9f5db9b8d3513a1b8fd7b22642">PID_A_KI</a>, <a class="el" href="constants_8h.html#a969f50bdc6d34214017e3c3fa3112149">PID_A_KD</a>, <a class="el" href="constants_8h.html#ad658d849593e96c2ecd7564562d4591f">PID_A_TAU</a>, <a class="el" href="constants_8h.html#a95bc730f7acbf75c834e5829fe41b2b2">PID_A_MIN_OUT</a>, <a class="el" href="constants_8h.html#a4d170ada20026007e62ae948027c7572">PID_A_MAX_OUT</a>, <a class="el" href="constants_8h.html#a3f2d16121bef35a77b08092e6af800d2">PID_A_MIN_INT</a>, <a class="el" href="constants_8h.html#a7056c892687cc9381ae0c1f22e766f96">PID_A_MAX_INT</a>, <a class="el" href="constants_8h.html#a1d242a86b4c25c11565c3b16402eecf5">CONTROL_UPDATE_PERIOD</a>)</td></tr>
+<tr class="separator:a412b0868b3a4e030d57c23e82953ff49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43ff897f5c84578afc643798f8e261c2" id="r_a43ff897f5c84578afc643798f8e261c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_p_i_d.html">PID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43ff897f5c84578afc643798f8e261c2">PID_sensor</a> (<a class="el" href="constants_8h.html#aec12048e951c36179f160d5a5fa84382">PID_S_KP</a>, <a class="el" href="constants_8h.html#ad3c8a250d5d1e4d32f0418f29d891584">PID_S_KI</a>, <a class="el" href="constants_8h.html#a809d7b84f137f06dd629bf32d8b1b4af">PID_S_KD</a>, <a class="el" href="constants_8h.html#a9459dcdbdd7c5186b4f5a310bff0b3e6">PID_S_TAU</a>, <a class="el" href="constants_8h.html#a281a1d4c9de668935dc3722b21a157c8">PID_S_MIN_OUT</a>, <a class="el" href="constants_8h.html#a7d11315c40a23366cdc8dca44ffba99a">PID_S_MAX_OUT</a>, <a class="el" href="constants_8h.html#a96d9b2ef061bfe21b9b1f31e1a754599">PID_S_MIN_INT</a>, <a class="el" href="constants_8h.html#a749b48dec85fe0d2555067fb29ab0643">PID_S_MAX_INT</a>, <a class="el" href="constants_8h.html#a753091aefd061446f53fe4639bdef92c">SENSOR_UPDATE_PERIOD</a>)</td></tr>
+<tr class="separator:a43ff897f5c84578afc643798f8e261c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>main buggy code This file contains all the buggy logic </p>
+<div class="textblock"><p>main buggy code </p>
+<p>This file contains all the buggy logic </p>
 
 <p class="definition">Definition in file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 </div><h2 class="groupheader">Enumeration Type Documentation</h2>
@@ -315,6 +349,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761af17f9b2330fc3591e71fe21726d45595" name="ad0fe2fc750b527c1994b0e9c05911761af17f9b2330fc3591e71fe21726d45595"></a>ch_set&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a3c24a5769355f957cb96b0da1c499414" name="ad0fe2fc750b527c1994b0e9c05911761a3c24a5769355f957cb96b0da1c499414"></a>ch_continous&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a1e6dcc1ee885d92fb1e87fa4726963cb" name="ad0fe2fc750b527c1994b0e9c05911761a1e6dcc1ee885d92fb1e87fa4726963cb"></a>ch_stop&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a8ac5c4700f04a299e9410583c952fb3e" name="ad0fe2fc750b527c1994b0e9c05911761a8ac5c4700f04a299e9410583c952fb3e"></a>ch_active_stop&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761ae6ade4e9e00dab05fd540bcd5a105f1d" name="ad0fe2fc750b527c1994b0e9c05911761ae6ade4e9e00dab05fd540bcd5a105f1d"></a>ch_uturn&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761ac57a16144284e26db314bd4bee933682" name="ad0fe2fc750b527c1994b0e9c05911761ac57a16144284e26db314bd4bee933682"></a>ch_encoder_test&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a892bc87cfcb77e8e62205fccac50f282" name="ad0fe2fc750b527c1994b0e9c05911761a892bc87cfcb77e8e62205fccac50f282"></a>ch_motor_pwm_test&#160;</td><td class="fielddoc"></td></tr>
@@ -323,10 +358,14 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761ad74eff345b4e6a0874b5b515a58fd67b" name="ad0fe2fc750b527c1994b0e9c05911761ad74eff345b4e6a0874b5b515a58fd67b"></a>ch_PID_test&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761aab556d4997a1a560a00b46f616efc223" name="ad0fe2fc750b527c1994b0e9c05911761aab556d4997a1a560a00b46f616efc223"></a>ch_toggle_led_test&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761ab78d44a43a4b3a61d342c21671b11b99" name="ad0fe2fc750b527c1994b0e9c05911761ab78d44a43a4b3a61d342c21671b11b99"></a>ch_line_follow&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a604b2bfc94d3f151c9907e7540e07f3d" name="ad0fe2fc750b527c1994b0e9c05911761a604b2bfc94d3f151c9907e7540e07f3d"></a>ch_static_tracking&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a30baf4bb2ca26f686c113c1ed5190cea" name="ad0fe2fc750b527c1994b0e9c05911761a30baf4bb2ca26f686c113c1ed5190cea"></a>ch_line_follow_auto&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a2888bf7c1d5e5384fd76b918657894f4" name="ad0fe2fc750b527c1994b0e9c05911761a2888bf7c1d5e5384fd76b918657894f4"></a>ch_calibrate&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a3e06b42347d20341836f805f3aa56a26" name="ad0fe2fc750b527c1994b0e9c05911761a3e06b42347d20341836f805f3aa56a26"></a>ch_pwm_duty&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a623c2a65b465f68dd79b84b23fbae029" name="ad0fe2fc750b527c1994b0e9c05911761a623c2a65b465f68dd79b84b23fbae029"></a>ch_ticks_cumulative&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a1215e373100f5286052001c7f1275e4b" name="ad0fe2fc750b527c1994b0e9c05911761a1215e373100f5286052001c7f1275e4b"></a>ch_speed&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761add57aab9b2c4fdda43ec0281f6e97c98" name="ad0fe2fc750b527c1994b0e9c05911761add57aab9b2c4fdda43ec0281f6e97c98"></a>ch_gains_PID&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a778a276e482a80747842a86214bb7a0d" name="ad0fe2fc750b527c1994b0e9c05911761a778a276e482a80747842a86214bb7a0d"></a>ch_tau_PID&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761a9fcd3a7a96cb1d1f277b55394e48c2dd" name="ad0fe2fc750b527c1994b0e9c05911761a9fcd3a7a96cb1d1f277b55394e48c2dd"></a>ch_current_usage&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761af4b4f982a05750216436419aa775c782" name="ad0fe2fc750b527c1994b0e9c05911761af4b4f982a05750216436419aa775c782"></a>ch_runtime&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761aa39efd4dd5295c96e0e0a62b7df5c576" name="ad0fe2fc750b527c1994b0e9c05911761aa39efd4dd5295c96e0e0a62b7df5c576"></a>ch_loop_time&#160;</td><td class="fielddoc"></td></tr>
@@ -338,7 +377,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ad0fe2fc750b527c1994b0e9c05911761ab070e7b6fda96772f8bc3dde772d2e11" name="ad0fe2fc750b527c1994b0e9c05911761ab070e7b6fda96772f8bc3dde772d2e11"></a>ch_no_obj&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00021">21</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00022">22</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -362,11 +401,15 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a5a67ae8eaa6749c3c16e78f279951d64a3a13456a0ba66698ededccf91ded1e59" name="a5a67ae8eaa6749c3c16e78f279951d64a3a13456a0ba66698ededccf91ded1e59"></a>task_test&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5a67ae8eaa6749c3c16e78f279951d64a699ac7e3c380c51cc987de84e0572820" name="a5a67ae8eaa6749c3c16e78f279951d64a699ac7e3c380c51cc987de84e0572820"></a>task_test_inactive&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5a67ae8eaa6749c3c16e78f279951d64a76c1253bb97844abbdf89af6dfc3c7d6" name="a5a67ae8eaa6749c3c16e78f279951d64a76c1253bb97844abbdf89af6dfc3c7d6"></a>inactive&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5a67ae8eaa6749c3c16e78f279951d64a7c63769346b1381ed061a981c5fa41b8" name="a5a67ae8eaa6749c3c16e78f279951d64a7c63769346b1381ed061a981c5fa41b8"></a>active_stop&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5a67ae8eaa6749c3c16e78f279951d64afb575f9b8a1e935c7759676dca2ccae1" name="a5a67ae8eaa6749c3c16e78f279951d64afb575f9b8a1e935c7759676dca2ccae1"></a>uturn&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5a67ae8eaa6749c3c16e78f279951d64a709d0acbd6574a36cf4345416e7f0cfd" name="a5a67ae8eaa6749c3c16e78f279951d64a709d0acbd6574a36cf4345416e7f0cfd"></a>static_tracking&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5a67ae8eaa6749c3c16e78f279951d64ab4dc188c3ef2900f593c723ea32ee170" name="a5a67ae8eaa6749c3c16e78f279951d64ab4dc188c3ef2900f593c723ea32ee170"></a>line_follow_auto&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5a67ae8eaa6749c3c16e78f279951d64a24955a3ad21a51ffd7d7ef48719b44d7" name="a5a67ae8eaa6749c3c16e78f279951d64a24955a3ad21a51ffd7d7ef48719b44d7"></a>stop_detect_line&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5a67ae8eaa6749c3c16e78f279951d64abc0b2fd60e34526c3237afadbf9b4497" name="a5a67ae8eaa6749c3c16e78f279951d64abc0b2fd60e34526c3237afadbf9b4497"></a>calibration&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00060">60</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00066">66</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -388,25 +431,27 @@ Variables</h2></td></tr>
 
 <p>Parse recieved bluetooth data. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00405">405</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00703">703</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_acbb67905d42ded30a6eaa423ea036db0_cgraph.png" border="0" usemap="#amain_8cpp_acbb67905d42ded30a6eaa423ea036db0_cgraph" alt=""/></div>
 <map name="amain_8cpp_acbb67905d42ded30a6eaa423ea036db0_cgraph" id="amain_8cpp_acbb67905d42ded30a6eaa423ea036db0_cgraph">
-<area shape="rect" title="Parse recieved bluetooth data." alt="" coords="5,132,95,159"/>
+<area shape="rect" title="Parse recieved bluetooth data." alt="" coords="5,157,95,184"/>
 <area shape="rect" href="class_bluetooth.html#ae7a2813bf139a42a5134713c5b8c9939" title="returns true if continous update is enabled" alt="" coords="150,5,308,32"/>
-<area shape="poly" title=" " alt="" coords="58,130,91,87,114,63,141,42,151,36,153,41,144,46,118,67,95,90,62,133"/>
+<area shape="poly" title=" " alt="" coords="55,156,86,101,111,69,141,42,149,37,152,41,144,46,115,73,91,104,60,158"/>
 <area shape="rect" href="main_8cpp.html#a5e48045a4072975fd32e2daee4a02228" title=" " alt="" coords="206,56,252,83"/>
-<area shape="poly" title=" " alt="" coords="72,129,142,92,190,76,191,81,144,97,74,134"/>
+<area shape="poly" title=" " alt="" coords="62,155,96,124,141,92,189,74,191,79,144,97,100,128,66,159"/>
 <area shape="rect" href="class_p_i_d.html#aa3cc231cd26b1cc957bc77af2eefeff2" title="Takes in the 3 parameters to set the PID coefficients values." alt="" coords="163,107,295,133"/>
-<area shape="poly" title=" " alt="" coords="95,136,147,129,148,134,96,142"/>
+<area shape="poly" title=" " alt="" coords="95,155,164,136,165,141,96,161"/>
 <area shape="rect" href="class_bluetooth.html#ae5692fc7fdfb254e24f438fab5b2765b" title="Set the continous property to the bool value passed." alt="" coords="146,157,312,184"/>
-<area shape="poly" title=" " alt="" coords="96,149,131,154,130,159,95,154"/>
+<area shape="poly" title=" " alt="" coords="95,168,131,168,131,173,95,173"/>
 <area shape="rect" href="class_motor.html#a16a90b803a442cb2eae9974586a2ea8f" title="Set the duty cycle of the motor." alt="" coords="154,208,304,235"/>
-<area shape="poly" title=" " alt="" coords="74,157,144,194,161,200,159,205,142,198,72,162"/>
+<area shape="poly" title=" " alt="" coords="96,181,165,201,164,206,95,186"/>
 <area shape="rect" href="class_bluetooth.html#a668f77350b9862f85f5cc0cda28cbc6c" title="Set the send once property to the bool value passed." alt="" coords="143,259,315,285"/>
-<area shape="poly" title=" " alt="" coords="62,157,95,200,118,224,144,244,153,250,151,254,141,249,114,228,91,204,58,161"/>
+<area shape="poly" title=" " alt="" coords="66,182,100,214,144,244,156,250,154,255,141,249,96,218,62,186"/>
+<area shape="rect" href="class_p_i_d.html#a7ade6779333703b695f399b4acbc54ee" title=" " alt="" coords="182,309,276,336"/>
+<area shape="poly" title=" " alt="" coords="60,183,91,238,115,269,144,295,169,308,167,313,141,300,111,272,86,241,55,186"/>
 <area shape="rect" href="class_motor.html#a1036611ac5c81da2df48ba3ea8d870bd" title="Set the direction of the motor." alt="" coords="363,208,499,235"/>
 <area shape="poly" title=" " alt="" coords="305,219,347,219,347,224,305,224"/>
 </map>
@@ -441,58 +486,60 @@ Here is the caller graph for this function:</div>
 
 <p>Send data to the bt module. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00590">590</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00863">863</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a39195dff981a54ac9b42522c56e28111_cgraph.png" border="0" usemap="#amain_8cpp_a39195dff981a54ac9b42522c56e28111_cgraph" alt=""/></div>
 <map name="amain_8cpp_a39195dff981a54ac9b42522c56e28111_cgraph" id="amain_8cpp_a39195dff981a54ac9b42522c56e28111_cgraph">
-<area shape="rect" title="Send data to the bt module." alt="" coords="5,261,105,288"/>
-<area shape="rect" href="class_motor_driver_board.html#ac84ec5e04204544a83a5715ed1ffcf93" title="returns the actual curent value" alt="" coords="166,5,312,48"/>
-<area shape="poly" title=" " alt="" coords="56,260,65,221,83,168,111,110,129,82,151,58,154,55,158,59,155,62,133,86,115,112,88,170,70,223,61,262"/>
-<area shape="rect" href="class_motor.html#a3ed780e05e0369a8b0c1e327497337e7" title="Get the duty cycle of the motor." alt="" coords="164,72,314,99"/>
-<area shape="poly" title=" " alt="" coords="58,260,69,229,89,188,116,145,151,109,157,104,160,108,154,113,120,149,93,191,74,231,63,262"/>
-<area shape="rect" href="class_motor.html#a053255271560b8caff94f5e4a7b068a0" title="Get the tangential speed of the wheel." alt="" coords="178,123,300,149"/>
-<area shape="poly" title=" " alt="" coords="62,259,97,211,122,183,151,159,162,153,165,158,154,164,125,187,101,214,66,262"/>
-<area shape="rect" href="class_motor.html#a9fa0a51efff1b1e0bedfaf81586108a9" title="Get the cumulative tick count." alt="" coords="165,173,313,200"/>
-<area shape="poly" title=" " alt="" coords="73,259,108,234,152,210,167,203,169,208,154,214,111,238,76,263"/>
-<area shape="rect" href="class_motor_driver_board.html#a1998bf94bc85a267c84d54cf69d5526e" title="returns the actual voltage value" alt="" coords="166,224,312,267"/>
-<area shape="poly" title=" " alt="" coords="104,264,150,257,151,262,105,269"/>
-<area shape="rect" href="class_bluetooth.html#ae7a2813bf139a42a5134713c5b8c9939" title="returns true if continous update is enabled" alt="" coords="160,291,318,317"/>
-<area shape="poly" title=" " alt="" coords="105,280,145,286,144,292,104,285"/>
-<area shape="rect" href="class_bluetooth.html#ad5dc6865758ae4f2edd848afdd503c1e" title="returns true if send once is enabled" alt="" coords="157,341,321,368"/>
-<area shape="poly" title=" " alt="" coords="79,286,113,307,154,327,171,334,169,339,152,332,111,311,76,291"/>
-<area shape="rect" href="class_bluetooth.html#ad72f5938b867dff1fd919e16823898e0" title="Sends formatted string to the bluetooth." alt="" coords="162,392,316,419"/>
-<area shape="poly" title=" " alt="" coords="67,287,102,332,126,357,154,378,164,383,161,388,151,382,123,361,98,335,63,290"/>
-<area shape="rect" href="class_bluetooth.html#a668f77350b9862f85f5cc0cda28cbc6c" title="Set the send once property to the bool value passed." alt="" coords="153,443,325,469"/>
-<area shape="poly" title=" " alt="" coords="63,287,75,317,94,355,121,395,154,429,161,433,158,437,151,433,116,398,90,358,70,319,58,289"/>
-<area shape="rect" href="class_motor_driver_board.html#a2680220ee95803ef1d39503e47e56475" title="updates the measurements of voltage and current values" alt="" coords="155,493,323,536"/>
-<area shape="poly" title=" " alt="" coords="62,288,71,325,89,376,116,431,134,457,155,479,158,482,154,486,151,483,130,460,112,434,84,378,66,327,56,289"/>
-<area shape="rect" href="class_bluetooth.html#a9e90d0e511be94da7483ab2fe3d20bf4" title="Sends character array to the bluetooth." alt="" coords="373,392,523,419"/>
-<area shape="poly" title=" " alt="" coords="317,403,357,403,357,408,317,408"/>
-<area shape="rect" href="ds2781_8cpp.html#af8a939403a48744a8124c2d9a9b02a11" title=" " alt="" coords="402,476,495,503"/>
-<area shape="poly" title=" " alt="" coords="323,502,386,494,386,499,323,507"/>
-<area shape="rect" href="ds2781_8cpp.html#a1d7e1bea8d54bb388b1e8f5474050dd1" title=" " alt="" coords="401,527,496,553"/>
-<area shape="poly" title=" " alt="" coords="323,522,385,530,385,535,323,527"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#a9189854c20b5c91f35cf0f150a81f49c" title=" " alt="" coords="572,451,708,477"/>
-<area shape="poly" title=" " alt="" coords="495,481,556,472,557,478,496,486"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#a7314e5938b3ad60b701799fe6b74ab9b" title=" " alt="" coords="583,501,697,528"/>
-<area shape="poly" title=" " alt="" coords="496,493,568,503,567,508,495,498"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#abbbb3dbe5568c178791d19b7e8a64790" title=" " alt="" coords="571,552,709,579"/>
-<area shape="poly" title=" " alt="" coords="495,501,524,512,572,538,586,543,584,548,570,542,522,517,493,506"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#ac06e54be6891384d157fef3c72cd1af5" title=" " alt="" coords="757,425,883,452"/>
-<area shape="poly" title=" " alt="" coords="708,452,742,447,743,452,709,457"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#a143434a9ef4789a991f53fd4d15678c6" title=" " alt="" coords="931,527,1043,553"/>
-<area shape="poly" title=" " alt="" coords="860,450,884,462,925,488,960,515,957,519,922,492,882,466,858,455"/>
-<area shape="poly" title=" " alt="" coords="697,516,916,532,916,538,697,521"/>
-<area shape="rect" href="main_8cpp.html#a6eba6e3cd7b6f678e12db566d13c23e9" title=" " alt="" coords="801,476,839,503"/>
-<area shape="poly" title=" " alt="" coords="697,504,785,491,786,497,697,509"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#a36a43ae21bba5d18821d2d21c47e773d" title=" " alt="" coords="757,577,883,604"/>
-<area shape="poly" title=" " alt="" coords="710,572,742,577,741,582,709,578"/>
-<area shape="poly" title=" " alt="" coords="866,574,925,556,927,561,867,579"/>
-<area shape="poly" title=" " alt="" coords="493,524,522,512,570,487,584,481,586,486,572,492,524,517,495,529"/>
-<area shape="poly" title=" " alt="" coords="496,531,567,522,568,527,497,536"/>
-<area shape="poly" title=" " alt="" coords="497,544,557,552,556,557,496,549"/>
+<area shape="rect" title="Send data to the bt module." alt="" coords="5,283,105,309"/>
+<area shape="rect" href="class_p_i_d.html#a81f6849faa7f9b494d3e8e53bb7468f9" title=" " alt="" coords="173,5,305,32"/>
+<area shape="poly" title=" " alt="" coords="55,282,61,236,77,172,105,103,126,70,151,42,157,37,161,41,155,46,130,74,110,105,82,173,66,237,60,283"/>
+<area shape="rect" href="class_motor_driver_board.html#ac84ec5e04204544a83a5715ed1ffcf93" title="returns the actual curent value" alt="" coords="166,56,312,99"/>
+<area shape="poly" title=" " alt="" coords="57,281,68,247,87,201,114,152,151,109,155,105,158,110,155,113,118,155,92,204,73,249,62,283"/>
+<area shape="rect" href="class_motor.html#a3ed780e05e0369a8b0c1e327497337e7" title="Get the duty cycle of the motor." alt="" coords="164,123,314,149"/>
+<area shape="poly" title=" " alt="" coords="60,281,93,222,119,188,151,159,159,154,162,159,154,163,123,192,97,225,65,284"/>
+<area shape="rect" href="class_motor.html#a053255271560b8caff94f5e4a7b068a0" title="Get the tangential speed of the wheel." alt="" coords="178,173,300,200"/>
+<area shape="poly" title=" " alt="" coords="67,280,103,245,151,210,163,204,166,209,154,214,106,249,71,284"/>
+<area shape="rect" href="class_motor.html#a9fa0a51efff1b1e0bedfaf81586108a9" title="Get the cumulative tick count." alt="" coords="165,224,313,251"/>
+<area shape="poly" title=" " alt="" coords="94,280,152,260,174,253,176,258,153,265,96,285"/>
+<area shape="rect" href="class_motor_driver_board.html#a1998bf94bc85a267c84d54cf69d5526e" title="returns the actual voltage value" alt="" coords="166,275,312,317"/>
+<area shape="poly" title=" " alt="" coords="105,293,150,293,150,299,105,299"/>
+<area shape="rect" href="class_bluetooth.html#ae7a2813bf139a42a5134713c5b8c9939" title="returns true if continous update is enabled" alt="" coords="160,341,318,368"/>
+<area shape="poly" title=" " alt="" coords="96,307,153,327,176,334,174,339,152,332,94,312"/>
+<area shape="rect" href="class_bluetooth.html#ad5dc6865758ae4f2edd848afdd503c1e" title="returns true if send once is enabled" alt="" coords="157,392,321,419"/>
+<area shape="poly" title=" " alt="" coords="71,308,106,343,154,378,166,383,163,388,151,382,103,347,67,312"/>
+<area shape="rect" href="class_bluetooth.html#ad72f5938b867dff1fd919e16823898e0" title="Sends formatted string to the bluetooth." alt="" coords="162,443,316,469"/>
+<area shape="poly" title=" " alt="" coords="65,308,97,367,123,400,154,429,162,433,159,438,151,433,119,404,93,370,60,311"/>
+<area shape="rect" href="class_bluetooth.html#a668f77350b9862f85f5cc0cda28cbc6c" title="Set the send once property to the bool value passed." alt="" coords="153,493,325,520"/>
+<area shape="poly" title=" " alt="" coords="62,309,72,344,90,390,118,438,135,460,154,479,160,483,157,488,151,483,131,464,113,441,86,392,67,346,57,311"/>
+<area shape="rect" href="class_motor_driver_board.html#a2680220ee95803ef1d39503e47e56475" title="updates the measurements of voltage and current values" alt="" coords="155,544,323,587"/>
+<area shape="poly" title=" " alt="" coords="61,309,69,352,85,410,113,474,132,504,155,530,157,532,153,536,151,534,128,507,108,477,80,412,64,353,56,310"/>
+<area shape="rect" href="class_bluetooth.html#a9e90d0e511be94da7483ab2fe3d20bf4" title="Sends character array to the bluetooth." alt="" coords="373,443,523,469"/>
+<area shape="poly" title=" " alt="" coords="317,453,357,453,357,459,317,459"/>
+<area shape="rect" href="ds2781_8cpp.html#af8a939403a48744a8124c2d9a9b02a11" title=" " alt="" coords="402,527,495,553"/>
+<area shape="poly" title=" " alt="" coords="323,553,386,545,386,550,323,558"/>
+<area shape="rect" href="ds2781_8cpp.html#a1d7e1bea8d54bb388b1e8f5474050dd1" title=" " alt="" coords="401,577,496,604"/>
+<area shape="poly" title=" " alt="" coords="323,573,385,580,385,586,323,578"/>
+<area shape="rect" href="_one_wire___methods_8cpp.html#a9189854c20b5c91f35cf0f150a81f49c" title=" " alt="" coords="572,501,708,528"/>
+<area shape="poly" title=" " alt="" coords="495,531,556,523,557,528,496,537"/>
+<area shape="rect" href="_one_wire___methods_8cpp.html#a7314e5938b3ad60b701799fe6b74ab9b" title=" " alt="" coords="583,552,697,579"/>
+<area shape="poly" title=" " alt="" coords="496,543,568,553,567,558,495,549"/>
+<area shape="rect" href="_one_wire___methods_8cpp.html#abbbb3dbe5568c178791d19b7e8a64790" title=" " alt="" coords="571,603,709,629"/>
+<area shape="poly" title=" " alt="" coords="495,551,524,563,572,588,586,594,584,599,570,593,522,568,493,556"/>
+<area shape="rect" href="_one_wire___methods_8cpp.html#ac06e54be6891384d157fef3c72cd1af5" title=" " alt="" coords="757,476,883,503"/>
+<area shape="poly" title=" " alt="" coords="708,502,742,498,743,503,709,508"/>
+<area shape="rect" href="_one_wire___methods_8cpp.html#a143434a9ef4789a991f53fd4d15678c6" title=" " alt="" coords="931,577,1043,604"/>
+<area shape="poly" title=" " alt="" coords="860,501,884,512,925,538,960,565,957,569,922,543,882,517,858,506"/>
+<area shape="poly" title=" " alt="" coords="697,567,916,583,916,588,697,572"/>
+<area shape="rect" href="main_8cpp.html#a6eba6e3cd7b6f678e12db566d13c23e9" title=" " alt="" coords="801,527,839,553"/>
+<area shape="poly" title=" " alt="" coords="697,555,785,542,786,547,697,560"/>
+<area shape="rect" href="_one_wire___methods_8cpp.html#a36a43ae21bba5d18821d2d21c47e773d" title=" " alt="" coords="757,628,883,655"/>
+<area shape="poly" title=" " alt="" coords="710,623,742,628,741,633,709,628"/>
+<area shape="poly" title=" " alt="" coords="866,625,925,607,927,612,867,630"/>
+<area shape="poly" title=" " alt="" coords="493,574,522,563,570,538,584,532,586,537,572,542,524,568,495,579"/>
+<area shape="poly" title=" " alt="" coords="496,582,567,572,568,577,497,587"/>
+<area shape="poly" title=" " alt="" coords="497,594,557,602,556,608,496,600"/>
 </map>
 </div>
 <div class="dynheader">
@@ -525,33 +572,27 @@ Here is the caller graph for this function:</div>
 
 <p>ISR updating the control algorithm. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00521">521</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00530">530</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_ab1059bc314d55652ae71b3d07c89e44d_cgraph.png" border="0" usemap="#amain_8cpp_ab1059bc314d55652ae71b3d07c89e44d_cgraph" alt=""/></div>
 <map name="amain_8cpp_ab1059bc314d55652ae71b3d07c89e44d_cgraph" id="amain_8cpp_ab1059bc314d55652ae71b3d07c89e44d_cgraph">
-<area shape="rect" title="ISR updating the control algorithm." alt="" coords="5,240,140,267"/>
-<area shape="rect" href="class_sensor_array.html#a125722cbd712c7cde32fd391555d030e" title="Gets the output value of the sensor array." alt="" coords="188,5,343,48"/>
-<area shape="poly" title=" " alt="" coords="76,239,90,203,113,155,145,104,186,58,190,55,193,59,190,62,149,107,118,158,95,206,81,241"/>
-<area shape="rect" href="class_motor.html#a13544e4db01ed838ed83a387f3aa6066" title="Get the low&#45;pass filtered speed of the wheel." alt="" coords="203,72,328,115"/>
-<area shape="poly" title=" " alt="" coords="81,238,123,184,153,153,186,125,192,120,195,125,189,129,156,157,127,188,85,241"/>
-<area shape="rect" href="class_p_i_d.html#a5b2dd162af971a196f0039e118af899f" title="Get the output of the PID controller." alt="" coords="210,139,321,165"/>
-<area shape="poly" title=" " alt="" coords="90,237,133,207,186,175,200,169,202,174,189,180,136,211,93,242"/>
-<area shape="rect" href="class_motor.html#a9fa0a51efff1b1e0bedfaf81586108a9" title="Get the cumulative tick count." alt="" coords="192,189,339,216"/>
-<area shape="poly" title=" " alt="" coords="126,237,196,218,198,223,127,242"/>
-<area shape="rect" href="class_motor.html#a16a90b803a442cb2eae9974586a2ea8f" title="Set the duty cycle of the motor." alt="" coords="190,240,341,267"/>
-<area shape="poly" title=" " alt="" coords="140,251,174,251,174,256,140,256"/>
-<area shape="rect" href="class_p_i_d.html#aeee74e9710b69e0f24092f4e01284a95" title="Updates the output of PID controller based on the real time measurement." alt="" coords="221,291,310,317"/>
-<area shape="poly" title=" " alt="" coords="127,265,206,286,205,291,126,270"/>
-<area shape="rect" href="class_motor.html#a1b70870daea3a394303d05d64edf6f00" title="Calculate and update all the speed variables." alt="" coords="215,341,316,368"/>
-<area shape="poly" title=" " alt="" coords="93,265,136,296,189,327,202,333,200,338,186,332,133,300,90,269"/>
-<area shape="rect" href="class_sensor_array.html#a43a269e321e0567f996ab57bff26d6af" title="Updates the sensor array." alt="" coords="195,392,336,419"/>
-<area shape="poly" title=" " alt="" coords="85,266,126,320,155,351,189,378,198,383,195,387,186,382,152,355,122,323,81,269"/>
-<area shape="rect" href="main_8cpp.html#a69bdbd2ce224da71b012eb0d92a6dd92" title="Update buggy status variables." alt="" coords="193,443,338,469"/>
-<area shape="poly" title=" " alt="" coords="81,266,96,299,118,343,150,389,189,429,195,433,192,437,186,433,146,392,114,346,91,301,76,268"/>
-<area shape="rect" href="class_motor.html#a1036611ac5c81da2df48ba3ea8d870bd" title="Set the direction of the motor." alt="" coords="391,240,527,267"/>
-<area shape="poly" title=" " alt="" coords="341,251,375,251,375,256,341,256"/>
+<area shape="rect" title="ISR updating the control algorithm." alt="" coords="5,148,140,175"/>
+<area shape="rect" href="class_motor.html#a13544e4db01ed838ed83a387f3aa6066" title="Get the low&#45;pass filtered speed of the wheel." alt="" coords="200,5,326,48"/>
+<area shape="poly" title=" " alt="" coords="85,145,128,104,186,58,193,54,196,58,189,62,131,108,89,149"/>
+<area shape="rect" href="class_p_i_d.html#a5b2dd162af971a196f0039e118af899f" title="Get the output of the PID controller." alt="" coords="207,72,319,99"/>
+<area shape="poly" title=" " alt="" coords="102,145,187,108,204,102,205,107,189,113,104,150"/>
+<area shape="rect" href="class_p_i_d.html#a1f4aed76541746be32dc9d7ded5b7cc5" title="Get the PID terms." alt="" coords="209,123,317,149"/>
+<area shape="poly" title=" " alt="" coords="140,150,193,143,194,148,140,155"/>
+<area shape="rect" href="class_motor.html#a16a90b803a442cb2eae9974586a2ea8f" title="Set the duty cycle of the motor." alt="" coords="188,173,338,200"/>
+<area shape="poly" title=" " alt="" coords="140,168,173,172,172,177,140,173"/>
+<area shape="rect" href="class_p_i_d.html#aeee74e9710b69e0f24092f4e01284a95" title="Updates the output of PID controller based on the real time measurement." alt="" coords="218,224,308,251"/>
+<area shape="poly" title=" " alt="" coords="104,173,189,210,205,216,204,221,187,214,102,178"/>
+<area shape="rect" href="class_motor.html#a1b70870daea3a394303d05d64edf6f00" title="Calculate and update all the speed variables." alt="" coords="212,275,314,301"/>
+<area shape="poly" title=" " alt="" coords="88,173,130,216,158,240,189,260,199,266,197,270,186,265,155,244,126,220,84,177"/>
+<area shape="rect" href="class_motor.html#a1036611ac5c81da2df48ba3ea8d870bd" title="Set the direction of the motor." alt="" coords="386,173,522,200"/>
+<area shape="poly" title=" " alt="" coords="338,184,371,184,371,189,338,189"/>
 </map>
 </div>
 <div class="dynheader">
@@ -611,125 +652,120 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00146">146</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00173">173</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.png" border="0" usemap="#amain_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph" alt=""/></div>
 <map name="amain_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph" id="amain_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph">
-<area shape="rect" title=" " alt="" coords="5,909,55,936"/>
-<area shape="rect" href="main_8cpp.html#acbb67905d42ded30a6eaa423ea036db0" title="Parse recieved bluetooth data." alt="" coords="143,157,232,184"/>
-<area shape="poly" title=" " alt="" coords="30,909,50,715,71,570,100,422,137,296,172,198,177,200,142,298,105,423,76,571,55,715,35,909"/>
-<area shape="rect" href="class_bluetooth.html#ae5692fc7fdfb254e24f438fab5b2765b" title="Set the continous property to the bool value passed." alt="" coords="324,5,489,32"/>
-<area shape="poly" title=" " alt="" coords="29,909,35,757,49,515,70,278,84,192,92,163,100,144,120,120,143,99,196,67,253,44,308,29,309,34,254,49,198,72,146,104,124,124,105,147,97,164,89,193,75,279,54,515,40,758,34,909"/>
-<area shape="rect" href="main_8cpp.html#a39195dff981a54ac9b42522c56e28111" title="Send data to the bt module." alt="" coords="138,435,237,461"/>
-<area shape="poly" title=" " alt="" coords="30,909,52,782,72,694,100,604,133,532,167,473,171,476,138,534,105,606,78,695,57,783,36,909"/>
-<area shape="rect" href="class_bluetooth.html#ad72f5938b867dff1fd919e16823898e0" title="Sends formatted string to the bluetooth." alt="" coords="329,611,483,637"/>
-<area shape="poly" title=" " alt="" coords="30,908,38,852,53,776,73,702,86,673,101,654,124,637,150,625,204,609,261,604,314,606,313,611,261,609,205,614,151,630,127,642,105,658,91,676,78,704,58,777,44,853,36,909"/>
-<area shape="rect" href="main_8cpp.html#a6eba6e3cd7b6f678e12db566d13c23e9" title=" " alt="" coords="968,661,1006,688"/>
-<area shape="poly" title=" " alt="" coords="28,909,30,867,39,809,48,778,61,748,78,721,101,698,127,684,162,676,248,669,405,672,617,672,952,672,952,677,617,677,405,677,248,674,163,681,129,689,104,702,83,724,66,751,53,780,44,810,35,867,34,909"/>
-<area shape="rect" href="main_8cpp.html#ab1059bc314d55652ae71b3d07c89e44d" title="ISR updating the control algorithm." alt="" coords="120,1048,255,1075"/>
-<area shape="poly" title=" " alt="" coords="39,935,62,984,81,1011,104,1034,111,1038,108,1043,101,1038,77,1014,58,986,34,938"/>
-<area shape="rect" href="class_bluetooth.html#a641eb5a0aacad826977d8f6dce1f79b8" title="Returns true if incoming data is fully recieved." alt="" coords="106,763,269,805"/>
-<area shape="poly" title=" " alt="" coords="35,907,60,863,78,838,101,815,106,812,109,816,104,819,83,841,64,866,40,910"/>
-<area shape="rect" href="class_motor_driver_board.html#a701a92a3e90eb7f7d1a5a69f077dd278" title="causes the enable pin to be set to LOW" alt="" coords="103,829,272,856"/>
-<area shape="poly" title=" " alt="" coords="44,907,70,886,101,866,115,859,117,864,104,870,73,890,48,911"/>
-<area shape="rect" href="class_bluetooth.html#a7783adfe36362b71967e4d08a65a788a" title="returns the raw data recieved as a character array" alt="" coords="108,880,267,907"/>
-<area shape="poly" title=" " alt="" coords="55,916,97,908,98,913,56,921"/>
-<area shape="rect" href="class_sensor_array.html#a88b40d7590d708473c9e15d1cd4a4591" title="Checks if a line is detected (in the last update)." alt="" coords="118,931,257,973"/>
-<area shape="poly" title=" " alt="" coords="56,925,103,934,102,939,55,930"/>
-<area shape="rect" href="class_bluetooth.html#afa1d2eeb0651790a0d3a3a0b247fe24b" title="returns true if bluetooth module is ready" alt="" coords="121,997,254,1024"/>
-<area shape="poly" title=" " alt="" coords="46,935,71,959,104,983,116,989,113,994,101,988,68,963,42,938"/>
-<area shape="rect" href="main_8cpp.html#a4553963c239316efafb949c46168c518" title="Send data to the pc." alt="" coords="756,956,859,983"/>
-<area shape="poly" title=" " alt="" coords="36,936,42,967,55,1007,75,1049,104,1085,125,1100,145,1108,185,1113,226,1117,249,1123,273,1135,289,1149,297,1163,306,1175,321,1186,355,1197,389,1202,423,1202,458,1198,526,1177,592,1145,652,1105,705,1064,781,992,785,996,708,1068,655,1110,594,1149,528,1182,459,1203,424,1208,388,1207,353,1202,319,1190,302,1179,293,1166,285,1152,271,1140,247,1128,225,1122,184,1119,144,1113,123,1104,101,1089,71,1052,50,1009,37,968,31,937"/>
-<area shape="rect" href="main_8cpp.html#a41e1c0745ad1e409f6a32e416307cb56" title="Reset all buggy values and all objects variables." alt="" coords="130,1400,245,1427"/>
-<area shape="poly" title=" " alt="" coords="34,936,37,1026,47,1162,56,1232,69,1297,85,1350,105,1386,117,1397,114,1401,101,1390,80,1352,64,1298,51,1233,42,1162,32,1027,29,937"/>
-<area shape="rect" href="class_bluetooth.html#abc47a4af0baaf6ae23231e49b7aac010" title="Resets the recieved data buffer for new incoming data." alt="" coords="122,1149,253,1192"/>
-<area shape="poly" title=" " alt="" coords="35,936,40,974,52,1024,73,1080,87,1105,105,1129,115,1138,111,1142,101,1132,83,1108,68,1082,47,1026,35,975,30,937"/>
-<area shape="rect" href="main_8cpp.html#a69844253683680ca21d64d986e03babe" title="ISR to update flag to send data to pc/bt in main()" alt="" coords="124,1216,251,1243"/>
-<area shape="poly" title=" " alt="" coords="36,936,59,1074,79,1152,91,1182,105,1202,112,1209,109,1213,101,1206,87,1184,74,1153,53,1075,30,937"/>
-<area shape="rect" href="class_sensor_array.html#aba4c72a4e3bbe7994b5a5fcb98fe886f" title="Sets the status of all LEDs." alt="" coords="118,1267,257,1309"/>
-<area shape="poly" title=" " alt="" coords="35,936,43,1003,56,1097,77,1191,90,1228,105,1253,107,1256,104,1260,101,1256,85,1230,72,1193,51,1098,37,1003,30,937"/>
-<area shape="rect" href="class_motor_driver_board.html#a893aebb1d49eec1b0e0d102fd9f16957" title="enable pin will be set to the boolean value in the paremeter" alt="" coords="114,1333,261,1376"/>
-<area shape="poly" title=" " alt="" coords="35,936,40,1014,53,1129,74,1244,88,1289,105,1320,106,1321,102,1324,100,1323,83,1291,69,1245,47,1130,35,1015,29,937"/>
-<area shape="rect" href="main_8cpp.html#a4f089b490d9d445d79fa9e73e85aed65" title="Set pwm dc to 0 for both motors." alt="" coords="141,712,234,739"/>
-<area shape="poly" title=" " alt="" coords="30,908,37,876,49,833,70,788,84,767,101,749,125,734,127,739,104,753,88,770,74,791,54,835,42,877,36,909"/>
-<area shape="rect" href="class_bluetooth.html#ae7a2813bf139a42a5134713c5b8c9939" title="returns true if continous update is enabled" alt="" coords="328,208,485,235"/>
-<area shape="poly" title=" " alt="" coords="233,178,331,201,330,207,232,184"/>
-<area shape="rect" href="main_8cpp.html#a5e48045a4072975fd32e2daee4a02228" title=" " alt="" coords="383,56,429,83"/>
-<area shape="poly" title=" " alt="" coords="208,154,257,124,319,92,367,76,369,81,321,97,260,128,211,159"/>
-<area shape="rect" href="class_p_i_d.html#aa3cc231cd26b1cc957bc77af2eefeff2" title="Takes in the 3 parameters to set the PID coefficients values." alt="" coords="340,107,472,133"/>
-<area shape="poly" title=" " alt="" coords="232,158,330,135,331,140,233,163"/>
-<area shape="poly" title=" " alt="" coords="201,155,318,42,330,36,332,41,322,46,205,159"/>
-<area shape="rect" href="class_motor.html#a16a90b803a442cb2eae9974586a2ea8f" title="Set the duty cycle of the motor." alt="" coords="331,712,481,739"/>
-<area shape="poly" title=" " alt="" coords="196,183,231,282,275,422,286,487,289,540,297,590,307,617,322,648,345,677,372,701,369,705,341,681,318,651,302,619,292,591,284,540,281,488,269,423,226,284,191,185"/>
-<area shape="rect" href="class_bluetooth.html#a668f77350b9862f85f5cc0cda28cbc6c" title="Set the send once property to the bool value passed." alt="" coords="320,157,492,184"/>
-<area shape="poly" title=" " alt="" coords="232,168,304,168,304,173,232,173"/>
-<area shape="rect" href="class_motor.html#a1036611ac5c81da2df48ba3ea8d870bd" title="Set the direction of the motor." alt="" coords="547,712,684,739"/>
-<area shape="poly" title=" " alt="" coords="482,723,532,723,532,728,482,728"/>
-<area shape="poly" title=" " alt="" coords="191,433,207,396,234,345,271,291,293,266,318,245,326,240,329,244,322,249,297,270,275,294,238,348,212,398,196,435"/>
-<area shape="poly" title=" " alt="" coords="189,433,202,388,227,323,265,254,290,222,318,194,324,190,327,194,322,198,294,225,270,257,232,325,207,389,194,435"/>
-<area shape="rect" href="class_motor_driver_board.html#ac84ec5e04204544a83a5715ed1ffcf93" title="returns the actual curent value" alt="" coords="333,493,479,536"/>
-<area shape="poly" title=" " alt="" coords="235,459,320,486,318,491,233,465"/>
-<area shape="rect" href="class_motor.html#a3ed780e05e0369a8b0c1e327497337e7" title="Get the duty cycle of the motor." alt="" coords="331,560,481,587"/>
-<area shape="poly" title=" " alt="" coords="205,460,254,502,287,525,321,546,335,552,333,557,319,550,284,530,251,506,201,464"/>
-<area shape="rect" href="class_motor.html#a053255271560b8caff94f5e4a7b068a0" title="Get the tangential speed of the wheel." alt="" coords="345,259,467,285"/>
-<area shape="poly" title=" " alt="" coords="195,432,242,367,277,328,319,295,329,289,332,294,321,300,281,332,246,370,199,436"/>
-<area shape="rect" href="class_motor.html#a9fa0a51efff1b1e0bedfaf81586108a9" title="Get the cumulative tick count." alt="" coords="333,763,480,789"/>
-<area shape="poly" title=" " alt="" coords="193,461,203,515,226,592,243,635,264,676,290,715,322,749,326,752,323,756,318,753,286,718,259,679,238,637,221,594,198,516,188,462"/>
-<area shape="rect" href="class_motor_driver_board.html#a1998bf94bc85a267c84d54cf69d5526e" title="returns the actual voltage value" alt="" coords="333,309,479,352"/>
-<area shape="poly" title=" " alt="" coords="206,432,256,398,319,362,330,356,332,361,321,366,259,403,209,436"/>
-<area shape="rect" href="class_bluetooth.html#ad5dc6865758ae4f2edd848afdd503c1e" title="returns true if send once is enabled" alt="" coords="324,376,488,403"/>
-<area shape="poly" title=" " alt="" coords="236,432,338,405,340,410,238,437"/>
-<area shape="poly" title=" " alt="" coords="199,460,246,526,281,564,322,596,331,602,328,606,318,601,277,568,242,529,195,464"/>
-<area shape="rect" href="class_motor_driver_board.html#a2680220ee95803ef1d39503e47e56475" title="updates the measurements of voltage and current values" alt="" coords="323,427,490,469"/>
-<area shape="poly" title=" " alt="" coords="237,445,307,445,307,451,237,451"/>
-<area shape="rect" href="class_bluetooth.html#a9e90d0e511be94da7483ab2fe3d20bf4" title="Sends character array to the bluetooth." alt="" coords="540,611,691,637"/>
-<area shape="poly" title=" " alt="" coords="484,621,525,621,525,627,484,627"/>
-<area shape="rect" href="ds2781_8cpp.html#af8a939403a48744a8124c2d9a9b02a11" title=" " alt="" coords="569,485,662,512"/>
-<area shape="poly" title=" " alt="" coords="491,466,555,481,553,487,490,471"/>
-<area shape="rect" href="ds2781_8cpp.html#a1d7e1bea8d54bb388b1e8f5474050dd1" title=" " alt="" coords="568,435,663,461"/>
-<area shape="poly" title=" " alt="" coords="490,445,552,445,552,451,490,451"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#a9189854c20b5c91f35cf0f150a81f49c" title=" " alt="" coords="739,435,876,461"/>
-<area shape="poly" title=" " alt="" coords="662,484,739,463,740,468,663,489"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#a7314e5938b3ad60b701799fe6b74ab9b" title=" " alt="" coords="751,536,864,563"/>
-<area shape="poly" title=" " alt="" coords="663,508,740,529,739,534,662,514"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#abbbb3dbe5568c178791d19b7e8a64790" title=" " alt="" coords="739,485,876,512"/>
-<area shape="poly" title=" " alt="" coords="663,496,723,496,723,501,663,501"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#ac06e54be6891384d157fef3c72cd1af5" title=" " alt="" coords="925,435,1050,461"/>
-<area shape="poly" title=" " alt="" coords="876,445,909,445,909,451,876,451"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#a143434a9ef4789a991f53fd4d15678c6" title=" " alt="" coords="1098,485,1211,512"/>
-<area shape="poly" title=" " alt="" coords="1035,459,1094,478,1093,483,1033,465"/>
-<area shape="poly" title=" " alt="" coords="864,543,952,535,1050,521,1087,514,1088,519,1051,527,953,540,865,548"/>
-<area shape="poly" title=" " alt="" coords="830,561,957,651,954,655,827,565"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#a36a43ae21bba5d18821d2d21c47e773d" title=" " alt="" coords="924,485,1050,512"/>
-<area shape="poly" title=" " alt="" coords="877,496,908,496,908,501,877,501"/>
-<area shape="poly" title=" " alt="" coords="1051,496,1083,496,1083,501,1051,501"/>
-<area shape="poly" title=" " alt="" coords="664,445,724,445,724,451,664,451"/>
-<area shape="poly" title=" " alt="" coords="665,458,692,471,707,484,717,497,726,509,740,522,748,527,745,531,737,526,722,513,713,500,704,488,689,476,663,463"/>
-<area shape="poly" title=" " alt="" coords="664,458,740,478,738,483,663,463"/>
-<area shape="poly" title=" " alt="" coords="253,1047,270,1034,292,999,301,964,299,929,293,894,287,858,286,822,295,786,318,749,320,746,324,750,322,752,299,788,291,823,292,858,299,893,305,928,306,964,297,1001,274,1038,256,1051"/>
-<area shape="poly" title=" " alt="" coords="253,1047,270,1034,289,1005,297,977,297,948,293,919,289,890,290,860,298,830,318,800,321,797,324,801,322,803,303,832,295,860,295,889,299,918,302,948,302,978,294,1008,274,1038,257,1051"/>
-<area shape="rect" href="class_sensor_array.html#a125722cbd712c7cde32fd391555d030e" title="Gets the output value of the sensor array." alt="" coords="329,813,484,856"/>
-<area shape="poly" title=" " alt="" coords="253,1046,270,1034,285,1014,293,994,294,953,296,910,303,888,318,866,320,864,324,868,322,870,308,891,301,911,300,953,298,995,290,1017,274,1038,257,1050"/>
-<area shape="rect" href="class_motor.html#a13544e4db01ed838ed83a387f3aa6066" title="Get the low&#45;pass filtered speed of the wheel." alt="" coords="344,880,469,923"/>
-<area shape="poly" title=" " alt="" coords="252,1045,270,1034,281,1022,288,1010,294,985,300,959,307,946,318,933,329,924,332,929,322,937,311,949,305,961,299,987,293,1012,286,1025,274,1038,255,1050"/>
-<area shape="rect" href="class_p_i_d.html#a5b2dd162af971a196f0039e118af899f" title="Get the output of the PID controller." alt="" coords="351,947,462,973"/>
-<area shape="poly" title=" " alt="" coords="247,1045,271,1034,285,1022,294,1009,303,996,319,983,335,975,337,979,321,988,307,1000,298,1012,289,1025,273,1038,249,1050"/>
-<area shape="rect" href="class_p_i_d.html#aeee74e9710b69e0f24092f4e01284a95" title="Updates the output of PID controller based on the real time measurement." alt="" coords="362,997,451,1024"/>
-<area shape="poly" title=" " alt="" coords="248,1045,346,1022,347,1027,249,1050"/>
-<area shape="rect" href="class_motor.html#a1b70870daea3a394303d05d64edf6f00" title="Calculate and update all the speed variables." alt="" coords="356,1048,457,1075"/>
-<area shape="poly" title=" " alt="" coords="255,1059,340,1059,340,1064,255,1064"/>
-<area shape="rect" href="class_sensor_array.html#a43a269e321e0567f996ab57bff26d6af" title="Updates the sensor array." alt="" coords="336,1099,476,1125"/>
-<area shape="poly" title=" " alt="" coords="249,1073,331,1092,330,1097,248,1078"/>
-<area shape="rect" href="main_8cpp.html#a69bdbd2ce224da71b012eb0d92a6dd92" title="Update buggy status variables." alt="" coords="334,1149,479,1176"/>
-<area shape="poly" title=" " alt="" coords="235,1073,273,1091,288,1103,298,1114,307,1125,321,1135,333,1141,330,1146,319,1140,304,1129,294,1117,284,1107,271,1096,233,1078"/>
-<area shape="poly" title=" " alt="" coords="815,954,968,700,972,703,819,957"/>
-<area shape="rect" href="class_p_i_d.html#af9677e76cb1beffbcf3f54cbc627c530" title="Reset the PID controller." alt="" coords="367,1375,446,1401"/>
-<area shape="poly" title=" " alt="" coords="245,1404,351,1392,351,1397,246,1409"/>
-<area shape="rect" href="class_motor.html#a6d3499cd2bc1a315ffae9f397c6e3233" title="Reset the encoder tick count." alt="" coords="361,1425,452,1452"/>
-<area shape="poly" title=" " alt="" coords="246,1417,345,1429,345,1434,245,1423"/>
-<area shape="poly" title=" " alt="" coords="235,723,315,723,315,728,235,728"/>
+<area shape="rect" title=" " alt="" coords="5,1187,55,1213"/>
+<area shape="rect" href="main_8cpp.html#acbb67905d42ded30a6eaa423ea036db0" title="Parse recieved bluetooth data." alt="" coords="151,687,240,713"/>
+<area shape="poly" title=" " alt="" coords="29,1186,35,1101,48,974,69,845,83,793,100,756,120,735,143,719,146,723,123,739,105,759,88,795,74,846,53,975,40,1102,35,1186"/>
+<area shape="rect" href="class_bluetooth.html#ae5692fc7fdfb254e24f438fab5b2765b" title="Set the continous property to the bool value passed." alt="" coords="340,763,505,789"/>
+<area shape="poly" title=" " alt="" coords="29,1186,33,1106,43,989,52,929,65,874,80,829,101,799,128,779,158,765,191,756,224,750,291,750,351,757,350,762,291,755,225,756,192,761,160,770,131,784,105,803,85,832,70,876,58,930,48,990,38,1107,34,1186"/>
+<area shape="rect" href="main_8cpp.html#a39195dff981a54ac9b42522c56e28111" title="Send data to the bt module." alt="" coords="146,332,245,359"/>
+<area shape="poly" title=" " alt="" coords="29,1186,32,1052,42,836,51,719,63,609,80,516,100,447,113,424,129,402,163,367,167,371,133,406,117,427,105,449,85,517,69,610,56,720,47,836,37,1053,34,1186"/>
+<area shape="rect" href="class_p_i_d.html#a81f6849faa7f9b494d3e8e53bb7468f9" title=" " alt="" coords="356,5,488,32"/>
+<area shape="poly" title=" " alt="" coords="29,1187,30,1033,39,779,47,641,60,512,77,400,100,319,144,225,166,189,190,158,217,129,250,101,335,42,343,37,346,41,337,46,253,105,221,133,194,161,170,192,148,228,105,321,82,402,65,512,53,642,44,779,35,1033,34,1187"/>
+<area shape="rect" href="class_motor.html#a9fa0a51efff1b1e0bedfaf81586108a9" title="Get the cumulative tick count." alt="" coords="349,408,496,435"/>
+<area shape="poly" title=" " alt="" coords="29,1186,30,1072,38,892,47,796,60,707,77,632,88,602,100,579,123,550,149,525,209,485,273,456,334,437,335,442,275,461,211,490,152,529,127,554,105,581,93,604,82,633,65,708,52,797,44,892,35,1072,34,1186"/>
+<area shape="rect" href="class_bluetooth.html#ad72f5938b867dff1fd919e16823898e0" title="Sends formatted string to the bluetooth." alt="" coords="345,459,499,485"/>
+<area shape="poly" title=" " alt="" coords="29,1186,34,1088,46,937,67,782,82,719,100,673,125,636,149,606,173,583,199,564,259,532,335,495,349,489,351,494,337,500,261,536,202,568,176,587,152,610,129,639,105,676,87,721,72,783,51,937,39,1088,34,1186"/>
+<area shape="rect" href="class_sensor_array.html#a0110dbd438a5cdce0f2d147124a3aa1d" title=" " alt="" coords="120,965,271,1008"/>
+<area shape="poly" title=" " alt="" coords="30,1186,36,1152,49,1108,69,1060,84,1038,101,1018,106,1014,109,1018,105,1022,88,1041,74,1063,54,1109,42,1153,36,1187"/>
+<area shape="rect" href="main_8cpp.html#ab1059bc314d55652ae71b3d07c89e44d" title="ISR updating the control algorithm." alt="" coords="128,864,263,891"/>
+<area shape="poly" title=" " alt="" coords="30,1186,38,1125,52,1040,73,956,86,923,101,901,113,891,116,895,105,904,91,926,78,958,57,1041,43,1126,35,1186"/>
+<area shape="rect" href="class_bluetooth.html#a641eb5a0aacad826977d8f6dce1f79b8" title="Returns true if incoming data is fully recieved." alt="" coords="114,1032,277,1075"/>
+<area shape="poly" title=" " alt="" coords="34,1185,58,1136,77,1109,101,1085,106,1081,109,1085,104,1089,81,1112,63,1139,39,1187"/>
+<area shape="rect" href="class_motor_driver_board.html#a701a92a3e90eb7f7d1a5a69f077dd278" title="causes the enable pin to be set to LOW" alt="" coords="111,1099,280,1125"/>
+<area shape="poly" title=" " alt="" coords="41,1185,67,1159,101,1135,114,1129,117,1134,104,1140,71,1163,45,1188"/>
+<area shape="rect" href="class_sensor_array.html#a7e09dfe2bd7cce996febe3eb5a047445" title=" " alt="" coords="103,1149,288,1192"/>
+<area shape="poly" title=" " alt="" coords="55,1193,87,1187,88,1193,55,1198"/>
+<area shape="rect" href="class_bluetooth.html#a7783adfe36362b71967e4d08a65a788a" title="returns the raw data recieved as a character array" alt="" coords="116,1216,275,1243"/>
+<area shape="poly" title=" " alt="" coords="55,1202,102,1210,101,1215,55,1207"/>
+<area shape="rect" href="class_sensor_array.html#a88b40d7590d708473c9e15d1cd4a4591" title="Checks if a line is detected (in the last update)." alt="" coords="126,1267,265,1309"/>
+<area shape="poly" title=" " alt="" coords="48,1212,73,1232,104,1252,114,1258,112,1262,101,1257,70,1236,45,1216"/>
+<area shape="rect" href="class_bluetooth.html#afa1d2eeb0651790a0d3a3a0b247fe24b" title="returns true if bluetooth module is ready" alt="" coords="129,1333,262,1360"/>
+<area shape="poly" title=" " alt="" coords="38,1213,61,1265,80,1294,104,1319,116,1327,113,1331,101,1323,76,1298,56,1268,33,1215"/>
+<area shape="rect" href="main_8cpp.html#a6eba6e3cd7b6f678e12db566d13c23e9" title=" " alt="" coords="176,1384,215,1411"/>
+<area shape="poly" title=" " alt="" coords="36,1213,42,1246,54,1288,74,1332,88,1352,104,1370,132,1385,162,1393,160,1398,130,1390,101,1374,84,1356,69,1335,49,1290,36,1247,30,1214"/>
+<area shape="rect" href="main_8cpp.html#a4553963c239316efafb949c46168c518" title="Send data to the pc." alt="" coords="144,1435,247,1461"/>
+<area shape="poly" title=" " alt="" coords="34,1214,37,1254,47,1310,68,1370,84,1397,104,1421,131,1437,128,1441,101,1425,80,1400,63,1372,42,1311,32,1255,29,1214"/>
+<area shape="rect" href="main_8cpp.html#a41e1c0745ad1e409f6a32e416307cb56" title="Reset all buggy values and all objects variables." alt="" coords="138,1485,253,1512"/>
+<area shape="poly" title=" " alt="" coords="33,1214,33,1262,41,1332,50,1369,63,1406,81,1441,104,1471,125,1485,122,1490,101,1475,76,1444,58,1408,44,1371,36,1332,28,1262,28,1214"/>
+<area shape="rect" href="class_bluetooth.html#abc47a4af0baaf6ae23231e49b7aac010" title="Resets the recieved data buffer for new incoming data." alt="" coords="130,1536,261,1579"/>
+<area shape="poly" title=" " alt="" coords="35,1214,43,1279,57,1371,77,1462,90,1498,105,1522,118,1534,115,1538,101,1526,85,1500,72,1464,51,1372,37,1279,30,1214"/>
+<area shape="rect" href="main_8cpp.html#a51a5c2b534f492ee4e26bacbdfd0de5e" title=" " alt="" coords="128,915,263,941"/>
+<area shape="poly" title=" " alt="" coords="28,1186,30,1142,39,1079,48,1045,61,1011,78,979,101,951,113,942,116,946,105,955,82,982,65,1013,53,1046,44,1080,35,1142,34,1187"/>
+<area shape="rect" href="main_8cpp.html#a69844253683680ca21d64d986e03babe" title="ISR to update flag to send data to pc/bt in main()" alt="" coords="132,1603,259,1629"/>
+<area shape="poly" title=" " alt="" coords="35,1214,40,1291,51,1404,73,1516,87,1560,105,1589,120,1600,116,1605,101,1592,82,1562,67,1517,46,1405,34,1291,29,1214"/>
+<area shape="rect" href="class_sensor_array.html#aba4c72a4e3bbe7994b5a5fcb98fe886f" title="Sets the status of all LEDs." alt="" coords="126,1653,265,1696"/>
+<area shape="poly" title=" " alt="" coords="34,1214,39,1300,50,1427,59,1494,71,1555,86,1605,105,1640,115,1649,111,1653,101,1643,81,1607,66,1556,54,1495,44,1428,33,1300,29,1214"/>
+<area shape="rect" href="class_motor_driver_board.html#a893aebb1d49eec1b0e0d102fd9f16957" title="enable pin will be set to the boolean value in the paremeter" alt="" coords="122,1720,269,1763"/>
+<area shape="poly" title=" " alt="" coords="34,1214,36,1310,46,1458,55,1536,67,1607,84,1666,105,1706,112,1713,108,1717,101,1710,79,1668,62,1608,50,1536,41,1459,31,1311,29,1214"/>
+<area shape="rect" href="main_8cpp.html#aa74f0c8a872d57ab1c2bb06633cf1664" title=" " alt="" coords="139,1787,252,1813"/>
+<area shape="poly" title=" " alt="" coords="34,1214,34,1323,41,1491,49,1579,62,1661,80,1728,92,1754,105,1773,126,1788,123,1792,101,1777,87,1756,75,1730,57,1662,44,1580,35,1491,28,1323,28,1214"/>
+<area shape="rect" href="main_8cpp.html#aca88d4a6c0742625ae7415a0322037b8" title=" " alt="" coords="137,1837,254,1864"/>
+<area shape="poly" title=" " alt="" coords="35,1213,42,1339,56,1534,77,1721,91,1788,105,1824,124,1838,121,1842,101,1827,85,1790,72,1722,51,1534,36,1339,29,1214"/>
+<area shape="rect" href="main_8cpp.html#a4f089b490d9d445d79fa9e73e85aed65" title="Set pwm dc to 0 for both motors." alt="" coords="149,813,242,840"/>
+<area shape="poly" title=" " alt="" coords="30,1186,36,1116,49,1016,70,916,84,877,101,850,116,839,133,831,135,836,118,843,105,854,89,880,75,918,54,1017,41,1117,35,1186"/>
+<area shape="rect" href="main_8cpp.html#a69bdbd2ce224da71b012eb0d92a6dd92" title="Update buggy status variables." alt="" coords="123,1888,268,1915"/>
+<area shape="poly" title=" " alt="" coords="35,1213,41,1348,55,1559,76,1763,90,1836,97,1860,105,1874,111,1881,107,1884,101,1878,92,1862,84,1837,71,1763,49,1559,36,1348,29,1214"/>
+<area shape="rect" href="class_bluetooth.html#ae7a2813bf139a42a5134713c5b8c9939" title="returns true if continous update is enabled" alt="" coords="344,560,501,587"/>
+<area shape="poly" title=" " alt="" coords="210,684,263,641,298,617,335,596,349,590,352,595,337,601,301,622,266,646,214,688"/>
+<area shape="rect" href="main_8cpp.html#a5e48045a4072975fd32e2daee4a02228" title=" " alt="" coords="399,611,445,637"/>
+<area shape="poly" title=" " alt="" coords="232,684,335,647,383,632,385,637,337,652,234,689"/>
+<area shape="rect" href="class_p_i_d.html#aa3cc231cd26b1cc957bc77af2eefeff2" title="Takes in the 3 parameters to set the PID coefficients values." alt="" coords="356,661,488,688"/>
+<area shape="poly" title=" " alt="" coords="240,692,340,681,341,686,241,698"/>
+<area shape="poly" title=" " alt="" coords="234,711,337,748,359,755,357,760,335,753,232,716"/>
+<area shape="rect" href="class_motor.html#a16a90b803a442cb2eae9974586a2ea8f" title="Set the duty cycle of the motor." alt="" coords="347,813,497,840"/>
+<area shape="poly" title=" " alt="" coords="214,712,266,754,301,778,337,799,352,805,349,810,335,804,298,783,263,759,210,716"/>
+<area shape="rect" href="class_bluetooth.html#a668f77350b9862f85f5cc0cda28cbc6c" title="Set the send once property to the bool value passed." alt="" coords="336,509,508,536"/>
+<area shape="poly" title=" " alt="" coords="203,685,253,618,291,579,335,546,345,540,347,545,337,550,295,583,257,622,207,688"/>
+<area shape="rect" href="class_p_i_d.html#a7ade6779333703b695f399b4acbc54ee" title=" " alt="" coords="376,712,469,739"/>
+<area shape="poly" title=" " alt="" coords="241,702,360,716,360,721,240,708"/>
+<area shape="rect" href="class_motor.html#a1036611ac5c81da2df48ba3ea8d870bd" title="Set the direction of the motor." alt="" coords="563,813,700,840"/>
+<area shape="poly" title=" " alt="" coords="498,824,548,824,548,829,498,829"/>
+<area shape="poly" title=" " alt="" coords="205,358,222,395,250,446,289,500,312,525,338,546,345,551,342,555,334,550,309,528,285,503,246,449,217,398,200,360"/>
+<area shape="poly" title=" " alt="" coords="207,357,257,423,295,462,337,495,347,501,345,505,335,500,291,466,253,427,203,361"/>
+<area shape="poly" title=" " alt="" coords="203,330,240,264,286,175,297,137,302,104,311,74,334,42,341,36,345,40,338,46,315,76,307,105,302,138,290,177,245,267,207,333"/>
+<area shape="rect" href="class_motor_driver_board.html#ac84ec5e04204544a83a5715ed1ffcf93" title="returns the actual curent value" alt="" coords="349,240,495,283"/>
+<area shape="poly" title=" " alt="" coords="233,329,347,286,349,291,235,334"/>
+<area shape="rect" href="class_motor.html#a3ed780e05e0369a8b0c1e327497337e7" title="Get the duty cycle of the motor." alt="" coords="347,307,497,333"/>
+<area shape="poly" title=" " alt="" coords="245,337,331,327,332,333,246,342"/>
+<area shape="rect" href="class_motor.html#a053255271560b8caff94f5e4a7b068a0" title="Get the tangential speed of the wheel." alt="" coords="361,357,483,384"/>
+<area shape="poly" title=" " alt="" coords="246,348,346,360,346,365,245,353"/>
+<area shape="poly" title=" " alt="" coords="234,357,337,393,359,400,357,406,335,399,232,362"/>
+<area shape="rect" href="class_motor_driver_board.html#a1998bf94bc85a267c84d54cf69d5526e" title="returns the actual voltage value" alt="" coords="349,56,495,99"/>
+<area shape="poly" title=" " alt="" coords="202,331,270,208,309,144,334,109,338,105,342,110,338,113,313,147,275,211,206,333"/>
+<area shape="rect" href="class_bluetooth.html#ad5dc6865758ae4f2edd848afdd503c1e" title="returns true if send once is enabled" alt="" coords="340,123,504,149"/>
+<area shape="poly" title=" " alt="" coords="201,330,219,296,249,249,287,201,334,159,343,154,345,159,338,163,291,205,253,253,224,298,206,333"/>
+<area shape="poly" title=" " alt="" coords="214,357,266,400,301,423,337,444,352,451,349,455,335,449,298,428,263,404,210,361"/>
+<area shape="rect" href="class_motor_driver_board.html#a2680220ee95803ef1d39503e47e56475" title="updates the measurements of voltage and current values" alt="" coords="339,173,506,216"/>
+<area shape="poly" title=" " alt="" coords="208,329,261,280,297,251,335,226,343,221,346,226,337,230,300,256,265,284,212,333"/>
+<area shape="rect" href="class_bluetooth.html#a9e90d0e511be94da7483ab2fe3d20bf4" title="Sends character array to the bluetooth." alt="" coords="556,459,707,485"/>
+<area shape="poly" title=" " alt="" coords="500,469,541,469,541,475,500,475"/>
+<area shape="poly" title=" " alt="" coords="258,861,344,841,345,847,259,866"/>
+<area shape="rect" href="class_motor.html#a13544e4db01ed838ed83a387f3aa6066" title="Get the low&#45;pass filtered speed of the wheel." alt="" coords="360,1016,485,1059"/>
+<area shape="poly" title=" " alt="" coords="264,886,290,901,302,913,309,926,315,952,321,977,327,990,338,1002,348,1010,345,1014,334,1006,323,993,316,979,310,953,304,928,297,916,286,905,262,891"/>
+<area shape="rect" href="class_p_i_d.html#a5b2dd162af971a196f0039e118af899f" title="Get the output of the PID controller." alt="" coords="367,864,478,891"/>
+<area shape="poly" title=" " alt="" coords="263,875,351,875,351,880,263,880"/>
+<area shape="rect" href="class_p_i_d.html#a1f4aed76541746be32dc9d7ded5b7cc5" title="Get the PID terms." alt="" coords="368,915,476,941"/>
+<area shape="poly" title=" " alt="" coords="259,889,353,910,352,915,258,894"/>
+<area shape="rect" href="class_p_i_d.html#aeee74e9710b69e0f24092f4e01284a95" title="Updates the output of PID controller based on the real time measurement." alt="" coords="378,1083,467,1109"/>
+<area shape="poly" title=" " alt="" coords="264,885,290,901,306,922,314,944,315,986,316,1028,323,1049,338,1069,364,1085,361,1089,334,1073,318,1051,311,1029,310,987,308,945,301,925,286,905,262,889"/>
+<area shape="rect" href="class_motor.html#a1b70870daea3a394303d05d64edf6f00" title="Calculate and update all the speed variables." alt="" coords="372,965,473,992"/>
+<area shape="poly" title=" " alt="" coords="264,889,289,900,305,913,314,926,323,939,337,951,358,961,356,966,335,956,319,943,310,929,301,917,287,905,262,893"/>
+<area shape="rect" href="class_p_i_d.html#af9677e76cb1beffbcf3f54cbc627c530" title="Reset the PID controller." alt="" coords="383,1511,462,1537"/>
+<area shape="poly" title=" " alt="" coords="254,1502,367,1515,367,1521,253,1508"/>
+<area shape="rect" href="class_motor.html#a6d3499cd2bc1a315ffae9f397c6e3233" title="Reset the encoder tick count." alt="" coords="377,1460,468,1487"/>
+<area shape="poly" title=" " alt="" coords="253,1490,360,1477,361,1483,254,1495"/>
+<area shape="poly" title=" " alt="" coords="264,936,290,951,303,966,310,981,315,1011,319,1041,326,1055,338,1069,364,1084,361,1088,334,1073,321,1058,314,1042,310,1012,305,983,298,969,286,955,261,941"/>
+<area shape="rect" href="class_sensor_array.html#a424f6e50daaefc6165b819ff2b2da08d" title=" " alt="" coords="340,1184,504,1227"/>
+<area shape="poly" title=" " alt="" coords="264,935,290,951,309,979,318,1007,319,1034,316,1062,313,1089,314,1116,321,1143,338,1170,339,1172,335,1175,334,1174,316,1145,308,1116,308,1088,311,1061,314,1034,313,1008,305,982,286,955,261,939"/>
+<area shape="rect" href="class_sensor_array.html#a43a269e321e0567f996ab57bff26d6af" title="Updates the sensor array." alt="" coords="352,1133,492,1160"/>
+<area shape="poly" title=" " alt="" coords="264,935,290,951,306,973,314,994,315,1037,316,1079,323,1099,338,1120,341,1122,337,1126,334,1123,318,1102,311,1080,310,1037,308,995,301,975,286,955,262,940"/>
+<area shape="poly" title=" " alt="" coords="243,824,332,824,332,829,243,829"/>
 </map>
 </div>
 
@@ -763,49 +799,46 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a6eba6e3cd7b6f678e12db566d13c23e9_icgraph.png" border="0" usemap="#amain_8cpp_a6eba6e3cd7b6f678e12db566d13c23e9_icgraph" alt=""/></div>
 <map name="amain_8cpp_a6eba6e3cd7b6f678e12db566d13c23e9_icgraph" id="amain_8cpp_a6eba6e3cd7b6f678e12db566d13c23e9_icgraph">
-<area shape="rect" title=" " alt="" coords="851,372,889,399"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,423,55,449"/>
-<area shape="poly" title=" " alt="" coords="858,358,825,266,798,208,765,150,724,95,675,50,648,33,620,19,589,11,556,8,335,8,298,12,264,23,233,40,204,62,178,89,154,119,114,187,83,259,60,327,36,423,31,422,55,325,78,257,109,185,150,116,174,85,200,58,230,35,262,18,297,7,335,3,556,3,590,6,622,14,651,28,679,46,728,92,769,147,803,206,830,264,863,356"/>
-<area shape="rect" href="_one_wire___methods_8cpp.html#a7314e5938b3ad60b701799fe6b74ab9b" title=" " alt="" coords="690,372,803,399"/>
-<area shape="poly" title=" " alt="" coords="835,388,804,388,804,383,835,383"/>
-<area shape="rect" href="main_8cpp.html#a4553963c239316efafb949c46168c518" title="Send data to the pc." alt="" coords="103,549,205,576"/>
-<area shape="poly" title=" " alt="" coords="864,414,839,485,795,577,765,625,730,670,690,710,643,742,609,757,574,765,538,768,502,765,430,748,361,717,298,680,242,641,168,578,171,574,245,637,300,676,364,713,432,742,503,760,538,763,573,760,607,752,640,738,686,706,726,667,761,622,790,575,834,483,859,412"/>
-<area shape="rect" href="ds2781_8cpp.html#a44e382aaeb6222bf0f774dd19ec6d043" title=" " alt="" coords="270,93,404,120"/>
-<area shape="poly" title=" " alt="" coords="736,357,724,318,705,271,677,224,640,185,608,172,547,155,404,123,405,118,548,150,609,167,643,180,681,221,709,269,729,316,741,356"/>
-<area shape="rect" href="ds2781_8cpp.html#ae3746f818bca13d2709fc489875b145c" title=" " alt="" coords="501,195,609,221"/>
-<area shape="poly" title=" " alt="" coords="731,359,696,296,671,263,640,236,608,220,611,215,643,231,674,260,701,293,736,356"/>
-<area shape="rect" href="ds2781_8cpp.html#aac57ddfd805c56009c1efb5c3d3664cc" title=" " alt="" coords="470,245,640,272"/>
-<area shape="poly" title=" " alt="" coords="723,362,687,323,640,286,616,275,618,270,643,282,691,319,727,358"/>
-<area shape="rect" href="ds2781_8cpp.html#af8a939403a48744a8124c2d9a9b02a11" title=" " alt="" coords="508,296,602,323"/>
-<area shape="poly" title=" " alt="" coords="705,367,641,337,601,324,603,319,643,332,708,362"/>
-<area shape="rect" href="ds2781_8cpp.html#aec1febcd32cb034916bc5a91191a9ead" title=" " alt="" coords="491,347,619,373"/>
-<area shape="poly" title=" " alt="" coords="674,379,619,371,619,366,675,373"/>
-<area shape="rect" href="ds2781_8cpp.html#a67ec42591ad8ed5e13d2c68159a60028" title=" " alt="" coords="495,397,615,424"/>
-<area shape="poly" title=" " alt="" coords="675,397,615,405,614,400,674,392"/>
-<area shape="rect" href="ds2781_8cpp.html#ac911d4881557c9afe1f563ee1be908bd" title=" " alt="" coords="515,448,595,475"/>
-<area shape="poly" title=" " alt="" coords="708,409,643,438,596,454,595,449,641,434,705,404"/>
-<area shape="rect" href="ds2781_8cpp.html#ae40a6c3cffe127bf451e9c0c5f33376b" title=" " alt="" coords="493,499,617,525"/>
-<area shape="poly" title=" " alt="" coords="727,413,691,452,643,489,618,501,616,496,640,484,687,448,723,409"/>
-<area shape="rect" href="ds2781_8cpp.html#a1d7e1bea8d54bb388b1e8f5474050dd1" title=" " alt="" coords="507,549,603,576"/>
-<area shape="poly" title=" " alt="" coords="736,414,701,477,674,511,643,539,624,550,604,557,602,552,622,545,640,535,671,507,696,474,731,412"/>
-<area shape="rect" href="ds2781_8cpp.html#a1c37018173fcfa9d3c885eb179541b9e" title=" " alt="" coords="498,600,612,627"/>
-<area shape="poly" title=" " alt="" coords="741,414,728,454,709,501,681,549,643,590,614,606,611,601,640,586,676,546,704,499,723,452,736,413"/>
-<area shape="rect" href="ds2781_8cpp.html#a84bdbed1a8ffdbddc3e3b2c0dcab891a" title=" " alt="" coords="468,651,642,677"/>
-<area shape="poly" title=" " alt="" coords="744,415,734,464,716,524,687,587,667,615,643,641,626,652,623,648,640,637,663,612,682,584,711,522,729,462,739,414"/>
-<area shape="rect" href="ds2781_8cpp.html#a4158ae6dfe952c94d5b2387b388c4654" title=" " alt="" coords="479,701,631,728"/>
-<area shape="poly" title=" " alt="" coords="746,414,740,472,723,546,710,586,693,624,671,660,643,691,627,703,624,699,640,687,666,657,688,621,705,584,718,545,734,471,741,414"/>
-<area shape="rect" href="ds2781_8cpp.html#a6e37677c396f208d92d80c0a66f9d342" title=" " alt="" coords="491,43,619,69"/>
-<area shape="poly" title=" " alt="" coords="741,357,734,299,718,226,705,187,688,149,666,114,640,83,618,69,621,65,643,79,671,111,693,147,710,185,723,224,740,298,746,356"/>
-<area shape="rect" href="ds2781_8cpp.html#ad43da5f4fe71445ac8056463699203a2" title=" " alt="" coords="514,93,596,120"/>
-<area shape="poly" title=" " alt="" coords="738,357,728,310,709,252,680,193,662,165,640,141,619,126,595,117,597,112,621,121,643,137,666,162,685,190,714,250,733,309,743,356"/>
-<area shape="rect" href="class_motor_driver_board.html#a2680220ee95803ef1d39503e47e56475" title="updates the measurements of voltage and current values" alt="" coords="253,415,420,457"/>
-<area shape="poly" title=" " alt="" coords="494,327,470,337,410,376,362,416,359,412,407,372,467,332,492,322"/>
-<area shape="rect" href="main_8cpp.html#a39195dff981a54ac9b42522c56e28111" title="Send data to the bt module." alt="" coords="104,423,204,449"/>
-<area shape="poly" title=" " alt="" coords="237,439,204,439,204,433,237,433"/>
-<area shape="poly" title=" " alt="" coords="88,439,55,439,55,433,88,433"/>
-<area shape="poly" title=" " alt="" coords="492,550,467,540,407,500,359,460,362,456,410,496,470,535,494,545"/>
-<area shape="poly" title=" " alt="" coords="480,76,398,95,397,90,479,71"/>
-<area shape="poly" title=" " alt="" coords="127,540,43,452,47,448,131,536"/>
+<area shape="rect" title=" " alt="" coords="848,169,886,196"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,43,55,69"/>
+<area shape="poly" title=" " alt="" coords="841,160,793,116,724,66,685,43,642,25,598,13,553,8,332,8,252,13,174,25,56,52,55,47,173,19,252,8,332,3,553,3,599,7,644,20,687,38,727,61,796,112,845,156"/>
+<area shape="rect" href="_one_wire___methods_8cpp.html#a7314e5938b3ad60b701799fe6b74ab9b" title=" " alt="" coords="687,347,800,373"/>
+<area shape="poly" title=" " alt="" coords="850,211,756,348,752,345,846,208"/>
+<area shape="rect" href="ds2781_8cpp.html#a44e382aaeb6222bf0f774dd19ec6d043" title=" " alt="" coords="267,600,401,627"/>
+<area shape="poly" title=" " alt="" coords="746,389,744,454,730,538,717,581,699,623,673,660,640,692,603,710,563,716,521,711,480,700,440,683,405,664,352,629,355,625,407,659,443,678,481,695,522,706,563,710,601,705,637,687,669,657,694,620,712,579,725,536,738,453,741,389"/>
+<area shape="rect" href="ds2781_8cpp.html#ae3746f818bca13d2709fc489875b145c" title=" " alt="" coords="498,144,606,171"/>
+<area shape="poly" title=" " alt="" coords="731,333,717,299,697,259,670,219,637,185,605,169,608,164,640,181,675,215,702,256,722,296,736,331"/>
+<area shape="rect" href="ds2781_8cpp.html#aac57ddfd805c56009c1efb5c3d3664cc" title=" " alt="" coords="467,195,637,221"/>
+<area shape="poly" title=" " alt="" coords="725,335,689,284,665,258,637,236,615,224,618,220,640,231,668,254,693,281,729,332"/>
+<area shape="rect" href="ds2781_8cpp.html#af8a939403a48744a8124c2d9a9b02a11" title=" " alt="" coords="505,245,599,272"/>
+<area shape="poly" title=" " alt="" coords="714,339,679,311,637,286,598,272,600,267,640,282,682,307,717,334"/>
+<area shape="rect" href="ds2781_8cpp.html#aec1febcd32cb034916bc5a91191a9ead" title=" " alt="" coords="488,296,616,323"/>
+<area shape="poly" title=" " alt="" coords="675,345,605,326,606,321,676,339"/>
+<area shape="rect" href="ds2781_8cpp.html#a67ec42591ad8ed5e13d2c68159a60028" title=" " alt="" coords="492,347,612,373"/>
+<area shape="poly" title=" " alt="" coords="671,363,612,363,612,357,671,357"/>
+<area shape="rect" href="ds2781_8cpp.html#ac911d4881557c9afe1f563ee1be908bd" title=" " alt="" coords="512,397,592,424"/>
+<area shape="poly" title=" " alt="" coords="676,380,593,403,592,398,675,375"/>
+<area shape="rect" href="ds2781_8cpp.html#ae40a6c3cffe127bf451e9c0c5f33376b" title=" " alt="" coords="490,448,614,475"/>
+<area shape="poly" title=" " alt="" coords="717,386,682,413,640,438,611,450,609,445,637,434,679,409,714,381"/>
+<area shape="rect" href="ds2781_8cpp.html#a1d7e1bea8d54bb388b1e8f5474050dd1" title=" " alt="" coords="504,93,600,120"/>
+<area shape="poly" title=" " alt="" coords="734,332,724,288,705,235,676,180,658,156,637,134,619,123,599,116,601,111,622,118,640,130,662,152,681,178,710,233,729,287,740,331"/>
+<area shape="rect" href="ds2781_8cpp.html#a1c37018173fcfa9d3c885eb179541b9e" title=" " alt="" coords="495,549,609,576"/>
+<area shape="poly" title=" " alt="" coords="736,389,722,424,702,464,675,505,640,539,611,555,608,550,637,535,670,501,697,461,717,421,731,387"/>
+<area shape="rect" href="ds2781_8cpp.html#a84bdbed1a8ffdbddc3e3b2c0dcab891a" title=" " alt="" coords="465,600,639,627"/>
+<area shape="poly" title=" " alt="" coords="740,389,729,433,710,487,681,542,662,568,640,590,622,602,620,597,637,586,658,564,676,540,705,485,724,432,734,388"/>
+<area shape="rect" href="ds2781_8cpp.html#a4158ae6dfe952c94d5b2387b388c4654" title=" " alt="" coords="476,651,628,677"/>
+<area shape="poly" title=" " alt="" coords="742,390,734,443,717,510,687,580,666,612,640,641,623,652,620,648,637,637,662,609,682,578,712,509,729,442,737,389"/>
+<area shape="rect" href="ds2781_8cpp.html#a6e37677c396f208d92d80c0a66f9d342" title=" " alt="" coords="488,499,616,525"/>
+<area shape="poly" title=" " alt="" coords="729,388,693,439,668,466,640,489,618,500,615,496,637,484,665,462,689,436,725,385"/>
+<area shape="rect" href="ds2781_8cpp.html#ad43da5f4fe71445ac8056463699203a2" title=" " alt="" coords="511,43,593,69"/>
+<area shape="poly" title=" " alt="" coords="737,331,729,278,712,211,682,142,662,111,637,83,616,70,592,63,594,58,618,65,640,79,666,108,687,140,717,210,734,277,742,330"/>
+<area shape="rect" href="class_motor_driver_board.html#a2680220ee95803ef1d39503e47e56475" title="updates the measurements of voltage and current values" alt="" coords="250,85,417,128"/>
+<area shape="poly" title=" " alt="" coords="489,247,464,236,429,211,397,183,350,130,354,127,401,179,432,207,467,231,491,242"/>
+<area shape="rect" href="main_8cpp.html#a39195dff981a54ac9b42522c56e28111" title="Send data to the bt module." alt="" coords="103,68,202,95"/>
+<area shape="poly" title=" " alt="" coords="235,95,202,91,203,86,235,90"/>
+<area shape="poly" title=" " alt="" coords="87,71,54,64,56,58,88,65"/>
+<area shape="poly" title=" " alt="" coords="489,109,418,109,418,104,489,104"/>
+<area shape="poly" title=" " alt="" coords="483,533,466,540,406,571,357,602,354,597,403,566,464,535,481,528"/>
 </map>
 </div>
 
@@ -828,17 +861,7 @@ Here is the caller graph for this function:</div>
 
 <p>Send data to the pc. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00670">670</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8cpp_a4553963c239316efafb949c46168c518_cgraph.png" border="0" usemap="#amain_8cpp_a4553963c239316efafb949c46168c518_cgraph" alt=""/></div>
-<map name="amain_8cpp_a4553963c239316efafb949c46168c518_cgraph" id="amain_8cpp_a4553963c239316efafb949c46168c518_cgraph">
-<area shape="rect" title="Send data to the pc." alt="" coords="5,5,108,32"/>
-<area shape="rect" href="main_8cpp.html#a6eba6e3cd7b6f678e12db566d13c23e9" title=" " alt="" coords="156,5,194,32"/>
-<area shape="poly" title=" " alt="" coords="108,16,140,16,140,21,108,21"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00958">958</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -869,7 +892,7 @@ Here is the caller graph for this function:</div>
 
 <p>Reset all buggy values and all objects variables. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00394">394</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00690">690</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -895,6 +918,49 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a51a5c2b534f492ee4e26bacbdfd0de5e" name="a51a5c2b534f492ee4e26bacbdfd0de5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51a5c2b534f492ee4e26bacbdfd0de5e">&#9670;&#160;</a></span>sensor_update_ISR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sensor_update_ISR </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00648">648</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_a51a5c2b534f492ee4e26bacbdfd0de5e_cgraph.png" border="0" usemap="#amain_8cpp_a51a5c2b534f492ee4e26bacbdfd0de5e_cgraph" alt=""/></div>
+<map name="amain_8cpp_a51a5c2b534f492ee4e26bacbdfd0de5e_cgraph" id="amain_8cpp_a51a5c2b534f492ee4e26bacbdfd0de5e_cgraph">
+<area shape="rect" title=" " alt="" coords="5,72,140,99"/>
+<area shape="rect" href="class_sensor_array.html#a424f6e50daaefc6165b819ff2b2da08d" title=" " alt="" coords="188,5,352,48"/>
+<area shape="poly" title=" " alt="" coords="119,69,180,50,182,56,121,74"/>
+<area shape="rect" href="class_p_i_d.html#aeee74e9710b69e0f24092f4e01284a95" title="Updates the output of PID controller based on the real time measurement." alt="" coords="225,72,315,99"/>
+<area shape="poly" title=" " alt="" coords="140,83,210,83,210,88,140,88"/>
+<area shape="rect" href="class_sensor_array.html#a43a269e321e0567f996ab57bff26d6af" title="Updates the sensor array." alt="" coords="200,123,340,149"/>
+<area shape="poly" title=" " alt="" coords="128,97,201,116,199,121,127,102"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_a51a5c2b534f492ee4e26bacbdfd0de5e_icgraph.png" border="0" usemap="#amain_8cpp_a51a5c2b534f492ee4e26bacbdfd0de5e_icgraph" alt=""/></div>
+<map name="amain_8cpp_a51a5c2b534f492ee4e26bacbdfd0de5e_icgraph" id="amain_8cpp_a51a5c2b534f492ee4e26bacbdfd0de5e_icgraph">
+<area shape="rect" title=" " alt="" coords="103,5,237,32"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
+<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a69844253683680ca21d64d986e03babe" name="a69844253683680ca21d64d986e03babe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a69844253683680ca21d64d986e03babe">&#9670;&#160;</a></span>serial_update_ISR()</h2>
 
@@ -912,13 +978,71 @@ Here is the caller graph for this function:</div>
 
 <p>ISR to update flag to send data to pc/bt in <a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00583">583</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00856">856</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a69844253683680ca21d64d986e03babe_icgraph.png" border="0" usemap="#amain_8cpp_a69844253683680ca21d64d986e03babe_icgraph" alt=""/></div>
 <map name="amain_8cpp_a69844253683680ca21d64d986e03babe_icgraph" id="amain_8cpp_a69844253683680ca21d64d986e03babe_icgraph">
 <area shape="rect" title="ISR to update flag to send data to pc/bt in main()" alt="" coords="103,5,229,32"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
+<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa74f0c8a872d57ab1c2bb06633cf1664" name="aa74f0c8a872d57ab1c2bb06633cf1664"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa74f0c8a872d57ab1c2bb06633cf1664">&#9670;&#160;</a></span>slow_accel_ISR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void slow_accel_ISR </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00655">655</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_aa74f0c8a872d57ab1c2bb06633cf1664_icgraph.png" border="0" usemap="#amain_8cpp_aa74f0c8a872d57ab1c2bb06633cf1664_icgraph" alt=""/></div>
+<map name="amain_8cpp_aa74f0c8a872d57ab1c2bb06633cf1664_icgraph" id="amain_8cpp_aa74f0c8a872d57ab1c2bb06633cf1664_icgraph">
+<area shape="rect" title=" " alt="" coords="103,5,216,32"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
+<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aca88d4a6c0742625ae7415a0322037b8" name="aca88d4a6c0742625ae7415a0322037b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca88d4a6c0742625ae7415a0322037b8">&#9670;&#160;</a></span>stop_detect_ISR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void stop_detect_ISR </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00664">664</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_aca88d4a6c0742625ae7415a0322037b8_icgraph.png" border="0" usemap="#amain_8cpp_aca88d4a6c0742625ae7415a0322037b8_icgraph" alt=""/></div>
+<map name="amain_8cpp_aca88d4a6c0742625ae7415a0322037b8_icgraph" id="amain_8cpp_aca88d4a6c0742625ae7415a0322037b8_icgraph">
+<area shape="rect" title=" " alt="" coords="103,5,220,32"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
 <area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
 </map>
@@ -943,7 +1067,7 @@ Here is the caller graph for this function:</div>
 
 <p>Set pwm dc to 0 for both motors. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00377">377</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00673">673</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -990,15 +1114,13 @@ Here is the caller graph for this function:</div>
 
 <p>Update buggy status variables. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00384">384</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00680">680</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a69bdbd2ce224da71b012eb0d92a6dd92_icgraph.png" border="0" usemap="#amain_8cpp_a69bdbd2ce224da71b012eb0d92a6dd92_icgraph" alt=""/></div>
 <map name="amain_8cpp_a69bdbd2ce224da71b012eb0d92a6dd92_icgraph" id="amain_8cpp_a69bdbd2ce224da71b012eb0d92a6dd92_icgraph">
-<area shape="rect" title="Update buggy status variables." alt="" coords="285,5,430,32"/>
-<area shape="rect" href="main_8cpp.html#ab1059bc314d55652ae71b3d07c89e44d" title="ISR updating the control algorithm." alt="" coords="103,5,237,32"/>
-<area shape="poly" title=" " alt="" coords="269,21,237,21,237,16,269,16"/>
+<area shape="rect" title="Update buggy status variables." alt="" coords="103,5,248,32"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
 <area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
 </map>
@@ -1014,7 +1136,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_bluetooth.html">Bluetooth</a> bt(<a class="el" href="pin__assignments_8h.html#a0b4c8d9988d46bfd7ffb4fbc7301255b">BT_TX_PIN</a>, <a class="el" href="pin__assignments_8h.html#a380241e001bf0988467b3e70a33032c9">BT_RX_PIN</a>, <a class="el" href="constants_8h.html#aea9dc6a2929b2f9722afae9842e45f57">BT_BAUD_RATE</a>) </td>
+          <td class="memname"><a class="el" href="class_bluetooth.html">Bluetooth</a> bt(<a class="el" href="pin__assignments_8h.html#a0b4c8d9988d46bfd7ffb4fbc7301255b">BT_TX_PIN</a>, <a class="el" href="pin__assignments_8h.html#a380241e001bf0988467b3e70a33032c9">BT_RX_PIN</a>, BT_BAUD_RATE) </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="pin__assignments_8h.html#a0b4c8d9988d46bfd7ffb4fbc7301255b">BT_TX_PIN</a></td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
@@ -1026,7 +1148,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#aea9dc6a2929b2f9722afae9842e45f57">BT_BAUD_RATE</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
+          <td class="paramtype">BT_BAUD_RATE</td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1045,7 +1167,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00108">108</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00125">125</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1061,7 +1183,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00107">107</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00122">122</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1077,7 +1199,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00109">109</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00126">126</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1093,7 +1215,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00103">103</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00118">118</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1104,12 +1226,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64">Buggy_modes</a> buggy_mode = <a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64a76c1253bb97844abbdf89af6dfc3c7d6">inactive</a></td>
+          <td class="memname"><a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64">Buggy_modes</a> buggy_mode</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00111">111</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00130">130</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1125,7 +1247,23 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00113">113</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00132">132</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acb6098d657810161cef3329614191ee0" name="acb6098d657810161cef3329614191ee0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb6098d657810161cef3329614191ee0">&#9670;&#160;</a></span>cal_constants</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float* cal_constants</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00128">128</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1141,7 +1279,23 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00120">120</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00141">141</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0b5dff89b696a8ccb3164977775e84c1" name="a0b5dff89b696a8ccb3164977775e84c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b5dff89b696a8ccb3164977775e84c1">&#9670;&#160;</a></span>data_log</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">short int data_log[LOG_SIZE][5] = {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00123">123</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1178,7 +1332,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00119">119</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00140">140</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1194,7 +1348,55 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00104">104</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00119">119</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8226206f80aa947dc0f63ba7d36d1a05" name="a8226206f80aa947dc0f63ba7d36d1a05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8226206f80aa947dc0f63ba7d36d1a05">&#9670;&#160;</a></span>lf_velocity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile float lf_velocity = <a class="el" href="constants_8h.html#ab1007e8ed2cd6ed377b5ddc5e0b9a19e">LINE_FOLLOW_VELOCITY</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00134">134</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8159879301332c0c801d519a7476c211" name="a8159879301332c0c801d519a7476c211"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8159879301332c0c801d519a7476c211">&#9670;&#160;</a></span>log_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int log_index = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00124">124</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aed2579ce370491061541a6e430fcafc8" name="aed2579ce370491061541a6e430fcafc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed2579ce370491061541a6e430fcafc8">&#9670;&#160;</a></span>logic_timout</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Timeout logic_timout</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00144">144</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1210,7 +1412,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00105">105</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00120">120</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1221,7 +1423,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_motor.html">Motor</a> motor_left(<a class="el" href="pin__assignments_8h.html#a5854028e47f0b011fbc6c7bf52a34b78">MOTORL_PWM_PIN</a>, <a class="el" href="pin__assignments_8h.html#ab590c97a4987e19c3d253bd5dcc24e79">MOTORL_DIRECTION_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac9b38bed903c4dd787b36f90125f406e">MOTORL_BIPOLAR_PIN</a>, <a class="el" href="pin__assignments_8h.html#a8ed3b248525bd1974f244c4b2241fd73">MOTORL_CHA_PIN</a>, <a class="el" href="pin__assignments_8h.html#a336ecfe0d128a3f0816e7699d1b31b0a">MOTORL_CHB_PIN</a>, <a class="el" href="constants_8h.html#a188aa7b9dc2b355fa61ad0681b78ec14">PULSE_PER_REV</a>, <a class="el" href="constants_8h.html#aee59388b533f4bbe19e91d0ac0918f28">MOTOR_PWM_FREQ</a>, <a class="el" href="constants_8h.html#a65e0d2b6dd3d064ba5fa28a16d74f99f">CONTROL_UPDATE_RATE</a>, <a class="el" href="constants_8h.html#ace928619e98095d5f8c284c914b25532">LP_SPEED_A0</a>, <a class="el" href="constants_8h.html#a768df3052b3bfe478285457a6e7a86df">LP_SPEED_B0</a>, <a class="el" href="constants_8h.html#a84aa0c9d099847a01a607735da15e357">LP_SPEED_B1</a>, <a class="el" href="constants_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07">WHEEL_RADIUS</a>) </td>
+          <td class="memname"><a class="el" href="class_motor.html">Motor</a> motor_left(<a class="el" href="pin__assignments_8h.html#a5854028e47f0b011fbc6c7bf52a34b78">MOTORL_PWM_PIN</a>, <a class="el" href="pin__assignments_8h.html#ab590c97a4987e19c3d253bd5dcc24e79">MOTORL_DIRECTION_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac9b38bed903c4dd787b36f90125f406e">MOTORL_BIPOLAR_PIN</a>, <a class="el" href="pin__assignments_8h.html#a8ed3b248525bd1974f244c4b2241fd73">MOTORL_CHA_PIN</a>, <a class="el" href="pin__assignments_8h.html#a336ecfe0d128a3f0816e7699d1b31b0a">MOTORL_CHB_PIN</a>, PULSE_PER_REV, MOTOR_PWM_FREQ, <a class="el" href="constants_8h.html#a65e0d2b6dd3d064ba5fa28a16d74f99f">CONTROL_UPDATE_RATE</a>, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS) </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="pin__assignments_8h.html#a5854028e47f0b011fbc6c7bf52a34b78">MOTORL_PWM_PIN</a></td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
@@ -1248,12 +1450,12 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#a188aa7b9dc2b355fa61ad0681b78ec14">PULSE_PER_REV</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+          <td class="paramtype">PULSE_PER_REV</td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#aee59388b533f4bbe19e91d0ac0918f28">MOTOR_PWM_FREQ</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+          <td class="paramtype">MOTOR_PWM_FREQ</td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1263,22 +1465,22 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#ace928619e98095d5f8c284c914b25532">LP_SPEED_A0</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+          <td class="paramtype">LP_SPEED_A0</td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#a768df3052b3bfe478285457a6e7a86df">LP_SPEED_B0</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+          <td class="paramtype">LP_SPEED_B0</td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#a84aa0c9d099847a01a607735da15e357">LP_SPEED_B1</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+          <td class="paramtype">LP_SPEED_B1</td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07">WHEEL_RADIUS</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
+          <td class="paramtype">WHEEL_RADIUS</td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1292,7 +1494,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_motor.html">Motor</a> motor_right(<a class="el" href="pin__assignments_8h.html#acaf0f9963c6cf276d5212acc2b404e2e">MOTORR_PWM_PIN</a>, <a class="el" href="pin__assignments_8h.html#a138441d2addf0f9a3743bd5edc4638e6">MOTORR_DIRECTION_PIN</a>, <a class="el" href="pin__assignments_8h.html#a2f989014bcf4c32abbae9a2dc973c122">MOTORR_BIPOLAR_PIN</a>, <a class="el" href="pin__assignments_8h.html#a568fc64e3a06177e85c714464dce7efc">MOTORR_CHA_PIN</a>, <a class="el" href="pin__assignments_8h.html#a872777023d49c40d8215d04a4e69e512">MOTORR_CHB_PIN</a>, <a class="el" href="constants_8h.html#a188aa7b9dc2b355fa61ad0681b78ec14">PULSE_PER_REV</a>, <a class="el" href="constants_8h.html#aee59388b533f4bbe19e91d0ac0918f28">MOTOR_PWM_FREQ</a>, <a class="el" href="constants_8h.html#a65e0d2b6dd3d064ba5fa28a16d74f99f">CONTROL_UPDATE_RATE</a>, <a class="el" href="constants_8h.html#ace928619e98095d5f8c284c914b25532">LP_SPEED_A0</a>, <a class="el" href="constants_8h.html#a768df3052b3bfe478285457a6e7a86df">LP_SPEED_B0</a>, <a class="el" href="constants_8h.html#a84aa0c9d099847a01a607735da15e357">LP_SPEED_B1</a>, <a class="el" href="constants_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07">WHEEL_RADIUS</a>) </td>
+          <td class="memname"><a class="el" href="class_motor.html">Motor</a> motor_right(<a class="el" href="pin__assignments_8h.html#acaf0f9963c6cf276d5212acc2b404e2e">MOTORR_PWM_PIN</a>, <a class="el" href="pin__assignments_8h.html#a138441d2addf0f9a3743bd5edc4638e6">MOTORR_DIRECTION_PIN</a>, <a class="el" href="pin__assignments_8h.html#a2f989014bcf4c32abbae9a2dc973c122">MOTORR_BIPOLAR_PIN</a>, <a class="el" href="pin__assignments_8h.html#a568fc64e3a06177e85c714464dce7efc">MOTORR_CHA_PIN</a>, <a class="el" href="pin__assignments_8h.html#a872777023d49c40d8215d04a4e69e512">MOTORR_CHB_PIN</a>, PULSE_PER_REV, MOTOR_PWM_FREQ, <a class="el" href="constants_8h.html#a65e0d2b6dd3d064ba5fa28a16d74f99f">CONTROL_UPDATE_RATE</a>, LP_SPEED_A0, LP_SPEED_B0, LP_SPEED_B1, WHEEL_RADIUS) </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="pin__assignments_8h.html#acaf0f9963c6cf276d5212acc2b404e2e">MOTORR_PWM_PIN</a></td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
@@ -1319,12 +1521,12 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#a188aa7b9dc2b355fa61ad0681b78ec14">PULSE_PER_REV</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+          <td class="paramtype">PULSE_PER_REV</td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#aee59388b533f4bbe19e91d0ac0918f28">MOTOR_PWM_FREQ</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+          <td class="paramtype">MOTOR_PWM_FREQ</td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1334,22 +1536,22 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#ace928619e98095d5f8c284c914b25532">LP_SPEED_A0</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+          <td class="paramtype">LP_SPEED_A0</td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#a768df3052b3bfe478285457a6e7a86df">LP_SPEED_B0</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+          <td class="paramtype">LP_SPEED_B0</td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#a84aa0c9d099847a01a607735da15e357">LP_SPEED_B1</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+          <td class="paramtype">LP_SPEED_B1</td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07">WHEEL_RADIUS</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
+          <td class="paramtype">WHEEL_RADIUS</td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1368,18 +1570,18 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00102">102</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00117">117</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a6721736d2ec46a151fa1872d4d115308" name="a6721736d2ec46a151fa1872d4d115308"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6721736d2ec46a151fa1872d4d115308">&#9670;&#160;</a></span>PID_angle</h2>
+<a id="a412b0868b3a4e030d57c23e82953ff49" name="a412b0868b3a4e030d57c23e82953ff49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a412b0868b3a4e030d57c23e82953ff49">&#9670;&#160;</a></span>PID_angle</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_p_i_d.html">PID</a> PID_angle(<a class="el" href="constants_8h.html#a2976a7d17f5687e1994aad281539e4b9">PID_A_KP</a>, <a class="el" href="constants_8h.html#a3d7baf9f5db9b8d3513a1b8fd7b22642">PID_A_KI</a>, <a class="el" href="constants_8h.html#a969f50bdc6d34214017e3c3fa3112149">PID_A_KD</a>, <a class="el" href="constants_8h.html#ad658d849593e96c2ecd7564562d4591f">PID_A_TAU</a>, <a class="el" href="constants_8h.html#a95bc730f7acbf75c834e5829fe41b2b2">PID_A_MIN_OUT</a>, <a class="el" href="constants_8h.html#a4d170ada20026007e62ae948027c7572">PID_A_MAX_OUT</a>, <a class="el" href="constants_8h.html#a3f2d16121bef35a77b08092e6af800d2">PID_A_MIN_INT</a>, <a class="el" href="constants_8h.html#a7056c892687cc9381ae0c1f22e766f96">PID_A_MAX_INT</a>) </td>
+          <td class="memname"><a class="el" href="class_p_i_d.html">PID</a> PID_angle(<a class="el" href="constants_8h.html#a2976a7d17f5687e1994aad281539e4b9">PID_A_KP</a>, <a class="el" href="constants_8h.html#a3d7baf9f5db9b8d3513a1b8fd7b22642">PID_A_KI</a>, <a class="el" href="constants_8h.html#a969f50bdc6d34214017e3c3fa3112149">PID_A_KD</a>, <a class="el" href="constants_8h.html#ad658d849593e96c2ecd7564562d4591f">PID_A_TAU</a>, <a class="el" href="constants_8h.html#a95bc730f7acbf75c834e5829fe41b2b2">PID_A_MIN_OUT</a>, <a class="el" href="constants_8h.html#a4d170ada20026007e62ae948027c7572">PID_A_MAX_OUT</a>, <a class="el" href="constants_8h.html#a3f2d16121bef35a77b08092e6af800d2">PID_A_MIN_INT</a>, <a class="el" href="constants_8h.html#a7056c892687cc9381ae0c1f22e766f96">PID_A_MAX_INT</a>, <a class="el" href="constants_8h.html#a1d242a86b4c25c11565c3b16402eecf5">CONTROL_UPDATE_PERIOD</a>) </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="constants_8h.html#a2976a7d17f5687e1994aad281539e4b9">PID_A_KP</a></td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
@@ -1416,21 +1618,42 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#a7056c892687cc9381ae0c1f22e766f96">PID_A_MAX_INT</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a7056c892687cc9381ae0c1f22e766f96">PID_A_MAX_INT</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a1d242a86b4c25c11565c3b16402eecf5">CONTROL_UPDATE_PERIOD</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a1d52892f422c88dea975e68a3e2e8514" name="a1d52892f422c88dea975e68a3e2e8514"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d52892f422c88dea975e68a3e2e8514">&#9670;&#160;</a></span>PID_motor_left</h2>
+<a id="a307ede1d51c287bcac23870988646f93" name="a307ede1d51c287bcac23870988646f93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a307ede1d51c287bcac23870988646f93">&#9670;&#160;</a></span>pid_constants</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_p_i_d.html">PID</a> PID_motor_left(<a class="el" href="constants_8h.html#a1a5c4e00713c2661c7d0413e8d859702">PID_M_L_KP</a>, <a class="el" href="constants_8h.html#af0bd7de5233f9cb4f8fce2962ef67eee">PID_M_L_KI</a>, <a class="el" href="constants_8h.html#ae17d1364f3451deb7eb4ad724db031a8">PID_M_L_KD</a>, <a class="el" href="constants_8h.html#aad707b8c4c9d193d3bdca5d596e1e86b">PID_M_TAU</a>, <a class="el" href="constants_8h.html#a4fa1bf73e4a0c5040b54a1c2597e15fb">PID_M_MIN_OUT</a>, <a class="el" href="constants_8h.html#a56337348a0b228c6651d872637fb3e3f">PID_M_MAX_OUT</a>, <a class="el" href="constants_8h.html#a80048056e2b2d951abf003a613f31357">PID_M_MIN_INT</a>, <a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a>) </td>
+          <td class="memname">float* pid_constants</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00127">127</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="affffa10d442a6a608c4aed6e02cfc131" name="affffa10d442a6a608c4aed6e02cfc131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affffa10d442a6a608c4aed6e02cfc131">&#9670;&#160;</a></span>PID_motor_left</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_p_i_d.html">PID</a> PID_motor_left(<a class="el" href="constants_8h.html#a1a5c4e00713c2661c7d0413e8d859702">PID_M_L_KP</a>, <a class="el" href="constants_8h.html#af0bd7de5233f9cb4f8fce2962ef67eee">PID_M_L_KI</a>, <a class="el" href="constants_8h.html#ae17d1364f3451deb7eb4ad724db031a8">PID_M_L_KD</a>, <a class="el" href="constants_8h.html#aad707b8c4c9d193d3bdca5d596e1e86b">PID_M_TAU</a>, <a class="el" href="constants_8h.html#a4fa1bf73e4a0c5040b54a1c2597e15fb">PID_M_MIN_OUT</a>, <a class="el" href="constants_8h.html#a56337348a0b228c6651d872637fb3e3f">PID_M_MAX_OUT</a>, <a class="el" href="constants_8h.html#a80048056e2b2d951abf003a613f31357">PID_M_MIN_INT</a>, <a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a>, <a class="el" href="constants_8h.html#a1d242a86b4c25c11565c3b16402eecf5">CONTROL_UPDATE_PERIOD</a>) </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="constants_8h.html#a1a5c4e00713c2661c7d0413e8d859702">PID_M_L_KP</a></td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
@@ -1467,21 +1690,26 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a1d242a86b4c25c11565c3b16402eecf5">CONTROL_UPDATE_PERIOD</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="adba93ab060ba096a8f460790b6e45de3" name="adba93ab060ba096a8f460790b6e45de3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adba93ab060ba096a8f460790b6e45de3">&#9670;&#160;</a></span>PID_motor_right</h2>
+<a id="a7f7a3176dac016a5acb507f16d05cfac" name="a7f7a3176dac016a5acb507f16d05cfac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f7a3176dac016a5acb507f16d05cfac">&#9670;&#160;</a></span>PID_motor_right</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_p_i_d.html">PID</a> PID_motor_right(<a class="el" href="constants_8h.html#adf1292e9019c0307262df82c74a3572a">PID_M_R_KP</a>, <a class="el" href="constants_8h.html#a0d028fa6e40c65f548167eae6cd6575d">PID_M_R_KI</a>, <a class="el" href="constants_8h.html#a33704c0473cf1e248eaa5ed13e0dfda9">PID_M_R_KD</a>, <a class="el" href="constants_8h.html#aad707b8c4c9d193d3bdca5d596e1e86b">PID_M_TAU</a>, <a class="el" href="constants_8h.html#a4fa1bf73e4a0c5040b54a1c2597e15fb">PID_M_MIN_OUT</a>, <a class="el" href="constants_8h.html#a56337348a0b228c6651d872637fb3e3f">PID_M_MAX_OUT</a>, <a class="el" href="constants_8h.html#a80048056e2b2d951abf003a613f31357">PID_M_MIN_INT</a>, <a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a>) </td>
+          <td class="memname"><a class="el" href="class_p_i_d.html">PID</a> PID_motor_right(<a class="el" href="constants_8h.html#adf1292e9019c0307262df82c74a3572a">PID_M_R_KP</a>, <a class="el" href="constants_8h.html#a0d028fa6e40c65f548167eae6cd6575d">PID_M_R_KI</a>, <a class="el" href="constants_8h.html#a33704c0473cf1e248eaa5ed13e0dfda9">PID_M_R_KD</a>, <a class="el" href="constants_8h.html#aad707b8c4c9d193d3bdca5d596e1e86b">PID_M_TAU</a>, <a class="el" href="constants_8h.html#a4fa1bf73e4a0c5040b54a1c2597e15fb">PID_M_MIN_OUT</a>, <a class="el" href="constants_8h.html#a56337348a0b228c6651d872637fb3e3f">PID_M_MAX_OUT</a>, <a class="el" href="constants_8h.html#a80048056e2b2d951abf003a613f31357">PID_M_MIN_INT</a>, <a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a>, <a class="el" href="constants_8h.html#a1d242a86b4c25c11565c3b16402eecf5">CONTROL_UPDATE_PERIOD</a>) </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="constants_8h.html#adf1292e9019c0307262df82c74a3572a">PID_M_R_KP</a></td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
@@ -1518,7 +1746,68 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">PID_M_MAX_INT</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a1d242a86b4c25c11565c3b16402eecf5">CONTROL_UPDATE_PERIOD</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a43ff897f5c84578afc643798f8e261c2" name="a43ff897f5c84578afc643798f8e261c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43ff897f5c84578afc643798f8e261c2">&#9670;&#160;</a></span>PID_sensor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_p_i_d.html">PID</a> PID_sensor(<a class="el" href="constants_8h.html#aec12048e951c36179f160d5a5fa84382">PID_S_KP</a>, <a class="el" href="constants_8h.html#ad3c8a250d5d1e4d32f0418f29d891584">PID_S_KI</a>, <a class="el" href="constants_8h.html#a809d7b84f137f06dd629bf32d8b1b4af">PID_S_KD</a>, <a class="el" href="constants_8h.html#a9459dcdbdd7c5186b4f5a310bff0b3e6">PID_S_TAU</a>, <a class="el" href="constants_8h.html#a281a1d4c9de668935dc3722b21a157c8">PID_S_MIN_OUT</a>, <a class="el" href="constants_8h.html#a7d11315c40a23366cdc8dca44ffba99a">PID_S_MAX_OUT</a>, <a class="el" href="constants_8h.html#a96d9b2ef061bfe21b9b1f31e1a754599">PID_S_MIN_INT</a>, <a class="el" href="constants_8h.html#a749b48dec85fe0d2555067fb29ab0643">PID_S_MAX_INT</a>, <a class="el" href="constants_8h.html#a753091aefd061446f53fe4639bdef92c">SENSOR_UPDATE_PERIOD</a>) </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#aec12048e951c36179f160d5a5fa84382">PID_S_KP</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#ad3c8a250d5d1e4d32f0418f29d891584">PID_S_KI</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a809d7b84f137f06dd629bf32d8b1b4af">PID_S_KD</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a9459dcdbdd7c5186b4f5a310bff0b3e6">PID_S_TAU</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a281a1d4c9de668935dc3722b21a157c8">PID_S_MIN_OUT</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a7d11315c40a23366cdc8dca44ffba99a">PID_S_MAX_OUT</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a96d9b2ef061bfe21b9b1f31e1a754599">PID_S_MIN_INT</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a749b48dec85fe0d2555067fb29ab0643">PID_S_MAX_INT</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a753091aefd061446f53fe4639bdef92c">SENSOR_UPDATE_PERIOD</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1532,23 +1821,23 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64">Buggy_modes</a> prev_buggy_mode = <a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64a76c1253bb97844abbdf89af6dfc3c7d6">inactive</a></td>
+          <td class="memname"><a class="el" href="#a5a67ae8eaa6749c3c16e78f279951d64">Buggy_modes</a> prev_buggy_mode</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00112">112</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00131">131</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a52cc0a718909e3b24a8cf4cd9150ce23" name="a52cc0a718909e3b24a8cf4cd9150ce23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52cc0a718909e3b24a8cf4cd9150ce23">&#9670;&#160;</a></span>sensor_array</h2>
+<a id="ad4a0e1ab519854772efb1772a3d24d35" name="ad4a0e1ab519854772efb1772a3d24d35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4a0e1ab519854772efb1772a3d24d35">&#9670;&#160;</a></span>sensor_array</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_sensor_array.html">SensorArray</a> sensor_array(<a class="el" href="pin__assignments_8h.html#a3bdccb0d89c0536d55ba0ed68bca6737">SENSOR0_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a260a4d7878fcc948b73f60c5d675aa8f">SENSOR1_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a3af288d197ba9efc604750fd766f615b">SENSOR2_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1c60a0b303060e29aee4571e6dd7e820">SENSOR3_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a2810c23e9b5abdbd5c3905aac6ebcbf4">SENSOR4_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a513ee56da1dff279b3ab3ef958e9899c">SENSOR5_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a5ebe434b66eff8530ec455fe6491d911">SENSOR0_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1cbaa4a481d1c48c64df39724aabf636">SENSOR1_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac8fd6d20222d8f197e0aaae2bf66ed0e">SENSOR2_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1ce92a28bbbacc7ccd4eb2b218d781b9">SENSOR3_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a7a3887afb16e59c74148f208b91cd0bf">SENSOR4_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac005665c821b9e41e52097ebad17b6bf">SENSOR5_OUT_PIN</a>, <a class="el" href="constants_8h.html#afbe70366e94a78a77c4467e4f4b083ee">SENS_SAMPLE_COUNT</a>, <a class="el" href="constants_8h.html#a64080b5afb2febe0d901b87471659787">SENS_DETECT_THRESH</a>) </td>
+          <td class="memname"><a class="el" href="class_sensor_array.html">SensorArray</a> sensor_array(<a class="el" href="pin__assignments_8h.html#a3bdccb0d89c0536d55ba0ed68bca6737">SENSOR0_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a260a4d7878fcc948b73f60c5d675aa8f">SENSOR1_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a3af288d197ba9efc604750fd766f615b">SENSOR2_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1c60a0b303060e29aee4571e6dd7e820">SENSOR3_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a2810c23e9b5abdbd5c3905aac6ebcbf4">SENSOR4_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a513ee56da1dff279b3ab3ef958e9899c">SENSOR5_IN_PIN</a>, <a class="el" href="pin__assignments_8h.html#a5ebe434b66eff8530ec455fe6491d911">SENSOR0_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1cbaa4a481d1c48c64df39724aabf636">SENSOR1_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac8fd6d20222d8f197e0aaae2bf66ed0e">SENSOR2_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a1ce92a28bbbacc7ccd4eb2b218d781b9">SENSOR3_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#a7a3887afb16e59c74148f208b91cd0bf">SENSOR4_OUT_PIN</a>, <a class="el" href="pin__assignments_8h.html#ac005665c821b9e41e52097ebad17b6bf">SENSOR5_OUT_PIN</a>, <a class="el" href="constants_8h.html#afbe70366e94a78a77c4467e4f4b083ee">SENS_SAMPLE_COUNT</a>, <a class="el" href="constants_8h.html#ab1ade25c6ac96f715008d6f18e25da3f">SENS_DETECT_RANGE</a>, <a class="el" href="constants_8h.html#a105f6f73f265b77378f9541b7d98f9c9">SENS_ANGLE_COEFF</a>) </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="pin__assignments_8h.html#a3bdccb0d89c0536d55ba0ed68bca6737">SENSOR0_IN_PIN</a></td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
@@ -1615,10 +1904,31 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="constants_8h.html#a64080b5afb2febe0d901b87471659787">SENS_DETECT_THRESH</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#ab1ade25c6ac96f715008d6f18e25da3f">SENS_DETECT_RANGE</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="constants_8h.html#a105f6f73f265b77378f9541b7d98f9c9">SENS_ANGLE_COEFF</a></td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7101a2bca55bd73ce72b8f0d75446f74" name="a7101a2bca55bd73ce72b8f0d75446f74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7101a2bca55bd73ce72b8f0d75446f74">&#9670;&#160;</a></span>sensor_ticker</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ticker sensor_ticker</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00143">143</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1634,7 +1944,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00121">121</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00142">142</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>

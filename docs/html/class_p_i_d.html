@@ -119,12 +119,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa3cc231cd26b1cc957bc77af2eefeff2" id="r_aa3cc231cd26b1cc957bc77af2eefeff2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3cc231cd26b1cc957bc77af2eefeff2">set_constants</a> (float kp_, float ki_, float kd_)</td></tr>
 <tr class="memdesc:aa3cc231cd26b1cc957bc77af2eefeff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes in the 3 parameters to set the <a class="el" href="class_p_i_d.html" title="PID Control Class.">PID</a> coefficients values.  <br /></td></tr>
 <tr class="separator:aa3cc231cd26b1cc957bc77af2eefeff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ade6779333703b695f399b4acbc54ee" id="r_a7ade6779333703b695f399b4acbc54ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ade6779333703b695f399b4acbc54ee">set_tau</a> (float tau_)</td></tr>
+<tr class="separator:a7ade6779333703b695f399b4acbc54ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9677e76cb1beffbcf3f54cbc627c530" id="r_af9677e76cb1beffbcf3f54cbc627c530"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9677e76cb1beffbcf3f54cbc627c530">reset</a> ()</td></tr>
 <tr class="memdesc:af9677e76cb1beffbcf3f54cbc627c530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the <a class="el" href="class_p_i_d.html" title="PID Control Class.">PID</a> controller.  <br /></td></tr>
 <tr class="separator:af9677e76cb1beffbcf3f54cbc627c530"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b2dd162af971a196f0039e118af899f" id="r_a5b2dd162af971a196f0039e118af899f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b2dd162af971a196f0039e118af899f">get_output</a> (void)</td></tr>
 <tr class="memdesc:a5b2dd162af971a196f0039e118af899f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the output of the <a class="el" href="class_p_i_d.html" title="PID Control Class.">PID</a> controller.  <br /></td></tr>
 <tr class="separator:a5b2dd162af971a196f0039e118af899f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81f6849faa7f9b494d3e8e53bb7468f9" id="r_a81f6849faa7f9b494d3e8e53bb7468f9"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81f6849faa7f9b494d3e8e53bb7468f9">get_constants</a> (void)</td></tr>
+<tr class="separator:a81f6849faa7f9b494d3e8e53bb7468f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_p_i_d.html" title="PID Control Class.">PID</a> Control Class. </p>
@@ -208,6 +212,38 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a81f6849faa7f9b494d3e8e53bb7468f9" name="a81f6849faa7f9b494d3e8e53bb7468f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81f6849faa7f9b494d3e8e53bb7468f9">&#9670;&#160;</a></span>get_constants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float * PID::get_constants </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_p_i_d_8cpp_source.html#l00149">149</a> of file <a class="el" href="_p_i_d_8cpp_source.html">PID.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_p_i_d_a81f6849faa7f9b494d3e8e53bb7468f9_icgraph.png" border="0" usemap="#aclass_p_i_d_a81f6849faa7f9b494d3e8e53bb7468f9_icgraph" alt=""/></div>
+<map name="aclass_p_i_d_a81f6849faa7f9b494d3e8e53bb7468f9_icgraph" id="aclass_p_i_d_a81f6849faa7f9b494d3e8e53bb7468f9_icgraph">
+<area shape="rect" title=" " alt="" coords="250,31,382,57"/>
+<area shape="rect" href="main_8cpp.html#a39195dff981a54ac9b42522c56e28111" title="Send data to the bt module." alt="" coords="103,5,202,32"/>
+<area shape="poly" title=" " alt="" coords="234,34,202,29,203,24,235,29"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,55,57"/>
+<area shape="poly" title=" " alt="" coords="234,47,55,47,55,41,234,41"/>
+<area shape="poly" title=" " alt="" coords="88,35,56,42,54,36,87,29"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a5b2dd162af971a196f0039e118af899f" name="a5b2dd162af971a196f0039e118af899f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5b2dd162af971a196f0039e118af899f">&#9670;&#160;</a></span>get_output()</h2>
 
@@ -226,7 +262,7 @@ Public Member Functions</h2></td></tr>
 <p>Get the output of the <a class="el" href="class_p_i_d.html" title="PID Control Class.">PID</a> controller. </p>
 <dl class="section return"><dt>Returns</dt><dd>The output of the <a class="el" href="class_p_i_d.html" title="PID Control Class.">PID</a> controller. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_p_i_d_8cpp_source.html#l00109">109</a> of file <a class="el" href="_p_i_d_8cpp_source.html">PID.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_p_i_d_8cpp_source.html#l00108">108</a> of file <a class="el" href="_p_i_d_8cpp_source.html">PID.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -269,7 +305,19 @@ Here is the caller graph for this function:</div>
 </ol>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_p_i_d_8cpp_source.html#l00140">140</a> of file <a class="el" href="_p_i_d_8cpp_source.html">PID.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_p_i_d_8cpp_source.html#l00144">144</a> of file <a class="el" href="_p_i_d_8cpp_source.html">PID.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_p_i_d_a1f4aed76541746be32dc9d7ded5b7cc5_icgraph.png" border="0" usemap="#aclass_p_i_d_a1f4aed76541746be32dc9d7ded5b7cc5_icgraph" alt=""/></div>
+<map name="aclass_p_i_d_a1f4aed76541746be32dc9d7ded5b7cc5_icgraph" id="aclass_p_i_d_a1f4aed76541746be32dc9d7ded5b7cc5_icgraph">
+<area shape="rect" title="Get the PID terms." alt="" coords="285,5,393,32"/>
+<area shape="rect" href="main_8cpp.html#ab1059bc314d55652ae71b3d07c89e44d" title="ISR updating the control algorithm." alt="" coords="103,5,237,32"/>
+<area shape="poly" title=" " alt="" coords="269,21,237,21,237,16,269,16"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
+<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -291,7 +339,7 @@ Here is the caller graph for this function:</div>
 <p>Reset the <a class="el" href="class_p_i_d.html" title="PID Control Class.">PID</a> controller. </p>
 <p>This function resets the integral term and clears any internal state of the <a class="el" href="class_p_i_d.html" title="PID Control Class.">PID</a> controller. </p>
 
-<p class="definition">Definition at line <a class="el" href="_p_i_d_8cpp_source.html#l00115">115</a> of file <a class="el" href="_p_i_d_8cpp_source.html">PID.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_p_i_d_8cpp_source.html#l00114">114</a> of file <a class="el" href="_p_i_d_8cpp_source.html">PID.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -341,13 +389,44 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_p_i_d_8cpp_source.html#l00133">133</a> of file <a class="el" href="_p_i_d_8cpp_source.html">PID.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_p_i_d_8cpp_source.html#l00132">132</a> of file <a class="el" href="_p_i_d_8cpp_source.html">PID.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_p_i_d_aa3cc231cd26b1cc957bc77af2eefeff2_icgraph.png" border="0" usemap="#aclass_p_i_d_aa3cc231cd26b1cc957bc77af2eefeff2_icgraph" alt=""/></div>
 <map name="aclass_p_i_d_aa3cc231cd26b1cc957bc77af2eefeff2_icgraph" id="aclass_p_i_d_aa3cc231cd26b1cc957bc77af2eefeff2_icgraph">
 <area shape="rect" title="Takes in the 3 parameters to set the PID coefficients values." alt="" coords="240,5,372,32"/>
+<area shape="rect" href="main_8cpp.html#acbb67905d42ded30a6eaa423ea036db0" title="Parse recieved bluetooth data." alt="" coords="103,5,192,32"/>
+<area shape="poly" title=" " alt="" coords="224,21,192,21,192,16,224,16"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
+<area shape="poly" title=" " alt="" coords="88,21,55,21,55,16,88,16"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a7ade6779333703b695f399b4acbc54ee" name="a7ade6779333703b695f399b4acbc54ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ade6779333703b695f399b4acbc54ee">&#9670;&#160;</a></span>set_tau()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PID::set_tau </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>tau_</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_p_i_d_8cpp_source.html#l00139">139</a> of file <a class="el" href="_p_i_d_8cpp_source.html">PID.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_p_i_d_a7ade6779333703b695f399b4acbc54ee_icgraph.png" border="0" usemap="#aclass_p_i_d_a7ade6779333703b695f399b4acbc54ee_icgraph" alt=""/></div>
+<map name="aclass_p_i_d_a7ade6779333703b695f399b4acbc54ee_icgraph" id="aclass_p_i_d_a7ade6779333703b695f399b4acbc54ee_icgraph">
+<area shape="rect" title=" " alt="" coords="240,5,333,32"/>
 <area shape="rect" href="main_8cpp.html#acbb67905d42ded30a6eaa423ea036db0" title="Parse recieved bluetooth data." alt="" coords="103,5,192,32"/>
 <area shape="poly" title=" " alt="" coords="224,21,192,21,192,16,224,16"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
@@ -391,11 +470,14 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_p_i_d_aeee74e9710b69e0f24092f4e01284a95_icgraph.png" border="0" usemap="#aclass_p_i_d_aeee74e9710b69e0f24092f4e01284a95_icgraph" alt=""/></div>
 <map name="aclass_p_i_d_aeee74e9710b69e0f24092f4e01284a95_icgraph" id="aclass_p_i_d_aeee74e9710b69e0f24092f4e01284a95_icgraph">
-<area shape="rect" title="Updates the output of PID controller based on the real time measurement." alt="" coords="285,5,374,32"/>
+<area shape="rect" title="Updates the output of PID controller based on the real time measurement." alt="" coords="285,31,374,57"/>
 <area shape="rect" href="main_8cpp.html#ab1059bc314d55652ae71b3d07c89e44d" title="ISR updating the control algorithm." alt="" coords="103,5,237,32"/>
-<area shape="poly" title=" " alt="" coords="269,21,238,21,238,16,269,16"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
-<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+<area shape="poly" title=" " alt="" coords="269,37,237,32,238,27,270,32"/>
+<area shape="rect" href="main_8cpp.html#a51a5c2b534f492ee4e26bacbdfd0de5e" title=" " alt="" coords="103,56,237,83"/>
+<area shape="poly" title=" " alt="" coords="270,56,238,61,237,56,269,51"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,55,57"/>
+<area shape="poly" title=" " alt="" coords="88,36,55,42,54,37,87,31"/>
+<area shape="poly" title=" " alt="" coords="87,57,54,51,55,46,88,52"/>
 </map>
 </div>
 

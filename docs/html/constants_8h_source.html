@@ -102,89 +102,125 @@ $(function(){initNavTree('constants_8h_source.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <a href="constants_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">/* PID CONSTANTS */</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// General Motor PID constants</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="constants_8h.html#aad707b8c4c9d193d3bdca5d596e1e86b">   15</a></span><span class="preprocessor">#define PID_M_TAU           1</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="constants_8h.html#a4fa1bf73e4a0c5040b54a1c2597e15fb">   16</a></span><span class="preprocessor">#define PID_M_MIN_OUT       -PID_M_MAX_OUT</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="constants_8h.html#a56337348a0b228c6651d872637fb3e3f">   17</a></span><span class="preprocessor">#define PID_M_MAX_OUT       0.9</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="constants_8h.html#a80048056e2b2d951abf003a613f31357">   18</a></span><span class="preprocessor">#define PID_M_MIN_INT       -PID_M_MAX_INT</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">   19</a></span><span class="preprocessor">#define PID_M_MAX_INT       0.9</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// Left Motor PID Constants</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="constants_8h.html#a1a5c4e00713c2661c7d0413e8d859702">   22</a></span><span class="preprocessor">#define PID_M_L_KP          2</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="constants_8h.html#af0bd7de5233f9cb4f8fce2962ef67eee">   23</a></span><span class="preprocessor">#define PID_M_L_KI          10</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="constants_8h.html#ae17d1364f3451deb7eb4ad724db031a8">   24</a></span><span class="preprocessor">#define PID_M_L_KD          0</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">// Right Motor PID Constants</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="constants_8h.html#adf1292e9019c0307262df82c74a3572a">   27</a></span><span class="preprocessor">#define PID_M_R_KP          PID_M_L_KP</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="constants_8h.html#a0d028fa6e40c65f548167eae6cd6575d">   28</a></span><span class="preprocessor">#define PID_M_R_KI          PID_M_L_KI</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="constants_8h.html#a33704c0473cf1e248eaa5ed13e0dfda9">   29</a></span><span class="preprocessor">#define PID_M_R_KD          PID_M_L_KD </span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">// Angle PID Constants</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="constants_8h.html#ad658d849593e96c2ecd7564562d4591f">   32</a></span><span class="preprocessor">#define PID_A_TAU           1</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="constants_8h.html#a95bc730f7acbf75c834e5829fe41b2b2">   33</a></span><span class="preprocessor">#define PID_A_MIN_OUT       -PID_M_MAX_OUT</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="constants_8h.html#a4d170ada20026007e62ae948027c7572">   34</a></span><span class="preprocessor">#define PID_A_MAX_OUT       0.6</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="constants_8h.html#a3f2d16121bef35a77b08092e6af800d2">   35</a></span><span class="preprocessor">#define PID_A_MIN_INT       -PID_M_MAX_INT</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="constants_8h.html#a7056c892687cc9381ae0c1f22e766f96">   36</a></span><span class="preprocessor">#define PID_A_MAX_INT       0.3</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="constants_8h.html#a2976a7d17f5687e1994aad281539e4b9">   37</a></span><span class="preprocessor">#define PID_A_KP            0.1</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="constants_8h.html#a3d7baf9f5db9b8d3513a1b8fd7b22642">   38</a></span><span class="preprocessor">#define PID_A_KI            0</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="constants_8h.html#a969f50bdc6d34214017e3c3fa3112149">   39</a></span><span class="preprocessor">#define PID_A_KD            0</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">/* PID CONSTANTS */</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">// General Motor PID constants</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="constants_8h.html#aad707b8c4c9d193d3bdca5d596e1e86b">   14</a></span><span class="preprocessor">#define PID_M_TAU           1</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="constants_8h.html#a4fa1bf73e4a0c5040b54a1c2597e15fb">   15</a></span><span class="preprocessor">#define PID_M_MIN_OUT       -PID_M_MAX_OUT</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="constants_8h.html#a56337348a0b228c6651d872637fb3e3f">   16</a></span><span class="preprocessor">#define PID_M_MAX_OUT       1</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="constants_8h.html#a80048056e2b2d951abf003a613f31357">   17</a></span><span class="preprocessor">#define PID_M_MIN_INT       -PID_M_MAX_INT</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="constants_8h.html#a2fa061c5d21c5236fdffb4393385bad1">   18</a></span><span class="preprocessor">#define PID_M_MAX_INT       1</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">// Left Motor (M_L) PID Constants</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="constants_8h.html#a1a5c4e00713c2661c7d0413e8d859702">   21</a></span><span class="preprocessor">#define PID_M_L_KP          0.5</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="constants_8h.html#af0bd7de5233f9cb4f8fce2962ef67eee">   22</a></span><span class="preprocessor">#define PID_M_L_KI          7.5</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="constants_8h.html#ae17d1364f3451deb7eb4ad724db031a8">   23</a></span><span class="preprocessor">#define PID_M_L_KD          0</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">// Right Motor (M_R) PID Constants</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="constants_8h.html#adf1292e9019c0307262df82c74a3572a">   26</a></span><span class="preprocessor">#define PID_M_R_KP          PID_M_L_KP</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="constants_8h.html#a0d028fa6e40c65f548167eae6cd6575d">   27</a></span><span class="preprocessor">#define PID_M_R_KI          PID_M_L_KI</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="constants_8h.html#a33704c0473cf1e248eaa5ed13e0dfda9">   28</a></span><span class="preprocessor">#define PID_M_R_KD          PID_M_L_KD </span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// Sensor (S) PID Constants - USED FOR LINE FOLLOW ///////////////////////////</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="constants_8h.html#a281a1d4c9de668935dc3722b21a157c8">   31</a></span><span class="preprocessor">#define PID_S_MIN_OUT       -PID_S_MAX_OUT</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="constants_8h.html#a7d11315c40a23366cdc8dca44ffba99a">   32</a></span><span class="preprocessor">#define PID_S_MAX_OUT       1.5</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="constants_8h.html#a96d9b2ef061bfe21b9b1f31e1a754599">   33</a></span><span class="preprocessor">#define PID_S_MIN_INT       -PID_S_MAX_INT</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="constants_8h.html#a749b48dec85fe0d2555067fb29ab0643">   34</a></span><span class="preprocessor">#define PID_S_MAX_INT       0</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="constants_8h.html#ad3c8a250d5d1e4d32f0418f29d891584">   35</a></span><span class="preprocessor">#define PID_S_KI            0</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="constants_8h.html#a9459dcdbdd7c5186b4f5a310bff0b3e6">   37</a></span><span class="preprocessor">#define PID_S_TAU           0.001</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="constants_8h.html#aec12048e951c36179f160d5a5fa84382">   38</a></span><span class="preprocessor">#define PID_S_KP            0.30</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="constants_8h.html#a809d7b84f137f06dd629bf32d8b1b4af">   39</a></span><span class="preprocessor">#define PID_S_KD            0.08</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">/* OTHER CONSTANTS */</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// Sensor Array Constants</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="constants_8h.html#afbe70366e94a78a77c4467e4f4b083ee">   45</a></span><span class="preprocessor">#define SENS_SAMPLE_COUNT       5   </span><span class="comment">// 5 - 311us, 3 - 195us   </span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="constants_8h.html#a105f6f73f265b77378f9541b7d98f9c9">   46</a></span><span class="preprocessor">#define SENS_ANGLE_COEFF        -5</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="constants_8h.html#a64080b5afb2febe0d901b87471659787">   47</a></span><span class="preprocessor">#define SENS_DETECT_THRESH      0.3</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">// Line Follow Constants</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="constants_8h.html#ab1007e8ed2cd6ed377b5ddc5e0b9a19e">   50</a></span><span class="preprocessor">#define LINE_FOLLOW_VELOCITY        0.4</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="constants_8h.html#a3178e99c504b044678a6df44edcf0590">   51</a></span><span class="preprocessor">#define LINE_FOLLOW_STOP_DISTANCE   0.15</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">// 0.4 0.15 - Oscillates high freq when 0 - might need LP</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">// Angle (A) PID Constants - USED FOR TURNING</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="constants_8h.html#ad658d849593e96c2ecd7564562d4591f">   44</a></span><span class="preprocessor">#define PID_A_TAU           0.01</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="constants_8h.html#a95bc730f7acbf75c834e5829fe41b2b2">   45</a></span><span class="preprocessor">#define PID_A_MIN_OUT       -PID_A_MAX_OUT</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="constants_8h.html#a4d170ada20026007e62ae948027c7572">   46</a></span><span class="preprocessor">#define PID_A_MAX_OUT       0.6</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="constants_8h.html#a3f2d16121bef35a77b08092e6af800d2">   47</a></span><span class="preprocessor">#define PID_A_MIN_INT       -PID_A_MAX_INT</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="constants_8h.html#a7056c892687cc9381ae0c1f22e766f96">   48</a></span><span class="preprocessor">#define PID_A_MAX_INT       0</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="constants_8h.html#a2976a7d17f5687e1994aad281539e4b9">   49</a></span><span class="preprocessor">#define PID_A_KP            0.2</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="constants_8h.html#a3d7baf9f5db9b8d3513a1b8fd7b22642">   50</a></span><span class="preprocessor">#define PID_A_KI            0.1</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="constants_8h.html#a969f50bdc6d34214017e3c3fa3112149">   51</a></span><span class="preprocessor">#define PID_A_KD            0</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">// Square Task Constants</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="constants_8h.html#a4a7d046d2315763d0edab7fdecd5852e">   54</a></span><span class="preprocessor">#define SQUARE_VELOCITY_SET                 0.4</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="constants_8h.html#a637b3e2f7275b8f8a3da08f03334dd3b">   55</a></span><span class="preprocessor">#define SQUARE_TURNING_RIGHT_ANGLE          92</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="constants_8h.html#a5cea8b270e1900bf822ef2871bfcc89f">   56</a></span><span class="preprocessor">#define SQUARE_TURNING_LEFT_ANGLE           101.5</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="constants_8h.html#a07c58a5650e9ee8fd2259244c416ae37">   57</a></span><span class="preprocessor">#define SQUARE_DISTANCE                     1.01</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">// Control Timing Constants</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="constants_8h.html#a65e0d2b6dd3d064ba5fa28a16d74f99f">   60</a></span><span class="preprocessor">#define CONTROL_UPDATE_RATE         100                                     </span><span class="comment">// Hz</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="constants_8h.html#a1d242a86b4c25c11565c3b16402eecf5">   61</a></span><span class="preprocessor">#define CONTROL_UPDATE_PERIOD       (1.0f / CONTROL_UPDATE_RATE)            </span><span class="comment">// Seconds</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="constants_8h.html#ac7fb2b6c122809996015a4a9c2a4b7c4">   62</a></span><span class="preprocessor">#define CONTROL_UPDATE_PERIOD_US    (int)(1&#39;000&#39;000 / CONTROL_UPDATE_RATE)  </span><span class="comment">// Micro Seconds</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">// Serial Update Timing Constants</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="constants_8h.html#a85c928dea4d6fbf49db234c8d6280585">   65</a></span><span class="preprocessor">#define SERIAL_UPDATE_PERIOD        1     </span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">/* OTHER CONSTANTS */</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">// Sensor Array Constants</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="constants_8h.html#afbe70366e94a78a77c4467e4f4b083ee">   57</a></span><span class="preprocessor">#define SENS_SAMPLE_COUNT       1   </span><span class="comment">// 5 - 311us, 3 - 195us   </span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="constants_8h.html#a105f6f73f265b77378f9541b7d98f9c9">   58</a></span><span class="preprocessor">#define SENS_ANGLE_COEFF        1</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="constants_8h.html#ab1ade25c6ac96f715008d6f18e25da3f">   59</a></span><span class="preprocessor">#define SENS_DETECT_RANGE       0.4</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">// Line Follow Constants</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="constants_8h.html#ab1007e8ed2cd6ed377b5ddc5e0b9a19e">   62</a></span><span class="preprocessor">#define LINE_FOLLOW_VELOCITY        2.1</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="constants_8h.html#a4a97606f1fc677d3207fa450d1617b08">   63</a></span><span class="preprocessor">#define LINE_FOLLOW_VELOCITY_UTURN  2.1</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="constants_8h.html#a3178e99c504b044678a6df44edcf0590">   64</a></span><span class="preprocessor">#define LINE_FOLLOW_STOP_DISTANCE   0.3</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="constants_8h.html#a3711226d852003cac59f6884f931e810">   65</a></span><span class="preprocessor">#define UTURN_ANGLE                 190</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">// Encoder Constants</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="constants_8h.html#a694f290d22042bdc01a4046f1912ed22">   68</a></span><span class="preprocessor">#define WHEEL_SEPERATION    0.188       </span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="constants_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07">   69</a></span><span class="preprocessor">#define WHEEL_RADIUS        0.0415      </span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="constants_8h.html#a188aa7b9dc2b355fa61ad0681b78ec14">   70</a></span><span class="preprocessor">#define PULSE_PER_REV       256         </span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="constants_8h.html#a768df3052b3bfe478285457a6e7a86df">   71</a></span><span class="preprocessor">#define LP_SPEED_B0         0.1802684       </span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="constants_8h.html#a84aa0c9d099847a01a607735da15e357">   72</a></span><span class="preprocessor">#define LP_SPEED_B1         0.1802684       </span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="constants_8h.html#ace928619e98095d5f8c284c914b25532">   73</a></span><span class="preprocessor">#define LP_SPEED_A0         0.63946321      </span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">// 2 Hz Pole Freq:</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">// Filter coefficients b_i: [0.0591174 0.0591174]</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">// Filter coefficients a_i: [0.88176521]</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">// 5 Hz Pole Freq:</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">// Filter coefficients b_i: [0.13575525 0.13575525]</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">// Filter coefficients a_i: [0.7284895]</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">// 7 Hz Pole Freq:</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">// Filter coefficients b_i: [0.1802684 0.1802684]</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">// Filter coefficients a_i: [0.63946321]</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">// Motor Constants</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="constants_8h.html#aee59388b533f4bbe19e91d0ac0918f28">   86</a></span><span class="preprocessor">#define MOTOR_PWM_FREQ      20000</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">// Bluetooth HM10 module default config constants</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="constants_8h.html#aea9dc6a2929b2f9722afae9842e45f57">   89</a></span><span class="preprocessor">#define BT_BAUD_RATE        9600</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">// Maths constant</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="constants_8h.html#a598a3330b3c21701223ee0ca14316eca">   92</a></span><span class="preprocessor">#define PI                  3.14159265</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="constants_8h.html#a3933c40cfe25a8e1ddfdef989c44d154">   67</a></span><span class="preprocessor">#define SLOW_ACCEL_TIME             0.4</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="constants_8h.html#a50a679b58cd4f3a674a5166a1677afed">   68</a></span><span class="preprocessor">#define SLOW_ACCEL_DIVIDER          2</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="constants_8h.html#a27bc1a80a60e19ca96db7db946b9d74b">   70</a></span><span class="preprocessor">#define STOP_DETECT_TIME            1             </span><span class="comment">// s </span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">// Unused</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="constants_8h.html#aa8286f89f792feb95b6055393b00d987">   73</a></span><span class="preprocessor">#define SLOW_TURNING_GAIN           0                       </span><span class="comment">// Higher Means FASTER</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="constants_8h.html#a0d183f4ca51c765460f2cf4c8a190233">   74</a></span><span class="preprocessor">#define SLOW_TURNING_THRESH         2</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="constants_8h.html#a4841f300601435df0f151888bd30e448">   76</a></span><span class="preprocessor">#define MANUAL_ACCEL_SPEED         0.5</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="constants_8h.html#a52c0ffcb12b0c9dbf8332eeeb6807730">   77</a></span><span class="preprocessor">#define MANUAL_ACCEL_DISTANCE      0.5</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="constants_8h.html#a6e14546150504f63ca5f3c7bcac5b3d9">   78</a></span><span class="preprocessor">#define MANUAL_ACCEL_ANGLE         60</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">// Square Task Constants</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="constants_8h.html#a4a7d046d2315763d0edab7fdecd5852e">   82</a></span><span class="preprocessor">#define SQUARE_VELOCITY_SET                 0.4</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="constants_8h.html#a637b3e2f7275b8f8a3da08f03334dd3b">   83</a></span><span class="preprocessor">#define SQUARE_TURNING_RIGHT_ANGLE          92</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="constants_8h.html#a5cea8b270e1900bf822ef2871bfcc89f">   84</a></span><span class="preprocessor">#define SQUARE_TURNING_LEFT_ANGLE           101.5</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="constants_8h.html#a07c58a5650e9ee8fd2259244c416ae37">   85</a></span><span class="preprocessor">#define SQUARE_DISTANCE                     1.01</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment">// Control Timing Constants</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="constants_8h.html#a65e0d2b6dd3d064ba5fa28a16d74f99f">   88</a></span><span class="preprocessor">#define CONTROL_UPDATE_RATE         2500                                    </span><span class="comment">// Hz</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="constants_8h.html#a1d242a86b4c25c11565c3b16402eecf5">   89</a></span><span class="preprocessor">#define CONTROL_UPDATE_PERIOD       (1.0f / CONTROL_UPDATE_RATE)            </span><span class="comment">// Seconds</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="constants_8h.html#ac7fb2b6c122809996015a4a9c2a4b7c4">   90</a></span><span class="preprocessor">#define CONTROL_UPDATE_PERIOD_US    (int)(1&#39;000&#39;000 / CONTROL_UPDATE_RATE)  </span><span class="comment">// Micro Seconds</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">// Control Timing Constants</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="constants_8h.html#a3ce1839cf02e6106558258dcd72adb68">   93</a></span><span class="preprocessor">#define SENSOR_UPDATE_RATE         5000                                    </span><span class="comment">// Hz</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="constants_8h.html#a753091aefd061446f53fe4639bdef92c">   94</a></span><span class="preprocessor">#define SENSOR_UPDATE_PERIOD       (1.0f / CONTROL_UPDATE_RATE)            </span><span class="comment">// Seconds</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="constants_8h.html#adb277b196b16572f2229fd312317d538">   95</a></span><span class="preprocessor">#define SENSOR_UPDATE_PERIOD_US    (int)(1&#39;000&#39;000 / CONTROL_UPDATE_RATE)  </span><span class="comment">// Micro Seconds</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">// Serial Update Timing Constants</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="constants_8h.html#a85c928dea4d6fbf49db234c8d6280585">   98</a></span><span class="preprocessor">#define SERIAL_UPDATE_PERIOD        0.02     </span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#define LOG_SIZE                    8&#39;500</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">// Encoder Constants</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#define WHEEL_SEPERATION    0.188       </span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#define WHEEL_RADIUS        0.0415      </span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="preprocessor">#define PULSE_PER_REV       256         </span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">#define LP_SPEED_B0         0.13575525       </span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#define LP_SPEED_B1         0.13575525       </span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">#define LP_SPEED_A0         0.7284895      </span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">// 2 Hz Pole Freq:</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment">// Filter coefficients b_i: [0.0591174 0.0591174]</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment">// Filter coefficients a_i: [0.88176521]</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment">// 5 Hz Pole Freq:</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment">// Filter coefficients b_i: [0.13575525 0.13575525]</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">// Filter coefficients a_i: [0.7284895]</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">// 7 Hz Pole Freq:</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment">// Filter coefficients b_i: [0.1802684 0.1802684]</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment">// Filter coefficients a_i: [0.63946321]</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">// Motor Constants</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#define MOTOR_PWM_FREQ      20000</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment">// Bluetooth HM10 module default config constants</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">#define BT_BAUD_RATE        9600</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment">// Maths constant</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#define PI                  3.14159265</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

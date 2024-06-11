@@ -107,9 +107,9 @@ $(function(){initNavTree('class_sensor_array.html',''); initResizable(); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a908f4077cf349bed11a33fb39cad9246" id="r_a908f4077cf349bed11a33fb39cad9246"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a908f4077cf349bed11a33fb39cad9246">SensorArray</a> (PinName sens0, PinName sens1, PinName sens2, PinName sens3, PinName sens4, PinName sens5, PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_thresh)</td></tr>
-<tr class="memdesc:a908f4077cf349bed11a33fb39cad9246"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="class_sensor_array.html" title="Represents an array of sensors with corresponding LEDs for detection.">SensorArray</a> object.  <br /></td></tr>
-<tr class="separator:a908f4077cf349bed11a33fb39cad9246"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea0f1ceba9c213b1c48b24984faa9fb" id="r_a0ea0f1ceba9c213b1c48b24984faa9fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ea0f1ceba9c213b1c48b24984faa9fb">SensorArray</a> (PinName sens0, PinName sens1, PinName sens2, PinName sens3, PinName sens4, PinName sens5, PinName led0, PinName led1, PinName led2, PinName led3, PinName led4, PinName led5, int sample_count, float detect_range, float angle_coefficient)</td></tr>
+<tr class="memdesc:a0ea0f1ceba9c213b1c48b24984faa9fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="class_sensor_array.html" title="Represents an array of sensors with corresponding LEDs for detection.">SensorArray</a> object.  <br /></td></tr>
+<tr class="separator:a0ea0f1ceba9c213b1c48b24984faa9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8ebc7b5920f6c0ad5cc265834f301d3" id="r_af8ebc7b5920f6c0ad5cc265834f301d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8ebc7b5920f6c0ad5cc265834f301d3">reset</a> (void)</td></tr>
 <tr class="memdesc:af8ebc7b5920f6c0ad5cc265834f301d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the sensor array.  <br /></td></tr>
 <tr class="separator:af8ebc7b5920f6c0ad5cc265834f301d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,6 +131,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a125722cbd712c7cde32fd391555d030e" id="r_a125722cbd712c7cde32fd391555d030e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a125722cbd712c7cde32fd391555d030e">get_array_output</a> (void)</td></tr>
 <tr class="memdesc:a125722cbd712c7cde32fd391555d030e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the output value of the sensor array.  <br /></td></tr>
 <tr class="separator:a125722cbd712c7cde32fd391555d030e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a424f6e50daaefc6165b819ff2b2da08d" id="r_a424f6e50daaefc6165b819ff2b2da08d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a424f6e50daaefc6165b819ff2b2da08d">get_filtered_output</a> (void)</td></tr>
+<tr class="separator:a424f6e50daaefc6165b819ff2b2da08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0110dbd438a5cdce0f2d147124a3aa1d" id="r_a0110dbd438a5cdce0f2d147124a3aa1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0110dbd438a5cdce0f2d147124a3aa1d">calibrate_sensors</a> (void)</td></tr>
+<tr class="separator:a0110dbd438a5cdce0f2d147124a3aa1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e09dfe2bd7cce996febe3eb5a047445" id="r_a7e09dfe2bd7cce996febe3eb5a047445"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e09dfe2bd7cce996febe3eb5a047445">get_calibration_constants</a> (void)</td></tr>
+<tr class="separator:a7e09dfe2bd7cce996febe3eb5a047445"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents an array of sensors with corresponding LEDs for detection. </p>
@@ -138,8 +144,8 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="sensor__array_8h_source.html#l00017">17</a> of file <a class="el" href="sensor__array_8h_source.html">sensor_array.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a908f4077cf349bed11a33fb39cad9246" name="a908f4077cf349bed11a33fb39cad9246"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a908f4077cf349bed11a33fb39cad9246">&#9670;&#160;</a></span>SensorArray()</h2>
+<a id="a0ea0f1ceba9c213b1c48b24984faa9fb" name="a0ea0f1ceba9c213b1c48b24984faa9fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ea0f1ceba9c213b1c48b24984faa9fb">&#9670;&#160;</a></span>SensorArray()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,7 +218,12 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>detect_thresh</em></span>&#160;)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>detect_range</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>angle_coefficient</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -223,7 +234,8 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">sens0-sens5</td><td>Pin names for the sensors. </td></tr>
     <tr><td class="paramname">led0-led5</td><td>Pin names for the LEDs. </td></tr>
     <tr><td class="paramname">sample_count</td><td>The number of samples to take for averaging sensor readings. </td></tr>
-    <tr><td class="paramname">detect_thresh</td><td>The detection threshold for line detection. </td></tr>
+    <tr><td class="paramname">detect_range</td><td>The detection threshold for line detection. </td></tr>
+    <tr><td class="paramname">angle_coefficient</td><td>The gain at which the sensor output is multiplied to represent the angle. </td></tr>
   </table>
   </dd>
 </dl>
@@ -232,8 +244,8 @@ Public Member Functions</h2></td></tr>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_sensor_array_a908f4077cf349bed11a33fb39cad9246_cgraph.png" border="0" usemap="#aclass_sensor_array_a908f4077cf349bed11a33fb39cad9246_cgraph" alt=""/></div>
-<map name="aclass_sensor_array_a908f4077cf349bed11a33fb39cad9246_cgraph" id="aclass_sensor_array_a908f4077cf349bed11a33fb39cad9246_cgraph">
+<div class="center"><img src="class_sensor_array_a0ea0f1ceba9c213b1c48b24984faa9fb_cgraph.png" border="0" usemap="#aclass_sensor_array_a0ea0f1ceba9c213b1c48b24984faa9fb_cgraph" alt=""/></div>
+<map name="aclass_sensor_array_a0ea0f1ceba9c213b1c48b24984faa9fb_cgraph" id="aclass_sensor_array_a0ea0f1ceba9c213b1c48b24984faa9fb_cgraph">
 <area shape="rect" title="Constructs a new SensorArray object." alt="" coords="5,35,179,61"/>
 <area shape="rect" href="class_sensor_array.html#af8ebc7b5920f6c0ad5cc265834f301d3" title="Resets the sensor array." alt="" coords="231,5,362,32"/>
 <area shape="poly" title=" " alt="" coords="178,33,215,28,216,33,179,38"/>
@@ -245,6 +257,35 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0110dbd438a5cdce0f2d147124a3aa1d" name="a0110dbd438a5cdce0f2d147124a3aa1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0110dbd438a5cdce0f2d147124a3aa1d">&#9670;&#160;</a></span>calibrate_sensors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SensorArray::calibrate_sensors </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00166">166</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_sensor_array_a0110dbd438a5cdce0f2d147124a3aa1d_icgraph.png" border="0" usemap="#aclass_sensor_array_a0110dbd438a5cdce0f2d147124a3aa1d_icgraph" alt=""/></div>
+<map name="aclass_sensor_array_a0110dbd438a5cdce0f2d147124a3aa1d_icgraph" id="aclass_sensor_array_a0110dbd438a5cdce0f2d147124a3aa1d_icgraph">
+<area shape="rect" title=" " alt="" coords="103,5,253,48"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,55,40"/>
+<area shape="poly" title=" " alt="" coords="87,29,55,29,55,24,87,24"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a125722cbd712c7cde32fd391555d030e" name="a125722cbd712c7cde32fd391555d030e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a125722cbd712c7cde32fd391555d030e">&#9670;&#160;</a></span>get_array_output()</h2>
 
@@ -263,15 +304,63 @@ Here is the call graph for this function:</div>
 <p>Gets the output value of the sensor array. </p>
 <dl class="section return"><dt>Returns</dt><dd>The output value of the sensor array. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00087">87</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00156">156</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7e09dfe2bd7cce996febe3eb5a047445" name="a7e09dfe2bd7cce996febe3eb5a047445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e09dfe2bd7cce996febe3eb5a047445">&#9670;&#160;</a></span>get_calibration_constants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float * SensorArray::get_calibration_constants </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00185">185</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_sensor_array_a125722cbd712c7cde32fd391555d030e_icgraph.png" border="0" usemap="#aclass_sensor_array_a125722cbd712c7cde32fd391555d030e_icgraph" alt=""/></div>
-<map name="aclass_sensor_array_a125722cbd712c7cde32fd391555d030e_icgraph" id="aclass_sensor_array_a125722cbd712c7cde32fd391555d030e_icgraph">
-<area shape="rect" title="Gets the output value of the sensor array." alt="" coords="285,5,440,48"/>
-<area shape="rect" href="main_8cpp.html#ab1059bc314d55652ae71b3d07c89e44d" title="ISR updating the control algorithm." alt="" coords="103,13,237,40"/>
-<area shape="poly" title=" " alt="" coords="269,29,237,29,237,24,269,24"/>
+<div class="center"><img src="class_sensor_array_a7e09dfe2bd7cce996febe3eb5a047445_icgraph.png" border="0" usemap="#aclass_sensor_array_a7e09dfe2bd7cce996febe3eb5a047445_icgraph" alt=""/></div>
+<map name="aclass_sensor_array_a7e09dfe2bd7cce996febe3eb5a047445_icgraph" id="aclass_sensor_array_a7e09dfe2bd7cce996febe3eb5a047445_icgraph">
+<area shape="rect" title=" " alt="" coords="103,5,288,48"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,55,40"/>
+<area shape="poly" title=" " alt="" coords="87,29,55,29,55,24,87,24"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a424f6e50daaefc6165b819ff2b2da08d" name="a424f6e50daaefc6165b819ff2b2da08d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a424f6e50daaefc6165b819ff2b2da08d">&#9670;&#160;</a></span>get_filtered_output()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float SensorArray::get_filtered_output </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00161">161</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_sensor_array_a424f6e50daaefc6165b819ff2b2da08d_icgraph.png" border="0" usemap="#aclass_sensor_array_a424f6e50daaefc6165b819ff2b2da08d_icgraph" alt=""/></div>
+<map name="aclass_sensor_array_a424f6e50daaefc6165b819ff2b2da08d_icgraph" id="aclass_sensor_array_a424f6e50daaefc6165b819ff2b2da08d_icgraph">
+<area shape="rect" title=" " alt="" coords="285,5,449,48"/>
+<area shape="rect" href="main_8cpp.html#a51a5c2b534f492ee4e26bacbdfd0de5e" title=" " alt="" coords="103,13,237,40"/>
+<area shape="poly" title=" " alt="" coords="269,29,238,29,238,24,269,24"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,55,40"/>
 <area shape="poly" title=" " alt="" coords="87,29,55,29,55,24,87,24"/>
 </map>
@@ -303,7 +392,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The output value of the sensor. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00073">73</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00142">142</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
 
 </div>
 </div>
@@ -325,7 +414,7 @@ Here is the caller graph for this function:</div>
 <p>Gets an array of sensor output values. </p>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to an array of sensor output values. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00082">82</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00151">151</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
 
 </div>
 </div>
@@ -347,7 +436,7 @@ Here is the caller graph for this function:</div>
 <p>Checks if a line is detected (in the last update). </p>
 <dl class="section return"><dt>Returns</dt><dd>True if a line is detected, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00067">67</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00136">136</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -379,14 +468,14 @@ Here is the caller graph for this function:</div>
 <p>Resets the sensor array. </p>
 <p>This function resets the internal state of the sensor array. </p>
 
-<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00021">21</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00022">22</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_sensor_array_af8ebc7b5920f6c0ad5cc265834f301d3_icgraph.png" border="0" usemap="#aclass_sensor_array_af8ebc7b5920f6c0ad5cc265834f301d3_icgraph" alt=""/></div>
 <map name="aclass_sensor_array_af8ebc7b5920f6c0ad5cc265834f301d3_icgraph" id="aclass_sensor_array_af8ebc7b5920f6c0ad5cc265834f301d3_icgraph">
 <area shape="rect" title="Resets the sensor array." alt="" coords="227,5,357,32"/>
-<area shape="rect" href="class_sensor_array.html#a908f4077cf349bed11a33fb39cad9246" title="Constructs a new SensorArray object." alt="" coords="5,5,179,32"/>
+<area shape="rect" href="class_sensor_array.html#a0ea0f1ceba9c213b1c48b24984faa9fb" title="Constructs a new SensorArray object." alt="" coords="5,5,179,32"/>
 <area shape="poly" title=" " alt="" coords="211,21,179,21,179,16,211,16"/>
 </map>
 </div>
@@ -416,7 +505,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00031">31</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00035">35</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -425,7 +514,7 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="Sets the status of all LEDs." alt="" coords="227,23,366,65"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="67,5,117,32"/>
 <area shape="poly" title=" " alt="" coords="211,36,117,24,117,19,212,31"/>
-<area shape="rect" href="class_sensor_array.html#a908f4077cf349bed11a33fb39cad9246" title="Constructs a new SensorArray object." alt="" coords="5,56,179,83"/>
+<area shape="rect" href="class_sensor_array.html#a0ea0f1ceba9c213b1c48b24984faa9fb" title="Constructs a new SensorArray object." alt="" coords="5,56,179,83"/>
 <area shape="poly" title=" " alt="" coords="211,57,179,61,179,56,211,52"/>
 </map>
 </div>
@@ -450,14 +539,14 @@ Here is the caller graph for this function:</div>
 <p>Updates the sensor array. </p>
 <p>This function updates the sensor readings. </p>
 
-<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00040">40</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sensor__array_8cpp_source.html#l00044">44</a> of file <a class="el" href="sensor__array_8cpp_source.html">sensor_array.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_sensor_array_a43a269e321e0567f996ab57bff26d6af_icgraph.png" border="0" usemap="#aclass_sensor_array_a43a269e321e0567f996ab57bff26d6af_icgraph" alt=""/></div>
 <map name="aclass_sensor_array_a43a269e321e0567f996ab57bff26d6af_icgraph" id="aclass_sensor_array_a43a269e321e0567f996ab57bff26d6af_icgraph">
 <area shape="rect" title="Updates the sensor array." alt="" coords="285,5,425,32"/>
-<area shape="rect" href="main_8cpp.html#ab1059bc314d55652ae71b3d07c89e44d" title="ISR updating the control algorithm." alt="" coords="103,5,237,32"/>
+<area shape="rect" href="main_8cpp.html#a51a5c2b534f492ee4e26bacbdfd0de5e" title=" " alt="" coords="103,5,237,32"/>
 <area shape="poly" title=" " alt="" coords="270,21,237,21,237,16,270,16"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,32"/>
 <area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>

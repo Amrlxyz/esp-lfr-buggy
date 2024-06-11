@@ -126,6 +126,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a5e4016d181dab3351eee619179af36ae" id="r_a5e4016d181dab3351eee619179af36ae"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e4016d181dab3351eee619179af36ae">lf_line_last_seen</a></td></tr>
 <tr class="memdesc:a5e4016d181dab3351eee619179af36ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">The position of the last seen line by the left front sensor.  <br /></td></tr>
 <tr class="separator:a5e4016d181dab3351eee619179af36ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed05da034fb10411e777cdb2e3051899" id="r_aed05da034fb10411e777cdb2e3051899"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed05da034fb10411e777cdb2e3051899">accel_start_distance</a></td></tr>
+<tr class="separator:aed05da034fb10411e777cdb2e3051899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b29d24b623150fba4034538d7d24602" id="r_a4b29d24b623150fba4034538d7d24602"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b29d24b623150fba4034538d7d24602">accel_start_angle</a></td></tr>
+<tr class="separator:a4b29d24b623150fba4034538d7d24602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade044707c1c97bbaebb44e4583c4a8f4" id="r_ade044707c1c97bbaebb44e4583c4a8f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade044707c1c97bbaebb44e4583c4a8f4">is_accelerating</a></td></tr>
+<tr class="separator:ade044707c1c97bbaebb44e4583c4a8f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71cda88abbcc5a66fa55f5f7689f8645" id="r_a71cda88abbcc5a66fa55f5f7689f8645"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71cda88abbcc5a66fa55f5f7689f8645">sq_set_angle</a></td></tr>
 <tr class="memdesc:a71cda88abbcc5a66fa55f5f7689f8645"><td class="mdescLeft">&#160;</td><td class="mdescRight">The set angle for the square task.  <br /></td></tr>
 <tr class="separator:a71cda88abbcc5a66fa55f5f7689f8645"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,8 +146,40 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Represents the status of a buggy. </p>
 <p>This struct holds various parameters related to the state of the buggy, including velocities, angles, distances, and task-specific variables. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00081">81</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00091">91</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4b29d24b623150fba4034538d7d24602" name="a4b29d24b623150fba4034538d7d24602"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b29d24b623150fba4034538d7d24602">&#9670;&#160;</a></span>accel_start_angle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Buggy_status::accel_start_angle</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00106">106</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aed05da034fb10411e777cdb2e3051899" name="aed05da034fb10411e777cdb2e3051899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed05da034fb10411e777cdb2e3051899">&#9670;&#160;</a></span>accel_start_distance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Buggy_status::accel_start_distance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00105">105</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
 <a id="ac7ba06487f85c376f0d3d83b109b5fa4" name="ac7ba06487f85c376f0d3d83b109b5fa4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac7ba06487f85c376f0d3d83b109b5fa4">&#9670;&#160;</a></span>cumulative_angle_deg</h2>
 
@@ -156,7 +194,7 @@ Public Attributes</h2></td></tr>
 
 <p>The cumulative angle (in degrees) traveled by the buggy. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00089">89</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00099">99</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -174,7 +212,23 @@ Public Attributes</h2></td></tr>
 
 <p>The distance travelled by the buggy. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00090">90</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00100">100</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ade044707c1c97bbaebb44e4583c4a8f4" name="ade044707c1c97bbaebb44e4583c4a8f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade044707c1c97bbaebb44e4583c4a8f4">&#9670;&#160;</a></span>is_accelerating</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Buggy_status::is_accelerating</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00107">107</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -192,7 +246,7 @@ Public Attributes</h2></td></tr>
 
 <p>The set speed of the left wheel. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00086">86</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00096">96</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -210,7 +264,7 @@ Public Attributes</h2></td></tr>
 
 <p>The position of the last seen line by the left front sensor. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00092">92</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00102">102</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -228,7 +282,7 @@ Public Attributes</h2></td></tr>
 
 <p>The set speed of the right wheel. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00087">87</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00097">97</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -246,7 +300,7 @@ Public Attributes</h2></td></tr>
 
 <p>The set angle for the buggy. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00084">84</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00094">94</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -264,7 +318,7 @@ Public Attributes</h2></td></tr>
 
 <p>The set velocity for the buggy. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00083">83</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00093">93</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -282,7 +336,7 @@ Public Attributes</h2></td></tr>
 
 <p>The set angle for the square task. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00095">95</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00110">110</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -300,7 +354,7 @@ Public Attributes</h2></td></tr>
 
 <p>The set distance for the square task. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00096">96</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00111">111</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>
@@ -318,7 +372,7 @@ Public Attributes</h2></td></tr>
 
 <p>The current stage of the square task. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00097">97</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00112">112</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 
 </div>
 </div>

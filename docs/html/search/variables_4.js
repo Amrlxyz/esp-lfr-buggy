@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['global_5ftimer_0',['global_timer',['../main_8cpp.html#ad4ea2e4dd12263d3f035d99fcb7c54ea',1,'main.cpp']]]
+  ['enable_5fstate_0',['enable_state',['../class_motor_driver_board.html#ad8df395b77f6be49a8f690f7988feb50',1,'MotorDriverBoard']]]
 ];
