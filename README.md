@@ -11,11 +11,11 @@ Project is in collaboration with 5 teammates:
 
 ## Gallery
 
-![Buggy Render](https://github.com/Amrlxyz/esp-lfr-buggy/blob/TDB/misc/Race%20Day%20Picture.JPG?raw=true)
+![Buggy Render](https://github.com/Amrlxyz/esp-lfr-buggy/blob/master/misc/Race%20Day%20Picture.jpg?raw=true)
 
 *Buggy Picture on the final race day*
 
-![Buggy Render](https://github.com/Amrlxyz/esp-lfr-buggy/blob/TDB/misc/Render%20Final.JPG?raw=true)
+![Buggy Render](https://github.com/Amrlxyz/esp-lfr-buggy/blob/master/misc/Render%20Final.JPG?raw=true)
 
 *Final Buggy Render Using SolidWorks*
 
