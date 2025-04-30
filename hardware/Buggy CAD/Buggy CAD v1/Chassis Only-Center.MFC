@@ -1,0 +1,16 @@
+[StartTime]
+Chassis Only-Center.MFC=3s
+[SolverState]
+Chassis Only-Center.MFC=2
+[MainFrame]
+Chassis Only-Center.MFC=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPMEEAAAAAHGCAAAAAELFAAAAAKDDAAAAA
+[ShowMin]
+Chassis Only-Center.MFC=No
+[SolverType]
+Chassis Only-Center.MFC=Linear Analysis
+[StudyType]
+Chassis Only-Center.MFC=0
+[StudyName]
+Chassis Only-Center.MFC=Center
+[Solver]
+Chassis Only-Center.MFC=Sparse

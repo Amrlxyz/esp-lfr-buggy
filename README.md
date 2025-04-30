@@ -3,11 +3,11 @@
 **GROUP 48:** 2nd Year Embedded Systems Project (ESP) 2023/24.
 
 Project is in collaboration with 5 teammates: 
-- [@Amrlxyz](https://github.com/Amrlxyz)
-- [@Hubr1z](https://github.com/Hubr1z)
-- [@nishoujiwojiubuhuine](https://github.com/nishoujiwojiubuhuine)
-- [@Sarahelma](https://github.com/Sarahelma)
-- [@Giselle-zheng](https://github.com/Giselle-zheng)
+- [@Amrlxyz (me)](https://github.com/Amrlxyz) : Main Programmer + 3D CAD Designer 
+- [@Hubr1z](https://github.com/Hubr1z) : 2nd Programmer
+- [@Sarahelma](https://github.com/Sarahelma) : PCB Designer
+- [@nishoujiwojiubuhuine](https://github.com/nishoujiwojiubuhuine) : 3rd Programmer + General Tech 
+- [@Giselle-zheng](https://github.com/Giselle-zheng) : Wiring and Electrical
 
 ## Gallery
 
@@ -21,7 +21,7 @@ Project is in collaboration with 5 teammates:
 
 ## Achievements
 
-- ESP Final Race Winner !!!
+- **ESP 2023/24 Final Race Winner !!!**
 - 100% for TDA (Techincal Demonstration A)
 - 100% for TDB (Techincal Demonstration B)
 - 100% for TDC (Techincal Demonstration C)
@@ -40,12 +40,60 @@ Link to documentation: [Github Pages](https://amrlxyz.github.io/esp-lfr-buggy/)
 
 ## How to Use
 
+### Flashing the MCU
+
 1. Use the wiring diagram to connect the components.
 2. Clone the project directly to Keil Studio Cloud.
 3. Compile and flash on to the microcontroller.
 4. Control the buggy using Bluetooth commands.
 
-**WARNING:** Due to significant differences in mechanical setup and gearbox, it is not recommended to use this code for any other buggy. The code is specifically tailored for our buggy, and compatibility with other mechanical designs and sensor array configuration is not the main consideration.
+### How to run
+
+1. Connect BLE to a phone
+2. Place the whole sensor array in the black area of the track
+3. Send "calibrate" Command
+4. Wait until message is recieved on the phone
+5. Place the buggy in the middle of the line
+6. Send "line_follow" Command
+
+## Buggy Commands
+
+### Setup
+
+1. Use "Serial Bluetooth Terminal" app on Android
+2. Settings -> Send -> Newline -> None
+3. Send Commands
+
+### Command Format 
+
+[2/3 Capital Letters] [optional value for certain commands] ['/' -> end character]
+
+Full command list is in main.cpp
+
+__Examples:__
+
+EC/ -> "Execute" "Calibrate"
+
+EF/ -> "Execute" "line_follow"
+
+GSB/ -> Get the speed of both motors
+
+
+## Linkedin Article
+
+[Article Link](https://www.linkedin.com/pulse/2nd-year-embedded-systems-project-final-race-winner-hakeem-jfuzf)
+
+I might have mentioned a follow-up technical write-up at the end... but life (and distractions) keep happening. We'll see.
+
+
+## Hello Future UoM 2nd Yr EEE Students
+
+Feel free to use this code as inspiration (at your own risk). Looking back, definitely there are ways to improve it.
+
+If you find the code helpful, feel free to drop a star ⭐ on the repo _(I crave external validation)_
+
+Goodluck!
+
 
 ## Dependencies
 
